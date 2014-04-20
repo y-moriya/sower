@@ -1,6 +1,8 @@
-# 人狼物語 リア充版 / The Stories of Werewolves Enjoy Real-life
+# Sower
+## 人狼物語 リア充版 / The Stories of Werewolves Enjoy Real-life
 
-
+http://real.gunjobiyori.com/sow.cgi
+ここで動いてるやつです。
 
 # Original Readme
 
@@ -9,6 +11,7 @@ https://github.com/y-moriya/sower/blob/master/docs/readme.txt
 # License
 
 Copyright (c) 2006-2007, AS/asbntby, 2011-2014 euro
+
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or
