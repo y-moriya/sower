@@ -1,10 +1,14 @@
-# l˜T•¨Œê ƒŠƒA[”Å / The Stories of Werewolves Enjoy Real-life
+# äººç‹¼ç‰©èª ãƒªã‚¢å……ç‰ˆ / The Stories of Werewolves Enjoy Real-life
+
+
 
 # Original Readme
 
+https://github.com/y-moriya/sower/blob/master/docs/readme.txt
+
 # License
 
-Copyright (c) 2007, 2014+, AS/asbntby, euro
+Copyright (c) 2006-2007, AS/asbntby, 2011-2014 euro
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or
