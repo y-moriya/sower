@@ -551,12 +551,7 @@ sub setsaycountall {
 # ”­Œ¾”‰ñ•œ
 #----------------------------------------
 sub chargesaycountall {
-	my $self = $_[0];
-
-	foreach (@{$self->{'pllist'}}) {
-		$_->chargesaycount();
-	}
-
+	# •s—v
 	return;
 }
 
