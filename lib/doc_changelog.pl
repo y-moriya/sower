@@ -42,10 +42,10 @@ sub outhtmlnew {
 	my $atr_id = $sow->{'html'}->{'atr_id'};
 
 	print <<"_HTML_";
-<h3>Version 2.3.3EU (2011/01/18)</h3>
+<h3>Sower Version 1.0 (2014/04/23)</h3>
 <ul>
-  <li>新着発言取得を洗練。おそらくIE対応。JS、CSSのみ変更。</li>
-  <li>エピローグの発言を無制限にした。</li>
+  <li>発言数回復機能\をオミット。</li>
+  <li>バージョン表\記を変更。</li>
 </ul>
 _HTML_
 
@@ -68,6 +68,12 @@ _HTML_
 	$self->outhtmlnew();
 
 	print <<"_HTML_";
+<hr class="invisible_hr"$net>
+<h3>Version 2.3.3EU (2011/01/18)</h3>
+<ul>
+  <li>新着発言取得を洗練。おそらくIE対応。JS、CSSのみ変更。</li>
+  <li>エピローグの発言を無制限にした。</li>
+</ul>
 <hr class="invisible_hr"$net>
 <h3>Version 2.3.2EU (2010/02/18)</h3>
 <ul>
