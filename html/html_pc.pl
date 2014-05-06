@@ -185,6 +185,7 @@ sub OutHTMLFooterPC {
 <address>
 ($cput CPUs)<br$net>
 <a $atr_id="bottom">$sow->{'VERSION_SW'}</a> <a href="$sow->{'URL_AUTHOR'}">$sow->{'COPY_AUTHOR'}</a><br$net>
+forked from SWBBS V2.00 Beta8 <a href="http://asbntby.sakura.ne.jp/">‚ ‚¸/asbntby</a><br$net>
 _HTML_
 
 	my $copyrights = $sow->{'cfg'}->{'COPYRIGHTS'};

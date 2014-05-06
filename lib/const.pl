@@ -342,12 +342,12 @@ sub InitConst {
 	);
 
 	my %sow = (
-		NAME_AUTHOR => '‚ ‚¸/asbntby',
-		MAIL_AUTHOR => 'asbntby@yahoo.co.jp',
-		COPY_AUTHOR => '‚ ‚¸/asbntby',
-		URL_AUTHOR  => 'http://asbntby.sakura.ne.jp/',
-		SITE_AUTHOR => '‚ ‚¸ŠJ”­Žº',
-		VERSION_SW  => 'SWBBS V2.3.2EU featuring with SWBBS V2.00 Beta 8',
+		NAME_AUTHOR => '‚ä[‚ë/@euro_s',
+		MAIL_AUTHOR => 'wolf@euros.sakura.ne.jp',
+		COPY_AUTHOR => '‚ä[‚ë',
+		URL_AUTHOR  => 'https://github.com/y-moriya/sower/',
+		SITE_AUTHOR => 'github/sower',
+		VERSION_SW  => 'sower ver. 1.0.0',
 
 		QUERY_INVALID    => \%queryinvalid,
 		QUERY_SHORT2FULL => \%query_short2full,
