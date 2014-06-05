@@ -1,323 +1,323 @@
 package SWTextRS_ao;
 
-# 仰げば狼用文章
+# ���ΘT�p����
 
 sub GetTextRS {
-	# プロローグ～２日目の開始時メッセージ
+	# �v�����[�O�`�Q���ڂ̊J�n�����b�Z�[�W
 	my @announce_first = (
-		'ねぇねぇ、人狼って知ってる？<br>都市伝説？七不思議？<br><br>ううん、そうじゃない。そうじゃないよ…',
-		'にわかに広まった人狼の噂。<br>この平和な学園に、本当にそんな怪物が潜んでいるのだろうか…',
-		'噂は現実となった！人狼は実在したのだ！<br><br>学園内の者たちは、生き残る為に一つのルールを設けた。<br>一日に一人、疑わしい者を処刑するのだ。<br>処刑される者は皆の投票で決められる。多少の犠牲は仕方がない。<br><br>さて、生き残る汝は何者であるか…',
+		'�˂��˂��A�l�T���Ēm���Ă�H<br>�s�s�`���H���s�v�c�H<br><br>������A��������Ȃ��B��������Ȃ���c',
+		'�ɂ킩�ɍL�܂����l�T�̉\�B<br>���̕��a�Ȋw���ɁA�{���ɂ���ȉ���������ł���̂��낤���c',
+		'�\�͌����ƂȂ����I�l�T�͎��݂����̂��I<br><br>�w�����̎҂����́A�����c��ׂɈ�̃��[����݂����B<br>����Ɉ�l�A�^�킵���҂����Y����̂��B<br>���Y�����҂͊F�̓��[�Ō��߂���B�����̋]���͎d�����Ȃ��B<br><br>���āA�����c����͉��҂ł��邩�c',
 	);
 
-	# 役職配分のお知らせ
+	# ��E�z���̂��m�点
 	my @announce_role = (
-		'どうやらこの中には、_ROLE_いるようだ。',
-		'が',
-		'名',
-		'、',
+		'�ǂ���炱�̒��ɂ́A_ROLE_����悤���B',
+		'��',
+		'��',
+		'�A',
 	);
 
-	# 生存者のお知らせ
+	# �����҂̂��m�点
 	my @announce_lives = (
-		'現在の生存者は、',
-		'、',
-		' の _LIVES_ 名。',
+		'���݂̐����҂́A',
+		'�A',
+		' �� _LIVES_ ���B',
 	);
 
-	# 処刑時のお知らせ
+	# ���Y���̂��m�点
 	my @announce_vote =(
-		'_NAME_ は _TARGET_ に投票した。_RANDOM_',
-		'_NAME_ に _COUNT_人が投票した。',
-		'_NAME_ は村人達の手により処刑された。'
+		'_NAME_ �� _TARGET_ �ɓ��[�����B_RANDOM_',
+		'_NAME_ �� _COUNT_�l�����[�����B',
+		'_NAME_ �͑��l�B�̎�ɂ�菈�Y���ꂽ�B'
 	);
 
-	# 委任投票のお知らせ
+	# �ϔC���[�̂��m�点
 	my @announce_entrust = (
-		'_NAME_は_TARGET_に投票を委任しています。_RANDOM_',
-		'_NAME_は_TARGET_に投票を委任しようとしましたが、解決不能でした。_RANDOM_',
+		'_NAME_��_TARGET_�ɓ��[���ϔC���Ă��܂��B_RANDOM_',
+		'_NAME_��_TARGET_�ɓ��[���ϔC���悤�Ƃ��܂������A�����s�\�ł����B_RANDOM_',
 	);
 
-	# コミット
+	# �R�~�b�g
 	my @announce_commit = (
-		'_NAME_が「時間を進める」を取り消しました。',
-		'_NAME_が「時間を進める」を選択しました。',
+		'_NAME_���u���Ԃ�i�߂�v���������܂����B',
+		'_NAME_���u���Ԃ�i�߂�v��I�����܂����B',
 	);
 
-	# コミット状況
+	# �R�~�b�g��
 	my @announce_totalcommit = (
-		'「時間を進める」を選択している人はいないか、まだ少ないようです。', # 0～1/3の時
-		'「時間を進める」を選択している人は全体の1/3から2/3の間のようです。', # 1/3～2/3の時
-		'多数の人が「時間を進める」を選択していますが、全員ではないようです。', # 2/3～n-1の時
-		'全員が「時間を進める」を選択しています。', # 全員コミット済み
+		'�u���Ԃ�i�߂�v��I�����Ă���l�͂��Ȃ����A�܂����Ȃ��悤�ł��B', # 0�`1/3�̎�
+		'�u���Ԃ�i�߂�v��I�����Ă���l�͑S�̂�1/3����2/3�̊Ԃ̂悤�ł��B', # 1/3�`2/3�̎�
+		'�����̐l���u���Ԃ�i�߂�v��I�����Ă��܂����A�S���ł͂Ȃ��悤�ł��B', # 2/3�`n-1�̎�
+		'�S�����u���Ԃ�i�߂�v��I�����Ă��܂��B', # �S���R�~�b�g�ς�
 	);
 
-	# 襲撃結果メッセージ
+	# �P�����ʃ��b�Z�[�W
 	my @announce_kill = (
-		'今日は犠牲者がいないようだ。人狼は襲撃に失敗したのだろうか。',
-		'次の日の朝、_TARGET_ が無残な姿で発見された。',
+		'�����͋]���҂����Ȃ��悤���B�l�T�͏P���Ɏ��s�����̂��낤���B',
+		'���̓��̒��A_TARGET_ �����c�Ȏp�Ŕ������ꂽ�B',
 	);
 
-	# 勝敗メッセージ
+	# ���s���b�Z�[�W
 	my @announce_winner = (
-		'新たな日が昇った。だが、照らされた大地は静かなままだ。<br>この村に、もう人影はない……。',
-		'暗雲が去り、まぶしい光が降り注ぐ。――全ての人狼を退治したのだ！',
-		'闇が学園を覆い、人々は自らの過ちに気付いた。人狼達は最後の食事を済ませると、新たな犠牲者を求めて無人の学園を立ち去っていった。',
-		'つむじ風が舞い、村人達は凱歌を挙げた。<br>しかし、彼らは真の勝利者に気付いていなかった……。',
-		'つむじ風が舞い、村中に人狼達の雄叫びが響き渡った。しかし、彼らは真の勝利者に気付いていなかった……。',
+		'�V���ȓ����������B�����A�Ƃ炳�ꂽ��n�͐Â��Ȃ܂܂��B<br>���̑��ɁA�����l�e�͂Ȃ��c�c�B',
+		'�É_������A�܂Ԃ��������~�蒍���B�\�\�S�Ă̐l�T��ގ������̂��I',
+		'�ł��w���𕢂��A�l�X�͎���̉߂��ɋC�t�����B�l�T�B�͍Ō�̐H�����ς܂���ƁA�V���ȋ]���҂����߂Ė��l�̊w���𗧂������Ă������B',
+		'�ނ����������A���l�B�͊M�̂��������B<br>�������A�ނ�͐^�̏����҂ɋC�t���Ă��Ȃ������c�c�B',
+		'�ނ����������A�����ɐl�T�B�̗Y���т������n�����B�������A�ނ�͐^�̏����҂ɋC�t���Ă��Ȃ������c�c�B',
 	);
 
-	# 勝利者
+	# ������
 	my @caption_winner = (
 		'',
-		'村人',
-		'人狼',
-		'小動物',
-		'小動物',
+		'���l',
+		'�l�T',
+		'������',
+		'������',
 	);
 
-	# 役職名
+	# ��E��
 	my @rolename = (
-		'おまかせ',
-		'村人',
-		'人狼',
-		'占い師',
-		'霊能者',
-		'狂人',
-		'狩人',
-		'共有者',
-		'ハムスター人間',
-		'Ｃ国狂人',
-		'聖痕者',
-		'狂信者',
-		'共鳴者',
-		'コウモリ人間',
-		'呪狼',
-		'智狼',
-		'ピクシー',
+		'���܂���',
+		'���l',
+		'�l�T',
+		'�肢�t',
+		'��\��',
+		'���l',
+		'��l',
+		'���L��',
+		'�n���X�^�[�l��',
+		'�b�����l',
+		'������',
+		'���M��',
+		'����',
+		'�R�E�����l��',
+		'���T',
+		'�q�T',
+		'�s�N�V�[',
 	);
 
-	# 役職名（省略時）
+	# ��E���i�ȗ����j
 	my @roleshortname = (
-		'お',
-		'村',
-		'狼',
-		'占',
-		'霊',
-		'狂',
-		'狩',
-		'共',
-		'ハ',
-		'Ｃ',
-		'痕',
-		'信',
-		'鳴',
-		'傘',
-		'呪',
-		'智',
-		'ピ',
+		'��',
+		'��',
+		'�T',
+		'��',
+		'��',
+		'��',
+		'��',
+		'��',
+		'�n',
+		'�b',
+		'��',
+		'�M',
+		'��',
+		'�P',
+		'��',
+		'�q',
+		'�s',
 	);
 
-	# 役職の説明
+	# ��E�̐���
 	my @explain_role = (
-		'<p>あなたは、未定義の役職です。</p>',
-		'<p>あなたは、ただの村人です。何の能力もありません。</p>',
-		'<p>あなたは、人狼です。人間を人狼と同じ人数にまで減らせば勝利となります。</p><p>「人狼のささやき」は人狼（とＣ国狂人）にしか聞こえません。仲間との連絡にご利用ください。</p>',
-		'<p>あなたは、占い師です。あなたは一日に一度、選んだ相手が人間か人狼かを知る事ができます。</p>',
-		'<p>あなたは、霊能者です。処刑された者や突然死した者が人間か人狼かを知る事ができます。</p>',
-		'<p>あなたは、狂人です。あなたは人間ですが、人狼の仲間です。人狼側の勝利のため狡猾に行動しましょう。</p><p>人狼はあなたの正体を知りません。</p>',
-		'<p>あなたは、狩人です。あなたは一日に一人だけ、人狼の襲撃から人間を守る事ができます。ただし、自分自身は守れません。</p>',
-		'<p>あなたは、共有者です。あなたは他の共有者が誰であるかを知る事ができます。</p>',
-		'<p>あなたは、ハムスター人間です。村人側にも人狼側にも属さない孤高の存在です。村人側か人狼側が勝利条件を満たした時にあなたが生き延びていれば、あなたの勝ちとなります。</p><p>ハムスター人間は人狼に襲撃されても死にません。ハムスター人間は占われると死亡します。</p>',
-		'<p>あなたは、Ｃ国狂人です。あなたは人間ですが、人狼の仲間です。人狼側の勝利のため狡猾に行動しましょう。</p><p>「人狼のささやき」は人狼とＣ国狂人にしか聞こえません。仲間との連絡にご利用ください。</p>',
-		'<p>あなたは、_ROLESUBID_聖痕者です。</p>',
-		'<p>あなたは、狂信者です。あなたは人間ですが、人狼の仲間です。人狼側の勝利のため狡猾に行動しましょう。</p><p>狂信者には人狼が誰かわかりますが、人狼はあなたの正体を知りません。</p>',
-		'<p>あなたは共鳴者です。他の共鳴者が誰であるかを知る事ができます。</p><p>「共鳴」は共鳴者にしか聞こえません。仲間との連絡にご利用ください。</p>',
-		'<p>あなたはコウモリ人間です。村人側にも人狼側にも属さず、ハムスター人間と同陣営になります。村人側か人狼側が勝利条件を満たした時にハムスター人間かコウモリ人間かピクシーが生き延びていれば、あなたの勝ちとなります。</p><p>コウモリ人間は人狼に襲撃されても死にません。コウモリ人間は占われると死亡します。</p><p>「念話」はコウモリ人間にしか聞こえません。仲間との連絡にご利用ください。</p>',
-		'<p>あなたは、呪狼です。人間を人狼と同じ人数にまで減らせば勝利となります。あなたを占った占い師は死亡します。</p><p>「人狼のささやき」は人狼（とＣ国狂人）にしか聞こえません。仲間との連絡にご利用ください。</p>',
-		'<p>あなたは、智狼です。人間を人狼と同じ人数にまで減らせば勝利となります。あなたは殺害した相手の役職がわかります。</p><p>「人狼のささやき」は人狼（とＣ国狂人）にしか聞こえません。仲間との連絡にご利用ください。</p>',
-		'<p>あなたはピクシーです。村人側にも人狼側にも属さず、ハムスター人間と同陣営になります。村人側か人狼側が勝利条件を満たした時にハムスター人間かコウモリ人間かピクシーが生き延びていれば、あなたの勝ちとなります。</p><p>ピクシーは人狼に襲撃されても死にません。ピクシーは占われると死亡します。</p><p>ピクシーは１日目、好きな二人に“運命の絆”を結びつける事ができます。“運命の絆”を結んだ人は、片方が死亡すると後を追って死亡します。</p>',
+		'<p>���Ȃ��́A����`�̖�E�ł��B</p>',
+		'<p>���Ȃ��́A�����̑��l�ł��B���̔\�͂�����܂���B</p>',
+		'<p>���Ȃ��́A�l�T�ł��B�l�Ԃ�l�T�Ɠ����l���ɂ܂Ō��点�Ώ����ƂȂ�܂��B</p><p>�u�l�T�̂����₫�v�͐l�T�i�Ƃb�����l�j�ɂ����������܂���B���ԂƂ̘A���ɂ����p���������B</p>',
+		'<p>���Ȃ��́A�肢�t�ł��B���Ȃ��͈���Ɉ�x�A�I�񂾑��肪�l�Ԃ��l�T����m�鎖���ł��܂��B</p>',
+		'<p>���Ȃ��́A��\�҂ł��B���Y���ꂽ�҂�ˑR�������҂��l�Ԃ��l�T����m�鎖���ł��܂��B</p>',
+		'<p>���Ȃ��́A���l�ł��B���Ȃ��͐l�Ԃł����A�l�T�̒��Ԃł��B�l�T���̏����̂������ςɍs�����܂��傤�B</p><p>�l�T�͂��Ȃ��̐��̂�m��܂���B</p>',
+		'<p>���Ȃ��́A��l�ł��B���Ȃ��͈���Ɉ�l�����A�l�T�̏P������l�Ԃ���鎖���ł��܂��B�������A�������g�͎��܂���B</p>',
+		'<p>���Ȃ��́A���L�҂ł��B���Ȃ��͑��̋��L�҂��N�ł��邩��m�鎖���ł��܂��B</p>',
+		'<p>���Ȃ��́A�n���X�^�[�l�Ԃł��B���l���ɂ��l�T���ɂ������Ȃ��Ǎ��̑��݂ł��B���l�����l�T�������������𖞂��������ɂ��Ȃ����������тĂ���΁A���Ȃ��̏����ƂȂ�܂��B</p><p>�n���X�^�[�l�Ԃ͐l�T�ɏP������Ă����ɂ܂���B�n���X�^�[�l�Ԃ͐����Ǝ��S���܂��B</p>',
+		'<p>���Ȃ��́A�b�����l�ł��B���Ȃ��͐l�Ԃł����A�l�T�̒��Ԃł��B�l�T���̏����̂������ςɍs�����܂��傤�B</p><p>�u�l�T�̂����₫�v�͐l�T�Ƃb�����l�ɂ����������܂���B���ԂƂ̘A���ɂ����p���������B</p>',
+		'<p>���Ȃ��́A_ROLESUBID_�����҂ł��B</p>',
+		'<p>���Ȃ��́A���M�҂ł��B���Ȃ��͐l�Ԃł����A�l�T�̒��Ԃł��B�l�T���̏����̂������ςɍs�����܂��傤�B</p><p>���M�҂ɂ͐l�T���N���킩��܂����A�l�T�͂��Ȃ��̐��̂�m��܂���B</p>',
+		'<p>���Ȃ��͋��҂ł��B���̋��҂��N�ł��邩��m�鎖���ł��܂��B</p><p>�u���v�͋��҂ɂ����������܂���B���ԂƂ̘A���ɂ����p���������B</p>',
+		'<p>���Ȃ��̓R�E�����l�Ԃł��B���l���ɂ��l�T���ɂ��������A�n���X�^�[�l�ԂƓ��w�c�ɂȂ�܂��B���l�����l�T�������������𖞂��������Ƀn���X�^�[�l�Ԃ��R�E�����l�Ԃ��s�N�V�[���������тĂ���΁A���Ȃ��̏����ƂȂ�܂��B</p><p>�R�E�����l�Ԃ͐l�T�ɏP������Ă����ɂ܂���B�R�E�����l�Ԃ͐����Ǝ��S���܂��B</p><p>�u�O�b�v�̓R�E�����l�Ԃɂ����������܂���B���ԂƂ̘A���ɂ����p���������B</p>',
+		'<p>���Ȃ��́A���T�ł��B�l�Ԃ�l�T�Ɠ����l���ɂ܂Ō��点�Ώ����ƂȂ�܂��B���Ȃ��������肢�t�͎��S���܂��B</p><p>�u�l�T�̂����₫�v�͐l�T�i�Ƃb�����l�j�ɂ����������܂���B���ԂƂ̘A���ɂ����p���������B</p>',
+		'<p>���Ȃ��́A�q�T�ł��B�l�Ԃ�l�T�Ɠ����l���ɂ܂Ō��点�Ώ����ƂȂ�܂��B���Ȃ��͎E�Q��������̖�E���킩��܂��B</p><p>�u�l�T�̂����₫�v�͐l�T�i�Ƃb�����l�j�ɂ����������܂���B���ԂƂ̘A���ɂ����p���������B</p>',
+		'<p>���Ȃ��̓s�N�V�[�ł��B���l���ɂ��l�T���ɂ��������A�n���X�^�[�l�ԂƓ��w�c�ɂȂ�܂��B���l�����l�T�������������𖞂��������Ƀn���X�^�[�l�Ԃ��R�E�����l�Ԃ��s�N�V�[���������тĂ���΁A���Ȃ��̏����ƂȂ�܂��B</p><p>�s�N�V�[�͐l�T�ɏP������Ă����ɂ܂���B�s�N�V�[�͐����Ǝ��S���܂��B</p><p>�s�N�V�[�͂P���ځA�D���ȓ�l�Ɂg�^�����J�h�����т��鎖���ł��܂��B�g�^�����J�h�����񂾐l�́A�Е������S����ƌ��ǂ��Ď��S���܂��B</p>',
 	);
 
-	# 役職希望
+	# ��E��]
 	my %explain_roles = (
-		prologue  => 'あなたは_SELROLE_を希望しています。ただし、希望した通りの能力者になれるとは限りません。',
-		noselrole => 'あなたは_SELROLE_を希望していますが、希望は無効です。',
-		dead      => 'あなたは_ROLE_でしたが、死亡しています。',
-		epilogue  => 'あなたは_ROLE_でした（_SELROLE_を希望）。',
+		prologue  => '���Ȃ���_SELROLE_����]���Ă��܂��B�������A��]�����ʂ�̔\�͎҂ɂȂ��Ƃ͌���܂���B',
+		noselrole => '���Ȃ���_SELROLE_����]���Ă��܂����A��]�͖����ł��B',
+		dead      => '���Ȃ���_ROLE_�ł������A���S���Ă��܂��B',
+		epilogue  => '���Ȃ���_ROLE_�ł����i_SELROLE_����]�j�B',
 		explain   => \@explain_role,
 	);
 
-	# 投票欄表示
+	# ���[���\��
 	my @votelabels = (
-		'投票',
-		'委任',
+		'���[',
+		'�ϔC',
 	);
 
-	# 能力者用特殊発言欄のラベル
+	# �\�͎җp���ꔭ�����̃��x��
 	my @caption_rolesay = (
-		'',         # 未定義
-		'',         # 村人
-		'ささやき', # 人狼
-		'',         # 占い師
-		'',         # 霊能者/霊媒師
-		'',         # 狂人
-		'',         # 狩人/守護者
-		'',         # 共有者/結社員
-		'',         # ハムスター人間/妖魔/妖狐
-		'ささやき', # Ｃ国狂人
-		'',         # 聖痕者
-		'',         # 狂信者
-		'共鳴',     # 共鳴者
-		'念話',     # コウモリ人間
-		'ささやき', # 呪狼
-		'ささやき', # 智狼
-		'',         # ピクシー
+		'',         # ����`
+		'',         # ���l
+		'�����₫', # �l�T
+		'',         # �肢�t
+		'',         # ��\��/��}�t
+		'',         # ���l
+		'',         # ��l/����
+		'',         # ���L��/���Ј�
+		'',         # �n���X�^�[�l��/�d��/�d��
+		'�����₫', # �b�����l
+		'',         # ������
+		'',         # ���M��
+		'����',     # ����
+		'�O�b',     # �R�E�����l��
+		'�����₫', # ���T
+		'�����₫', # �q�T
+		'',         # �s�N�V�[
 	);
 
-	# 能力名
+	# �\�͖�
 	my @abi_role = (
-		'',     # 未定義
-		'',     # 村人
-		'襲う', # 人狼
-		'占う', # 占い師
-		'',     # 霊能者/霊媒師
-		'',     # 狂人
-		'守る', # 狩人/守護者
-		'',     # 共有者/結社員
-		'',     # ハムスター人間/妖魔/妖狐
-		'',     # Ｃ国狂人
-		'',     # 聖痕者
-		'',     # 狂信者
-		'',     # 共鳴者
-		'',     # コウモリ人間
-		'襲う', # 呪狼
-		'襲う', # 智狼
-		'結ぶ', # ピクシー
+		'',     # ����`
+		'',     # ���l
+		'�P��', # �l�T
+		'�肤', # �肢�t
+		'',     # ��\��/��}�t
+		'',     # ���l
+		'���', # ��l/����
+		'',     # ���L��/���Ј�
+		'',     # �n���X�^�[�l��/�d��/�d��
+		'',     # �b�����l
+		'',     # ������
+		'',     # ���M��
+		'',     # ����
+		'',     # �R�E�����l��
+		'�P��', # ���T
+		'�P��', # �q�T
+		'����', # �s�N�V�[
 	);
 
-	# 聖痕者の色
-	# 五人揃っている所を見てみたい（おい
-	# 人数を変える時は、設定ファイルの MAXCOUNT_STIGMA を変える事。
+	# �����҂̐F
+	# �ܐl�����Ă��鏊�����Ă݂����i����
+	# �l����ς��鎞�́A�ݒ�t�@�C���� MAXCOUNT_STIGMA ��ς��鎖�B
 	my @stigma_subid = (
-		'赤の',
-		'青の',
-		'黄の',
-		'緑の',
-		'桃の',
+		'�Ԃ�',
+		'��',
+		'����',
+		'�΂�',
+		'����',
 	);
 
-	# 占い結果
+	# �肢����
 	my @result_seer = (
-		'_NAME_ は _RESULT_ のようだ。',
-		'人間',
-		'【人狼】',
+		'_NAME_ �� _RESULT_ �̂悤���B',
+		'�l��',
+		'�y�l�T�z',
 	);
 
-	# 配分表名称
+	# �z���\����
 	my %caption_roletable = (
-		default => '標準',
-		hamster => 'ハム入り',
-		wbbs_c  => 'Ｃ国',
-		test1st => '試験壱型',
-		test2nd => '試験弐型',
-		wbbs_g  => 'Ｇ国',
-		custom  => '自由設定',
+		default => '�W��',
+		hamster => '�n������',
+		wbbs_c  => '�b��',
+		test1st => '������^',
+		test2nd => '������^',
+		wbbs_g  => '�f��',
+		custom  => '���R�ݒ�',
 	);
 
-	# アクション
+	# �A�N�V����
 	my @actions = (
-		'をハリセンで殴った。',
-		'を慰めた。',
-		'に手を振った。',
-		'に相づちを打った。',
-		'に頷いた。',
-		'に首を傾げた。',
-		'をじっと見つめた。',
-		'を怪訝そうに見た。',
-		'をつんつんつついた。',
-		'に驚いた。',
-		'に照れた。',
-		'にお辞儀をした。',
-		'に微笑んだ。',
-		'を抱きしめた。',
-		'を小一時間問いつめた。',
-		'が仲間だと感じた。',
-		'に感謝した。',
-		'席を外した。',
-		'に拍手を送った。',
-		'に首を振った。',
-		'に同意した。',
-		'の頭をなでた。',
-		'空を舞った。',
-		'に謝罪した。',
-		'宿を出た。',
-		'宿を訪れた。',
-		'に火を点けた。',
+		'���n���Z���ŉ������B',
+		'���Ԃ߂��B',
+		'�Ɏ��U�����B',
+		'�ɑ��Â���ł����B',
+		'���������B',
+		'�Ɏ���X�����B',
+		'�������ƌ��߂��B',
+		'�����b�����Ɍ����B',
+		'���������B',
+		'�ɋ������B',
+		'�ɏƂꂽ�B',
+		'�ɂ����V�������B',
+		'�ɔ��΂񂾁B',
+		'��������߂��B',
+		'�����ꎞ�Ԗ₢�߂��B',
+		'�����Ԃ��Ɗ������B',
+		'�Ɋ��ӂ����B',
+		'�Ȃ��O�����B',
+		'�ɔ���𑗂����B',
+		'�Ɏ��U�����B',
+		'�ɓ��ӂ����B',
+		'�̓����Ȃł��B',
+		'��𕑂����B',
+		'�ɎӍ߂����B',
+		'�h���o���B',
+		'�h��K�ꂽ�B',
+		'�ɉ΂�_�����B',
 	);
 
 	my %textrs = (
-		CAPTION => '仰げば狼',
+		CAPTION => '���ΘT',
 
-		# ダミーキャラの参加表示（○○がやってきました）の有無
+		# �_�~�[�L�����̎Q���\���i����������Ă��܂����j�̗L��
 		NPCENTRYMES => 1,
 
-		# 公開アナウンス
-		ANNOUNCE_EXTENSION  => '定員に達しなかったため、村の更新日時が24時間延長されました。',
-		ENTRYMES            => '_NO_人目、_NAME_ がやってきました。',
-		EXITMES             => '_NAME_が村を出て行きました。',
-		SUDDENDEATH         => '_NAME_ は、突然死した。',
-		SUICIDEBONDS        => '_NAME_ は絆に引きずられるように _TARGET_ の後を追った。',
-		SUICIDELOVERS       => '_NAME_ は哀しみに暮れて _TARGET_ の後を追った。',
-		ANNOUNCE_RANDOMVOTE => '(ランダム投票)',
-		ANNOUNCE_VICTORY    => '_VICTORY_側の勝利です！<br>',
-		ANNOUNCE_EPILOGUE   => '_AVICTORY_全てのログとユーザー名を公開します。_DATE_ まで自由に書き込めますので、今回の感想などをどうぞ。',
+		# ���J�A�i�E���X
+		ANNOUNCE_EXTENSION  => '����ɒB���Ȃ��������߁A���̍X�V������24���ԉ�������܂����B',
+		ENTRYMES            => '_NO_�l�ځA_NAME_ ������Ă��܂����B',
+		EXITMES             => '_NAME_�������o�čs���܂����B',
+		SUDDENDEATH         => '_NAME_ �́A�ˑR�������B',
+		SUICIDEBONDS        => '_NAME_ ���J�Ɉ���������悤�� _TARGET_ �̌��ǂ����B',
+		SUICIDELOVERS       => '_NAME_ �͈����݂ɕ��� _TARGET_ �̌��ǂ����B',
+		ANNOUNCE_RANDOMVOTE => '(�����_�����[)',
+		ANNOUNCE_VICTORY    => '_VICTORY_���̏����ł��I<br>',
+		ANNOUNCE_EPILOGUE   => '_AVICTORY_�S�Ẵ��O�ƃ��[�U�[�������J���܂��B_DATE_ �܂Ŏ��R�ɏ������߂܂��̂ŁA����̊��z�Ȃǂ��ǂ����B',
 
-		RANDOMENTRUST => '(ランダム委任)',
+		RANDOMENTRUST => '(�����_���ϔC)',
 
-		# 能力関連
-		UNDEFTARGET      => 'おまかせ',
-		RANDOMTARGET     => 'ランダム', # ランダム対象
-		RANDOMROLE       => 'ランダム', # 役職ランダム希望
-		NOSELROLE        => '村の設定が「役職希望無視」のため、全ての役職希望が無視されます。',
-		SETRANDOMROLE    => '_NAME_ の役職希望が _SELROLE_ に自動決定されました。',
-		SETRANDOMTARGET  => '_NAME_ の能力（_ABILITY_）の対象が _TARGET_ に自動決定されました。',
-		CANCELTARGET    => '_NAME_ の能力（_ABILITY_）に有効な対象がありませんでした。',
-		EXECUTESEER      => '_NAME_ は、_TARGET_ を占った。',
-		EXECUTEKILL      => '_TARGET_！ 今日がお前の命日だ！',
-		EXECUTEGUARD     => '_NAME_ は、_TARGET_ を守っている。',
-		EXECUTETRICKSTER => '_NAME_ は、_TARGET1_ と _TARGET2_ を運命の絆で結んだ。',
-		RESULT_GUARD     => '_TARGET_ を人狼の襲撃から守った。',
-		RESULT_KILL      => '_TARGET_ を殺害した。',
-		RESULT_KILLIW    => '_TARGET_ を殺害した（_TARGET_ は _ROLE_ だったようだ）。',
-		RESULT_FM        => 'もう一人の_ROLE_は、_TARGET_ です。',
-		RESULT_FANATIC   => '_NAME_ は 人狼 のようだ。',
-		MARK_BONDS       => '絆',
-		RESULT_BONDS     => 'あなたは _TARGET_ と運命の絆を結んでいます。',
-		MARK_LOVERS      => '恋人',
-		RESULT_LOVERS    => 'あなたは _TARGET_ と愛し合っています。',
+		# �\�͊֘A
+		UNDEFTARGET      => '���܂���',
+		RANDOMTARGET     => '�����_��', # �����_���Ώ�
+		RANDOMROLE       => '�����_��', # ��E�����_����]
+		NOSELROLE        => '���̐ݒ肪�u��E��]�����v�̂��߁A�S�Ă̖�E��]����������܂��B',
+		SETRANDOMROLE    => '_NAME_ �̖�E��]�� _SELROLE_ �Ɏ������肳��܂����B',
+		SETRANDOMTARGET  => '_NAME_ �̔\�́i_ABILITY_�j�̑Ώۂ� _TARGET_ �Ɏ������肳��܂����B',
+		CANCELTARGET    => '_NAME_ �̔\�́i_ABILITY_�j�ɗL���ȑΏۂ�����܂���ł����B',
+		EXECUTESEER      => '_NAME_ �́A_TARGET_ �������B',
+		EXECUTEKILL      => '_TARGET_�I ���������O�̖������I',
+		EXECUTEGUARD     => '_NAME_ �́A_TARGET_ ������Ă���B',
+		EXECUTETRICKSTER => '_NAME_ �́A_TARGET1_ �� _TARGET2_ ���^�����J�Ō��񂾁B',
+		RESULT_GUARD     => '_TARGET_ ��l�T�̏P�����������B',
+		RESULT_KILL      => '_TARGET_ ���E�Q�����B',
+		RESULT_KILLIW    => '_TARGET_ ���E�Q�����i_TARGET_ �� _ROLE_ �������悤���j�B',
+		RESULT_FM        => '������l��_ROLE_�́A_TARGET_ �ł��B',
+		RESULT_FANATIC   => '_NAME_ �� �l�T �̂悤���B',
+		MARK_BONDS       => '�J',
+		RESULT_BONDS     => '���Ȃ��� _TARGET_ �Ɖ^�����J������ł��܂��B',
+		MARK_LOVERS      => '���l',
+		RESULT_LOVERS    => '���Ȃ��� _TARGET_ �ƈ��������Ă��܂��B',
 
-		# アクション関連
-		ACTIONS_ADDPT     => 'に話の続きを促した。_REST_',
-		ACTIONS_RESTADDPT => '(残_POINT_回)',
-		ACTIONS_BOOKMARK  => 'ここまで読んだ。',
+		# �A�N�V�����֘A
+		ACTIONS_ADDPT     => '�ɘb�̑����𑣂����B_REST_',
+		ACTIONS_RESTADDPT => '(�c_POINT_��)',
+		ACTIONS_BOOKMARK  => '�����܂œǂ񂾁B',
 
-		# 操作ログ関連
-		ANNOUNCE_SELROLE    => '_NAME_は、_SELROLE_ を希望しました（他の人には見えません）。',
-		ANNOUNCE_CHANGESELROLE    => '_NAME_は、希望を _SELROLE_ に変更しました（他の人には見えません）。',
-		ANNOUNCE_SETVOTE    => '_NAME_は、_TARGET_ を投票先に選びました。',
-		ANNOUNCE_SETENTRUST => '投票を委任します。<br><br>_NAME_は、_TARGET_ に投票を委任しました。',
-		ANNOUNCE_SETTARGET  => '_NAME_は、_TARGET_ を能力（_ABILITY_）の対象に選びました。',
+		# ���샍�O�֘A
+		ANNOUNCE_SELROLE    => '_NAME_�́A_SELROLE_ ����]���܂����i���̐l�ɂ͌����܂���j�B',
+		ANNOUNCE_CHANGESELROLE    => '_NAME_�́A��]�� _SELROLE_ �ɕύX���܂����i���̐l�ɂ͌����܂���j�B',
+		ANNOUNCE_SETVOTE    => '_NAME_�́A_TARGET_ �𓊕[��ɑI�т܂����B',
+		ANNOUNCE_SETENTRUST => '���[���ϔC���܂��B<br><br>_NAME_�́A_TARGET_ �ɓ��[���ϔC���܂����B',
+		ANNOUNCE_SETTARGET  => '_NAME_�́A_TARGET_ ��\�́i_ABILITY_�j�̑ΏۂɑI�т܂����B',
 
-		# ボタンのラベル
-		BUTTONLABEL_PC  => '_BUTTON_ / 更新',
+		# �{�^���̃��x��
+		BUTTONLABEL_PC  => '_BUTTON_ / �X�V',
 		BUTTONLABEL_MB  => '_BUTTON_',
-		CAPTION_SAY_PC  => '発言',
-		CAPTION_SAY_MB  => '発言',
-		CAPTION_TSAY_PC => '独り言',
-		CAPTION_TSAY_MB => '独り言',
-		CAPTION_GSAY_PC => '死者のうめき',
-		CAPTION_GSAY_MB => 'うめき',
+		CAPTION_SAY_PC  => '����',
+		CAPTION_SAY_MB  => '����',
+		CAPTION_TSAY_PC => '�Ƃ茾',
+		CAPTION_TSAY_MB => '�Ƃ茾',
+		CAPTION_GSAY_PC => '���҂̂��߂�',
+		CAPTION_GSAY_MB => '���߂�',
 		CAPTION_ROLESAY => \@caption_rolesay,
 
 		ANNOUNCE_FIRST       => \@announce_first,
