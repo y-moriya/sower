@@ -58,6 +58,7 @@ _HTML_
 		logidx  => \%logidx,
 		rowover => 1,
 	);
+	$log->{'log'} = &SWLog::ReplacePreviewAnchor($sow, $vil, $log);
 	&SWHtmlVlogSinglePC::OutHTMLSingleLogPC($sow, $vil, $log, -1, 0, \%anchor, 1);
 
 	# ëÆê´ílê∂ê¨

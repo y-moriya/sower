@@ -221,7 +221,7 @@ _HTML_
   <li><!-- a href="http://nekorin.minidns.net/headless/" -->The Village of Headless Knight<!-- /a --> (一時休止中)</li>
   <li><a href="http://www.bonstato.com/werewolves/">人狼(oikosバージョン)</a></li>
   <li><!-- a href="http://werewolves.jp/" -->人狼の悪夢 (閉鎖)<!-- /a --></li>
-  <li>おとぎの国の人狼（欧州） <a href="http://eurox.sakura.ne.jp/wolf/">短期</a> / <a href="http://euros.sakura.ne.jp/wolf/">長期</a></li>
+  <li>おとぎの国の人狼（欧州）（閉鎖）</li>
 </ul>
 <hr class="invisible_hr"$net>
 

@@ -49,6 +49,62 @@ sub GetAnchorlogID {
 }
 
 #----------------------------------------
+# アンカーを内部データ形式に変換(プレビュー専用)
+#----------------------------------------
+sub ReplacePreviewAnchor {
+	my ($sow, $vil, $log) = @_;
+	my $mes = $log->{'log'};
+	$sow->{'debug'}->writeaplog($sow->{'APLOG_OTHERS'}, "Target. [$log->{'log'}]");
+	while ($mes =~ /&gt;&gt;[\+\-\*\#\%\=\!g]?(\d{1,$sow->{'MAXWIDTH_TURN'}}:)?[\+\-\*\#\%\=\!g]?\d{1,$sow->{'MAXWIDTH_LOGCOUNT'}}/) {
+		my $anchortext = $&;
+		my ($mestypestr, $mestypestr2, $turn, $logno);
+		$anchortext =~ /(&gt;&gt;)([AS]?)([\+\-\*\#\%\=\!g]?)(\d+:)?([\+\-\*\#\%\=\!g]?)(\d+)/;
+		my $mestypemark1 = $3;
+		my $mestypemark2 = $5;
+		$mestypestr = $3;
+		$turn = $4;
+		$mestypestr = $5 if ($mestypestr eq '');
+		$logno = $6;
+
+		if (defined($turn)) {
+			chop($turn);
+		} else {
+			$turn = $sow->{'turn'};
+		}
+
+		# ログIDの生成
+		$mestypestr = '' if (!defined($mestypestr));
+		my $mestype = $sow->{'MESTYPE_SAY'};
+		my $logmestype = $sow->{'LOGMESTYPE'};
+		my $loganchormark = $sow->{'MARK_LOGANCHOR'};
+		my $i;
+		for ($i = $sow->{'MESTYPE_SAY'}; $i <= $sow->{'MESTYPE_GUEST'}; $i++) {
+			$mestype = $i if ($mestypestr eq $loganchormark->{$logmestype->[$i]});
+		}
+
+		my $logsubid = $sow->{'LOGSUBID_SAY'};
+		my $logid = &CreateLogID($sow, $mestype, $logsubid, $logno);
+
+		# リンクの文字列用データ
+		my $linktext = $anchortext;
+		$linktext =~ s/&gt;&gt;//;
+
+		my $mwtag = "<mw $logid,$turn,$linktext>";
+		my $skipmwtag = $anchortext;
+		$skipmwtag =~ s/&gt;&gt;/<mw>/;
+
+		# 正規表現での誤認識を防ぐ
+		&BackQuoteAnchorMark(\$anchortext);
+
+		# 変換
+		$mes =~ s/$anchortext/$mwtag/;
+	}
+	$mes =~ s/<mw>/&gt;&gt;/g;
+
+	return $mes;
+}
+
+#----------------------------------------
 # アンカーを内部データ形式に変換
 #----------------------------------------
 sub ReplaceAnchor {
@@ -171,13 +227,13 @@ sub ReplaceAnchorHTML {
 				$reqvals->{'rowall'} = '';
 				$link = "#$logid";
 				$blank = '';
-				$title = &GetPopupAnchor($sow, $vil, $logid, $anchor) if ($sow->{'cfg'}->{'ENABLED_POPUP'} > 0);
+				#$title = &GetPopupAnchor($sow, $vil, $logid, $anchor) if ($sow->{'cfg'}->{'ENABLED_POPUP'} > 0);
 			} else {
 				$reqvals->{'turn'} = $turn if ($turn != $vil->{'turn'});
 				$reqvals->{'logid'} = $logid;
 				$link = &SWBase::GetLinkValues($sow, $reqvals);
-				$link = "$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}?$link";
-				$title = &GetPopupAnchor($sow, $vil, $logid, $anchor) if ($sow->{'cfg'}->{'ENABLED_POPUP'} > 0);
+				$link = "$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}?vid=1&$link";
+				#$title = &GetPopupAnchor($sow, $vil, $logid, $anchor) if ($sow->{'cfg'}->{'ENABLED_POPUP'} > 0);
 			}
 		} else {
 			$reqvals->{'turn'} = $turn if ($turn != $vil->{'turn'});
