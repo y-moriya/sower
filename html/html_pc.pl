@@ -392,9 +392,9 @@ sub OutHTMLSayTextAreaPC {
 
 	my $disabled = '';
 	$disabled = " $sow->{'html'}->{'disabled'}" if ($htmlsay->{'disabled'} > 0);
-
+	
 	print <<"_HTML_";
-      <textarea name="mes" cols="30" rows="5">$text</textarea><br$net>
+      <textarea name="mes" cols="30" rows="5" onkeyup="showCount(value, this);" onmouseup="showCount(value, this);">$text</textarea><br$net>
       <input type="hidden" name="cmd" value="$cmd"$net>$hidden
       <div style="float: left;">
       <input type="submit" value="$htmlsay->{'buttonlabel'}"$disabled$net>$htmlsay->{'saycnttext'}

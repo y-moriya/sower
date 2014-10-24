@@ -25,6 +25,46 @@ function closeWindow() {
 	});
 }
 
+// --------------------------------------------------------------
+// 発言ポイント数自動カウント
+// Thanks to http://managarmr.sakura.ne.jp/
+function strLength(strSrc){
+	len = -1;
+	strSrc = escape(strSrc);
+	for(i = 0; i < strSrc.length; i++, len++){
+		if(strSrc.charAt(i) == "%"){
+			if(strSrc.charAt(++i) == "u"){
+				i += 3;
+				len++;
+			}
+			i++;
+		}
+	}
+	return len;
+}
+function showCount(str, elm) {
+	// 本当は囁きとか共鳴もカウントしたくて element からたどっているけど、面倒だったので表発言のみ。。
+	var obj = $(elm).parent().parent().prev().find('span');
+	
+	if (obj.attr('name') == 'point') {
+		// ポイント制
+		var strCount = Math.ceil(strLength(str).toString() / 2);
+		var ptcnt = 0;
+		if(strCount > 0 ){
+			ptcnt = 20;
+		}
+		if(strCount > 31 ){
+			ptcnt = 20+ Math.ceil((strCount - 31) / 7);
+		}
+	} else if (obj.attr('name') == 'count') {
+		// 回数制
+		ptcnt = str.length;
+	}
+	obj.text(ptcnt);
+}
+
+// --------------------------------------------------------------
+
 function setAjaxEvent(target){
 	// 記号類修飾
 	// 日時、発言プレビュー内部、を対象外にしておく。そうしないとヤバイ。

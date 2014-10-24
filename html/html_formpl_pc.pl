@@ -132,9 +132,20 @@ _HTML_
 	$uidtext = "<a href=\"$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}?$link\">$uidtext</a>";
 
 	my $chrname = $curpl->getchrname();
+	my $countname = "point";
+	my $countstr = "ptÁ”ï";
+	if ($cfg->{'COUNTS_SAY'}->{$vil->{'saycnttype'}}->{'COUNT_TYPE'} eq 'count') {
+	  $countstr = "•¶Žš";
+	  $countname = "count";
+	}
 	print <<"_HTML_";
   <div style="float: right; width: $rwidth;">
-    <div class="formpl_content">$chrname ($uidtext)$rolename$markbonds</div>
+    <div class="formpl_content">
+        $chrname ($uidtext)$rolename$markbonds
+        <div style="float: right;">
+            <span name="$countname">0</span>$countstr
+        </div>
+    </div>
 
 _HTML_
 
