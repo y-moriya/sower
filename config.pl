@@ -380,8 +380,8 @@ sub GetConfig {
 
 	# ロボット検索用の設定
 	my @robots = (
-		'noindex,nofollow',
-		'noarchive',
+	#	'noindex,nofollow',
+	#	'noarchive',
 	);
 
 	# おみくじ
