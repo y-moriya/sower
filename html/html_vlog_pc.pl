@@ -87,7 +87,7 @@ _HTML_
 	if (($query->{'order'} eq 'desc') || ($query->{'order'} eq 'd')){
 		# 降順
 		if ($modesingle == 0) {
-			print "<p id=\"newinfo\" class=\"newinfo\"><span id=\"newinfomes\">新着発言はありません。</span><a href=\"#newsay\" id=\"reloadlink\" onclick=\"reloadSowFeed();return false;\">RELOAD</a><img src=\"img/ajax-loader.gif\" style=\"display: none;\"><a href=\"$link&logid=$logid&move=next\" id=\"getnewloglink\" onclick=\"getNewLog(this);return false;\"></a><span class=\"new_date\" id=\"newinfotime\">最終取得時刻 --:--:--</span></p>\n";
+			print "<p id=\"newinfo\" class=\"newinfo\"><span id=\"newinfomes\">新着発言はありません。</span><a href=\"#newsay\" id=\"reloadlink\" onclick=\"reloadSowFeed();return false;\">RELOAD</a><img src=\"$cfg->{'DIR_IMG'}/ajax-loader.gif\" style=\"display: none;\"><a href=\"$link&logid=$logid&move=next\" id=\"getnewloglink\" onclick=\"getNewLog(this);return false;\"></a><span class=\"new_date\" id=\"newinfotime\">最終取得時刻 --:--:--</span></p>\n";
 		}
 		my $i;
 		for ($i = $#$logs; $i >= 0; $i--) {
@@ -117,7 +117,7 @@ _HTML_
 					$logid = $log->{'maskedid'};
 				}
 				if ($modesingle == 0) {
-					print "<p id=\"newinfo\" class=\"newinfo\"><span id=\"newinfomes\">新着発言はありません。</span><a href=\"#newsay\" id=\"reloadlink\" onclick=\"reloadSowFeed();return false;\">RELOAD</a><img src=\"img/ajax-loader.gif\" style=\"display: none;\"><a href=\"$link&logid=$logid&move=next\" id=\"getnewloglink\" onclick=\"getNewLog(this);return false;\"></a><span class=\"new_date\" id=\"newinfotime\">最終取得時刻 --:--:--</span></p>\n";
+					print "<p id=\"newinfo\" class=\"newinfo\"><span id=\"newinfomes\">新着発言はありません。</span><a href=\"#newsay\" id=\"reloadlink\" onclick=\"reloadSowFeed();return false;\">RELOAD</a><img src=\"$cfg->{'DIR_IMG'}/ajax-loader.gif\" style=\"display: none;\"><a href=\"$link&logid=$logid&move=next\" id=\"getnewloglink\" onclick=\"getNewLog(this);return false;\"></a><span class=\"new_date\" id=\"newinfotime\">最終取得時刻 --:--:--</span></p>\n";
 				}
 			}
 		}

@@ -318,7 +318,7 @@ function cidfilter(cform) {
 function getMoreLog(link) {
 	var href = link.href;
 	var base = $(link).parent();
-	base.append($("<img src=\"img/ajax-loader.gif\">"));
+	base.append($("<img src=\"../../img/ajax-loader.gif\">"));
 	$(link).remove();
 	$.get(href,{},function(data){
 		var mes = $(data).find(".inframe:first").children(":not(h2)");
