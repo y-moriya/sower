@@ -108,7 +108,7 @@ _HTML_
 				if ((($log->{'mestype'} eq $sow->{'MESTYPE_INFOSP'}) || ($log->{'mestype'} eq $sow->{'MESTYPE_TSAY'})) && ($vil->isepilogue() == 0)) {
 					$logid = $log->{'maskedid'};
 				}
-				print "<p id=\"readmore\" class=\"readmore\"><a href=\"$link&logid=$logid&move=prev\" onclick=\"getMoreLog(this);return false;\">‚à‚Á‚Æ“Ç‚Þ</a></p>\n\n";
+				print "<p id=\"readmore\" class=\"readmore\"><a href=\"$link&logid=$logid&move=prev\" onclick=\"getMoreLog(this);return false;\">‚à‚Á‚Æ“Ç‚Þ</a><img id=\"morelog-ajax-loader\" src=\"$cfg->{'DIR_IMG'}/ajax-loader.gif\" style=\"display: none;\"></p>\n\n";
 			}
 			&SWHtmlVlogSinglePC::OutHTMLSingleLogPC($sow, $vil, $log, $i, $newsay, \%anchor, $modesingle);
 			if ($i == $#$logs) {

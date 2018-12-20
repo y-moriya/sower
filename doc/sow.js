@@ -243,21 +243,8 @@ function getSowFeed(url, title, n) {
 				document.title = '('+logNumbers+') ' + title;
 				var infomes = logNumbers+ ' 件の新しい発言があります。';
 
-				// 内部でnewinfoがない場合のをコメントアウトしました。
-				//if ($("#newinfo").size() > 0) {
-					$("#newinfo").find("img").hide();
-					//$("#newinfomes").hide();
-					//$("#reloadlink").hide();
-					$("#getnewloglink").text(infomes).show();
-				/* } else {
-					// 例外が多くてたまに表示がくずれる。
-					infomes = '<p class="info" id="newinfo"> ' + infomes + '</p>';
-					if ($(".message_filter:has(a[name='newsay'])").size() > 0) {
-						$(".message_filter:has(a[name='newsay'])").parent().parent().after(infomes);
-					} else {
-						$("a[name='newsay']").parent().after(infomes);
-					}
-				} */
+				$("#newinfo").find("img").hide();
+				$("#getnewloglink").text(infomes).show();
 				n = 0;
 				newLogFlag = false;
 			} else if (document.title.match(/\(\d+\)/)) {
@@ -318,15 +305,24 @@ function cidfilter(cform) {
 function getMoreLog(link) {
 	var href = link.href;
 	var base = $(link).parent();
-	base.append($("<img src=\"../../img/ajax-loader.gif\">"));
-	$(link).remove();
+	var img = base.find("#morelog-ajax-loader");
+	img.show();
+	$(link).hide();
 	$.get(href,{},function(data){
 		var mes = $(data).find(".inframe:first").children(":not(h2)");
+		var atags = mes.find('a');
+		var oldestLogId = $(atags[0]).attr("name");
+		var newlink = href.replace(/logid=[^&]+/, 'logid=' + oldestLogId);
+		link.href = newlink;
+
 		setAjaxEvent(mes);
-		base.hide();
 		base.after(mes);
-		$("#newinfo:first").remove();
+		$(link).show();
+		img.hide();
+		base.show();
 	});
+
+
 	return false;
 }
 
