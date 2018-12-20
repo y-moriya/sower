@@ -337,8 +337,12 @@ function getNewLog(link) {
 	$("#getnewloglink").hide();
 	$.get(href,{},function(data){
 		var mes = $(data).find(".inframe:first").children(":not(h2,#readmore,#newinfo)");
-		var newlink = $(data).find("#getnewloglink").attr("href");
+		var atags = mes.find('a');
+		var latestLogId = $(atags[atags.length-1]).attr("name");
+		var oldlink = $("#getnewloglink").attr('href');
+		var newlink = oldlink.replace(/logid=[^&]+/, 'logid=' + latestLogId);
 		$("#getnewloglink").attr("href", newlink);
+		
 		setAjaxEvent(mes);
 		base.before(mes);
 		document.title = document.title.replace(/\(\d+\) /, '');
