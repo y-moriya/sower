@@ -471,10 +471,10 @@ sub GetConfig {
 		URL_HOME     => 'http://www.gunjobiyori.com/', # ホームページ
 		NAME_HOME    => '群青日和(blog)',
 		NAME_TOP	 => 'TOP',
-		URL_BBS_PC   => 'http://jbbs.livedoor.jp/game/31113/', # サポート掲示板のURL
-		NAME_BBS_PC  => '掲示板', # サポート掲示板の名前
-		URL_BBS_MB   => 'http://jbbs.livedoor.jp/game/31113/', # サポート掲示板のURL（携帯向け）
-		NAME_BBS_MB  => '掲示板', # サポート掲示板の名前（携帯向け）
+		URL_BBS_PC   => 'http://www.twitter.com/euro_s', # サポート掲示板のURL
+		NAME_BBS_PC  => '@euro_s', # サポート掲示板の名前
+		URL_BBS_MB   => 'http://www.twitter.com/euro_s', # サポート掲示板のURL（携帯向け）
+		NAME_BBS_MB  => '@euro_s', # サポート掲示板の名前（携帯向け）
 
 		MAX_VILLAGES   =>  5, # 最大同時稼働村数
 		TIMEOUT_SCRAP  => 42, # 廃村期限
