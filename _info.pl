@@ -11,7 +11,7 @@ sub OutHTMLAdminInfo {
 
 	print <<"_HTML_";
 <h2>ŠÇ—l‚©‚ç‚Ì‚¨’m‚ç‚¹</h2>
-2018/12/xx
+2018/12/11
 <ul>
 <li>­‚µè“ü‚ê‚µ‚Ü‚µ‚½B
 </ul>
