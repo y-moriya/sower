@@ -451,6 +451,9 @@ address {
     padding: 0.5em 1em;
     color: #cca;
     border: 1px solid #cca;
+} .info a:hover {
+    text-decoration: none;
+    color: #cca;
 }
 
 /* システム表示（不可視） ----------*/ .infosp {
