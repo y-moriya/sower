@@ -319,7 +319,11 @@ function getMoreLog(link) {
 		base.after(mes);
 		$(link).show();
 		img.hide();
-		base.show();
+		if (oldestLogId === "SS00000" || oldestLogId === "") {
+			base.hide();
+		} else {
+			base.show();
+		}
 	});
 
 
