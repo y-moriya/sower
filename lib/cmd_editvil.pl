@@ -32,9 +32,9 @@ sub SetDataCmdEditVil {
 	my $vil = SWFileVil->new($sow, $query->{'vid'});
 	$vil->readvil();
 	my @villabel = &SWFileVil::GetVilDataLabel();
-	my %oldinfo;
+	my $oldinfo;
 	foreach (@villabel) {
-		%oldinfo->{$_} = $vil->{$_};
+		$oldinfo{$_} = $vil->{$_};
 		last if ($_ eq 'timestamp');
 	}
 	# 村編集時値チェック
@@ -110,7 +110,7 @@ sub SetDataCmdEditVil {
 	my $dt = 0;
 	my $df = 0;
 	foreach (@villabel) {
-		if ($vil->{$_} ne %oldinfo->{$_}) {
+		if ($vil->{$_} ne $oldinfo{$_}) {
 			$df++;
 			my $diff = $infocap->{$_};
 			my $difcap = $vil->getinfocap($_);

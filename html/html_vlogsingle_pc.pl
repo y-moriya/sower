@@ -210,7 +210,8 @@ sub OutHTMLSingleLogGuestPC {
 	# キャラ画像アドレスの取得
 	$charset = $vil->{'csid'};
 	$charset = $sow->{'charsets'}->{'csid'}->{$charset};
-	my $img = "$charset->{'DIR'}/guest$charset->{'EXT'}";
+	#my $img = "$charset->{'DIR'}/guest$charset->{'EXT'}";
+	my $img = &SWHtmlPC::GetImgUrl($sow, $logpl, $charset->{'FACE'}, $log->{'expression'}, $log->{'mestype'});
 
 	# キャラ画像部とその他部の横幅を取得
 	my $imgwhid = 'BODY';

@@ -5,6 +5,7 @@ var maxDateInt = 0;
 var sowFeedTimer;
 var newLogFlag = false;
 var logNumbers = 0;
+var imgDir;
 
 function closeWindow() {
 	$(".close").toggle(
@@ -163,13 +164,18 @@ function icoChange() {
   var i = document.entryForm.csid_cid.selectedIndex;
   var s = document.entryForm.csid_cid.options[i].value;
   if (s.match("rem")) {
-  	s += "_body";
+  	s += "_body.png";
   } else if (s.match("sow")) {
-  	s += "_body";
+  	s += "_body.png";
   } else if (s.match("troika")) {
-  	//s += "_";
+	  //s += "_";
+	  s += ".png";
+  } else if (s.match("wbbs10")) {
+	  s += ".jpg";
+  } else if (s.match("wbbs")) {
+	  s += ".jpg";
   }
-  document.charaImg.src = "./img/"+s+".png";
+  document.charaImg.src = imgDir+s;
 }
 
 function getDateInt(str) {
@@ -380,5 +386,10 @@ $(document).ready(function(){
 	ajaxitems = [];
 	setAjaxEvent($(".inframe"));
 	getSowFeedUrl();
+	var entryFormImg = $("img[name=charaImg]")[0];
+	if (entryFormImg != null) {
+		imgDir = $(entryFormImg).attr("src").replace(/[^/]+\/[^/]*$/, '');
+	}
+	
 });
 
