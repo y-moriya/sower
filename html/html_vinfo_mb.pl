@@ -63,6 +63,15 @@ _HTML_
 <hr$net>
 _HTML_
 
+	
+	if ($vil->{'epilogue'} <= $vil->{'turn'}) {
+		print <<"_HTML_";
+¡ì¬ŽÒ<br$net>$vil->{'makeruid'}
+<hr$net>
+_HTML_
+	}
+
+
 	print <<"_HTML_";
 ¡i‚èž‚ÝF<br$net>
 _HTML_

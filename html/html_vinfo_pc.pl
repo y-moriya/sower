@@ -82,6 +82,14 @@ _HTML_
 <div class="paragraph">
 _HTML_
 
+	if ($vil->{'epilogue'} <= $vil->{'turn'}) {
+		print <<"_HTML_";
+<p class="multicolumn_label">ì¬ÒF</p>
+<p class="multicolumn_left">$vil->{'makeruid'}</p>
+<br class="multicolumn_clear"$net>
+_HTML_
+	}
+
 	if ($vil->{'turn'} == 0) {
 		my $vplcnt = $vil->getinfocap('vplcnt');
 		print <<"_HTML_";
