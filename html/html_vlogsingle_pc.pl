@@ -333,6 +333,8 @@ sub OutHTMLSingleLogCastPC {
 
 	my $namelabel = '名前';
 	$namelabel = "<a $atr_id=\"newsay\">$namelabel</a>" if ($newsay > 0);
+	my $noselrole = "";
+	$noselrole = "（希望は無効です）" if ($vil->{'noselrole'} > 0);
 
 	print <<"_HTML_";
 <table border="1" class="vindex" summary="配役一覧">
@@ -342,7 +344,7 @@ sub OutHTMLSingleLogCastPC {
     <th scope="col">$namelabel</th>
     <th scope="col">ID</th>
     <th scope="col">生死</th>
-    <th scope="col">役職</th>
+    <th scope="col">役職$noselrole</th>
   </tr>
 </thead>
 
