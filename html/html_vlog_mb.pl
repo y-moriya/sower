@@ -177,6 +177,7 @@ _HTML_
 
 			# 発言中のアンカーを整形
 			my $loganchor = &SWLog::GetAnchorlogID($sow, $vil, $log);
+			$loganchor = "($loganchor)" if $loganchor ne "";
 			my $mes = &SWLog::ReplaceAnchorHTMLMb($sow, $vil, $log->{'log'}, $logkeys);
 			&SWHtml::ConvertNET($sow, \$mes);
 

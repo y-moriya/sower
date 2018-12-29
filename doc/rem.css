@@ -511,6 +511,14 @@ address {
     color: #997;
 }
 
+/* 発言のアンカー ----------*/ span.mes_number {
+    color: #b90;
+} span.mes_number:hover {
+    color: #fe8;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
 /* アクション ----------*/ .action_nom {
     margin: 0 0 1em 0;
     padding: 4px;

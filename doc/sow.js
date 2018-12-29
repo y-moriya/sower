@@ -382,6 +382,13 @@ function reloadSowFeed() {
 	getSowFeed(url, title, 0);
 }
 
+function add_link(mes_number) {
+	textareas = document.getElementsByTagName('textarea');
+	for (var i = 0; i < textareas.length; i++) {
+		textareas[i].value = textareas[i].value + ">>" + mes_number + " " ;
+	}
+}
+
 $(document).ready(function(){
 	ajaxitems = [];
 	setAjaxEvent($(".inframe"));

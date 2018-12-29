@@ -103,6 +103,9 @@ sub OutHTMLSingleLogSayPC {
 
 	# ƒƒO”Ô†
 	my $loganchor = &SWLog::GetAnchorlogID($sow, $vil, $log);
+	if ($loganchor ne "") {
+		$loganchor = "<span class=\"mes_number\" onclick=\"add_link('$loganchor')\">($loganchor)</span>"
+	}
 
 	# ”­Œ¾í•Ê
 	my @logmestypetexts = ('', '', '', 'yíœz', 'yŠÇ—líœz', 'y–¢Šmz', '', 'y“Æz', 'yÔz', 'y•æz', '', '', 'y–Âz', 'y”Oz', '');
@@ -220,6 +223,9 @@ sub OutHTMLSingleLogGuestPC {
 
 	# ƒƒO”Ô†
 	my $loganchor = &SWLog::GetAnchorlogID($sow, $vil, $log);
+	if ($loganchor ne "") {
+		$loganchor = "<span class=\"mes_number\" onclick=\"add_link('$loganchor')\">($loganchor)</span>"
+	}
 
 	# ”­Œ¾’†‚ÌƒAƒ“ƒJ[“™‚ğ®Œ`
 	&SWLog::ReplaceAnchorHTML($sow, $vil, \$log->{'log'}, $anchor);
@@ -295,6 +301,9 @@ sub OutHTMLSingleLogAdminPC {
 	&SWHtml::ConvertNET($sow, \$log->{'log'});
 
 	my $loganchor = &SWLog::GetAnchorlogID($sow, $vil, $log);
+	if ($loganchor ne "") {
+		$loganchor = "<span class=\"mes_number\" onclick=\"add_link('$loganchor')\">($loganchor)</span>"
+	}
 
 	# “™•ˆ—
 	my $mes_text = 'mes_text';

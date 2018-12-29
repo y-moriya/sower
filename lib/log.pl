@@ -40,7 +40,7 @@ sub GetAnchorlogID {
 	$logcntnum = int($logcnt);
 	my $loganchormark = $sow->{'MARK_LOGANCHOR'};
 	my $loganchor = '';
-	$loganchor = " ($loganchormark->{$logmestype}$logcntnum)" if (defined($loganchormark->{$logmestype}));
+	$loganchor = "$loganchormark->{$logmestype}$logcntnum" if (defined($loganchormark->{$logmestype}));
 
 	$loganchor = '' if ($logcntnum == $sow->{'LOGCOUNT_UNDEF'});
 	$loganchor = '' if (($log->{'mestype'} == $sow->{'MESTYPE_TSAY'}) && ($vil->isepilogue() == 0));

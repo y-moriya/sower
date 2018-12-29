@@ -564,6 +564,16 @@ address {
   text-align: right;
 }
 
+/* 発言のアンカー -------*/
+span.mes_number {
+  color: #0ff;
+}
+span.mes_number:hover {
+  color: #fff;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
 /* アクション ----------*/
 .action_nom {
   margin: 0px 0px 16px 0px;
