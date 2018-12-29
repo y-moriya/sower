@@ -43,7 +43,7 @@ sub OutHTMLPlayerFormPC {
 	$role{'explain_role'} = $textrs->{'EXPLAIN_ROLES'}->{'explain'};
 
 	&OutHTMLRolePC($sow, $vil, \%role) if (($curpl->iswhisper() == 0) || ($query->{'mode'} ne 'human'));
-	&OutHTMLRoleFormPC($sow, $vil) if ($curpl->iswhisper() > 0);
+	&OutHTMLRoleFormPC($sow, $vil) if ($curpl->iswhisper() > 0 && $vil->{'emulated'} < 1);
 	&OutHTMLExitButtonPC($sow, $vil) if ($vil->{'turn'} == 0);
 	&OutHTMLSelRoleButtonPC($sow, $vil) if ($vil->{'turn'} == 0);
 
