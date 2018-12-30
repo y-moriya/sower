@@ -113,6 +113,17 @@ _HTML_
 			&SWHtmlVlogSinglePC::OutHTMLSingleLogPC($sow, $vil, $log, $i, $newsay, \%anchor, $modesingle);
 			if ($i == $#$logs) {
 				my $logid = $log->{'logid'};
+				my $pi = $i;
+				my $prevlog;
+				my $mestype = $log->{'mestype'};
+				while ($mestype eq $sow->{'MESTYPE_QUE'}) {
+					$pi = $pi - 1;
+					$prevlog = $logfile->{'logfile'}->{'file'}->read($logs->[$pi]->{'pos'});
+					$mestype = $prevlog->{'mestype'};
+					$logid = $prevlog->{'logid'};
+
+					break if ($pi == 0);
+				}
 				if ((($log->{'mestype'} eq $sow->{'MESTYPE_INFOSP'}) || ($log->{'mestype'} eq $sow->{'MESTYPE_TSAY'})) && ($vil->isepilogue() == 0)) {
 					$logid = $log->{'maskedid'};
 				}

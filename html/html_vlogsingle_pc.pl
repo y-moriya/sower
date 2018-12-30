@@ -166,7 +166,8 @@ _HTML_
     <p class="saycancelframe">
       <input type="hidden" name="cmd" value="cancel"$net>
       <input type="hidden" name="queid" value="$logcnt"$net>$hidden
-      <input type="submit" value="‚±‚Ì”­Œ¾‚ðíœ($sow->{'cfg'}->{'MESFIXTIME'}•bˆÈ“à)" class="saycancelbutton"$net>
+      <input type="submit" value="‚±‚Ì”­Œ¾‚ðíœ" class="saycancelbutton"$net>
+	  (<span class="mes_fix_time">$sow->{'cfg'}->{'MESFIXTIME'}</span>•bˆÈ“à)
     </p>
     </form>
     <div class="mes_date">$date</div>

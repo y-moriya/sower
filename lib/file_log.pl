@@ -720,8 +720,8 @@ sub CheckLogPermition {
 	$logpermit = 1 if (($logined > 0) && ($sow->{'uid'} eq $sow->{'cfg'}->{'USERID_ADMIN'})); # 管理者モード
 
 	# 個人フィルタ（暫定）
-  # プロローグで使えると何か支障あるのかな？
-  if (defined($query->{'pno'})) {
+	# プロローグで使えると何か支障あるのかな？
+	if (defined($query->{'pno'})) {
 	#if (($sow->{'turn'} > 0) && (defined($query->{'pno'}))) {
 		my $targetpl = $self->{'vil'}->getplbypno($query->{'pno'});
 		if (($query->{'pno'} >= 0) && (defined($targetpl->{'uid'}))) {

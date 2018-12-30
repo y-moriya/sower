@@ -6,6 +6,9 @@ var sowFeedTimer;
 var newLogFlag = false;
 var logNumbers = 0;
 var imgDir;
+var mesFixTime = 20; //MESFIXTIMEÇ∆ìØÇ∂ílÇê›íË
+var timer;
+var que_messages;
 
 function closeWindow() {
 	$(".close").toggle(
@@ -389,6 +392,22 @@ function add_link(mes_number) {
 	}
 }
 
+function mesFixCountDown() {
+	var time;
+	for (var i = 0; i < que_messages.length; i++) {
+		time = que_messages[i].innerText;
+		time--;
+		que_messages[i].innerText = time;
+	}
+	if (time == 0) {
+		clearInterval(timer);
+		$("#newinfomes").hide();
+		$("#reloadlink").hide();
+		$(".mes_que").fadeOut("slow");
+		getNewLog(document.getElementById('getnewloglink'));
+	}
+}
+
 $(document).ready(function(){
 	ajaxitems = [];
 	setAjaxEvent($(".inframe"));
@@ -397,6 +416,9 @@ $(document).ready(function(){
 	if (entryFormImg != null) {
 		imgDir = $(entryFormImg).attr("src").replace(/[^/]+\/[^/]*$/, '');
 	}
-	
+	que_messages = document.getElementsByClassName('mes_fix_time');
+	if (que_messages.length > 0) {
+		timer = setInterval("mesFixCountDown()", 1000);
+	}
 });
 
