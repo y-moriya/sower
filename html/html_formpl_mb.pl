@@ -376,6 +376,17 @@ _HTML_
 	$checked = " $sow->{'html'}->{'checked'}" if (($query->{'loud'} ne '') && ($query->{'guest'} ne ''));
 	print "<input type=\"checkbox\" name=\"loud\" value=\"on\"$checked$net>大声\n";
 
+	# 傍観者発言にもパスワードが必要にする
+	if ($vil->{'entrylimit'} eq 'password') {
+		my $writepwd = '';
+		$writepwd = $query->{'writepwd'} if ($query->{'writepwd'} ne '');
+		print <<"_HTML_";
+<br$net>
+パスワード<br$net>
+<input type="text" name="writepwd" size="8" istyle="3" value="$writepwd"$net><br$net>
+_HTML_
+	}
+
 	print <<"_HTML_";
 </form>
 <hr$net>

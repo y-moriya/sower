@@ -49,6 +49,7 @@ sub InitConst {
 		saycnttype   => 1, # 発言制限種別
 		entrylimit   => 1, # 参加制限
 		entrypwd     => 1, # 参加パスワード
+		writepwd	 => 1, # 傍観者発言パスワード
 		rating       => 1, # 閲覧制限
 		roletable    => 1, # 役職配分
 		votetype     => 1, # 投票方法

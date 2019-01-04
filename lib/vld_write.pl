@@ -23,6 +23,16 @@ sub CheckValidityWrite {
 	}
 	$debug->raise($sow->{'APLOG_CAUTION'}, "発言種別が不正です。", "invalid mestype.$errfrom") if ($cntenabled > 1); # 通常起きない
 
+	if ($query->{'cmd'} eq 'writepr') {
+		if ($vil->{'entrylimit'} eq 'password') {
+			if ($query->{'guest'} ne '') {
+				if ($query->{'writepwd'} ne $vil->{'entrypwd'}) {
+					$debug->raise($sow->{'APLOG_NOTICE'}, 'パスワードが違います。', "invalid writepwd.$errfrom") ;
+				}
+			}
+		}
+	}
+
 	return;
 }
 

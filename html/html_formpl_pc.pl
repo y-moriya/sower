@@ -980,6 +980,20 @@ _HTML_
       <label><input type="checkbox" name="loud" value="on"$net>大声</label>
       <input type="hidden" name="$writemode" value="on"$net>
     </div>
+_HTML_
+
+	# 傍観者発言にもパスワードが必要にする
+	if ($vil->{'entrylimit'} eq 'password') {
+		print <<"_HTML_";
+
+    <div class="formpl_content">
+      <label for="writepwd">パスワード：</label>
+      <input id="writepwd" type="password" name="writepwd" maxlength="8" size="8" value=""$net>
+    </div>
+_HTML_
+	}
+
+	print <<"_HTML_";
     </form>
   </div>
   <div class="clearboth">

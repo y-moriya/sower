@@ -116,7 +116,7 @@ _HTML_
 				my $pi = $i;
 				my $prevlog;
 				my $mestype = $log->{'mestype'};
-				while ($mestype eq $sow->{'MESTYPE_QUE'}) {
+				while (($mestype eq $sow->{'MESTYPE_QUE'}) || $mestype eq $sow->{'MESTYPE_INFOSP'}) { #入村時のメッセージバグを避けるためのかなりテキトーな処理。要修正。
 					$pi = $pi - 1;
 					$prevlog = $logfile->{'logfile'}->{'file'}->read($logs->[$pi]->{'pos'});
 					$mestype = $prevlog->{'mestype'};
