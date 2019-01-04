@@ -64,7 +64,7 @@ _HTML_
 _HTML_
 
 	
-	if ($vil->{'epilogue'} <= $vil->{'turn'}) {
+	if ($vil->isepilogue() == 1) {
 		print <<"_HTML_";
 ¡ì¬ŽÒ<br$net>$vil->{'makeruid'}
 <hr$net>

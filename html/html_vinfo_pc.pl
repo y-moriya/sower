@@ -82,7 +82,7 @@ _HTML_
 <div class="paragraph">
 _HTML_
 
-	if ($vil->{'epilogue'} <= $vil->{'turn'}) {
+	if ($vil->isepilogue() == 1) {
 		print <<"_HTML_";
 <p class="multicolumn_label">ì¬ÒF</p>
 <p class="multicolumn_left">$vil->{'makeruid'}</p>

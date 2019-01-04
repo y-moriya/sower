@@ -42,10 +42,9 @@ sub outhtmlnew {
 	my $atr_id = $sow->{'html'}->{'atr_id'};
 
 	print <<"_HTML_";
-<h3>Sower Version 1.0.2 (2018/12/28)</h3>
+<h3>Sower Version 1.0.3 (2019/01/04)</h3>
 <ul>
-  <li>発言番号をクリックするとアンカーがフォームに記入されるようにしました。</li>
-  <li>その他細かな不具合、挙動を修正。</li>
+  <li>未確定発言の削除時間を過ぎると、自動的に確定発言に表\示を変更するようにしました。</li>
 </ul>
 _HTML_
 
@@ -68,6 +67,12 @@ _HTML_
 	$self->outhtmlnew();
 
 	print <<"_HTML_";
+<hr class="invisible_hr"$net>
+<h3>Sower Version 1.0.2 (2018/12/28)</h3>
+<ul>
+  <li>発言番号をクリックするとアンカーがフォームに記入されるようにしました。</li>
+  <li>その他細かな不具合、挙動を修正。</li>
+</ul>
 <hr class="invisible_hr"$net>
 <h3>Sower Version 1.0.1 (2018/12/21)</h3>
 <ul>
