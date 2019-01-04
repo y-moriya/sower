@@ -341,21 +341,22 @@ sub GetConfig {
 		'人狼BBS10周年(仮) 画像 by AICE',
 	);
 
+	# キャッシュクリアのためファイル名に日付を入れた。（更新忘れそう）
 	my %css_default = (
 		TITLE => '標準スタイル',
-		FILE  => 'sow.css',
+		FILE  => 'sow.css?date=20190104',
 		WIDTH => 500,
 	);
 
 	my %css_text = (
 		TITLE => '簡易表示',
-		FILE  => 'text.css',
+		FILE  => 'text.css?date=20190104',
 		WIDTH => 500,
 	);
 
 	my %css_junawide = (
 		TITLE => '審問風',
-		FILE  => 'junawide.css',
+		FILE  => 'junawide.css?date=20190104',
 		WIDTH => 582,
 #		FILE_TOPBANNER => 'mwtitle_juna.jpg',
 #		WIDTH_TOPBANNER  => 500,
@@ -364,7 +365,7 @@ sub GetConfig {
 
 	my %css_rem = (
 		TITLE => 'Style-R (default)',
-		FILE  => 'rem.css',
+		FILE  => 'rem.css?date=20190104',
 		WIDTH => 600,
 		FILE_TOPBANNER => 'remcss/remheader.png',
 		WIDTH_TOPBANNER  => 600,
@@ -652,7 +653,8 @@ sub GetConfig {
 		FILE_MEMOINDEX => "memoidx.cgi",
 		FILE_SCORE     => "score.cgi",
 
-		FILE_JS_SOW    => "sow.js",
+		# キャッシュクリアのためファイル名に日付を入れた。（更新忘れそう）
+		FILE_JS_SOW    => "sow.js?date=20180104",
 		FILE_JS_JQUERY => "jquery.js",
 		FILE_JS_DRAG   => "jquery.easydrag.js",
 		FILE_JS_FILTER => "filter.js",
