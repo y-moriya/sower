@@ -86,8 +86,7 @@ sub GetConfig {
 		MAX_MESLINE =>   25, # 一発言の最大行数
 	);
 
-	# 発言制限
-	my %saycnt_sow = (
+	my %saycnt_mreal = (
 		CAPTION     => 'もっとリア充(300pt)',
 		COUNT_TYPE  => 'point', # ポイント勘定
 		MAX_SAY     =>  300, # 通常発言回数
@@ -103,6 +102,60 @@ sub GetConfig {
 		MAX_ADDSAY  =>    1, # 促しの回数
 		MAX_MESCNT  =>  1000, # 一発言の最大バイト数
 		MAX_MESLINE =>   25, # 一発言の最大行数
+	);
+
+	my %saycnt_mmreal = (
+		CAPTION     => 'ずっとリア充(200pt)',
+		COUNT_TYPE  => 'point', # ポイント勘定
+		MAX_SAY     =>  200, # 通常発言回数
+		MAX_TSAY    => 10000, # 独り言発言回数
+		MAX_WSAY    => 15000, # 囁き発言回数
+		MAX_SPSAY   =>  8000, # 共鳴発言回数
+		MAX_BSAY    => 15000, # 念話発言回数
+		MAX_GSAY    => 20000, # うめき発言回数
+		MAX_PSAY    => 10000, # プロローグ発言回数
+		MAX_ESAY    => 3000, # エピローグ発言回数
+		MAX_SAY_ACT =>   24, # アクション回数
+		ADD_SAY     =>  100, # 促しで増える発言回数
+		MAX_ADDSAY  =>    1, # 促しの回数
+		MAX_MESCNT  =>  1000, # 一発言の最大バイト数
+		MAX_MESLINE =>   25, # 一発言の最大行数
+	);
+
+	my %saycnt_mmmreal = (
+		CAPTION     => 'きっとリア充(100pt)',
+		COUNT_TYPE  => 'point', # ポイント勘定
+		MAX_SAY     =>  100, # 通常発言回数
+		MAX_TSAY    => 10000, # 独り言発言回数
+		MAX_WSAY    => 15000, # 囁き発言回数
+		MAX_SPSAY   =>  8000, # 共鳴発言回数
+		MAX_BSAY    => 15000, # 念話発言回数
+		MAX_GSAY    => 20000, # うめき発言回数
+		MAX_PSAY    => 10000, # プロローグ発言回数
+		MAX_ESAY    => 3000, # エピローグ発言回数
+		MAX_SAY_ACT =>   24, # アクション回数
+		ADD_SAY     =>  50, # 促しで増える発言回数
+		MAX_ADDSAY  =>    1, # 促しの回数
+		MAX_MESCNT  =>  1000, # 一発言の最大バイト数
+		MAX_MESLINE =>   25, # 一発言の最大行数
+	);
+
+	my %saycnt_realcnt = (
+		CAPTION     => 'リア充(5回)',
+		COUNT_TYPE  => 'count', # 回数勘定
+		MAX_SAY     =>  5, # 通常発言回数
+		MAX_TSAY    =>  500, # 独り言発言回数
+		MAX_WSAY    =>  500, # 囁き発言回数
+		MAX_SPSAY   =>  500, # 共鳴発言回数
+		MAX_BSAY    =>  500, # 念話発言回数
+		MAX_GSAY    =>  500, # うめき発言回数
+		MAX_PSAY    =>  500, # プロローグ発言回数
+		MAX_ESAY    =>  600, # エピローグ発言回数
+		MAX_SAY_ACT =>  15, # アクション回数
+		ADD_SAY     =>   0, # 促しで増える発言回数
+		MAX_ADDSAY  =>   0, # 促しの回数
+		MAX_MESCNT  =>  200, # 一発言の最大文字数
+		MAX_MESLINE =>  25, # 一発言の最大行数
 	);
 
 	my %saycnt_wbbs = (
@@ -195,11 +248,14 @@ sub GetConfig {
 		MAX_MESLINE =>   40, # 一発言の最大行数
 	);
 
-	my @saycnt_order = ('real', 'sow', 'wbbs', 'juna', 'vulcan', 'saving', 'gachi');
+	my @saycnt_order = ('real', 'mreal', 'mmreal', 'mmmreal', 'realcnt', 'wbbs', 'juna', 'vulcan', 'saving', 'gachi');
 	my %saycnt = (
 		ORDER    => \@saycnt_order,
 		real     => \%saycnt_real,
-		sow      => \%saycnt_sow,
+		mreal    => \%saycnt_mreal,
+		mmreal   => \%saycnt_mmreal,
+		mmmreal  => \%saycnt_mmmreal,
+		realcnt  => \%saycnt_realcnt,
 		wbbs     => \%saycnt_wbbs,
 		juna     => \%saycnt_juna,
 		vulcan   => \%saycnt_vulcan,
