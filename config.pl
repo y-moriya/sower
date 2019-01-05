@@ -392,8 +392,8 @@ sub GetConfig {
 	my @copyrights = (
 		'人狼物語画像 by Momoko Takatori',
 		'SWBBS-R 画像 by rembrandt',
-		'トロイカ by <a href="http://asakp2.orsp.net/">かえるぴょこぴょこ／あさくら</a>',
-		'仰げば狼 by <a href="http://web1.kcn.jp/so-u-ko-u/">妖怪のたおしかた／おくみつ</a>',
+		'トロイカ by <a href="http://asakp2.rosx.net/">かえるぴょこぴょこ／あさくら</a>',
+		'仰げば狼 by おくみつ',
 		'人狼BBS10周年(仮) 画像 by AICE',
 	);
 
