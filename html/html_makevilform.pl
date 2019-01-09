@@ -422,13 +422,6 @@ _HTML_
 	-->
 _HTML_
 
-	my $checkedidrecord = '';
-	$checkedidrecord = " $sow->{'html'}->{'checked'}" if ($vil->{'idrecord'} > 0);
-
-	print <<"_HTML_";
-	<label for="idrecord" class="multicolumn_label">ＩＤ記録： </label>
-	<input type="checkbox" id="idrecord" class="multicolumn_left" name="idrecord" value="on"$checkedidrecord disabled><div class="multicolumn_notes">入村時の不可視システムメッセージにＩＤを記録する</div>
-_HTML_
 	my $checkedshowid = '';
 	$checkedshowid = " $sow->{'html'}->{'checked'}" if ($vil->{'showid'} > 0);
 
