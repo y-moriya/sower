@@ -27,16 +27,18 @@ sub OutHTMLMakeVilPreview {
 <form action="$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}" method="$cfg->{'METHOD_FORM'}">
 _HTML_
 
-	# 作成設定部分の表示
-	# TODO: リクエストをもとに情報欄のようなプレビューを組み立てる
-
 	# 属性値生成
-    # TODO: 村作成に使用する属性値をすべて取得する
-	my @reqkeys = ('csid_cid', 'role', 'mes', 'think', 'wolf', 'maker',
-     'admin', 'sympathy', 'werebat', 'monospace', 'expression', 'guest', 'loud');
-	push(@reqkeys, 'entrypwd') if ($vil->{'entrylimit'} eq 'password');
+    # 村作成に使用する属性値をすべて取得する
+	my @reqkeys = ( 'vname', 'vcomment', 'makeruid', 'roletable', 'hour',
+		'minite', 'updinterval', 'vplcnt', 'entrylimit', 'entrypwd', 'rating',
+		'vplcntstart', 'saycnttype', 'starttype', 'votetype', 'noselrole',
+		'entrustmode', 'showall', 'noactmode', 'nocandy', 'nofreeact', 'commitstate',
+		'showid', 'idrecord', 'timestamp', 'randomtarget', 'makersaymenu');
 	my $reqvals = &SWBase::GetRequestValues($sow, \@reqkeys);
 	my $hidden = &SWBase::GetHiddenValues($sow, $reqvals, '  ');
+
+	# 作成設定部分の表示
+	# TODO: リクエストをもとに情報欄のようなプレビューを組み立てる
 
 	# 作成・修正ボタンの表示
 	print <<"_HTML_";
