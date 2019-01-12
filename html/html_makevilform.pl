@@ -8,12 +8,12 @@ sub OutHTMLMakeVilForm {
 	my $cfg = $sow->{'cfg'};
 
 	my $vmode = '作成';
-	my $vcmd = 'makevil';
+	# TODO: 編集時にも対応する
+	my $vcmd = 'makevilpr';
 	if ($sow->{'query'}->{'cmd'} eq 'editvilform') {
 		$vmode = '編集';
 		$vcmd = 'editvil';
 	}
-#	$vcmd = 'makevilpr';
 
 	$sow->{'html'} = SWHtml->new($sow); # HTMLモードの初期化
 	my $net = $sow->{'html'}->{'net'}; # Null End Tag

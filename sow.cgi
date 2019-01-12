@@ -124,6 +124,10 @@ sub TaskBranch {
 		# ユーザー情報表示
 		require "$dirlib/cmd_profile.pl";
 		&SWCmdProfile::CmdProfile($sow);
+	} elsif ($cmd eq 'makevilpr') {
+		# 村作成のプレビュー
+		require "$dirhtml/html_makevil_pr.pl";
+		&SWHtmlMakeVilPreview::OutHTMLMakeVilPreview($sow);
 	} elsif ($cmd eq 'makevil') {
 		# 村作成
 		require "$dirlib/cmd_makevil.pl";
