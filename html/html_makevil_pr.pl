@@ -9,7 +9,7 @@ sub OutHTMLMakeVilPreview {
 	my $query = $sow->{'query'};
 
 	require "$sow->{'cfg'}->{'DIR_HTML'}/html.pl";
-	
+
 	$sow->{'html'} = SWHtml->new($sow); # HTMLモードの初期化
 	my $net = $sow->{'html'}->{'net'}; # Null End Tag
 	my $outhttp = $sow->{'http'}->outheader(); # HTTPヘッダの出力
@@ -29,9 +29,12 @@ _HTML_
 		'minite', 'updinterval', 'vplcnt', 'entrylimit', 'entrypwd', 'rating',
 		'vplcntstart', 'saycnttype', 'starttype', 'votetype', 'noselrole',
 		'entrustmode', 'showall', 'noactmode', 'nocandy', 'nofreeact',
-		'showid', 'timestamp', 'randomtarget', 'makersaymenu');
+		'showid', 'timestamp', 'randomtarget', 'makersaymenu', 'csid', 'trsid');
 	my $reqvals = &SWBase::GetRequestValues($sow, \@reqkeys);
 	my $hidden = &SWBase::GetHiddenValues($sow, $reqvals, '  ');
+
+	# キャラセットの読み込み
+	&SWBase::LoadTextRSWithoutVil($sow, $query->{'trsid'});
 
 	# 作成設定部分の表示
 
@@ -115,7 +118,7 @@ _HTML_
 
 _HTML_
 
-	my $csidcaptions = getinfocap_csidcaptions($sow, $query->{'csidcaptions'});
+	my $csidcaptions = getinfocap_csidcaptions($sow, $query->{'csid'});
 	print <<"_HTML_";
 </div>
 
@@ -186,7 +189,7 @@ _HTML_
 <br class="multicolumn_clear"$net>
 _HTML_
 
-	my $rating = getinfocap_rating($query->{'rating'});
+	my $rating = getinfocap_rating($sow, $query->{'rating'});
 	print <<"_HTML_";
 
 <p class="multicolumn_label">閲覧制限：</p>
@@ -195,7 +198,7 @@ _HTML_
 <hr>
 _HTML_
 
-	$noactmode = getinfocap_noactmode($query->{'noactmode'});
+	$noactmode = getinfocap_noactmode($sow, $query->{'noactmode'});
 	print <<"_HTML_";
 
 <p class="multicolumn_label">act/memo：</p>
@@ -243,7 +246,7 @@ _HTML_
 <p class="paragraph">この設定で村を作成しますか？</p>
 
 <p class="multicolumn_label">
-  <input type="hidden" name="cmd" value="$preview->{'cmd'}"$net>
+  <input type="hidden" name="cmd" value="makevil"$net>
   <input type="hidden" name="cmdfrom" value="$query->{'cmd'}"$net>$hidden
   <input type="submit" value="作成"$net>
 </p>
@@ -254,9 +257,6 @@ _HTML_
   <input type="submit" value="修正する"$net>
 </p>
 </form>
-_HTML_
-
-	print <<"_HTML_";
 <div class="multicolumn_clear">
   <hr class="invisible_hr"$net>
 </div>
@@ -335,10 +335,10 @@ sub getinfocap_scraplimit {
 
 sub getinfocap_csidcaptions {
 	my ($sow, $csid) = @_;
-	my $resultcap;
+	my $resultcap = '';
 	my @pcsidlist = split('/', $csid);
-	chomp(@csidlist);
-	foreach (@csidlist) {
+	chomp(@pcsidlist);
+	foreach (@pcsidlist) {
 		$sow->{'charsets'}->loadchrrs($_);
 		$resultcap .= "$sow->{'charsets'}->{'csid'}->{$_}->{'CAPTION'} ";
 	}
@@ -362,7 +362,7 @@ sub getinfocap_trsid {
 
 sub getinfocap_randomtarget {
 	my $randomtarget = shift;
-	if ($randomtarget > 0) {
+	if ($randomtarget ne '') {
 		return '投票・能力の対象に「ランダム」を含める';
 	} else {
 		return '投票・能力の対象に「ランダム」を含めない';
@@ -371,7 +371,7 @@ sub getinfocap_randomtarget {
 
 sub getinfocap_noselrole {
 	my $noselrole = shift;
-	if ($noselrole > 0) {
+	if ($noselrole ne '') {
 		return '無効';
 	} else {
 		return '有効';
@@ -380,7 +380,7 @@ sub getinfocap_noselrole {
 
 sub getinfocap_makersaymenu {
 	my $makersaymenu = shift;
-	if ($makersaymenu > 0) {
+	if ($makersaymenu ne '') {
 		return '不許可';
 	} else {
 		return '許可';
@@ -389,7 +389,7 @@ sub getinfocap_makersaymenu {
 
 sub getinfocap_entrustmode {
 	my $entrustmode = shift;
-	if ($entrustmode > 0) {
+	if ($entrustmode ne '') {
 		return '不許可';
 	} else {
 		return '許可';
@@ -398,7 +398,7 @@ sub getinfocap_entrustmode {
 
 sub getinfocap_showall {
 	my $showall = shift;
-	if ($showall > 0) {
+	if ($showall ne '') {
 		return '公開';
 	} else {
 		return '非公開';
@@ -418,7 +418,7 @@ sub getinfocap_noactmode {
 
 sub getinfocap_nocandy {
 	my $nocandy = shift;
-	if ($nocandy > 0) {
+	if ($nocandy ne '') {
 		return 'なし';
 	} else {
 		return 'あり';
@@ -427,7 +427,7 @@ sub getinfocap_nocandy {
 
 sub getinfocap_showid {
 	my $showid = shift;
-	if ($showid > 0) {
+	if ($showid ne '') {
 		return 'なし';
 	} else {
 		return 'あり';
@@ -436,7 +436,7 @@ sub getinfocap_showid {
 
 sub getinfocap_nofreeact {
 	my $nocandy = shift;
-	if ($nocandy > 0) {
+	if ($nocandy ne '') {
 		return 'なし';
 	} else {
 		return 'あり';
@@ -445,7 +445,7 @@ sub getinfocap_nofreeact {
 
 sub getinfocap_timestamp {
 	my $timestamp = shift;
-	if ($timestamp > 0) {
+	if ($timestamp ne '') {
 		return '簡略表\示';
 	} else {
 		return '完全表\示';
