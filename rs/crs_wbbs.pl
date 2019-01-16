@@ -90,7 +90,7 @@ sub GetRSChr {
 	);
 
 	my %charset = (
-		CAPTION        => 'l˜TBBS10Žü”N(‰¼)',
+		CAPTION        => 'l˜TBBS10Žü”N',
 		NPCID          => '01',
 		CHRNAME        => \%chrname,
 		CHRJOB         => \%chrjob,
