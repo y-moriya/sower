@@ -89,13 +89,15 @@ _HTML_
 _HTML_
 
 	my $roletable = getinfocap_roletable($sow, $query->{'roletable'});
-	# TODO: custom 時の配分表取得
-	my $roletable2 = getinfocap_custom();
+	my $roletable2 = '';
+	if ($query->{'roletable'} eq 'custom') {
+		$roletable2 = getinfocap_custom($sow, $query);
+	}
 	print <<"_HTML_";
 <p class="multicolumn_label">役職配分：</p>
 <p class="multicolumn_right">
 $roletable<br$net>
-<!-- $roletable2 -->
+$roletable2
 </p>
 <br class="multicolumn_clear"$net>
 
@@ -109,8 +111,7 @@ _HTML_
 
 _HTML_
 
-	# TODO: 作成時刻から廃村期限を取得
-	my $scraplimit = getinfocap_scraplimit();
+	my $scraplimit = getinfocap_scraplimit($sow, $query->{'hour'}, $query->{'minite'});
 	print <<"_HTML_";
 <p class="multicolumn_label">廃村期限：</p>
 <p class="multicolumn_left">$scraplimit</p>
@@ -300,18 +301,21 @@ sub getinfocap_roletable {
 	return $sow->{'textrs'}->{'CAPTION_ROLETABLE'}->{$roletable};
 }
 
-# TODO: custom 時の配分表作成
 sub getinfocap_custom {
-	# my $sow = shift;
-	# my $roleid = $sow->{'ROLEID'};
-	# $roletabletext = '';
-	# for ($i = 1; $i < @$roleid; $i++) {
-	# 	if ($self->{"cnt$roleid->[$i]"} > 0) {
-	# 		$roletabletext .= "$sow->{'textrs'}->{'ROLENAME'}->[$i]: $self->{'cnt' . $roleid->[$i]}人 ";
-	# 	}
-	# }
-	# $resultcap = "（$roletabletext）\n"
-	return '';
+	my ($sow, $query) = @_;
+	my $roletabletext = '';
+	my $roleid = $sow->{'ROLEID'};
+	for ($i = 1; $i < @$roleid; $i++) {
+		my $countrole = 0;
+		if (defined($query->{"cnt$roleid->[$i]"})) {
+			$countrole = $query->{"cnt$roleid->[$i]"} ;
+			if (int($countrole) > 0) {
+				$roletabletext .= "$sow->{'textrs'}->{'ROLENAME'}->[$i]: $countrole人 ";
+			}
+		}
+	}
+	$resultcap = "（$roletabletext）\n";
+	return $resultcap;
 }
 
 sub getinfocap_votetype {
@@ -325,12 +329,12 @@ sub getinfocap_votetype {
 	}
 }
 
-# TODO: 作成時刻から廃村期限を算出する必要がある
 sub getinfocap_scraplimit {
-# $vil->{'scraplimitdt'} = $sow->{'dt'}->getnextupdatedt($vil, $sow->{'time'}, $sow->{'cfg'}->{'TIMEOUT_SCRAP'}, 1);
-# 		$resultcap = $sow->{'dt'}->cvtdt($self->{'scraplimitdt'});
-# 		$resultcap = '自動廃村なし' if ($self->{'scraplimitdt'} == 0);
-	return '';
+	my ($sow, $updhour, $updminite) = @_;
+	$scraplimitdt = $sow->{'dt'}->getnextupdatedtwithoutvil($updhour, $updminite, $sow->{'time'}, $sow->{'cfg'}->{'TIMEOUT_SCRAP'}, 1);
+	$resultcap = $sow->{'dt'}->cvtdt($scraplimitdt);
+	$resultcap = '自動廃村なし' if ($scraplimitdt == 0);
+	return $resultcap;
 }
 
 sub getinfocap_csidcaptions {

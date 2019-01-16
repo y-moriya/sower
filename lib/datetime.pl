@@ -119,6 +119,44 @@ sub getlastupdatedt {
 }
 
 #----------------------------------------
+# 次回更新日時の取得（vilなしver）
+#----------------------------------------
+sub getnextupdatedtwithoutvil {
+	my ($self, $updhour, $updminite, $basedt, $updinterval, $commit) = @_;
+
+	my $result = 0;
+	if (($updhour < 0) || ($updminite < 0)) {
+		# nn分更新
+		$result = $basedt + $updinterva * 60;
+	} else {
+		# 24h単位更新
+		my $basedt_sec;
+		($result, $basedt_sec) = $self->getlastupdatedtwithoutvil($updhour, $updminite, $basedt);
+		if ($commit > 0) {
+			$result += 60 * 60 * 24 if ($result != $basedt_sec);
+		}
+		$result += $updinterval * 60 * 60 * 24;
+	}
+
+	return $result;
+}
+
+#----------------------------------------
+# 直前に更新した日時の取得（vilなしver）
+#----------------------------------------
+sub getlastupdatedtwithoutvil {
+	my ($self, $updhour, $updminite, $basedt) = @_;
+
+	my($sec, $min, $hour, $day, $mon, $year, $week, $yday, $summer) = $self->getlocaldt($basedt);
+	$basedt -= $sec;
+	my $result = $basedt - ($hour * 60 + $min) * 60;
+	$result += ($updhour * 60 + $updminite) * 60;
+	$result -= 60 * 60 * 24 if ($result > $basedt);
+
+	return ($result, $basedt);
+}
+
+#----------------------------------------
 # 時間を進める日時の取得
 #----------------------------------------
 sub getcommitdt {

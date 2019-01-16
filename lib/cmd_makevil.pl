@@ -102,8 +102,7 @@ sub SetDataCmdMakeVil {
 	# $vil->{'idrecord'}     = 1 if ($query->{'idrecord'} ne '');
 	$vil->{'timestamp'}    = 0;
 	$vil->{'timestamp'}    = 1 if ($query->{'timestamp'} ne '');
-
-
+	
 	my $roleid = $sow->{'ROLEID'};
 	for ($i = 1; $i < @$roleid; $i++) {
 		my $countrole = 0;
