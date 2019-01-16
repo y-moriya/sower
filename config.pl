@@ -394,7 +394,7 @@ sub GetConfig {
 		'SWBBS-R 画像 by rembrandt',
 		'トロイカ by <a href="http://asakp2.rosx.net/">かえるぴょこぴょこ／あさくら</a>',
 		'仰げば狼 by おくみつ',
-		'人狼BBS10周年(仮) 画像 by AICE',
+		'人狼BBS10周年 画像 by AICE',
 	);
 
 	# キャッシュクリアのためファイル名に日付を入れた。（更新忘れそう）
