@@ -8,6 +8,17 @@ sub OutHTMLMakeVilPreview {
 	my $cfg   = $sow->{'cfg'};
 	my $query = $sow->{'query'};
 
+	# 村作成時値チェック
+	require "$sow->{'cfg'}->{'DIR_LIB'}/vld_makevil.pl";
+	&SWValidityMakeVil::CheckValidityMakeVil($sow);
+
+	require "$sow->{'cfg'}->{'DIR_LIB'}/file_vindex.pl";
+	my $vindex = SWFileVIndex->new($sow);
+	$vindex->openvindex();
+	my $vcnt = $vindex->getactivevcnt();
+	$sow->{'debug'}->raise($sow->{'APLOG_CAUTION'}, "現在稼働中の村の数が上限に達しているので、村を作成できません。", "too many villages.") if ($vcnt >= $sow->{'cfg'}->{'MAX_VILLAGES'});
+	$vindex->closevindex();
+	
 	require "$sow->{'cfg'}->{'DIR_HTML'}/html.pl";
 
 	$sow->{'html'} = SWHtml->new($sow); # HTMLモードの初期化
@@ -247,7 +258,7 @@ _HTML_
 	# 作成・修正ボタンの表示
 	print <<"_HTML_";
 <p class="paragraph">この設定で村を作成しますか？
-※内容を修正する場合は、ブラウザの戻るボタンで戻るか、村作成完了後に編集を行ってください。</p>
+※内容を修正する場合は、ブラウザの戻るボタンで戻るか、村作成完了後に村の編集を行ってください。</p>
 <p class="multicolumn_label">
   <input type="hidden" name="cmd" value="makevil"$net>
   <input type="hidden" name="cmdfrom" value="$query->{'cmd'}"$net>$hidden

@@ -277,7 +277,7 @@ _HTML_
 
 		print <<"_HTML_";
     <label for="randomtarget" class="multicolumn_label">ランダム： </label>
-    <input type="checkbox" id="randomtarget" class="multicolumn_left" name="randomtarget" value="on"$checkedrndtarget$net><div class="multicolumn_notes">投票・能\力の対象に「ランダム」を含める</div>
+    <input type="checkbox" id="randomtarget" class="multicolumn_left" name="randomtarget" value="on"$checkedrndtarget$net><div class="multicolumn_notes"><label for="randomtarget">投票・能\力の対象に「ランダム」を含める</label></div>
 
 _HTML_
 	}
@@ -292,7 +292,7 @@ _HTML_
 
 		print <<"_HTML_";
     <label for="noselrole" class="multicolumn_label">役職希望： </label>
-    <input type="checkbox" id="noselrole" class="multicolumn_left" name="noselrole" value="on"$checkednoselrole$net><div class="multicolumn_notes">役職希望を無視する</div>
+    <input type="checkbox" id="noselrole" class="multicolumn_left" name="noselrole" value="on"$checkednoselrole$net><div class="multicolumn_notes"><label for="noselrole">役職希望を無視する</label></div>
 _HTML_
 
 	# 進行中村建て発言なし
@@ -306,7 +306,7 @@ _HTML_
 
 		print <<"_HTML_";
 	<label for="makersaymenu" class="multicolumn_label">村建て発言： </label>
-	<input type="checkbox" id="makersaymenu" class="multicolumn_left" name="makersaymenu" value="on"$checkedmakersaymenu$net><div class="multicolumn_notes">村進行中に村建て人発言ができなくなる</div>
+	<input type="checkbox" id="makersaymenu" class="multicolumn_left" name="makersaymenu" value="on"$checkedmakersaymenu$net><div class="multicolumn_notes"><label for="makersaymenu">村進行中に村建て人発言ができなくなる</label></div>
 _HTML_
 
 	# 委任なし
@@ -319,7 +319,7 @@ _HTML_
 
 		print <<"_HTML_";
 	<label for="entrustmode" class="multicolumn_label">委任： </label>
-	<input type="checkbox" id="entrustmode" class="multicolumn_left" name="entrustmode" value="on"$checkedentrustmode$net><div class="multicolumn_notes">委任機能\を使わないようにする</div>
+	<input type="checkbox" id="entrustmode" class="multicolumn_left" name="entrustmode" value="on"$checkedentrustmode$net><div class="multicolumn_notes"><label for="entrustmode">委任機能\を使わないようにする</label></div>
 _HTML_
 
 	# 墓下公開
@@ -332,7 +332,7 @@ _HTML_
 
 		print <<"_HTML_";
 	<label for="showall" class="multicolumn_label">墓下公開： </label>
-	<input type="checkbox" id="entrustmode" class="multicolumn_left" name="showall" value="on"$checkedshowall$net><div class="multicolumn_notes">墓下からは全役職と囁きが見えるようにする</div>
+	<input type="checkbox" id="showall" class="multicolumn_left" name="showall" value="on"$checkedshowall$net><div class="multicolumn_notes"><label for="showall">墓下からは全役職と囁きが見えるようにする</label></div>
 _HTML_
 
 		print <<"_HTML_";
@@ -395,7 +395,7 @@ _HTML_
 
 	print <<"_HTML_";
 	<label for="nocandy" class="multicolumn_label">促し(飴)： </label>
-	<input type="checkbox" id="nocandy" class="multicolumn_left" name="nocandy" value="on"$checkednocandy$net><div class="multicolumn_notes">促しを使えないようにする</div>
+	<input type="checkbox" id="nocandy" class="multicolumn_left" name="nocandy" value="on"$checkednocandy$net><div class="multicolumn_notes"><label for="nocandy">促しを使えないようにする</label></div>
 _HTML_
 
 	my $checkednofreeact = '';
@@ -407,7 +407,7 @@ _HTML_
 
 	print <<"_HTML_";
 	<label for="nofreeact" class="multicolumn_label">自由文： </label>
-	<input type="checkbox" id="nofreeact" class="multicolumn_left" name="nofreeact" value="on"$checkednofreeact$net><div class="multicolumn_notes">自由文アクションを使えないようにする</div>
+	<input type="checkbox" id="nofreeact" class="multicolumn_left" name="nofreeact" value="on"$checkednofreeact$net><div class="multicolumn_notes"><label for="nofreeact">自由文アクションを使えないようにする</label></div>
   </fieldset>
 
   <fieldset>
@@ -427,7 +427,7 @@ _HTML_
 
 	print <<"_HTML_";
 	<label for="showid" class="multicolumn_label">ＩＤ公開： </label>
-	<input type="checkbox" id="showid" class="multicolumn_left" name="showid" value="on"$checkedshowid$net><div class="multicolumn_notes">最初からプレイヤーＩＤを公開する</div>
+	<input type="checkbox" id="showid" class="multicolumn_left" name="showid" value="on"$checkedshowid$net><div class="multicolumn_notes"><label for="showid">最初からプレイヤーＩＤを公開する</label></div>
 _HTML_
 
 	my $checkedtimestamp = '';
@@ -439,7 +439,7 @@ _HTML_
 
 	print <<"_HTML_";
 	<label for="timestamp" class="multicolumn_label">時刻表\示： </label>
-	<input type="checkbox" id="timestamp" class="multicolumn_left" name="timestamp" value="on"$checkedtimestamp$net><div class="multicolumn_notes">進行中、時刻を10分刻みの簡易表\示にする</div>
+	<input type="checkbox" id="timestamp" class="multicolumn_left" name="timestamp" value="on"$checkedtimestamp$net><div class="multicolumn_notes"><label for="timestamp">進行中、時刻を10分刻みの簡易表\示にする</label></div>
   </fieldset>
 _HTML_
 
