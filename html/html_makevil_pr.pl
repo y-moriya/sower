@@ -36,6 +36,8 @@ _HTML_
 	# キャラセットの読み込み
 	&SWBase::LoadTextRSWithoutVil($sow, $query->{'trsid'});
 
+	# TODO: 入村パスワード関連処理
+
 	# 作成設定部分の表示
 
 	print <<"_HTML_";
@@ -244,20 +246,14 @@ _HTML_
 
 	# 作成・修正ボタンの表示
 	print <<"_HTML_";
-<p class="paragraph">この設定で村を作成しますか？</p>
-
+<p class="paragraph">この設定で村を作成しますか？
+※内容を修正する場合は、ブラウザの戻るボタンで戻るか、村作成完了後に編集を行ってください。</p>
 <p class="multicolumn_label">
   <input type="hidden" name="cmd" value="makevil"$net>
   <input type="hidden" name="cmdfrom" value="$query->{'cmd'}"$net>$hidden
-  <input type="submit" value="作成"$net>
+  <input type="submit" value="村の作成"$net>
 </p>
-</form>
-<form action="$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}" method="$cfg->{'METHOD_FORM'}">
-<p class="multicolumn_left">
-  <input type="hidden" name="cmd" value="editmv"$net>$hidden
-  <input type="submit" value="修正する"$net>
-</p>
-</form>
+</form
 <div class="multicolumn_clear">
   <hr class="invisible_hr"$net>
 </div>
@@ -432,9 +428,9 @@ sub getinfocap_nocandy {
 sub getinfocap_showid {
 	my $showid = shift;
 	if ($showid ne '') {
-		return 'なし';
-	} else {
 		return 'あり';
+	} else {
+		return 'なし';
 	}
 }
 
