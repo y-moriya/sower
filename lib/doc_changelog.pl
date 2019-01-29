@@ -44,7 +44,7 @@ sub outhtmlnew {
 	print <<"_HTML_";
 <h3>Sower Version 1.1.0 (2019/01/29)</h3>
 <ul>
-  <li>村作成時にプレビューを表示するようにしました。</li>
+  <li>村作成時にプレビューを表\示するようにしました。</li>
 </ul>
 _HTML_
 
