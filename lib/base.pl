@@ -178,6 +178,23 @@ sub LoadTextRS {
 }
 
 #----------------------------------------
+# 文字列リソースの読み込み（vilなしver）
+#----------------------------------------
+sub LoadTextRSWithoutVil {
+	my ($sow, $trsid) = @_;
+
+	my $fname = "$sow->{'cfg'}->{'DIR_RS'}/trs_$trsid.pl";
+	$sow->{'debug'}->raise($sow->{'APLOG_WARNING'}, "文字列リソ\ース $trsid が見つかりません。", "trsid not found.[$trsid]") if (!(-e $fname));
+
+	require "$fname";
+	my $sub = '::SWTextRS_' . $trsid . '::GetTextRS';
+	my $textrs = &$sub($sow);
+
+	$sow->{'trsid'} = $trsid;
+	$sow->{'textrs'} = $textrs;
+}
+
+#----------------------------------------
 # リソースの読み込み
 #----------------------------------------
 sub LoadVilRS {

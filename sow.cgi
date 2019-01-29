@@ -124,6 +124,10 @@ sub TaskBranch {
 		# ユーザー情報表示
 		require "$dirlib/cmd_profile.pl";
 		&SWCmdProfile::CmdProfile($sow);
+	} elsif ($cmd eq 'makevilpr') {
+		# 村作成のプレビュー
+		require "$dirhtml/html_makevil_pr.pl";
+		&SWHtmlMakeVilPreview::OutHTMLMakeVilPreview($sow);
 	} elsif ($cmd eq 'makevil') {
 		# 村作成
 		require "$dirlib/cmd_makevil.pl";
@@ -180,14 +184,14 @@ sub TaskBranch {
 		# 村から出る
 		require "$dirlib/cmd_exit.pl";
 		&SWCmdExit::CmdExit($sow);
-  } elsif ($cmd eq 'selrolepr') {
-    # 確認画面（希望役職変更）
-    require "$dirhtml/html_dialog.pl";
-    &SWHtmlDialog::OutHTMLDialog($sow);
-  } elsif ($cmd eq 'selrole') {
-    # 希望役職変更
-    require "$dirlib/cmd_selrole.pl";
-    &SWCmdSelRole::CmdSelRole($sow);
+  	} elsif ($cmd eq 'selrolepr') {
+		# 確認画面（希望役職変更）
+		require "$dirhtml/html_dialog.pl";
+		&SWHtmlDialog::OutHTMLDialog($sow);
+  	} elsif ($cmd eq 'selrole') {
+		# 希望役職変更
+		require "$dirlib/cmd_selrole.pl";
+		&SWCmdSelRole::CmdSelRole($sow);
 	} elsif ($cmd eq 'kick') {
 		# 村から出す
 		require "$dirlib/cmd_exit.pl";
@@ -338,10 +342,10 @@ sub TaskBranch {
 		# メモインデックス再構築
 		require "$dirlib/cmd_restmemo.pl";
 		&SWCmdRestMemoIndex::CmdRestMemoIndex($sow);
-  } elsif ($cmd eq 'mbimg') {
-    # 携帯用顔グラフィック表示
-    require "$dirlib/cmd_vlog.pl";
-    &SWCmdVLog::CmdMbImg($sow);
+	} elsif ($cmd eq 'mbimg') {
+		# 携帯用顔グラフィック表示
+		require "$dirlib/cmd_vlog.pl";
+		&SWCmdVLog::CmdMbImg($sow);
 	} elsif (defined($sow->{'query'}->{'vid'})) {
 		# 村ログ表示
 		require "$dirlib/cmd_vlog.pl";
