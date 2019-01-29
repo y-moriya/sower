@@ -47,8 +47,6 @@ _HTML_
 	# キャラセットの読み込み
 	&SWBase::LoadTextRSWithoutVil($sow, $query->{'trsid'});
 
-	# TODO: 入村パスワード関連処理
-
 	# 作成設定部分の表示
 
 	print <<"_HTML_";
@@ -128,6 +126,14 @@ _HTML_
 	print <<"_HTML_";
 <p class="multicolumn_label">廃村期限：</p>
 <p class="multicolumn_left">$scraplimit</p>
+<br class="multicolumn_clear"$net>
+
+_HTML_
+
+	my $entrylimit = getinfocap_entrylimit($query->{'entrylimit'});
+	print <<"_HTML_";
+<p class="multicolumn_label">参加制限：</p>
+<p class="multicolumn_left">$entrylimit</p>
 <br class="multicolumn_clear"$net>
 
 _HTML_
@@ -342,6 +348,15 @@ sub getinfocap_scraplimit {
 	$resultcap = $sow->{'dt'}->cvtdt($scraplimitdt);
 	$resultcap = '自動廃村なし' if ($scraplimitdt == 0);
 	return $resultcap;
+}
+
+sub getinfocap_entrylimit {
+	my $entrylimit = shift;
+	if ($entrylimit eq 'password') {
+		return 'パスワードあり';
+	} else {
+		return 'パスワードなし';
+	}
 }
 
 sub getinfocap_csidcaptions {

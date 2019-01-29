@@ -8,7 +8,6 @@ sub OutHTMLMakeVilForm {
 	my $cfg = $sow->{'cfg'};
 
 	my $vmode = 'ì¬';
-	# TODO: •ÒW‚É‚à‘Î‰‚·‚é
 	my $vcmd = 'makevilpr';
 	if ($sow->{'query'}->{'cmd'} eq 'editvilform') {
 		$vmode = '•ÒW';
