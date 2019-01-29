@@ -617,6 +617,7 @@ sub GetConfig {
 		AUTOMV_TIMING    => 'VSTATUSID_PLAY',
 		AUTO_MAKEVILS    => \%automv,
 		AUTO_NAMES       => \@autonames,
+		ENABLED_AUTOVMAKE => 0, # 1:自動で村を生成する
 
 		# 参考
 		# VSTATUSID_PRO      => 0, # 参加者募集中／開始前

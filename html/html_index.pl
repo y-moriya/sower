@@ -11,7 +11,11 @@ sub OutHTMLIndex {
 	require "$cfg->{'DIR_HTML'}/html.pl";
 	require "$cfg->{'DIR_HTML'}/html_vindex.pl";
 	require "$cfg->{'DIR_LIB'}/cmd_automakevil.pl";
-	&SWCmdATMakeVil::CmdATMakeVil($sow);
+	
+	# Ž©“®‘º¶¬
+	if ($cfg->{'ENABLED_AUTOVMAKE'} > 0) {
+		&SWCmdATMakeVil::CmdATMakeVil($sow);
+	}
 
 	# ‘ºˆê——ƒf[ƒ^“Ç‚Ýž‚Ý
 	my $vindex = SWFileVIndex->new($sow);
