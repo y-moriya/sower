@@ -85,12 +85,8 @@ sub SetDataCmdEditVil {
 	$vil->{'nocandy'}      = 1 if ($query->{'nocandy'} ne '');
 	$vil->{'nofreeact'}    = 0;
 	$vil->{'nofreeact'}    = 1 if ($query->{'nofreeact'} ne '');
-	$vil->{'commitstate'}  = 0;
-	$vil->{'commitstate'}  = 1 if ($query->{'commitstate'} ne '');
 	$vil->{'showid'}       = 0;
 	$vil->{'showid'}       = 1 if ($query->{'showid'} ne '');
-	$vil->{'idrecord'}     = 0;
-	$vil->{'idrecord'}     = 1 if ($query->{'idrecord'} ne '');
 	$vil->{'timestamp'}    = 0;
 	$vil->{'timestamp'}    = 1 if ($query->{'timestamp'} ne '');
 

@@ -411,14 +411,6 @@ _HTML_
 
   <fieldset>
 	<legend>色々表\示関係</legend>
-	<!--
-	<label for="nonamechange" class="multicolumn_label">肩書名前： </label>
-	<input type="checkbox" id="nonamechange" class="multicolumn_left" name="nonamechange" value="on" disabled><div class="multicolumn_notes">肩書や名前の変更を不可にする</div>
-	<label for="commitstate" class="multicolumn_label">commit表\示： </label>
-	<input type="checkbox" id="commitstate" class="multicolumn_left" name="commitstate" value="on" disabled><div class="multicolumn_notes">キャラごとのコミット状況をフィルタに表\示する</div>
-	<label for="idrecord" class="multicolumn_label">ＩＤ記録： </label>
-	<input type="checkbox" id="idrecord" class="multicolumn_left" name="idrecord" value="on" disabled><div class="multicolumn_notes">入村時の不可視システムメッセージにＩＤを記録する</div>
-	-->
 _HTML_
 
 	my $checkedshowid = '';

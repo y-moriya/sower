@@ -16,7 +16,6 @@ sub OutHTMLSingleLogInfoPC {
 	$class = "infosp" if ($log->{'mestype'} == $sow->{'MESTYPE_INFOSP'});
 
 	my $entry = "";
-	#$entry = "($log->{'uid'}) " if (($vil->{'idrecord'} > 0) && ($query->{'turn'} == 0) && ($log->{'mestype'} == $sow->{'MESTYPE_INFOSP'}));
 
 	print <<"_HTML_";
 <p class="$class">

@@ -59,9 +59,7 @@ sub GetConfig {
 		noactmode      => 'act/memo',
 		nocandy        => '促し',
 		nofreeact      => '自由文アクション',
-		commitstate    => 'コミット状況',
 		showid         => 'ID公開',
-		idrecord       => 'ID記録',
 		timestamp      => '時刻表示',
 		votetype       => '投票方法',
 		starttype      => '開始方法',
@@ -294,9 +292,7 @@ sub GetConfig {
 		noactmode   => 2,
 		nocandy     => 'on',
 		nofreeact   => 'on',
-		commitstate => '',
 		showid      => '',
-		idrecord    => '',
 		timestamp   => 'on',
 
 	);
@@ -329,9 +325,7 @@ sub GetConfig {
 		noactmode   => 2,
 		nocandy     => 'on',
 		nofreeact   => 'on',
-		commitstate => '',
 		showid      => '',
-		idrecord    => '',
 		timestamp   => 'on',
 
 	);

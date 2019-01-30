@@ -62,9 +62,7 @@ sub InitConst {
 		noactmode    => 1, # アクション/メモ 0:ok/ok 1:ng/ok 2:ok/ng 3:ng/ng
 		nocandy      => 1, # 促しなし
 		nofreeact    => 1, # 自由文アクションなし
-		commitstate  => 1, # キャラごとコミット状況表示
 		showid       => 1, # ID公開
-		idrecord     => 1, # 村に入るときにID記録
 		timestamp    => 1, # 時刻簡易表示
 		noselrole    => 1, # 役職希望無視
 		makeruid     => 1, # 村建人ID

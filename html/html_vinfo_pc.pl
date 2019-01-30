@@ -266,24 +266,6 @@ _HTML_
 <hr>
 _HTML_
 
-#	my $commitstate = 'しない';
-#	$commitstate = 'する' if ($vil->{'commitstate'} > 0);
-#	print <<"_HTML_";
-#
-#<p class="multicolumn_label">コミット表\示：</p>
-#<p class="multicolumn_left">フィルタに個別表\示$commitstate</p>
-#<br class="multicolumn_clear"$net>
-#_HTML_
-
-#	my $idrecord = 'なし';
-#	$idrecord = 'あり' if ($vil->{'idrecord'} > 0);
-#	print <<"_HTML_";
-#
-#<p class="multicolumn_label">ID記録：</p>
-#<p class="multicolumn_left">$idrecord</p>
-#<br class="multicolumn_clear"$net>
-#_HTML_
-
 	my $showid = $vil->getinfocap('showid');
 	print <<"_HTML_";
 
