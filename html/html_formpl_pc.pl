@@ -123,6 +123,11 @@ sub OutHTMLSayPC {
 
 _HTML_
 
+	# テキストボックスと発言ボタン初め
+	print <<"_HTML_";
+    <form action="$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}" method="$cfg->{'METHOD_FORM'}">
+_HTML_
+
 	# 名前とID
 	my $reqvals = &SWBase::GetRequestValues($sow);
 	$reqvals->{'prof'} = $sow->{'uid'};
@@ -162,11 +167,6 @@ _HTML_
 	if (($curpl->{'live'} eq 'live') && ($vil->{'turn'} > 1) && ($vil->isepilogue() == 0)) {
 		&OutHTMLVotePC($sow, $vil, 'vote');
 	}
-
-	# テキストボックスと発言ボタン初め
-	print <<"_HTML_";
-    <form action="$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}" method="$cfg->{'METHOD_FORM'}">
-_HTML_
 
 	# 表情選択欄
 	&OutHTMLExpressionFormPC($sow, $vil);
@@ -863,19 +863,24 @@ sub OutHTMLVilMakerPC {
 
 _HTML_
 
+	# テキストボックスと発言ボタン初め
+	print <<"_HTML_";
+    <form action="$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}" method="$cfg->{'METHOD_FORM'}">
+_HTML_
+
 	# 名前とID
 	my $chrname = $sow->{'charsets'}->getchrname($imgpl{'csid'}, $imgpl{'cid'});
 	print <<"_HTML_";
   <div style="float: right; width: $rwidth;">
-    <div class="formpl_content">$chrname ($sow->{'uid'})</div>
-
-_HTML_
-
-	# テキストボックスと発言ボタン初め
-	print <<"_HTML_";
-    <form action="$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}" method="$cfg->{'METHOD_FORM'}">
     <div class="formpl_content">
+		$chrname ($sow->{'uid'})
+      	<label><input type="checkbox" name="monospace" value="on"$net>等幅</label>
+      	<label><input type="checkbox" name="loud" value="on"$net>大声</label>
+	</div>
+
 _HTML_
+
+	print "    <div class=\"formpl_content\">\n";
 
 	# 発言欄textarea要素の出力
 	my %htmlsay;
@@ -888,8 +893,6 @@ _HTML_
 	&SWHtmlPC::OutHTMLSayTextAreaPC($sow, 'writepr', \%htmlsay);
 
 	print <<"_HTML_";
-      <label><input type="checkbox" name="monospace" value="on"$net>等幅</label>
-      <label><input type="checkbox" name="loud" value="on"$net>大声</label>
       <input type="hidden" name="$writemode" value="on"$net>
     </div>
     </form>
@@ -939,19 +942,25 @@ sub OutHTMLVilGuestPC {
 
 _HTML_
 
+	# テキストボックスと発言ボタン初め
+	print <<"_HTML_";
+    <form action="$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}" method="$cfg->{'METHOD_FORM'}">
+    
+_HTML_
+
 	# 名前とID
 	my $chrname = $sow->{'charsets'}->getchrname($imgpl{'csid'}, $imgpl{'cid'});
 	print <<"_HTML_";
   <div style="float: right; width: $rwidth;">
-    <div class="formpl_content">$chrname</div>
-
-_HTML_
-
-	# テキストボックスと発言ボタン初め
-	print <<"_HTML_";
-    <form action="$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}" method="$cfg->{'METHOD_FORM'}">
     <div class="formpl_content">
+		$chrname
+		<label><input type=\"checkbox\" name=\"monospace\" value=\"on\"$net>等幅</label>
+		<label><input type=\"checkbox\" name=\"loud\" value=\"on\"$net>大声</label>
+	</div>
+
 _HTML_
+
+	print "    <div class=\"formpl_content\">\n";
 
 	# 発言欄textarea要素の出力
 	my %htmlsay;
@@ -966,12 +975,9 @@ _HTML_
 
 	if (($vil->isepilogue() == 0) || ($cfg->{'ENABLED_TSAY_EP'} > 0)) { # エピではない／エピ独り言有効
 		print "　<input type=\"submit\" name=\"submit_type\" value=\"$sow->{'textrs'}->{'CAPTION_TSAY_PC'}\"$disabled$net>";
-		#print "      <label><input type=\"checkbox\" name=\"think\" value=\"on\"$net>$sow->{'textrs'}->{'CAPTION_TSAY_PC'}</label>";
 	}
 
 	print <<"_HTML_";
-      <label><input type="checkbox" name="monospace" value="on"$net>等幅</label>
-      <label><input type="checkbox" name="loud" value="on"$net>大声</label>
       <input type="hidden" name="$writemode" value="on"$net>
     </div>
 _HTML_
