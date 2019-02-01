@@ -132,6 +132,13 @@ _HTML_
 	$uidtext = "<a href=\"$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}?$link\">$uidtext</a>";
 
 	my $chrname = $curpl->getchrname();
+
+	my $checkedmspace = '';
+	$checkedmspace = " $sow->{'html'}->{'checked'}" if (($draft > 0) && ($sow->{'draftmspace'} > 0));
+
+	my $checkedloud = '';
+	$checkedloud = " $sow->{'html'}->{'checked'}" if (($draft > 0) && ($sow->{'draftloud'} > 0));
+
 	my $countname = "point";
 	my $countstr = "ptÁ”ï";
 	if ($cfg->{'COUNTS_SAY'}->{$vil->{'saycnttype'}}->{'COUNT_TYPE'} eq 'count') {
@@ -142,6 +149,8 @@ _HTML_
   <div style="float: right; width: $rwidth;">
     <div class="formpl_content">
         $chrname ($uidtext)$rolename$markbonds
+		<label><input type=\"checkbox\" name=\"monospace\" value=\"on\"$checkedmspace$net>“™•</label>
+		<label><input type=\"checkbox\" name=\"loud\" value=\"on\"$checkedloud$net>‘åº</label>
         <div style="float: right;">
             <span name="$countname">0</span>$countstr
         </div>
@@ -178,7 +187,6 @@ _HTML_
 	if (($query->{'mes'} ne '') && (($query->{'cmdfrom'} eq 'write') || ($query->{'cmdfrom'} eq 'writepr'))) {
 		my $mes = $query->{'mes'};
 		$mes =~ s/<br( \/)?>/\n/ig;
-#		&SWBase::ExtractChrRef(\$mes);
 		$htmlsay{'text'} = $mes;
 	} elsif ($draft > 0) {
 		my $mes = $sow->{'savedraft'};
@@ -199,20 +207,11 @@ _HTML_
 				print "<div style=\"float: right\">\n";
 				print "@<input type=\"submit\" name=\"submit_type\" value=\"$sow->{'textrs'}->{'CAPTION_TSAY_PC'}\"$disabled$net> ‚ ‚Æ$curpl->{'tsay'}$unit\n";
 				print "</div>\n";
-				#print "      <label><input type=\"checkbox\" name=\"think\" value=\"on\"$checked$net>$sow->{'textrs'}->{'CAPTION_TSAY_PC'} ‚ ‚Æ$curpl->{'tsay'}$unit</label>\n";
 			}
 		}
 	}
 
 	print "<div class=\"clearboth\"><hr class=\"invisible_hr\"></div> ";
-	my $checkedmspace = '';
-	$checkedmspace = " $sow->{'html'}->{'checked'}" if (($draft > 0) && ($sow->{'draftmspace'} > 0));
-	print "á<label><input type=\"checkbox\" name=\"monospace\" value=\"on\"$checkedmspace$net>“™•</label>â\n";
-
-	my $checkedloud = '';
-	$checkedloud = " $sow->{'html'}->{'checked'}" if (($draft > 0) && ($sow->{'draftloud'} > 0));
-	print "á<label><input type=\"checkbox\" name=\"loud\" value=\"on\"$checkedloud$net>‘åº</label>â\n";
-
 	print <<"_HTML_";
     </div>
     </form>
@@ -268,11 +267,6 @@ _HTML_
 		my $targetname = $_->getchrname();
 		print "        <option value=\"$_->{'pno'}\">$targetname$sow->{'html'}->{'option'}\n";
 	}
-#	my $makername = $vil->getchrname($vil->{'csid'}, $sow->{'cfg'}->{'CID_MAKER'});
-#	my $adminname = $vil->getchrname($vil->{'csid'}, $sow->{'cfg'}->{'CID_ADMIN'});
-
-#        <option value="">$makername$sow->{'html'}->{'option'}
-#        <option value="">$adminname$sow->{'html'}->{'option'}
 
 	print <<"_HTML_";
       </select><br$net>
