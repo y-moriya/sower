@@ -1031,7 +1031,7 @@ sub OutHTMLPlayerFilter {
   <p>$hidden
   <input type="hidden" name="url" value="$cfg->{'URL_SW'}/$cfg->{'FILE_SOW'}">
   <label for="turn">個別フィルタ</label>
-  <select id="turn" name="turn">
+  <select name="turn">
 _HTML_
 
   # 日付選択欄
@@ -1058,7 +1058,7 @@ _HTML_
   }
 	print <<"_HTML_";
   </select>
-  <select id="pno" name="pno">
+  <select name="pno">
     <option value="-1"$selected>$fltname</option>
 _HTML_
 
