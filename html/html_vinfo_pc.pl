@@ -216,6 +216,14 @@ _HTML_
 <br class="multicolumn_clear"$net>
 _HTML_
 
+	my $guestmenu = $vil->getinfocap('guestmenu');
+	print <<"_HTML_";
+
+<p class="multicolumn_label">–TŠÏÒ”­Œ¾F</p>
+<p class="multicolumn_left">$guestmenu</p>
+<br class="multicolumn_clear"$net>
+_HTML_
+
 	my $entrustmode = $vil->getinfocap('entrustmode');
 	print <<"_HTML_";
 

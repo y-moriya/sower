@@ -454,6 +454,9 @@ sub getinfocap {
 		$resultcap = "Š®‘S•\\Ž¦";
 		$resultcap = "ŠÈ—ª•\\Ž¦" if ($self->{'timestamp'} > 0);
 
+	} elsif ($infocap eq 'guestmenu') {
+		$resultcap = "‚ ‚è";
+		$resultcap = "‚È‚µ" if ($self->{$infocap} > 0);
 	}
 
 	return $resultcap;
@@ -633,6 +636,7 @@ sub GetVilDataLabel {
 		'randomtarget',
 		'noselrole',
 		'makersaymenu',
+		'guestmenu',
 		'entrustmode',
 		'showall',
 		'noactmode',

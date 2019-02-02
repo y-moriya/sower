@@ -245,6 +245,13 @@ _HTML_
 <hr$net>
 _HTML_
 
+	my $guestmenu = '‚ ‚è';
+	$guestmenu = '‚È‚µ' if ($vil->{'guestmenu'} > 0);
+	print <<"_HTML_";
+¡–TŠÏŽÒ”­Œ¾F<br$net>$guestmenu
+<hr$net>
+_HTML_
+
 	my $entrustmode = '‹–‰Â';
 	$entrustmode = '•s‰Â' if ($vil->{'entrustmode'} > 0);
 	print <<"_HTML_";

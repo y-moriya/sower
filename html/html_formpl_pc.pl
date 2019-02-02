@@ -60,7 +60,9 @@ sub OutHTMLPlayerFormPC {
 			&OutHTMLKickFormPC($sow, $vil) if ($vil->{'turn'} == 0);
 			&OutHTMLScrapVilButtonPC($sow, $vil) if ($vil->{'turn'} < $vil->{'epilogue'});
 		}
-    &OutHTMLVilGuestPC($sow, $vil, 'guest') if (($vil->{'turn'} == 0) || ($vil->isepilogue() != 0));
+		if ($vil->{'guestmenu'} == 0) {
+	    	&OutHTMLVilGuestPC($sow, $vil, 'guest') if (($vil->{'turn'} == 0) || ($vil->isepilogue() != 0));
+		}
 	}
 
 	print "</div>\n\n";

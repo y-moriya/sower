@@ -65,6 +65,7 @@ sub InitConst {
 		showid       => 1, # ID公開
 		timestamp    => 1, # 時刻簡易表示
 		noselrole    => 1, # 役職希望無視
+		guestmenu    => 1, # 傍観者発言不可
 		makeruid     => 1, # 村建人ID
 
 		cntvillager  => 0, # 村人

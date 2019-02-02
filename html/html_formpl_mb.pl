@@ -70,7 +70,9 @@ _HTML_
 		#&OutHTMLKickFormPC($sow, $vil) if ($vil->{'turn'} == 0);
 		#&OutHTMLScrapVilButtonPC($sow, $vil) if ($vil->{'turn'} < $vil->{'epilogue'});
 	}
-	&OutHTMLGuestMb($sow, $vil);
+	if ($vil->{'guestmenu'} == 0) {
+		&OutHTMLGuestMb($sow, $vil);
+	}
 
 	print <<"_HTML_";
 <hr$net>

@@ -32,7 +32,6 @@ _HTML_
 		print "$chrname$rolename$markbonds<br$net>\n";
 	}
 
-#	my $list = $logfile->{'logindex'}->{'file'}->getlist();
 	my $list = $logfile->getlist();
 	&SWHtmlMb::OutHTMLTurnNaviMb($sow, $vil, 0, $logs, $list, $rows);
 

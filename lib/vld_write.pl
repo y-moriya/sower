@@ -33,6 +33,10 @@ sub CheckValidityWrite {
 		}
 	}
 
+	if (($vil->{'guestmenu'} > 0) && ($query->{'guest'} ne '')) {
+		$debug->raise($sow->{'APLOG_CAUTION'}, "–TŠÏÒ”­Œ¾‚Í–³Œø‚Å‚·B", "invalid guest.$errfrom");
+	}
+
 	return;
 }
 

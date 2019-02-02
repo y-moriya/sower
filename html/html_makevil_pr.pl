@@ -39,7 +39,7 @@ _HTML_
 	my @reqkeys = ( 'vname', 'vcomment', 'makeruid', 'roletable', 'hour',
 		'minite', 'updinterval', 'vplcnt', 'entrylimit', 'entrypwd', 'rating',
 		'vplcntstart', 'saycnttype', 'starttype', 'votetype', 'noselrole',
-		'entrustmode', 'showall', 'noactmode', 'nocandy', 'nofreeact',
+		'entrustmode', 'showall', 'noactmode', 'nocandy', 'nofreeact', 'guestmenu',
 		'showid', 'timestamp', 'randomtarget', 'makersaymenu', 'csid', 'trsid');
 	my $reqvals = &SWBase::GetRequestValues($sow, \@reqkeys);
 	my $hidden = &SWBase::GetHiddenValues($sow, $reqvals, '  ');
@@ -259,6 +259,14 @@ _HTML_
 <br class="multicolumn_clear"$net>
 _HTML_
 
+	my $guestmenu = getinfocap_guestmenu($query->{'guestmenu'});
+	print <<"_HTML_";
+
+<p class="multicolumn_label">傍観者発言：</p>
+<p class="multicolumn_left">$guestmenu</p>
+<br class="multicolumn_clear"$net>
+_HTML_
+
 	print "</div>\n\n";
 
 	# 作成・修正ボタンの表示
@@ -475,6 +483,15 @@ sub getinfocap_timestamp {
 		return '簡略表\示';
 	} else {
 		return '完全表\示';
+	}
+}
+
+sub getinfocap_guestmenu {
+	my $guestmenu = shift;
+	if ($guestmenu ne '') {
+		return 'なし';
+	} else {
+		return 'あり';
 	}
 }
 

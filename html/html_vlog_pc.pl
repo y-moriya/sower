@@ -293,11 +293,6 @@ _HTML_
 				print "<hr class=\"invisible_hr\"$net>\n\n";
 				&OutHTMLVilMakerInFormPlPC($sow, $vil);
 			}
-      # 傍観者用発言欄の表示
-      #print "<div class=\"formpl_frame\">\n";
-      #require "$cfg->{'DIR_HTML'}/html_formpl_pc.pl";
-      #&SWHtmlPlayerFormPC::OutHTMLVilGuestPC($sow, $vil, 'guest');
-      #print "</div>\n";
 		} else {
 			# 未ログイン
 			if ($vil->{'vplcnt'} > @$pllist) {
@@ -356,10 +351,13 @@ sub OutHTMLVilMakerInFormPlPC {
 		print "</div>\n";
 	}
 
-  print "<div class=\"formpl_frame\">\n";
-  require "$cfg->{'DIR_HTML'}/html_formpl_pc.pl";
-  &SWHtmlPlayerFormPC::OutHTMLVilGuestPC($sow, $vil, 'guest');
-  print "</div>\n";
+  	print "<div class=\"formpl_frame\">\n";
+  	require "$cfg->{'DIR_HTML'}/html_formpl_pc.pl";
+  
+	if ($vil->{'guestmenu'} == 0) {
+		&SWHtmlPlayerFormPC::OutHTMLVilGuestPC($sow, $vil, 'guest');
+	}
+  	print "</div>\n";
 
 	return;
 }

@@ -85,6 +85,8 @@ sub SetDataCmdMakeVil {
 	$vil->{'noselrole'}    = 1 if ($query->{'noselrole'} ne '');
 	$vil->{'makersaymenu'} = 0;
 	$vil->{'makersaymenu'} = 1 if ($query->{'makersaymenu'} ne '');
+	$vil->{'guestmenu'}    = 0;
+	$vil->{'guestmenu'}    = 1 if ($query->{'guestmenu'} ne '');
 	$vil->{'entrustmode'}  = 0;
 	$vil->{'entrustmode'}  = 1 if ($query->{'entrustmode'} ne '');
 	$vil->{'showall'}      = 0;

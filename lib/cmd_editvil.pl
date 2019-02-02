@@ -68,7 +68,6 @@ sub SetDataCmdEditVil {
 	$vil->{'nextupdatedt'} = $sow->{'dt'}->getnextupdatedt($vil, $sow->{'time'}, 1, 0);
 	$vil->{'nextchargedt'} = $sow->{'dt'}->getnextupdatedt($vil, $sow->{'time'}, 1, 0);
 	$vil->{'votetype'}     = $query->{'votetype'};
-#	$vil->{'votetype'}     = 'sign';
 	$vil->{'starttype'}    = $query->{'starttype'};
 	$vil->{'randomtarget'} = 0;
 	$vil->{'randomtarget'} = 1 if (($sow->{'cfg'}->{'ENABLED_RANDOMTARGET'} > 0) && ($query->{'randomtarget'} ne ''));
@@ -76,6 +75,8 @@ sub SetDataCmdEditVil {
 	$vil->{'noselrole'}    = 1 if ($query->{'noselrole'} ne '');
 	$vil->{'makersaymenu'} = 0;
 	$vil->{'makersaymenu'} = 1 if ($query->{'makersaymenu'} ne '');
+	$vil->{'guestmenu'}    = 0;
+	$vil->{'guestmenu'}    = 1 if ($query->{'guestmenu'} ne '');
 	$vil->{'entrustmode'}  = 0;
 	$vil->{'entrustmode'}  = 1 if ($query->{'entrustmode'} ne '');
 	$vil->{'showall'}      = 0;

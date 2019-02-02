@@ -61,6 +61,7 @@ sub GetConfig {
 		nofreeact      => '自由文アクション',
 		showid         => 'ID公開',
 		timestamp      => '時刻表示',
+		guestmenu      => '傍観者発言',
 		votetype       => '投票方法',
 		starttype      => '開始方法',
 
@@ -294,6 +295,7 @@ sub GetConfig {
 		nofreeact   => 'on',
 		showid      => '',
 		timestamp   => 'on',
+		guestmenu   => '',
 
 	);
 
@@ -327,6 +329,7 @@ sub GetConfig {
 		nofreeact   => 'on',
 		showid      => '',
 		timestamp   => 'on',
+		guestmenu   => '',
 
 	);
 
@@ -560,6 +563,7 @@ sub GetConfig {
 		DEFAULT_NOCANDY      => 1, # 1:デフォルトで促し不可能
 		DEFAULT_NOFREEACT    => 1, # 1:デフォルトで自由文アクション不可能
 		DEFAULT_TIMESTAMP    => 1, # 1:デフォルトで時刻簡易表示
+		DEFAULT_GUESTMENU	 => 0, # 1:デフォルトで傍観者発言不可能
 
 		ENABLED_POPUP => 1, # アンカーのポップアップ
 

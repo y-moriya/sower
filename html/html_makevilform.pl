@@ -308,6 +308,20 @@ _HTML_
 	<input type="checkbox" id="makersaymenu" class="multicolumn_left" name="makersaymenu" value="on"$checkedmakersaymenu$net><div class="multicolumn_notes"><label for="makersaymenu">村進行中に村建て人発言ができなくなる</label></div>
 _HTML_
 
+	# 傍観者発言なし
+	my $checkedguestmenu = '';
+	if ($sow->{'query'}->{'cmd'} eq 'editvilform') {
+		$checkedguestmenu = " $sow->{'html'}->{'checked'}" if ($vil->{'guestmenu'} > 0);
+	} else {
+		$checkedguestmenu = " $sow->{'html'}->{'checked'}" if ($cfg->{'DEFAULT_GUESTMENU'} > 0);
+	}
+
+		print <<"_HTML_";
+	<label for="guestmenu" class="multicolumn_label">傍観者発言： </label>
+	<input type="checkbox" id="guestmenu" class="multicolumn_left" name="guestmenu" value="on"$checkedguestmenu$net><div class="multicolumn_notes"><label for="guestmenu">傍観者発言を不可にする</label></div>
+  </fieldset>
+_HTML_
+
 	# 委任なし
 	my $checkedentrustmode = '';
 	if ($sow->{'query'}->{'cmd'} eq 'editvilform') {
