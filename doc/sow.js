@@ -257,16 +257,13 @@ function getSowFeed(url, title, n) {
 				n = 0;
 				newLogFlag = false;
 			} else if (document.title.match(/\(\d+\)/)) {
-					$("#newinfo").find("img").hide();
-					$("#getnewloglink").show();
-
+				$("#newinfo").find("img").hide();
+				$("#getnewloglink").show();
 			} else {
-
-					$("#newinfo").find("img").hide();
-					$("#newinfomes").show();
-					$("#reloadlink").show();
+				$("#newinfo").find("img").hide();
+				$("#newinfomes").show();
+				$("#reloadlink").show();
 			}
-
 		},
 		error: function(xhr, status, e) {
 			$("#newinfotime").text("最終取得時刻 エラー発生。手動で更新してください。");
@@ -347,7 +344,16 @@ function getNewLog(link) {
 	$.get(href,{},function(data){
 		var mes = $(data).find(".inframe:first").children(":not(h2,#readmore,#newinfo)");
 		var atags = mes.find('a');
+		var oldestLogId = $(atags[0]).attr("name");
 		var latestLogId = $(atags[atags.length-1]).attr("name");
+		if (oldestLogId === "") {
+			base.find("img").hide();
+			$("#newinfomes").text("最終取得時刻 エラー発生。手動で更新してください。");
+			$("#newinfomes").show();
+			$("#newinfotime").hide();
+			clearTimeout(sowFeedTimer);
+			return;
+		}
 		var oldlink = $("#getnewloglink").attr('href');
 		var newlink = oldlink.replace(/logid=[^&]+/, 'logid=' + latestLogId);
 		$("#getnewloglink").attr("href", newlink);
