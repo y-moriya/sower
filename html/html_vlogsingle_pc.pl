@@ -89,7 +89,6 @@ sub OutHTMLSingleLogSayPC {
 	my $chrname = $log->{'chrname'};
 	$chrname = "<a $atr_id=\"newsay\">$chrname</a>" if ($newsay > 0);
 
-
 	# クラス名
 	my @messtyle = ('mes_undef', 'mes_undef', 'mes_undef', 'mes_del', 'mes_deladmin', 'mes_que', 'mes_nom', 'mes_think', 'mes_wolf', 'mes_grave', 'mes_maker', 'mes_admin', 'mes_sympa', 'mes_bat', 'mes_guest');
 
@@ -194,7 +193,7 @@ _HTML_
 # ログHTMLの表示（傍観者）
 #----------------------------------------
 sub OutHTMLSingleLogGuestPC {
-	my ($sow, $vil, $log, $no, $newsay, $anchor) = @_;
+	my ($sow, $vil, $log, $no, $newsay, $anchor, $modesingle) = @_;
 	my $cfg = $sow->{'cfg'};
 	my $net = $sow->{'html'}->{'net'};
 	my $atr_id = $sow->{'html'}->{'atr_id'};
@@ -238,8 +237,19 @@ sub OutHTMLSingleLogGuestPC {
 
 	# ID公開
 	my $showid = '';
-	$showid = " ($log->{'uid'})"; # if ($vil->{'showid'} > 0);
-
+	$showid = " ($log->{'uid'})";
+	
+	# フィルター用div FIXME: mestypeの決め打ちをやめる？
+	my $filter = $sow->{'filter'};
+	my $mestype = '4';
+	my $typefilterstyle = '';
+	$typefilterstyle = ' style="display: none;"' if ((defined($filter->{'typefilter'}->[$mestype])) && ($filter->{'typefilter'}->[$mestype] eq '1'));
+	if ($modesingle == 0) {
+		print "<div id=\"mestype_$mestype\"$typefilterstyle>\n";
+	} else {
+		print "<div>\n";
+	}
+	
 	# ログのHTML出力
 	print <<"_HTML_";
 <div class="message_filter">
@@ -269,7 +279,7 @@ _HTML_
     <div class="mes_date">$loganchor $date</div>
     <hr class="invisible_hr"$net>
   </div>
-</div></div>
+</div></div></div>
 _HTML_
 
 }

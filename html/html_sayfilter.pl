@@ -72,12 +72,13 @@ _HTML_
 <div id="mestypefilter" class="sayfilter_content"$display>
 _HTML_
 
-	my @logmestype = (0, 1, 2, 3);
+	my @logmestype = (0, 1, 2, 3, 4);
 	my @logmestypetext = (
 		'’Êí”­Œ¾',
 		'“Æ‚èŒ¾',
 		'š‘‚«/‹¤–Â/”O˜b',
 		'€Ò‚Ì‚¤‚ß‚«',
+		'–TŠÏÒ”­Œ¾',
 	);
 	for ($i = 0; $i < @logmestype; $i++) {
 		my $enable = 'enable';
