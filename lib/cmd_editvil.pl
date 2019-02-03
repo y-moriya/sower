@@ -31,6 +31,10 @@ sub SetDataCmdEditVil {
 	# 村データの読み込み
 	my $vil = SWFileVil->new($sow, $query->{'vid'});
 	$vil->readvil();
+
+	# 進行中の編集不可
+	$sow->{'debug'}->raise($sow->{'APLOG_NOTICE'}, '村が開始しています。', "game started.") unless ($vil->isprologue()>0);
+	
 	my @villabel = &SWFileVil::GetVilDataLabel();
 	my $oldinfo;
 	foreach (@villabel) {
