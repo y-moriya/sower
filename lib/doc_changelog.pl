@@ -42,11 +42,14 @@ sub outhtmlnew {
 	my $atr_id = $sow->{'html'}->{'atr_id'};
 
 	print <<"_HTML_";
-<h3>Sower Version 1.1.1 (2019/02/03)</h3>
+<h3>Sower Version 1.1.2 (2019/02/03)</h3>
 <ul>
-  <li>村作成時のオプションに傍観者なしを追加。</li>
-  <li>発言フィルターに傍観者（地上のみ）を追加。</li>
-  <li>新着発言取得機能\をちょっと修正</li>
+  <li>sowメンテナンスプロジェクトのsow2.02aから下記の主要な修正をマージ</li>
+  <li>進行中に村編集ができてしまう問題を対処</li>
+  <li>ダミー以外を初回襲撃できてしまう問題を対処</li>
+  <li>村が複数回開始できてしまう問題を対処</li>
+  <li>村開始時刻を村建て以降に編集すると定時開始設定が異常動作してしまう問題を対処</li>
+  <li>逆呪殺されたキャラクターがフィルターに表\示されないバグの修正</li>
 </ul>
 _HTML_
 
@@ -69,6 +72,13 @@ _HTML_
 	$self->outhtmlnew();
 
 	print <<"_HTML_";
+<hr class="invisible_hr"$net>
+<h3>Sower Version 1.1.1 (2019/02/03)</h3>
+<ul>
+  <li>村作成時のオプションに傍観者なしを追加。</li>
+  <li>発言フィルターに傍観者（地上のみ）を追加。</li>
+  <li>新着発言取得機能\をちょっと修正</li>
+</ul>
 <hr class="invisible_hr"$net>
 <h3>Sower Version 1.1.0 (2019/01/29)</h3>
 <ul>
