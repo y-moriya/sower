@@ -234,12 +234,14 @@ sub TaskBranch {
 		&SWCmdEditJobName::CmdEditJobName($sow);
 	} elsif ($cmd eq 'startpr') {
 		# 確認画面（村開始）
-		&CheckValidityStart($sow);
+		require "$dirlib/vld_start.pl";
+		&SWValidityStart::CheckValidityStart($sow);
 		require "$dirhtml/html_dialog.pl";
 		&SWHtmlDialog::OutHTMLDialog($sow);
 	} elsif ($cmd eq 'start') {
 		# 村開始
-		&CheckValidityStart($sow);
+		require "$dirlib/vld_start.pl";
+		&SWValidityStart::CheckValidityStart($sow);
 		require "$dirlib/cmd_start.pl";
 		&SWCmdStartSession::CmdStartSession($sow);
 	} elsif (($cmd eq 'vote') || ($cmd eq 'skill')){
@@ -248,12 +250,14 @@ sub TaskBranch {
 		&SWCmdVote::CmdVote($sow);
 	} elsif ($cmd eq 'updatepr') {
 		# 確認画面（更新）
-		&CheckValidityUpdate($sow);
+		require "$dirlib/vld_start.pl";
+		&SWValidityStart::CheckValidityUpdate($sow);
 		require "$dirhtml/html_dialog.pl";
 		&SWHtmlDialog::OutHTMLDialog($sow);
 	} elsif ($cmd eq 'scrapvilpr') {
 		# 確認画面（廃村）
-		&CheckValidityUpdate($sow);
+		require "$dirlib/vld_start.pl";
+		&SWValidityStart::CheckValidityUpdate($sow);
 		require "$dirhtml/html_dialog.pl";
 		&SWHtmlDialog::OutHTMLDialog($sow);
 	} elsif ($cmd eq 'commit') {
@@ -262,7 +266,8 @@ sub TaskBranch {
 		&SWCmdCommit::CmdCommit($sow);
 	} elsif ($cmd eq 'update') {
 		# 更新（手動、デバッグ用）
-		&CheckValidityUpdate($sow);
+		require "$dirlib/vld_start.pl";
+		&SWValidityStart::CheckValidityUpdate($sow);
 		require "$dirlib/cmd_update.pl";
 		&SWCmdUpdateSession::CmdUpdateSession($sow);
 	} elsif ($cmd eq 'debugvil') {
@@ -271,7 +276,8 @@ sub TaskBranch {
 		&SWHtmlDebugVillage::OutHTMLDebugVillage($sow);
 	} elsif ($cmd eq 'scrapvil') {
 		# 廃村（手動、デバッグ用）
-		&CheckValidityUpdate($sow);
+		require "$dirlib/vld_start.pl";
+		&SWValidityStart::CheckValidityUpdate($sow);
 		require "$dirlib/cmd_update.pl";
 		&SWCmdUpdateSession::CmdUpdateSession($sow);
 	} elsif ($cmd eq 'rolematrix') {
@@ -359,63 +365,6 @@ sub TaskBranch {
 			# トップページ表示
 			require "$dirhtml/html_index.pl";
 			&SWHtmlIndex::OutHTMLIndex($sow);
-		}
-	}
-
-	return;
-}
-
-#----------------------------------------
-# 村手動開始時値チェック
-#----------------------------------------
-sub CheckValidityStart {
-	my $sow = $_[0];
-	my $query = $sow->{'query'};
-
-	require "$sow->{'cfg'}->{'DIR_LIB'}/file_vil.pl";
-	my $vil = SWFileVil->new($sow, $query->{'vid'});
-	$vil->readvil();
-	my $pllist = $vil->getpllist();
-	$vil->closevil();
-
-	my $errfrom = "[uid=$sow->{'uid'}, vid=$vil->{'vid'}, cmd=$query->{'cmd'}]";
-
-	# リソースの読み込み
-	&SWBase::LoadVilRS($sow, $vil);
-
-	$sow->{'debug'}->raise($sow->{'APLOG_CAUTION'}, "ログインして下さい。", "no login.$errfrom") if ($sow->{'user'}->logined() <= 0);
-	$sow->{'debug'}->raise($sow->{'APLOG_CAUTION'}, "村を開始するには村建て人権限か管理人権限が必要です。", "no permition.$errfrom") if (($sow->{'uid'} ne $vil->{'makeruid'}) && ($sow->{'uid'} ne $sow->{'cfg'}->{'USERID_ADMIN'}));
-
-	$sow->{'debug'}->raise($sow->{'APLOG_CAUTION'}, "人数が足りません。ダミーキャラを含め、最低 4 人必要です。", "need 4 persons.$errfrom") if (@$pllist < 4);
-	$sow->{'debug'}->raise($sow->{'APLOG_CAUTION'}, "現在参加している人数と定員が等しくありません。", "invalid vplcnt or total plcnt.$errfrom") if ((@$pllist != $vil->{'vplcnt'}) && ($vil->{'roletable'} eq 'custom'));
-
-	return;
-}
-
-#----------------------------------------
-# 村手動更新時値チェック
-#----------------------------------------
-sub CheckValidityUpdate {
-	my $sow = $_[0];
-	my $query = $sow->{'query'};
-
-	require "$sow->{'cfg'}->{'DIR_LIB'}/file_vil.pl";
-	my $vil = SWFileVil->new($sow, $query->{'vid'});
-	$vil->readvil();
-	my $pllist = $vil->getpllist();
-	$vil->closevil();
-
-	my $errfrom = "[uid=$sow->{'uid'}, vid=$vil->{'vid'}, cmd=$query->{'cmd'}]";
-
-	# リソースの読み込み
-	&SWBase::LoadVilRS($sow, $vil);
-
-	$sow->{'debug'}->raise($sow->{'APLOG_CAUTION'}, "ログインして下さい。", "no login.$errfrom") if ($sow->{'user'}->logined() <= 0);
-	if ($sow->{'uid'} ne $sow->{'cfg'}->{'USERID_ADMIN'}) {
-		if ($sow->{'query'}->{'cmd'} eq 'scrapvil') {
-			$sow->{'debug'}->raise($sow->{'APLOG_CAUTION'}, "廃村するには管理人権限が必要です。", "no permition.$errfrom");
-		} else {
-			$sow->{'debug'}->raise($sow->{'APLOG_CAUTION'}, "村を更新するには村建て人権限か管理人権限が必要です。", "no permition.$errfrom") if ($sow->{'uid'} ne $vil->{'makeruid'});
 		}
 	}
 
