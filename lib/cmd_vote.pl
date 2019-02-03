@@ -33,6 +33,7 @@ sub SetDataCmdVote {
 	my $sow = $_[0];
 	my $query  = $sow->{'query'};
 	my $debug = $sow->{'debug'};
+	my $cmd = $query->{'cmd'};
 
 	# 村データの読み込み
 	require "$sow->{'cfg'}->{'DIR_LIB'}/file_vil.pl";
@@ -44,11 +45,8 @@ sub SetDataCmdVote {
 
 	# 投票／能力対象設定
 	my $targetid = 'target';
-	$targetid = 'vote' if ($query->{'cmd'} eq 'vote');
+	$targetid = 'vote' if ($cmd eq 'vote');
 	my $curpl = $sow->{'curpl'};
-
-#	my $targetpl;
-#	$targetpl = $vil->getplbypno($query->{'target'}) if ($query->{'target'} >= 0);
 
 	# 村ログ関連基本入力値チェック
 	require "$sow->{'cfg'}->{'DIR_LIB'}/vld_vil.pl";
@@ -56,6 +54,17 @@ sub SetDataCmdVote {
 
 	$debug->raise($sow->{'APLOG_CAUTION'}, "あなたは既に死んでいます。", "you're dead.") if ($curpl->{'live'} ne 'live'); # 通常起きない
 	&CheckValidityTarget($sow, $vil, 'target');
+
+	# 規定外クエリデーター判定（判定しないと初日にダミー以外を襲撃できるのでチェック）
+	my $targetlist = $curpl->gettargetlistwithrandom($cmd);
+	my $is_valid_target = 0;
+	foreach (@$targetlist) {
+		if( $query->{'target'} == $_->{'pno'}) {
+			$is_valid_target = 1;
+		}
+	}
+	$debug->raise($sow->{'APLOG_CAUTION'}, "対象が不正です。", "invalid target.") if ($is_valid_target == 0);	# （フォーム書き換え等でない限り）通常起きない
+
 	if (($curpl->{'role'} == $sow->{'ROLEID_TRICKSTER'}) && ($targetid ne 'vote')) {
 		&CheckValidityTarget($sow, $vil, 'target2');
 		$debug->raise($sow->{'APLOG_CAUTION'}, "対象１と対象２が同じ人です。", "same both target.") if (($query->{'target'} == $query->{'target2'}) && ($query->{'target'} >= 0));
@@ -73,13 +82,13 @@ sub SetDataCmdVote {
 	my $saveentrust = $curpl->{'entrust'};
 	$curpl->{$targetid} = $query->{'target'};
 	my $modifiedtarget2 = 0;
-	if (($curpl->{'role'} == $sow->{'ROLEID_TRICKSTER'}) && ($query->{'cmd'} ne 'vote')) {
+	if (($curpl->{'role'} == $sow->{'ROLEID_TRICKSTER'}) && ($cmd ne 'vote')) {
 		if ($curpl->{'target2'} != $query->{'target2'}) {
 			$curpl->{'target2'} = $query->{'target2'};
 			$modifiedtarget2 = 1;
 		}
 	}
-	if ($query->{'cmd'} eq 'vote') {
+	if ($cmd eq 'vote') {
 		# 委任
 		$curpl->{'entrust'} = 0;
 		$curpl->{'entrust'} = 1 if ($query->{'entrust'} ne '');
@@ -98,7 +107,7 @@ sub SetDataCmdVote {
 		# 書き込み文の生成
 		my $textrs = $sow->{'textrs'};
 		my $mes;
-		if ($query->{'cmd'} eq 'vote') {
+		if ($cmd eq 'vote') {
 			if ($query->{'entrust'} eq '') {
 				$mes = $textrs->{'ANNOUNCE_SETVOTE'};
 			} else {
@@ -120,7 +129,7 @@ sub SetDataCmdVote {
 		} else {
 			$targetname = $textrs->{'UNDEFTARGET'};
 		}
-		if (($curpl->{'role'} == $sow->{'ROLEID_TRICKSTER'}) && ($query->{'cmd'} ne 'vote')) {
+		if (($curpl->{'role'} == $sow->{'ROLEID_TRICKSTER'}) && ($cmd ne 'vote')) {
 			if ($curpl->{'target2'} == $sow->{'TARGETID_RANDOM'}) {
 				$targetname .= ' と ' . $textrs->{'RANDOMTARGET'};
 			} else {
