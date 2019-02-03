@@ -143,8 +143,9 @@ sub OutHTMLSayFilterPlayers {
 	my @filterlist;
 	foreach (@$pllist) {
 		push(@filterlist, $_) if ($_->{'live'} eq $livetype);
-		push(@filterlist, $_) if (($_->{'live'} eq 'cursed') && ($livetype eq 'victim'));
-		push(@filterlist, $_) if (($_->{'live'} eq 'suicide') && ($livetype eq 'victim'));
+		if($livetype eq 'victim'){
+			push(@filterlist, $_) if (($_->{'live'} eq 'cursed') || ($_->{'live'} eq 'rcursed') || ($_->{'live'} eq 'suicide'));
+		}
 	}
 
 	my %livetypetext = (

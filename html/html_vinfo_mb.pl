@@ -328,12 +328,13 @@ sub OutHTMLSayFilterPlayersMb {
 	my $net = $sow->{'html'}->{'net'}; # Null End Tag
 	my $amp = $sow->{'html'}->{'amp'};
 
-	my @filterlist;
 	my $pllist = $vil->getpllist();
+	my @filterlist;
 	foreach (@$pllist) {
 		push(@filterlist, $_) if ($_->{'live'} eq $livetype);
-		push(@filterlist, $_) if (($_->{'live'} eq 'cursed') && ($livetype eq 'victim'));
-		push(@filterlist, $_) if (($_->{'live'} eq 'suicide') && ($livetype eq 'victim'));
+		if($livetype eq 'victim'){
+			push(@filterlist, $_) if (($_->{'live'} eq 'cursed') || ($_->{'live'} eq 'rcursed') || ($_->{'live'} eq 'suicide'));
+		}
 	}
 
 	@filterlist = sort {$a->{'deathday'} <=> $b->{'deathday'} ? $a->{'deathday'} <=> $b->{'deathday'} : $a->{'pno'} <=> $b->{'pno'}} @filterlist if ($livetype ne 'live');
