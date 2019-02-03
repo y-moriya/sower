@@ -5,10 +5,19 @@ package SWCmdEntry;
 #----------------------------------------
 sub CmdEntry {
 	my $sow = $_[0];
-	my $cfg = $sow->{'cfg'};
+	my $query  = $sow->{'query'};
+	my $cfg    = $sow->{'cfg'};	
+	
+	# 村データの読み込み
+	require "$cfg->{'DIR_LIB'}/file_vil.pl";
+	my $vil = SWFileVil->new($sow, $query->{'vid'});
+	$vil->readvil();
 
-	# データ処理
-	&SetDataCmdEntry($sow);
+	# リソースの読み込み
+	&SWBase::LoadVilRS($sow, $vil);
+	
+	# データ処理(入村)
+	&SetDataCmdEntry($sow, $vil);
 
 	# HTTP/HTML出力
 	if ($sow->{'outmode'} eq 'mb') {
@@ -35,25 +44,20 @@ sub CmdEntry {
 # データ処理
 #----------------------------------------
 sub SetDataCmdEntry {
-	my $sow = $_[0];
+	my ($sow, $vil) = @_;
 	my $query  = $sow->{'query'};
 	my $cfg    = $sow->{'cfg'};
+	my $debug = $sow->{'debug'};
 
-	require "$sow->{'cfg'}->{'DIR_LIB'}/string.pl";
+	require "$cfg->{'DIR_LIB'}/string.pl";
 
-	# 村データの読み込み
-	require "$sow->{'cfg'}->{'DIR_LIB'}/file_vil.pl";
-	my $vil = SWFileVil->new($sow, $query->{'vid'});
-	$vil->readvil();
 	my $pllist = $vil->getpllist();
 
-	# リソースの読み込み
-	&SWBase::LoadVilRS($sow, $vil);
 	my ($q_csid, $q_cid) = split('/', $query->{'csid_cid'});
 
 	# プレイヤー参加済みチェック
 	if (defined($sow->{'curpl'})) {
-		$sow->{'debug'}->raise($sow->{'APLOG_NOTICE'}, 'あなたは既にこの村へ参加しています。', "user found.[$sow->{'uid'}]");
+		$debug->raise($sow->{'APLOG_NOTICE'}, 'あなたは既にこの村へ参加しています。', "user found.[$sow->{'uid'}]");
 	}
 
 	my $user = SWUser->new($sow);
@@ -62,26 +66,26 @@ sub SetDataCmdEntry {
 	if ($cfg->{'ENABLED_MULTIENTRY'} == 0) {
 		my $entriedvils = $user->getentriedvils();
 		foreach (@$entriedvils) {
-			$sow->{'debug'}->raise($sow->{'APLOG_NOTICE'}, 'あなたは既に他の村へ参加しています。', "entriedvil found.[$sow->{'uid'}, $_->{'vid'}]") if (($_->{'vid'} > 0) && ($_->{'playing'} > 0));
+			$debug->rraise($sow->{'APLOG_NOTICE'}, 'あなたは既に他の村へ参加しています。', "entriedvil found.[$sow->{'uid'}, $_->{'vid'}]") if (($_->{'vid'} > 0) && ($_->{'playing'} > 0));
 		}
 	}
-	$sow->{'debug'}->raise($sow->{'APLOG_NOTICE'}, 'あなたはペナルティ中のため現在参加できません。', "cannot entry.[$sow->{'uid'}]") if (($user->{'ptype'} > $sow->{'PTYPE_PROBATION'}) && ($user->{'penaltydt'} >= $sow->{'time'}));
+	$debug->rraise($sow->{'APLOG_NOTICE'}, 'あなたはペナルティ中のため現在参加できません。', "cannot entry.[$sow->{'uid'}]") if (($user->{'ptype'} > $sow->{'PTYPE_PROBATION'}) && ($user->{'penaltydt'} >= $sow->{'time'}));
 	$user->closeuser();
 
 	# 村開始前チェック
-	$sow->{'debug'}->raise($sow->{'APLOG_NOTICE'}, "既に開始しています。", 'village started.') if ($vil->{'turn'} > 0);
+	$debug->raise($sow->{'APLOG_NOTICE'}, "既に開始しています。", 'village started.')  unless ($vil->isprologue() > 0);
 
 	# 定員チェック
-	$sow->{'debug'}->raise($sow->{'APLOG_NOTICE'}, "既に定員に達しています。", 'too many plcnt.') if (@$pllist >= $vil->{'vplcnt'});
+	$debug->raise($sow->{'APLOG_NOTICE'}, "既に定員に達しています。", 'too many plcnt.') if (@$pllist >= $vil->{'vplcnt'});
 
 	# キャラクタ参加済みチェック
 	foreach (@$pllist) {
 		next if ($_->{'csid'} ne $q_csid);
 		my $chrname = $sow->{'charsets'}->getchrname($q_csid, $q_cid);
-		$sow->{'debug'}->raise($sow->{'APLOG_NOTICE'}, "$chrname は既に参加しています。", 'cid found.') if ($_->{'cid'} eq $q_cid);
+		$debug->raise($sow->{'APLOG_NOTICE'}, "$chrname は既に参加しています。", 'cid found.') if ($_->{'cid'} eq $q_cid);
 	}
 
-	$sow->{'debug'}->raise($sow->{'APLOG_NOTICE'}, '参加パスワードが違います。', "invalid entrypwd.") if (($vil->{'entrylimit'} eq 'password') && ($query->{'entrypwd'} ne $vil->{'entrypwd'}));
+	$debug->raise($sow->{'APLOG_NOTICE'}, '参加パスワードが違います。', "invalid entrypwd.") if (($vil->{'entrylimit'} eq 'password') && ($query->{'entrypwd'} ne $vil->{'entrypwd'}));
 
 	# 参加者データレコードの新規作成
 	my $plsingle = SWPlayer->new($sow);
@@ -122,7 +126,7 @@ sub SetDataCmdEntry {
 	$user->writeentriedvil($sow->{'uid'}, $vil->{'vid'}, $vil->{'vname'}, $plsingle->getchrname(), 1);
 
 	# ログ出力
-	$sow->{'debug'}->writeaplog($sow->{'APLOG_POSTED'}, "Entry. [$sow->{'uid'}]");
+	$debug->writeaplog($sow->{'APLOG_POSTED'}, "Entry. [$sow->{'uid'}]");
 
 	# 村開始チェック（人狼審問型）
 	$pllist = $vil->getpllist;
