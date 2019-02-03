@@ -95,6 +95,10 @@ sub SetDataCmdEditVil {
 	$vil->{'timestamp'}    = 0;
 	$vil->{'timestamp'}    = 1 if ($query->{'timestamp'} ne '');
 
+	my $nextupdate = $sow->{'dt'}->getnextupdatedt($vil, $sow->{'time'}, 1, 0);
+	$vil->{'nextupdatedt'} = $nextupdate;
+	$vil->{'nextchargedt'} = $nextupdate;
+
 	my $roleid = $sow->{'ROLEID'};
 	for ($i = 1; $i < @$roleid; $i++) {
 		my $countrole = 0;
