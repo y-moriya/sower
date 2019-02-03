@@ -7,6 +7,9 @@ sub StartSession {
 	my ($sow, $vil, $commit) = @_;
 	my $textrs = $sow->{'textrs'};
 	my $pllist = $vil->getpllist();
+	
+	# 開始済みの場合、何もしない
+	return unless ($vil->isprologue() > 0);
 
 	# 確定待ち発言の強制確定
 	&FixQueUpdateSession($sow, $vil);
