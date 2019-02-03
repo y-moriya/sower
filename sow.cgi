@@ -1,26 +1,26 @@
 #!/usr/bin/perl -w
-# â†‘ã‚µãƒ¼ãƒã®è¨­å®šã«åˆã‚ã›ã¦ä¸‹ã•ã„ã€‚
+# ªƒT[ƒo‚Ìİ’è‚É‡‚í‚¹‚Ä‰º‚³‚¢B
 
 #-------------------------------------------------
-# äººç‹¼ç‰©èª / The Stories of Werewolves
-# 2006-2007 ã‚ãš/asbntby
+# l˜T•¨Œê / The Stories of Werewolves
+# 2006-2007 ‚ ‚¸/asbntby
 # mail: asbntby@yahoo.co.jp
 # url:  http://asbntby.sakura.ne,jp/
 #-------------------------------------------------
 
-# ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ãƒã‚§ãƒƒã‚¯ã‚’ã™ã‚‹ãªã‚‰ 1 ã«ã™ã‚‹ã€‚
+# ƒCƒ“ƒXƒg[ƒ‹ƒ`ƒFƒbƒN‚ğ‚·‚é‚È‚ç 1 ‚É‚·‚éB
 my $ENABLED_INSTALLCHECK = 0;
 
-# æ™‚é–“ã®è¨ˆæ¸¬ç”¨ï¼ˆã‚ã‚“ã¾ã‚Šæ„å‘³ã¯ãªã„ï¼‰
+# ŠÔ‚ÌŒv‘ª—pi‚ ‚ñ‚Ü‚èˆÓ–¡‚Í‚È‚¢j
 my @t = times();
 $t[0] = $t[0] + $t[1];
 
 #use strict;
 #use KCatch;
 
-srand; # ä¹±æ•°å€¤ã®åˆæœŸåŒ–
+srand; # —”’l‚Ì‰Šú‰»
 
-# %ENVã®ã‚¨ãƒŸãƒ¥ãƒ¬ãƒ¼ãƒˆï¼ˆãƒ‡ãƒãƒƒã‚°ç”¨ï¼‰
+# %ENV‚ÌƒGƒ~ƒ…ƒŒ[ƒgiƒfƒoƒbƒO—pj
 if (!defined($ENV{'GATEWAY_INTERFACE'})) {
 	my $fname = 'env.pl';
 	$fname = "env_$ARGV[0].pl" if (defined($ARGV[0]));
@@ -28,67 +28,67 @@ if (!defined($ENV{'GATEWAY_INTERFACE'})) {
 	&EmulateENV();
 }
 
-# ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ãƒã‚§ãƒƒã‚¯
+# ƒCƒ“ƒXƒg[ƒ‹ƒ`ƒFƒbƒN
 &InstallCheck(0) if (($ENABLED_INSTALLCHECK > 0) && ($ENV{'QUERY_STRING'} eq 'check'));
 #&InstallCheck(1) if (($ENABLED_INSTALLCHECK > 0) && ($ENV{'QUERY_STRING'} eq 'inst'));
 
-# åˆæœŸåŒ–
+# ‰Šú‰»
 my $sow = &Init($t[0]);
 
-# ãƒ­ã‚°ã‚¤ãƒ³æƒ…å ±ã®å–å¾—
+# ƒƒOƒCƒ“î•ñ‚Ìæ“¾
 $sow->{'debug'}->{'checklogin'} = 1;
 $sow->{'user'}->logined();
 $sow->{'uid'} = $sow->{'user'}->{'uid'};
 $sow->{'debug'}->{'checklogin'} = 0;
 
-# æ›´æ–°ä¸­è¡¨ç¤º
-$sow->{'debug'}->raise($sow->{'APLOG_OTHERS'}, 'ãŸã ã„ã¾è‰²ã€…ã¨æ›´æ–°ä¸­ã«ã¤ãã€ã—ã°ã‚‰ããŠå¾…ã¡ä¸‹ã•ã„ã€‚', 'swbbs is halting.') if ($sow->{'cfg'}->{'ENABLED_HALT'} > 0);
+# XV’†•\¦
+$sow->{'debug'}->raise($sow->{'APLOG_OTHERS'}, '‚½‚¾‚¢‚ÜFX‚ÆXV’†‚É‚Â‚«A‚µ‚Î‚ç‚­‚¨‘Ò‚¿‰º‚³‚¢B', 'swbbs is halting.') if ($sow->{'cfg'}->{'ENABLED_HALT'} > 0);
 
-# å…¥åŠ›å€¤ã‚’ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ãƒ­ã‚°ã¸å‡ºåŠ›
+# “ü—Í’l‚ğƒAƒvƒŠƒP[ƒVƒ‡ƒ“ƒƒO‚Öo—Í
 $sow->{'debug'}->writequerylog() if ($sow->{'cfg'}->{'LEVEL_APLOG'} == 5);
 
-# å„å‡¦ç†ã®å®Ÿè¡Œ
+# Šeˆ—‚ÌÀs
 &TaskBranch($sow);
 
-# cookieå‡ºåŠ›å€¤ã‚’ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ãƒ­ã‚°ã¸å‡ºåŠ›
+# cookieo—Í’l‚ğƒAƒvƒŠƒP[ƒVƒ‡ƒ“ƒƒO‚Öo—Í
 $sow->{'debug'}->writecookielog() if ($sow->{'cfg'}->{'LEVEL_APLOG'} == 5);
 
-# é–‰ã˜ã¦ãªã„ãƒ•ã‚¡ã‚¤ãƒ«ã‚’é–‰ã˜ã‚‹ï¼ˆã‚ã‚“ã¾ã‚Šæ„å‘³ã¯ãªã„ï¼‰
+# •Â‚¶‚Ä‚È‚¢ƒtƒ@ƒCƒ‹‚ğ•Â‚¶‚éi‚ ‚ñ‚Ü‚èˆÓ–¡‚Í‚È‚¢j
 my @files = keys(%{$sow->{'file'}});
 foreach (@files) {
 	$sow->{'file'}->{$_}->closefile();
 }
 
-# ãƒ•ã‚¡ã‚¤ãƒ«ãƒ­ãƒƒã‚¯è§£é™¤ï¼ˆæœªè§£é™¤ã®å ´åˆï¼‰
+# ƒtƒ@ƒCƒ‹ƒƒbƒN‰ğœi–¢‰ğœ‚Ìê‡j
 $sow->{'lock'}->gunlock();
 
 
 #----------------------------------------
-# åˆæœŸåŒ–
+# ‰Šú‰»
 #----------------------------------------
 sub Init {
 	my $t = $_[0];
 
-	# ã‚«ãƒ¬ãƒ³ãƒˆãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªã®å¤‰æ›´
+	# ƒJƒŒƒ“ƒgƒfƒBƒŒƒNƒgƒŠ‚Ì•ÏX
 	$ENV{'SCRIPT_FILENAME'} =~ /\/[^\/]*\z/;
 #	chdir($`) if ($& ne '');
 
-	# è¨­å®šãƒ‡ãƒ¼ã‚¿ã®èª­ã¿è¾¼ã¿
+	# İ’èƒf[ƒ^‚Ì“Ç‚İ‚İ
 	require "./config.pl";
 	my $cfg = &SWConfig::GetConfig();
 
-	# åŸºæœ¬ãƒ©ã‚¤ãƒ–ãƒ©ãƒªã¨å®šæ•°ãƒ‡ãƒ¼ã‚¿ã®èª­ã¿è¾¼ã¿
+	# Šî–{ƒ‰ƒCƒuƒ‰ƒŠ‚Æ’è”ƒf[ƒ^‚Ì“Ç‚İ‚İ
 	require "$cfg->{'DIR_LIB'}/base.pl";
 	my $sow = &SWBase::InitSW($cfg);
 
-	# æ™‚é–“ã®è¨ˆæ¸¬ç”¨ï¼ˆã‚ã‚“ã¾ã‚Šæ„å‘³ã¯ãªã„ï¼‰
+	# ŠÔ‚ÌŒv‘ª—pi‚ ‚ñ‚Ü‚èˆÓ–¡‚Í‚È‚¢j
 	$sow->{'starttime'} = $t;
 
 	return $sow;
 }
 
 #----------------------------------------
-# å„å‡¦ç†ã®å®Ÿè¡Œ
+# Šeˆ—‚ÌÀs
 #----------------------------------------
 sub TaskBranch {
 	my $sow = $_[0];
@@ -97,266 +97,266 @@ sub TaskBranch {
 	my $cmd = $sow->{'query'}->{'cmd'};
 	my $noregist = &AdminIDCheck($sow);
 	if ($cmd eq 'login') {
-		# ãƒ­ã‚°ã‚¤ãƒ³
+		# ƒƒOƒCƒ“
 		require "$dirlib/cmd_login.pl";
 		&SWCmdLogin::CmdLogin($sow);
 	} elsif ($cmd eq 'logout') {
-		# ãƒ­ã‚°ã‚¢ã‚¦ãƒˆ
+		# ƒƒOƒAƒEƒg
 		require "$dirlib/cmd_logout.pl";
 		&SWCmdLogout::CmdLogout($sow);
 	} elsif ($noregist > 0) {
-		# IDæœªç™»éŒ²
+		# ID–¢“o˜^
 		require "$dirhtml/html_noready.pl";
 		&SWHtmlNoReady::OutHTMLNoReady($sow, $noregist);
 	} elsif (($sow->{'uid'} ne '') && ($sow->{'user'}->{'ptype'} == $sow->{'PTYPE_STOPID'})) {
-		# IDåœæ­¢ä¸­
+		# ID’â~’†
 		require "$dirhtml/html_stopid.pl";
 		&SWHtmlStopID::OutHTMLStopID($sow, $noregist);
 	} elsif ($cmd eq 'editprofform') {
-		# ãƒ¦ãƒ¼ã‚¶ãƒ¼æƒ…å ±ç·¨é›†ç”»é¢
+		# ƒ†[ƒU[î•ñ•ÒW‰æ–Ê
 		require "$dirhtml/html_editprofform.pl";
 		&SWHtmlEditProfileForm::OutHTMLEditProfileForm($sow);
 	} elsif ($cmd eq 'editprof') {
-		# ãƒ¦ãƒ¼ã‚¶ãƒ¼æƒ…å ±ç·¨é›†
+		# ƒ†[ƒU[î•ñ•ÒW
 		require "$dirlib/cmd_editprof.pl";
 		&SWCmdEditProfile::CmdEditProfile($sow);
 	} elsif ($sow->{'query'}->{'prof'} ne '') {
-		# ãƒ¦ãƒ¼ã‚¶ãƒ¼æƒ…å ±è¡¨ç¤º
+		# ƒ†[ƒU[î•ñ•\¦
 		require "$dirlib/cmd_profile.pl";
 		&SWCmdProfile::CmdProfile($sow);
 	} elsif ($cmd eq 'makevilpr') {
-		# æ‘ä½œæˆã®ãƒ—ãƒ¬ãƒ“ãƒ¥ãƒ¼
+		# ‘ºì¬‚ÌƒvƒŒƒrƒ…[
 		require "$dirhtml/html_makevil_pr.pl";
 		&SWHtmlMakeVilPreview::OutHTMLMakeVilPreview($sow);
 	} elsif ($cmd eq 'makevil') {
-		# æ‘ä½œæˆ
+		# ‘ºì¬
 		require "$dirlib/cmd_makevil.pl";
 		&SWCmdMakeVil::CmdMakeVil($sow);
 	} elsif ($cmd eq 'editvil') {
-		# æ‘ç·¨é›†
+		# ‘º•ÒW
 		require "$dirlib/cmd_editvil.pl";
 		&SWCmdEditVil::CmdEditVil($sow);
 	} elsif ($cmd eq 'editepivil') {
-		# é–²è¦§åˆ¶é™å¤‰æ›´
+		# ‰{——§ŒÀ•ÏX
 		require "$dirlib/cmd_editepivil.pl";
 		&SWCmdEpilogueEditVil::CmdEpilogueEditVil($sow);
 	} elsif ($cmd eq 'makevilform') {
-		# æ‘ä½œæˆç”»é¢è¡¨ç¤º
+		# ‘ºì¬‰æ–Ê•\¦
 		require "$dirlib/cmd_makevilform.pl";
 		&SWCmdMakeVilForm::CmdMakeVilForm($sow);
 	} elsif ($cmd eq 'editvilform') {
-		# æ‘ç·¨é›†ç”»é¢è¡¨ç¤º
+		# ‘º•ÒW‰æ–Ê•\¦
 		require "$dirlib/cmd_editvilform.pl";
 		&SWCmdEditVilForm::CmdEditVilForm($sow);
 	} elsif (($cmd eq 'vinfo') && ($sow->{'outmode'} eq 'mb')) {
-		# æ‘æƒ…å ±ç”»é¢è¡¨ç¤ºï¼ˆãƒ¢ãƒã‚¤ãƒ«ï¼‰
+		# ‘ºî•ñ‰æ–Ê•\¦iƒ‚ƒoƒCƒ‹j
 		require "$dirhtml/html_vinfo_mb.pl";
 		&SWHtmlVilInfoMb::OutHTMLVilInfoMb($sow);
 	} elsif ($cmd eq 'vinfo') {
-		# æ‘æƒ…å ±ç”»é¢è¡¨ç¤º
+		# ‘ºî•ñ‰æ–Ê•\¦
 		require "$dirhtml/html_vinfo_pc.pl";
 		&SWHtmlVilInfo::OutHTMLVilInfo($sow);
 	} elsif ((($cmd eq 'vindex') || ($cmd eq 'oldlog')) && ($sow->{'outmode'} eq 'mb')) {
-		# æ‘ä¸€è¦§è¡¨ç¤ºï¼ˆãƒ¢ãƒã‚¤ãƒ«ï¼‰
+		# ‘ºˆê——•\¦iƒ‚ƒoƒCƒ‹j
 		require "$dirhtml/html_vindex_mb.pl";
 		&SWHtmlVIndexMb::OutHTMLVIndexMb($sow);
 	} elsif ($cmd eq 'enformmb') {
-		# ã‚¨ãƒ³ãƒˆãƒªãƒ¼ç”»é¢ï¼ˆãƒ¢ãƒã‚¤ãƒ«ï¼‰
+		# ƒGƒ“ƒgƒŠ[‰æ–Êiƒ‚ƒoƒCƒ‹j
 		require "$dirlib/cmd_enformmb.pl";
 		&SWCmdEntryFormMb::CmbEntryFormMb($sow);
 	} elsif ($cmd eq 'entrypr') {
-		# ã‚¨ãƒ³ãƒˆãƒªãƒ¼ç™ºè¨€ãƒ—ãƒ¬ãƒ“ãƒ¥ãƒ¼è¡¨ç¤º
+		# ƒGƒ“ƒgƒŠ[”­Œ¾ƒvƒŒƒrƒ…[•\¦
 		require "$dirlib/cmd_entrypr.pl";
 		&SWCmdEntryPreview::CmdEntryPreview($sow);
 	} elsif ($cmd eq 'entry') {
-		# ã‚¨ãƒ³ãƒˆãƒªãƒ¼
+		# ƒGƒ“ƒgƒŠ[
 		require "$dirlib/cmd_entry.pl";
 		&SWCmdEntry::CmdEntry($sow);
 	} elsif ($cmd eq 'cfg') {
-		# ãƒ¢ãƒã‚¤ãƒ«ç”¨è¨­å®šç”»é¢
+		# ƒ‚ƒoƒCƒ‹—pİ’è‰æ–Ê
 		require "$dirhtml/html_loginform_mb.pl";
 		&SWHtmlLoginFormMb::OutHTMLLoginMb($sow);
 	} elsif ($cmd eq 'exitpr') {
-		# ç¢ºèªç”»é¢ï¼ˆæ‘ã‹ã‚‰å‡ºã‚‹ï¼‰
+		# Šm”F‰æ–Êi‘º‚©‚ço‚éj
 		require "$dirhtml/html_dialog.pl";
 		&SWHtmlDialog::OutHTMLDialog($sow);
 	} elsif ($cmd eq 'exit') {
-		# æ‘ã‹ã‚‰å‡ºã‚‹
+		# ‘º‚©‚ço‚é
 		require "$dirlib/cmd_exit.pl";
 		&SWCmdExit::CmdExit($sow);
   	} elsif ($cmd eq 'selrolepr') {
-		# ç¢ºèªç”»é¢ï¼ˆå¸Œæœ›å½¹è·å¤‰æ›´ï¼‰
+		# Šm”F‰æ–ÊiŠó–]–ğE•ÏXj
 		require "$dirhtml/html_dialog.pl";
 		&SWHtmlDialog::OutHTMLDialog($sow);
   	} elsif ($cmd eq 'selrole') {
-		# å¸Œæœ›å½¹è·å¤‰æ›´
+		# Šó–]–ğE•ÏX
 		require "$dirlib/cmd_selrole.pl";
 		&SWCmdSelRole::CmdSelRole($sow);
 	} elsif ($cmd eq 'kick') {
-		# æ‘ã‹ã‚‰å‡ºã™
+		# ‘º‚©‚ço‚·
 		require "$dirlib/cmd_exit.pl";
 		&SWCmdExit::CmdKick($sow);
 	} elsif ($cmd eq 'writepr') {
-		# ç™ºè¨€ãƒ—ãƒ¬ãƒ“ãƒ¥ãƒ¼è¡¨ç¤º
+		# ”­Œ¾ƒvƒŒƒrƒ…[•\¦
 		require "$dirlib/cmd_writepr.pl";
 		&SWCmdWritePreview::CmdWritePreview($sow);
 	} elsif ($cmd eq 'wrformmb') {
-		# ç™ºè¨€ãƒ•ã‚©ãƒ¼ãƒ è¡¨ç¤ºï¼ˆãƒ¢ãƒã‚¤ãƒ«ï¼‰
+		# ”­Œ¾ƒtƒH[ƒ€•\¦iƒ‚ƒoƒCƒ‹j
 		require "$dirlib/cmd_wrformmb.pl";
 		&SWCmdWriteFormMb::CmbWriteFormMb($sow);
 	} elsif ($cmd eq 'wrmemoformmb') {
-		# ãƒ¡ãƒ¢æ›¸ãè¾¼ã¿ãƒ•ã‚©ãƒ¼ãƒ ï¼ˆãƒ¢ãƒã‚¤ãƒ«ï¼‰
+		# ƒƒ‚‘‚«‚İƒtƒH[ƒ€iƒ‚ƒoƒCƒ‹j
 		require "$dirlib/cmd_memoformmb.pl";
 		&SWCmdWriteMemoFormMb::CmbWriteMemoFormMb($sow);
 	} elsif ($cmd eq 'write') {
-		# ç™ºè¨€
+		# ”­Œ¾
 		require "$dirlib/cmd_write.pl";
 		&SWCmdWrite::CmdWrite($sow);
 	} elsif ($cmd eq 'editmes') {
-		# ç™ºè¨€ä¿®æ­£
+		# ”­Œ¾C³
 		require "$dirlib/cmd_editmes.pl";
 		&SWCmdEditMes::CmdEditMes($sow);
 	} elsif ($cmd eq 'cancel') {
-		# ç™ºè¨€æ’¤å›
+		# ”­Œ¾“P‰ñ
 		require "$dirlib/cmd_cancel.pl";
 		&SWCmdCancel::CmdCancel($sow);
 	} elsif ($cmd eq 'action') {
-		# ã‚¢ã‚¯ã‚·ãƒ§ãƒ³
+		# ƒAƒNƒVƒ‡ƒ“
 		require "$dirlib/cmd_action.pl";
 		&SWCmdAction::CmdAction($sow);
 	} elsif ($cmd eq 'wrmemo') {
-		# ãƒ¡ãƒ¢æ›¸ãè¾¼ã¿
+		# ƒƒ‚‘‚«‚İ
 		require "$dirlib/cmd_wrmemo.pl";
 		&SWCmdWriteMemo::CmdWriteMemo($sow);
 	} elsif ($cmd eq 'editjob') {
-		# è‚©æ›¸ãå¤‰æ›´
+		# Œ¨‘‚«•ÏX
 		require "$dirlib/cmd_editjob.pl";
 		&SWCmdEditJobName::CmdEditJobName($sow);
 	} elsif ($cmd eq 'startpr') {
-		# ç¢ºèªç”»é¢ï¼ˆæ‘é–‹å§‹ï¼‰
+		# Šm”F‰æ–Êi‘ºŠJnj
 		&CheckValidityStart($sow);
 		require "$dirhtml/html_dialog.pl";
 		&SWHtmlDialog::OutHTMLDialog($sow);
 	} elsif ($cmd eq 'start') {
-		# æ‘é–‹å§‹
+		# ‘ºŠJn
 		&CheckValidityStart($sow);
 		require "$dirlib/cmd_start.pl";
 		&SWCmdStartSession::CmdStartSession($sow);
 	} elsif (($cmd eq 'vote') || ($cmd eq 'skill')){
-		# æŠ•ç¥¨ï¼èƒ½åŠ›å¯¾è±¡è¨­å®š
+		# “Š•[^”\—Í‘ÎÛİ’è
 		require "$dirlib/cmd_vote.pl";
 		&SWCmdVote::CmdVote($sow);
 	} elsif ($cmd eq 'updatepr') {
-		# ç¢ºèªç”»é¢ï¼ˆæ›´æ–°ï¼‰
+		# Šm”F‰æ–ÊiXVj
 		&CheckValidityUpdate($sow);
 		require "$dirhtml/html_dialog.pl";
 		&SWHtmlDialog::OutHTMLDialog($sow);
 	} elsif ($cmd eq 'scrapvilpr') {
-		# ç¢ºèªç”»é¢ï¼ˆå»ƒæ‘ï¼‰
+		# Šm”F‰æ–Êi”p‘ºj
 		&CheckValidityUpdate($sow);
 		require "$dirhtml/html_dialog.pl";
 		&SWHtmlDialog::OutHTMLDialog($sow);
 	} elsif ($cmd eq 'commit') {
-		# æ™‚é–“ã‚’é€²ã‚ã‚‹
+		# ŠÔ‚ği‚ß‚é
 		require "$dirlib/cmd_commit.pl";
 		&SWCmdCommit::CmdCommit($sow);
 	} elsif ($cmd eq 'update') {
-		# æ›´æ–°ï¼ˆæ‰‹å‹•ã€ãƒ‡ãƒãƒƒã‚°ç”¨ï¼‰
+		# XViè“®AƒfƒoƒbƒO—pj
 		&CheckValidityUpdate($sow);
 		require "$dirlib/cmd_update.pl";
 		&SWCmdUpdateSession::CmdUpdateSession($sow);
 	} elsif ($cmd eq 'debugvil') {
-		# æ‘ãƒ‡ãƒ¼ã‚¿ã®è¡¨ç¤ºï¼ˆãƒ‡ãƒãƒƒã‚°ç”¨ï¼‰
+		# ‘ºƒf[ƒ^‚Ì•\¦iƒfƒoƒbƒO—pj
 		require "$dirhtml/html_debugvil.pl";
 		&SWHtmlDebugVillage::OutHTMLDebugVillage($sow);
 	} elsif ($cmd eq 'scrapvil') {
-		# å»ƒæ‘ï¼ˆæ‰‹å‹•ã€ãƒ‡ãƒãƒƒã‚°ç”¨ï¼‰
+		# ”p‘ºiè“®AƒfƒoƒbƒO—pj
 		&CheckValidityUpdate($sow);
 		require "$dirlib/cmd_update.pl";
 		&SWCmdUpdateSession::CmdUpdateSession($sow);
 	} elsif ($cmd eq 'rolematrix') {
-		# å½¹è·é…åˆ†è¡¨ã®è¡¨ç¤º
+		# –ğE”z•ª•\‚Ì•\¦
 		require "$dirhtml/html_rolematrix.pl";
 		&SWHtmlRoleMatrix::OutHTMLRoleMatrix($sow);
 	} elsif ($cmd eq 'extend') {
-		# å»¶é•·ï¼ˆæš«å®šï¼‰
+		# ‰„’·ib’èj
 		require "$dirlib/cmd_extend.pl";
 		&SWCmdExtend::CmdExtend($sow);
 	} elsif ($cmd eq 'admin') {
-		# ç®¡ç†ç”»é¢
+		# ŠÇ—‰æ–Ê
 		require "$dirhtml/html_admin.pl";
 		&SWHtmlAdminManager::OutHTMLAdminManager ($sow);
 	} elsif ($cmd eq 'restrec') {
-		# æˆ¦ç¸¾å†æ§‹ç¯‰
+		# íÑÄ\’z
 		require "$dirlib/cmd_restrec.pl";
 		&SWCmdRestRecord::CmdRestRecord($sow);
 	} elsif (($cmd eq 'restviform') || ($cmd eq 'restvi')) {
-		# æ‘ä¸€è¦§å†æ§‹ç¯‰
+		# ‘ºˆê——Ä\’z
 		require "$dirlib/cmd_restvi.pl";
 		&SWCmdRestVIndex::CmdRestVIndex($sow);
 	} elsif ($cmd eq 'deletevil') {
-		# æ‘ãƒ‡ãƒ¼ã‚¿å‰Šé™¤
+		# ‘ºƒf[ƒ^íœ
 		require "$dirlib/cmd_deletevil.pl";
 		&SWCmdDeleteVil::CmdDeleteVil($sow);
 	} elsif ($cmd eq 'movevil') {
-		# æ‘ãƒ‡ãƒ¼ã‚¿ç§»å‹•
+		# ‘ºƒf[ƒ^ˆÚ“®
 		require "$dirlib/cmd_movevil.pl";
 		&SWCmdMoveVil::CmdMoveVil($sow);
 	} elsif (($cmd eq 'editpform') || ($cmd eq 'editpenalty')) {
-		# ãƒšãƒŠãƒ«ãƒ†ã‚£è¨­å®šãƒ»è§£é™¤
+		# ƒyƒiƒ‹ƒeƒBİ’èE‰ğœ
 		require "$dirlib/cmd_editpenalty.pl";
 		&SWCmdEditPenalty::CmdEditPenalty($sow);
 	} elsif ($cmd eq 'rss') {
-		# RSSå‡ºåŠ›
+		# RSSo—Í
 		require "$dirlib/cmd_rss.pl";
 		&SWCmdRSS::CmdRSS($sow);
 	} elsif ($cmd eq 'summary') {
-		# æ‘ä¸€è¦§æƒ…å ±å‡ºåŠ›
+		# ‘ºˆê——î•ño—Í
 		require "$dirlib/cmd_rss.pl";
 		&SWCmdRSS::CmdRSS($sow);
 	} elsif ($cmd eq 'rolelist') {
-		# å½¹è·ã¨ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹ã®è¡¨ç¤ºï¼ˆæœªå®Ÿè£…ï¼‰
+		# –ğE‚ÆƒCƒ“ƒ^[ƒtƒFƒCƒX‚Ì•\¦i–¢À‘•j
 		require "$dirlib/cmd_rolelist.pl";
 		&SWCmdRoleList::CmdRoleList($sow);
 	} elsif ($cmd eq 'chrlist') {
-		# ã‚­ãƒ£ãƒ©ä¸€è¦§ã®è¡¨ç¤º
+		# ƒLƒƒƒ‰ˆê——‚Ì•\¦
 		require "$dirlib/cmd_chrlist.pl";
 		&SWCmdChrList::CmdChrList($sow);
 	} elsif (($cmd eq 'spec') || ($cmd eq 'changelog') || ($cmd eq 'howto') || ($cmd eq 'operate') || ($cmd eq 'prohibit') || ($cmd eq 'about')) {
-		# éŠã³æ–¹ï¼ç¦æ­¢è¡Œç‚ºï¼æ¦‚ç•¥ã®è¡¨ç¤º
+		# —V‚Ñ•û^‹Ö~sˆ×^ŠT—ª‚Ì•\¦
 		require "$dirhtml/html_doc.pl";
 		&SWHtmlDocument::OutHTMLDocument($sow);
 	} elsif ($cmd eq 'score') {
-		# äººç‹¼è­œã®å‡ºåŠ›ï¼ˆæš«å®šï¼‰
+		# l˜T•ˆ‚Ìo—Íib’èj
 		require "$dirhtml/html_score.pl";
 		&SWHtmlScore::OutHTMLScore($sow);
 	} elsif ($cmd eq 'oldlog') {
-		# çµ‚äº†æ¸ˆã¿ã®æ‘è¡¨ç¤º
+		# I—¹Ï‚İ‚Ì‘º•\¦
 		require "$dirhtml/html_oldlog.pl";
 		&SWHtmlOldLog::OutHTMLOldLog($sow);
 	} elsif (($cmd eq 'memo') || ($cmd eq 'hist')) {
-		# ãƒ¡ãƒ¢è¡¨ç¤º
+		# ƒƒ‚•\¦
 		require "$dirlib/cmd_memo.pl";
 		&SWCmdMemo::CmdMemo($sow);
 	} elsif ($cmd eq 'restmemo') {
-		# ãƒ¡ãƒ¢ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹å†æ§‹ç¯‰
+		# ƒƒ‚ƒCƒ“ƒfƒbƒNƒXÄ\’z
 		require "$dirlib/cmd_restmemo.pl";
 		&SWCmdRestMemoIndex::CmdRestMemoIndex($sow);
 	} elsif ($cmd eq 'mbimg') {
-		# æºå¸¯ç”¨é¡”ã‚°ãƒ©ãƒ•ã‚£ãƒƒã‚¯è¡¨ç¤º
+		# Œg‘Ñ—pŠçƒOƒ‰ƒtƒBƒbƒN•\¦
 		require "$dirlib/cmd_vlog.pl";
 		&SWCmdVLog::CmdMbImg($sow);
 	} elsif (defined($sow->{'query'}->{'vid'})) {
-		# æ‘ãƒ­ã‚°è¡¨ç¤º
+		# ‘ºƒƒO•\¦
 		require "$dirlib/cmd_vlog.pl";
 		&SWCmdVLog::CmdVLog($sow);
 	} else {
 		if ($sow->{'outmode'} eq 'mb') {
-			# ãƒ¢ãƒã‚¤ãƒ«ç”¨ãƒ­ã‚°ã‚¤ãƒ³ç”»é¢
+			# ƒ‚ƒoƒCƒ‹—pƒƒOƒCƒ“‰æ–Ê
 			require "$dirhtml/html_loginform_mb.pl";
 			&SWHtmlLoginFormMb::OutHTMLLoginMb($sow);
 		} else {
-			# ãƒˆãƒƒãƒ—ãƒšãƒ¼ã‚¸è¡¨ç¤º
+			# ƒgƒbƒvƒy[ƒW•\¦
 			require "$dirhtml/html_index.pl";
 			&SWHtmlIndex::OutHTMLIndex($sow);
 		}
@@ -366,7 +366,7 @@ sub TaskBranch {
 }
 
 #----------------------------------------
-# æ‘æ‰‹å‹•é–‹å§‹æ™‚å€¤ãƒã‚§ãƒƒã‚¯
+# ‘ºè“®ŠJn’lƒ`ƒFƒbƒN
 #----------------------------------------
 sub CheckValidityStart {
 	my $sow = $_[0];
@@ -380,20 +380,20 @@ sub CheckValidityStart {
 
 	my $errfrom = "[uid=$sow->{'uid'}, vid=$vil->{'vid'}, cmd=$query->{'cmd'}]";
 
-	# ãƒªã‚½ãƒ¼ã‚¹ã®èª­ã¿è¾¼ã¿
+	# ƒŠƒ\[ƒX‚Ì“Ç‚İ‚İ
 	&SWBase::LoadVilRS($sow, $vil);
 
-	$sow->{'debug'}->raise($sow->{'APLOG_CAUTION'}, "ãƒ­ã‚°ã‚¤ãƒ³ã—ã¦ä¸‹ã•ã„ã€‚", "no login.$errfrom") if ($sow->{'user'}->logined() <= 0);
-	$sow->{'debug'}->raise($sow->{'APLOG_CAUTION'}, "æ‘ã‚’é–‹å§‹ã™ã‚‹ã«ã¯æ‘å»ºã¦äººæ¨©é™ã‹ç®¡ç†äººæ¨©é™ãŒå¿…è¦ã§ã™ã€‚", "no permition.$errfrom") if (($sow->{'uid'} ne $vil->{'makeruid'}) && ($sow->{'uid'} ne $sow->{'cfg'}->{'USERID_ADMIN'}));
+	$sow->{'debug'}->raise($sow->{'APLOG_CAUTION'}, "ƒƒOƒCƒ“‚µ‚Ä‰º‚³‚¢B", "no login.$errfrom") if ($sow->{'user'}->logined() <= 0);
+	$sow->{'debug'}->raise($sow->{'APLOG_CAUTION'}, "‘º‚ğŠJn‚·‚é‚É‚Í‘ºŒš‚ÄlŒ ŒÀ‚©ŠÇ—lŒ ŒÀ‚ª•K—v‚Å‚·B", "no permition.$errfrom") if (($sow->{'uid'} ne $vil->{'makeruid'}) && ($sow->{'uid'} ne $sow->{'cfg'}->{'USERID_ADMIN'}));
 
-	$sow->{'debug'}->raise($sow->{'APLOG_CAUTION'}, "äººæ•°ãŒè¶³ã‚Šã¾ã›ã‚“ã€‚ãƒ€ãƒŸãƒ¼ã‚­ãƒ£ãƒ©ã‚’å«ã‚ã€æœ€ä½ 4 äººå¿…è¦ã§ã™ã€‚", "need 4 persons.$errfrom") if (@$pllist < 4);
-	$sow->{'debug'}->raise($sow->{'APLOG_CAUTION'}, "ç¾åœ¨å‚åŠ ã—ã¦ã„ã‚‹äººæ•°ã¨å®šå“¡ãŒç­‰ã—ãã‚ã‚Šã¾ã›ã‚“ã€‚", "invalid vplcnt or total plcnt.$errfrom") if ((@$pllist != $vil->{'vplcnt'}) && ($vil->{'roletable'} eq 'custom'));
+	$sow->{'debug'}->raise($sow->{'APLOG_CAUTION'}, "l”‚ª‘«‚è‚Ü‚¹‚ñBƒ_ƒ~[ƒLƒƒƒ‰‚ğŠÜ‚ßAÅ’á 4 l•K—v‚Å‚·B", "need 4 persons.$errfrom") if (@$pllist < 4);
+	$sow->{'debug'}->raise($sow->{'APLOG_CAUTION'}, "Œ»İQ‰Á‚µ‚Ä‚¢‚él”‚Æ’èˆõ‚ª“™‚µ‚­‚ ‚è‚Ü‚¹‚ñB", "invalid vplcnt or total plcnt.$errfrom") if ((@$pllist != $vil->{'vplcnt'}) && ($vil->{'roletable'} eq 'custom'));
 
 	return;
 }
 
 #----------------------------------------
-# æ‘æ‰‹å‹•æ›´æ–°æ™‚å€¤ãƒã‚§ãƒƒã‚¯
+# ‘ºè“®XV’lƒ`ƒFƒbƒN
 #----------------------------------------
 sub CheckValidityUpdate {
 	my $sow = $_[0];
@@ -407,15 +407,15 @@ sub CheckValidityUpdate {
 
 	my $errfrom = "[uid=$sow->{'uid'}, vid=$vil->{'vid'}, cmd=$query->{'cmd'}]";
 
-	# ãƒªã‚½ãƒ¼ã‚¹ã®èª­ã¿è¾¼ã¿
+	# ƒŠƒ\[ƒX‚Ì“Ç‚İ‚İ
 	&SWBase::LoadVilRS($sow, $vil);
 
-	$sow->{'debug'}->raise($sow->{'APLOG_CAUTION'}, "ãƒ­ã‚°ã‚¤ãƒ³ã—ã¦ä¸‹ã•ã„ã€‚", "no login.$errfrom") if ($sow->{'user'}->logined() <= 0);
+	$sow->{'debug'}->raise($sow->{'APLOG_CAUTION'}, "ƒƒOƒCƒ“‚µ‚Ä‰º‚³‚¢B", "no login.$errfrom") if ($sow->{'user'}->logined() <= 0);
 	if ($sow->{'uid'} ne $sow->{'cfg'}->{'USERID_ADMIN'}) {
 		if ($sow->{'query'}->{'cmd'} eq 'scrapvil') {
-			$sow->{'debug'}->raise($sow->{'APLOG_CAUTION'}, "å»ƒæ‘ã™ã‚‹ã«ã¯ç®¡ç†äººæ¨©é™ãŒå¿…è¦ã§ã™ã€‚", "no permition.$errfrom");
+			$sow->{'debug'}->raise($sow->{'APLOG_CAUTION'}, "”p‘º‚·‚é‚É‚ÍŠÇ—lŒ ŒÀ‚ª•K—v‚Å‚·B", "no permition.$errfrom");
 		} else {
-			$sow->{'debug'}->raise($sow->{'APLOG_CAUTION'}, "æ‘ã‚’æ›´æ–°ã™ã‚‹ã«ã¯æ‘å»ºã¦äººæ¨©é™ã‹ç®¡ç†äººæ¨©é™ãŒå¿…è¦ã§ã™ã€‚", "no permition.$errfrom") if ($sow->{'uid'} ne $vil->{'makeruid'});
+			$sow->{'debug'}->raise($sow->{'APLOG_CAUTION'}, "‘º‚ğXV‚·‚é‚É‚Í‘ºŒš‚ÄlŒ ŒÀ‚©ŠÇ—lŒ ŒÀ‚ª•K—v‚Å‚·B", "no permition.$errfrom") if ($sow->{'uid'} ne $vil->{'makeruid'});
 		}
 	}
 
@@ -423,7 +423,7 @@ sub CheckValidityUpdate {
 }
 
 #----------------------------------------
-# ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ãƒã‚§ãƒƒã‚¯
+# ƒCƒ“ƒXƒg[ƒ‹ƒ`ƒFƒbƒN
 #----------------------------------------
 sub InstallCheck {
 	my $inst = shift;
@@ -437,7 +437,7 @@ Content-Style-Type: text/css
 <head>
   <meta name="robots" content="noindex,nofollow">
   <meta name="robots" content="noarchive">
-  <title>ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ãƒã‚§ãƒƒã‚¯</title>
+  <title>ƒCƒ“ƒXƒg[ƒ‹ƒ`ƒFƒbƒN</title>
   <style type="text/css">
 <!--
 strong {
@@ -450,13 +450,13 @@ strong {
 
 <body>
 
-<h2>ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ãƒã‚§ãƒƒã‚¯</h2>
+<h2>ƒCƒ“ƒXƒg[ƒ‹ƒ`ƒFƒbƒN</h2>
 
 <ul>
   <li>Perl: [OK]</li>
 _HTML_
 
-	# è¨­å®šãƒ‡ãƒ¼ã‚¿ãƒ•ã‚¡ã‚¤ãƒ«ã®ãƒã‚§ãƒƒã‚¯
+	# İ’èƒf[ƒ^ƒtƒ@ƒCƒ‹‚Ìƒ`ƒFƒbƒN
 	&EndInstallCheck() if (&FileCheck('', "./config.pl", 0, 0, 0) == 0);
 	&FileCheck('', "./_config_local.pl", 0, 0, 0);
 
@@ -484,7 +484,7 @@ _HTML_
 }
 
 #----------------------------------------
-# ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ãƒã‚§ãƒƒã‚¯ã®çµ‚äº†
+# ƒCƒ“ƒXƒg[ƒ‹ƒ`ƒFƒbƒN‚ÌI—¹
 #----------------------------------------
 sub EndInstallCheck {
 	print <<"_HTML_";
@@ -503,7 +503,7 @@ _HTML_
 }
 
 #----------------------------------------
-# ãƒ•ã‚¡ã‚¤ãƒ«ãƒã‚§ãƒƒã‚¯
+# ƒtƒ@ƒCƒ‹ƒ`ƒFƒbƒN
 #----------------------------------------
 sub FileCheck {
 	my ($cfg, $file, $w, $x, $make) = @_;
@@ -513,24 +513,24 @@ sub FileCheck {
 	if (-e $file) {
 		print "[OK]";
 		if (-r $file) {
-			print " / èª­è¾¼ [OK]";
+			print " / “Ç [OK]";
 		} else {
-			print " / èª­è¾¼ <strong>[NG]</strong>";
+			print " / “Ç <strong>[NG]</strong>";
 			$result = 0;
 		}
 		if ($w > 0) {
 			if (-w $file) {
-				print " / æ›¸è¾¼ [OK]";
+				print " / ‘ [OK]";
 			} else {
-				print " / æ›¸è¾¼ <strong>[NG]</strong>";
+				print " / ‘ <strong>[NG]</strong>";
 				$result = 0;
 			}
 		}
 		if ($x > 0) {
 			if (-x $file) {
-				print " / å®Ÿè¡Œ [OK]";
+				print " / Às [OK]";
 			} else {
-				print " / å®Ÿè¡Œ <strong>[NG]</strong>";
+				print " / Às <strong>[NG]</strong>";
 				$result = 0;
 			}
 		}
@@ -560,7 +560,7 @@ sub FileCheck {
 }
 
 #----------------------------------------
-# ãƒ€ãƒŸãƒ¼ã‚­ãƒ£ãƒ©ãƒ»ç®¡ç†äººç”¨IDã®ãƒã‚§ãƒƒã‚¯
+# ƒ_ƒ~[ƒLƒƒƒ‰EŠÇ—l—pID‚Ìƒ`ƒFƒbƒN
 #----------------------------------------
 sub AdminIDCheck {
 	my $sow = shift;
