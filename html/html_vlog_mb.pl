@@ -206,7 +206,7 @@ _HTML_
 			$loud = "ÅiëÂê∫Åj<br$net>" if ($log->{'loud'} > 0);
 
 			print <<"_HTML_";
-$colorstart$logmestypetext[$log->{'mestype'}]<a $atr_id="$log->{'logid'}">$log->{'chrname'}</a>$showid $date$loganchor<br$net>
+$colorstart$logmestypetext[$log->{'mestype'}]<a class=\"anchor\" $atr_id="$log->{'logid'}">$log->{'chrname'}</a>$showid $date$loganchor<br$net>
 $img
 $loud$mes<br$net>$colorend
 _HTML_

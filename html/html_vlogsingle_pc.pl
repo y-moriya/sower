@@ -55,7 +55,7 @@ sub OutHTMLSingleLogActionPC {
 	print <<"_HTML_";
 <div class="message_filter">
 <div class="$class_action">
-  <p>$chrname<a $atr_id="$log->{'logid'}">は</a>、$log->{'log'}<br$net></p>
+  <p>$chrname<a class=\"anchor\" $atr_id="$log->{'logid'}">は</a>、$log->{'log'}<br$net></p>
 _HTML_
 
 	print "  <div class=\"mes_date\">$date</div>\n" if ($log->{'logsubid'} ne $sow->{'LOGSUBID_BOOKMARK'});
@@ -131,7 +131,7 @@ sub OutHTMLSingleLogSayPC {
 _HTML_
 
 	# 名前表示（上配置）
-	print "  <h3 class=\"mesname\">$logmestypetext <a $atr_id=\"$log->{'logid'}\">$chrname</a>$showid</h3>\n\n" if ($charset->{'LAYOUT_NAME'} eq 'top');
+	print "  <h3 class=\"mesname\">$logmestypetext <a class=\"anchor\" $atr_id=\"$log->{'logid'}\">$chrname</a>$showid</h3>\n\n" if ($charset->{'LAYOUT_NAME'} eq 'top');
 
 	# 顔画像の表示
 	print <<"_HTML_";
@@ -143,7 +143,7 @@ _HTML_
 _HTML_
 
 	# 名前表示（右配置）
-	print "    <h3 class=\"mesname\">$logmestypetext <a $atr_id=\"$log->{'logid'}\">$chrname</a>$showid</h3>\n" if ($charset->{'LAYOUT_NAME'} ne 'top');
+	print "    <h3 class=\"mesname\">$logmestypetext <a class=\"anchor\" $atr_id=\"$log->{'logid'}\">$chrname</a>$showid</h3>\n" if ($charset->{'LAYOUT_NAME'} ne 'top');
 
 	# 発言の表示
 	print <<"_HTML_";
@@ -257,7 +257,7 @@ sub OutHTMLSingleLogGuestPC {
 _HTML_
 
 	# 名前表示（上配置）
-	print "  <h3 class=\"mesname\"><a $atr_id=\"$log->{'logid'}\">$chrname</a>$showid</h3>\n\n" if ($charset->{'LAYOUT_NAME'} eq 'top');
+	print "  <h3 class=\"mesname\"><a class=\"anchor\" $atr_id=\"$log->{'logid'}\">$chrname</a>$showid</h3>\n\n" if ($charset->{'LAYOUT_NAME'} eq 'top');
 
 	# 顔画像の表示
 	print <<"_HTML_";
@@ -269,7 +269,7 @@ _HTML_
 _HTML_
 
 	# 名前表示（右配置）
-	print "    <h3 class=\"mesname\"><a $atr_id=\"$log->{'logid'}\">$chrname</a>$showid</h3>\n" if ($charset->{'LAYOUT_NAME'} ne 'top');
+	print "    <h3 class=\"mesname\"><a class=\"anchor\" $atr_id=\"$log->{'logid'}\">$chrname</a>$showid</h3>\n" if ($charset->{'LAYOUT_NAME'} ne 'top');
 
 	# 発言の表示
 	print <<"_HTML_";
@@ -328,7 +328,7 @@ sub OutHTMLSingleLogAdminPC {
 	print <<"_HTML_";
 <div class="message_filter">
 <div class="$messtyle[$log->{'mestype'} - $sow->{'MESTYPE_MAKER'}]">
-  <h3 class="mesname"><a $atr_id="$log->{'logid'}">$chrname</a>$showid</h3>
+  <h3 class="mesname"><a class=\"anchor\" $atr_id="$log->{'logid'}">$chrname</a>$showid</h3>
   <p class="$mes_text">$log->{'log'}</p>
   <div class="mes_date">$loganchor $date</div>
   <hr class="invisible_hr"$net>

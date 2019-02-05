@@ -343,7 +343,7 @@ function getNewLog(link) {
 	$("#getnewloglink").hide();
 	$.get(href,{},function(data){
 		var mes = $(data).find(".inframe:first").children(":not(h2,#readmore,#newinfo)");
-		var atags = mes.find('a');
+		var atags = mes.find('a.anchor');
 		var oldestLogId = $(atags[0]).attr("name");
 		var latestLogId = $(atags[atags.length-1]).attr("name");
 		if (oldestLogId === "") {
