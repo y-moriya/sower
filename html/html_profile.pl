@@ -75,7 +75,7 @@ _HTML_
 			"ID停止中（あと約$penaltydt日）",
 		);
 		print <<"_HTML_";
-  <span class="multicolumn_label">ペナルティ：</span><span class="multicolumn_left">$penalty[$user->{'ptype'}]  $user->{'plevel'}</span>
+  <span class="multicolumn_label">ペナルティ：</span><span class="multicolumn_left">$penalty[$user->{'ptype'}]</span>
   <br class="multicolumn_clear"$net>
 </p>
 _HTML_
@@ -122,7 +122,7 @@ _HTML_
 			my $vil = SWFileVil->new($sow, $_->{'vid'});
 			$vil->readvil();
 			my $linkvalue = &SWBase::GetLinkValues($sow, $reqvals);
-			print "<li><a href=\"$urlsow?$linkvalue#newsay\">$_->{'vid'}村 $vil->{'vname'}</a> $_->{'chrname'} $_->{'playing'}</li>\n";
+			print "<li><a href=\"$urlsow?$linkvalue#newsay\">$_->{'vid'}村 $vil->{'vname'}</a> $_->{'chrname'}</li>\n";
 			$vil->closevil();
 		}
 		print "<li>現在参加中の村はありません。</li>\n" if (@$entriedvils == 0);
