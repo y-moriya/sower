@@ -356,7 +356,7 @@ sub getentriedvils {
 	my $self = shift;
 
 	my @entriedvils;
-	my @label = ('vid', 'vname', 'chrname', 'playing');
+	my @label = ('vid', 'chrname', 'playing');
 	my @data = split('/', "$self->{'entriedvils'}/");
 
 	foreach (@data) {
@@ -396,14 +396,14 @@ sub setentriedvil {
 sub updateentriedvil {
 	my ($self, $entriedvils) = @_;
 
-	my @label = ('vid', 'vname', 'chrname', 'playing');
+	my @label = ('vid', 'chrname', 'playing');
 	my ($entriedvil, @data);
 	foreach $entriedvil (@$entriedvils) {
 		next if ($entriedvil->{'vid'} == 0);
 		next if ($entriedvil->{'playing'} < 0);
 		push(@data, join(':', map{$entriedvil->{$_}}@label));
 	}
-	push(@data, '0:0:0') if (@data == 0); # ダミー
+	push(@data, '0:0') if (@data == 0); # ダミー
 	$self->{'entriedvils'} = join('/', @data);
 }
 
@@ -411,11 +411,10 @@ sub updateentriedvil {
 # 参加中の村データを更新（データセットから書き込みまで）
 #----------------------------------------
 sub writeentriedvil {
-	my ($self, $uid, $vid, $vname, $chrname, $playing, $nowrite) = @_;
+	my ($self, $uid, $vid, $chrname, $playing, $nowrite) = @_;
 
 	my %entriedvil = (
 		vid     => $vid,
-		vname   => $vname,
 		chrname => $chrname,
 		playing => $playing,
 	);

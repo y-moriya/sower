@@ -353,7 +353,7 @@ sub SuddenDeath {
 		$_->{'deathday'} = $vil->{'turn'}; # €–S“ú
 		push(@suddendeathpl, $_);
 		my $user = SWUser->new($sow);
-		$user->writeentriedvil($_->{'uid'}, $vil->{'vid'}, $vil->{'vname'}, $_->getchrname(), 0, 1);
+		$user->writeentriedvil($_->{'uid'}, $vil->{'vid'}, $_->getchrname(), 0, 1);
 		$user->addsdpenalty();
 		$user->writeuser();
 		$user->closeuser();
@@ -675,7 +675,7 @@ sub Execution {
 		$executepl->{'live'} = 'executed';
 		$executepl->{'deathday'} = $vil->{'turn'};
 		my $user = SWUser->new($sow);
-		$user->writeentriedvil($executepl->{'uid'}, $vil->{'vid'}, $vil->{'vname'}, $executepl->getchrname(), 0);
+		$user->writeentriedvil($executepl->{'uid'}, $vil->{'vid'}, $executepl->getchrname(), 0);
 
 		# —ì”\”»’è
 		my $mediumresult = &GetResultSeer($sow, $executepl);
@@ -705,7 +705,7 @@ sub Suicide {
 			$targetpl->{'live'} = 'suicide';
 			$targetpl->{'deathday'} = $vil->{'turn'};
 			my $user = SWUser->new($sow);
-			$user->writeentriedvil($targetpl->{'uid'}, $vil->{'vid'}, $vil->{'vname'}, $targetpl->getchrname(), 0);
+			$user->writeentriedvil($targetpl->{'uid'}, $vil->{'vid'}, $targetpl->getchrname(), 0);
 
 			my $suicidetext = $sow->{'textrs'}->{'SUICIDEBONDS'};
 			my $targetname = $targetpl->getchrname();
@@ -741,7 +741,7 @@ sub Seer {
 				$targetpl->{'live'} = 'cursed';
 				$targetpl->{'deathday'} = $vil->{'turn'};
 				my $user = SWUser->new($sow);
-				$user->writeentriedvil($targetpl->{'uid'}, $vil->{'vid'}, $vil->{'vname'}, $targetpl->getchrname(), 0);
+				$user->writeentriedvil($targetpl->{'uid'}, $vil->{'vid'}, $targetpl->getchrname(), 0);
 			}
 
 			# ô˜T
@@ -750,7 +750,7 @@ sub Seer {
 				$_->{'live'} = 'cursed';
 				$_->{'deathday'} = $vil->{'turn'};
 				my $user = SWUser->new($sow);
-				$user->writeentriedvil($_->{'uid'}, $vil->{'vid'}, $vil->{'vname'}, $_->getchrname(), 0);
+				$user->writeentriedvil($_->{'uid'}, $vil->{'vid'}, $_->getchrname(), 0);
 			}
 
 			# è‚¢î•ñ‘‚«‚İ
@@ -922,7 +922,7 @@ sub Kill {
 			push(@$deadpl, $targetpl);
 			$targetpl->{'deathday'} = $vil->{'turn'};
 			my $user = SWUser->new($sow);
-			$user->writeentriedvil($targetpl->{'uid'}, $vil->{'vid'}, $vil->{'vname'}, $targetpl->getchrname(), 0);
+			$user->writeentriedvil($targetpl->{'uid'}, $vil->{'vid'}, $targetpl->getchrname(), 0);
 
 			# PŒ‚Œ‹‰Ê’Ç‹L
 			foreach (@$livepllist) {

@@ -472,7 +472,7 @@ sub updateentriedvil {
 	my $pllist = $self->getpllist();
 	foreach (@$pllist) {
 		my $user = SWUser->new($sow);
-		$user->writeentriedvil($_->{'uid'}, $self->{'vid'}, $self->{'vname'}, $_->getchrname(), $playing);
+		$user->writeentriedvil($_->{'uid'}, $self->{'vid'}, $_->getchrname(), $playing);
 	}
 
 	return;

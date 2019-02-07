@@ -115,11 +115,15 @@ _HTML_
 <ul class="paragraph">
 _HTML_
 
+		require "$sow->{'cfg'}->{'DIR_LIB'}/file_vil.pl";
 		my @list = sort {$b->{'vid'} <=> $a->{'vid'}} @$entriedvils;
 		foreach (@list) {
-			$reqvals->{'vid'} = $_->{'vid'};
+			$reqvals->{'vid'} = $_->{'vid'};	
+			my $vil = SWFileVil->new($sow, $_->{'vid'});
+			$vil->readvil();
 			my $linkvalue = &SWBase::GetLinkValues($sow, $reqvals);
-			print "<li><a href=\"$urlsow?$linkvalue#newsay\">$_->{'vid'}ë∫ $_->{'vname'}</a> $_->{'chrname'} $_->{'playing'}</li>\n";
+			print "<li><a href=\"$urlsow?$linkvalue#newsay\">$_->{'vid'}ë∫ $vil->{'vname'}</a> $_->{'chrname'} $_->{'playing'}</li>\n";
+			$vil->closevil();
 		}
 		print "<li>åªç›éQâ¡íÜÇÃë∫ÇÕÇ†ÇËÇ‹ÇπÇÒÅB</li>\n" if (@$entriedvils == 0);
 

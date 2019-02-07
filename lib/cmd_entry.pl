@@ -123,7 +123,7 @@ sub SetDataCmdEntry {
 	$vil->writevil();
 
 	# ユーザーデータの更新
-	$user->writeentriedvil($sow->{'uid'}, $vil->{'vid'}, $vil->{'vname'}, $plsingle->getchrname(), 1);
+	$user->writeentriedvil($sow->{'uid'}, $vil->{'vid'}, $plsingle->getchrname(), 1);
 
 	# ログ出力
 	$debug->writeaplog($sow->{'APLOG_POSTED'}, "Entry. [$sow->{'uid'}]");

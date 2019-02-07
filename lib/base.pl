@@ -149,6 +149,15 @@ sub EncodeURL {
 }
 
 #----------------------------------------
+# URLデコード
+#----------------------------------------
+sub DecodeURL {
+	my $url = $_[0];
+	$url =~ s/%([0-9a-fA-F][0-9a-fA-F])/chr(hex($1))/eg;
+	return $url;
+}
+
+#----------------------------------------
 # 基本文字列リソースの読み込み
 #----------------------------------------
 sub LoadBasicTextRS {
@@ -580,7 +589,7 @@ sub ExitVillage {
 
 	# ユーザーデータの更新
 	my $user = SWUser->new($sow);
-	$user->writeentriedvil($exitpl->{'uid'}, $vil->{'vid'}, $vil->{'vname'}, '', -1);
+	$user->writeentriedvil($exitpl->{'uid'}, $vil->{'vid'}, '', -1);
 
 	$exitpl->{'delete'} = 1;
 	my $chrname = $exitpl->getchrname();

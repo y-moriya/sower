@@ -28,6 +28,8 @@ sub OutHTMLAdminManager {
 	my $linkrecord = &SWBase::GetLinkValues($sow, $reqvals);
 	$reqvals->{'cmd'} = 'restviform';
 	my $linkvi = &SWBase::GetLinkValues($sow, $reqvals);
+	$reqvals->{'cmd'} = 'restplayingvil';
+	my $linkpvil = &SWBase::GetLinkValues($sow, $reqvals);
 	$reqvals->{'cmd'} = 'movevil';
 	my $linkmovevil = &SWBase::GetLinkValues($sow, $reqvals);
 
@@ -36,6 +38,7 @@ sub OutHTMLAdminManager {
 <ul class="paragraph">
   <li><a href="$urlsow?$linkrecord">戦績の再構\築</a></li>
   <li><a href="$urlsow?$linkvi">村一覧の再構\築</a></li>
+  <li><a href="$urlsow?$linkpvil">参加中の村一覧の再構\築</a></li>
 </ul>
 
 <ul class="paragraph">

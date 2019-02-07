@@ -300,6 +300,10 @@ sub TaskBranch {
 		# 村一覧再構築
 		require "$dirlib/cmd_restvi.pl";
 		&SWCmdRestVIndex::CmdRestVIndex($sow);
+	} elsif (($cmd eq 'restplayingvil') || ($cmd eq 'restpvil')) {
+		# 参加中の村一覧クリア
+		require "$dirlib/cmd_restpvil.pl";
+		&SWCmdRestPlayingVil::CmdRestPlayingVil($sow);
 	} elsif ($cmd eq 'deletevil') {
 		# 村データ削除
 		require "$dirlib/cmd_deletevil.pl";
