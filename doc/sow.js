@@ -9,6 +9,7 @@ var imgDir;
 var mesFixTime = 20; //MESFIXTIMEと同じ値を設定
 var timer;
 var que_messages;
+var warnFlag = false;
 
 function closeWindow() {
 	$(".close").toggle(
@@ -47,18 +48,26 @@ function strLength(strSrc){
 	return len;
 }
 function showCount(str, elm) {
-	// 本当は囁きとか共鳴もカウントしたくて element からたどっているけど、面倒だったので表発言のみ。。
-	var obj = $(elm).parent().parent().prev().find('span');
+	var obj = $(elm).parent().prev().find('span');
 	
 	if (obj.attr('name') == 'point') {
 		// ポイント制
 		var strCount = Math.ceil(strLength(str).toString() / 2);
 		var ptcnt = 0;
-		if(strCount > 0 ){
+		if(strCount > 0 ) {
 			ptcnt = 20;
 		}
-		if(strCount > 31 ){
+		if(strCount > 31 ) {
 			ptcnt = 20+ Math.ceil((strCount - 31) / 7);
+		}
+		if (strCount >= 500 && !warnFlag) {
+			$(elm).addClass('warn');
+			$('span#saycnt').addClass('warn');
+			warnFlag = true;
+		} else if (strCount < 500 && warnFlag) {
+			$(elm).removeClass('warn');
+			$('span#saycnt').removeClass('warn');
+			warnFlag = false;
 		}
 	} else if (obj.attr('name') == 'count') {
 		// 回数制
@@ -77,8 +86,6 @@ function setAjaxEvent(target){
 		$(this).html(
 			html
 			.replace(/(\/\*)(.*?)(\*\/|$)/g,'$1<em>$2</em>$3')
-//			.replace(/(\*\*+)/g,'<strong>$&</strong>')
-//			.replace(/(\[)(.+?)(\])/g,'<b>$&</b>')
 		);
 	});
 
@@ -114,14 +121,14 @@ function setAjaxEvent(target){
 	target.find(".res_anchor").toggle(
 	function(mouse){
 		var ank  = $(this);
-		var base = ank.parents(".message_filter");//.parents(".message_filter").children();
+		var base = ank.parents(".message_filter");
 		var text = ank.text();
 		var title = ank.attr("title");
 		if( 0 == text.indexOf(">>") ){
 			if( "" == title ){
 				var href = this.href.replace("#","&logid=").replace("&move=page","");
 				$.get(href,{},function(data){
-					var mes = $(data).find(".message_filter");//.parents(".message_filter").children();
+					var mes = $(data).find(".message_filter");
 					var handlerId = "handler"+(new Date().getTime());
 					var handler = $("<div id=\""+handlerId+"\"></div>").addClass("handler");
 					var close = $("<span class=\"close\">×</span>");
@@ -155,7 +162,7 @@ function setAjaxEvent(target){
 		return false;
 	},function(mouse){
 		var ank  = $(this);
-		var base = ank.parents(".message_filter");//.parents(".message_filter").children();
+		var base = ank.parents(".message_filter");
 		base.nextAll(".ajax").fadeOut("nomal", function(){
 			base.nextAll(".ajax").remove();
 		});

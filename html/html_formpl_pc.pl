@@ -159,7 +159,7 @@ _HTML_
 		<label><input type=\"checkbox\" name=\"monospace\" value=\"on\"$checkedmspace$net>“™•</label>
 		<label><input type=\"checkbox\" name=\"loud\" value=\"on\"$checkedloud$net>‘åº</label>
         <div style="float: right;">
-            <span name="$countname">0</span>$countstr
+            <span id="saycnt" name="$countname">0</span>$countstr
         </div>
     </div>
 

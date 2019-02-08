@@ -78,7 +78,7 @@ sub ExecuteCmdWrite {
 
 	if ($writepl->{'emulated'} == 0) {
 		# ”­Œ¾”Á”ï
-		$writepl->{$saytype} -= $saypoint if ($vil->isepilogue() == 0);
+		$writepl->{$saytype} -= $saypoint if ($vil->isepilogue() == 0 && $vil->isprologue() == 0);
 		if ($vil->isepilogue() > 0) {
 			if (($act == 0) && (($mestype == $sow->{'MESTYPE_SAY'}) || ($mestype == $sow->{'MESTYPE_TSAY'}))) {
 				# ”­Œ¾Ï‚Ý‰ñ”^pt

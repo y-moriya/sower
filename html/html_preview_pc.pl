@@ -86,7 +86,6 @@ _HTML_
 	}
 
 	# ”­Œ¾‚É‚æ‚Á‚ÄÁ”ï‚³‚ê‚épt”‚Ì•\Ž¦
-#	my $point = &SWBase::GetSayPoint($sow, $vil, $log->{'log'});
 	my $point = &SWBase::GetSayPoint($sow, $vil, $trimedlog);
 	my ($mestype, $saytype) = &SWWrite::GetMesType($sow, $vil, $curpl);
 	my $unitsay = $sow->{'basictrs'}->{'SAYTEXT'}->{$sow->{'cfg'}->{'COUNTS_SAY'}->{$vil->{'saycnttype'}}->{'COUNT_TYPE'}}->{'UNIT_SAY'};

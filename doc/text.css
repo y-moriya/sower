@@ -53,6 +53,15 @@ textarea {
   line-height: 115%;
 }
 
+textarea.warn {
+  border: solid red;
+  outline: none;
+}
+
+span.warn {
+  color: red;
+}
+
 input {
   line-height: 115%;
 }

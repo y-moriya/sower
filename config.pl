@@ -397,19 +397,19 @@ sub GetConfig {
 	# キャッシュクリアのためファイル名に日付を入れた。（更新忘れそう）
 	my %css_default = (
 		TITLE => '標準スタイル',
-		FILE  => 'sow.css?date=20190104',
+		FILE  => 'sow.css?date=20190208',
 		WIDTH => 500,
 	);
 
 	my %css_text = (
 		TITLE => '簡易表示',
-		FILE  => 'text.css?date=20190104',
+		FILE  => 'text.css?date=20190209',
 		WIDTH => 500,
 	);
 
 	my %css_junawide = (
 		TITLE => '審問風',
-		FILE  => 'junawide.css?date=20190104',
+		FILE  => 'junawide.css?date=20190209',
 		WIDTH => 582,
 #		FILE_TOPBANNER => 'mwtitle_juna.jpg',
 #		WIDTH_TOPBANNER  => 500,
@@ -418,7 +418,7 @@ sub GetConfig {
 
 	my %css_rem = (
 		TITLE => 'Style-R (default)',
-		FILE  => 'rem.css?date=20190104',
+		FILE  => 'rem.css?date=20190209',
 		WIDTH => 600,
 		FILE_TOPBANNER => 'remcss/remheader.png',
 		WIDTH_TOPBANNER  => 600,
@@ -709,7 +709,7 @@ sub GetConfig {
 		FILE_SCORE     => "score.cgi",
 
 		# キャッシュクリアのためファイル名に日付を入れた。（更新忘れそう）
-		FILE_JS_SOW    => "sow.js?date=20190205",
+		FILE_JS_SOW    => "sow.js?date=20190209",
 		FILE_JS_JQUERY => "jquery.js",
 		FILE_JS_DRAG   => "jquery.easydrag.js",
 		FILE_JS_FILTER => "filter.js",
