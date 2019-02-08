@@ -397,7 +397,7 @@ sub GetConfig {
 	# キャッシュクリアのためファイル名に日付を入れた。（更新忘れそう）
 	my %css_default = (
 		TITLE => '標準スタイル',
-		FILE  => 'sow.css?date=20190208',
+		FILE  => 'sow.css?date=20190209',
 		WIDTH => 500,
 	);
 
@@ -411,9 +411,6 @@ sub GetConfig {
 		TITLE => '審問風',
 		FILE  => 'junawide.css?date=20190209',
 		WIDTH => 582,
-#		FILE_TOPBANNER => 'mwtitle_juna.jpg',
-#		WIDTH_TOPBANNER  => 500,
-#		HEIGHT_TOPBANNER => 70,
 	);
 
 	my %css_rem = (
