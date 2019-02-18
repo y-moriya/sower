@@ -34,16 +34,6 @@ sub OutHTMLMakeVilPreview {
 <form action="$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}" method="$cfg->{'METHOD_FORM'}">
 _HTML_
 
-	# 属性値生成
-    # 村作成に使用する属性値をすべて取得する
-	my @reqkeys = ( 'vname', 'vcomment', 'makeruid', 'roletable', 'hour',
-		'minite', 'updinterval', 'vplcnt', 'entrylimit', 'entrypwd', 'rating',
-		'vplcntstart', 'saycnttype', 'starttype', 'votetype', 'noselrole',
-		'entrustmode', 'showall', 'noactmode', 'nocandy', 'nofreeact', 'guestmenu',
-		'showid', 'timestamp', 'randomtarget', 'makersaymenu', 'csid', 'trsid');
-	my $reqvals = &SWBase::GetRequestValues($sow, \@reqkeys);
-	my $hidden = &SWBase::GetHiddenValues($sow, $reqvals, '  ');
-
 	# キャラセットの読み込み
 	&SWBase::LoadTextRSWithoutVil($sow, $query->{'trsid'});
 
@@ -268,6 +258,17 @@ _HTML_
 _HTML_
 
 	print "</div>\n\n";
+	
+	# 属性値生成
+	# 村作成に使用する属性値をすべて取得する
+	$query->{'vcomment'} =~ s/<br( \/)?>/&#13\;/ig;
+	my @reqkeys = ( 'vname', 'vcomment', 'makeruid', 'roletable', 'hour',
+		'minite', 'updinterval', 'vplcnt', 'entrylimit', 'entrypwd', 'rating',
+		'vplcntstart', 'saycnttype', 'starttype', 'votetype', 'noselrole',
+		'entrustmode', 'showall', 'noactmode', 'nocandy', 'nofreeact', 'guestmenu',
+		'showid', 'timestamp', 'randomtarget', 'makersaymenu', 'csid', 'trsid');
+	my $reqvals = &SWBase::GetRequestValues($sow, \@reqkeys);
+	my $hidden = &SWBase::GetHiddenValues($sow, $reqvals, '  ');
 
 	# 作成・修正ボタンの表示
 	print <<"_HTML_";
