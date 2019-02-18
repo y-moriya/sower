@@ -165,11 +165,6 @@ _HTML_
 
 _HTML_
 
-	# 投票先変更プルダウン
-	if (($curpl->{'live'} eq 'live') && ($vil->{'turn'} > 1) && ($vil->isepilogue() == 0)) {
-		&OutHTMLVotePC($sow, $vil, 'vote');
-	}
-
 	# 表情選択欄
 	&OutHTMLExpressionFormPC($sow, $vil);
 
@@ -219,6 +214,11 @@ _HTML_
     </form>
 
 _HTML_
+
+	# 投票先変更プルダウン
+	if (($curpl->{'live'} eq 'live') && ($vil->{'turn'} > 1) && ($vil->isepilogue() == 0)) {
+		&OutHTMLVotePC($sow, $vil, 'vote');
+	}
 
 	# アクション
 	&OutHTMLActionFormPC($sow, $vil) if ((($curpl->{'live'} eq 'live') || ($vil->isepilogue() != 0)) && (($vil->{'noactmode'} == 0) || ($vil->{'noactmode'} == 2)));
