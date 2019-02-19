@@ -19,6 +19,7 @@ sub OutHTMLSingleLogInfoPC {
 
 	print <<"_HTML_";
 <p class="$class">
+<a class=\"anchor\" $atr_id=\"$log->{'logid'}\">
 $entry$logmes
 </p>
 <hr class="invisible_hr"$net>
