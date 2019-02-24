@@ -470,6 +470,9 @@ address {
     padding: 4px 8px 4px 8px;
     color: #664;
     border: 1px solid #664;
+} .infosp a:hover {
+    text-decoration: none;
+    color: #664;
 }
 
 /* 警告・注意表示 ----------*/ .caution {
@@ -756,4 +759,23 @@ address {
     float: right;
     margin-top: 3px;
     color: #997;
+}
+
+/* アンカーコピー時ポップアップ -----------*/ .popup {
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    transform: translateY(100%);
+    padding: 1em;
+    margin: 0px;
+    background-color: #ddc;
+    color: #221;
+    text-align: center;
+    opacity: 0;
+    transition: 0.5s;
+}
+.popup.js_active {
+    transform: translateY(0%);
+    opacity: 1;
 }

@@ -408,6 +408,9 @@ address {
   padding: 8px;
   border: 1px solid #aaa;
   color: #aaa;
+} .infosp a:hover {
+  text-decoration: none;
+  color: #aaa;
 }
 
 /* 警告・注意表示 ----------*/
@@ -923,4 +926,23 @@ span.mes_number:hover {
 	font-size: 120%;
 	cursor: pointer;
 	float: right;
+}
+
+/* アンカーコピー時ポップアップ -----------*/ .popup {
+  position: fixed;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  transform: translateY(100%);
+  padding: 1em;
+  margin: 0px;
+  background-color: #000;
+  color: #fff;
+  text-align: center;
+  opacity: 0;
+  transition: 0.5s;
+}
+.popup.js_active {
+  transform: translateY(0%);
+  opacity: 1;
 }

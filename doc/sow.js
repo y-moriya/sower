@@ -353,7 +353,7 @@ function getNewLog(link) {
 		var atags = mes.find('a.anchor');
 		var oldestLogId = $(atags[0]).attr("name");
 		var latestLogId = $(atags[atags.length-1]).attr("name");
-		if (oldestLogId === "") {
+		if ((oldestLogId === "SS00000") || (oldestLogId === "")) {
 			base.find("img").hide();
 			$("#newinfomes").text("最終取得時刻 エラー発生。手動で更新してください。");
 			$("#newinfomes").show();
@@ -398,10 +398,27 @@ function reloadSowFeed() {
 	getSowFeed(url, title, 0);
 }
 
-function add_link(mes_number) {
+function add_link(mes_number, mes_turn) {
 	textareas = document.getElementsByTagName('textarea');
-	for (var i = 0; i < textareas.length; i++) {
-		textareas[i].value = textareas[i].value + ">>" + mes_number + " " ;
+	if (textareas.length > 0) {
+		for (var i = 0; i < textareas.length; i++) {
+			textareas[i].value = textareas[i].value + ">>" + mes_number + " " ;
+		}
+	} else {
+		var ta = document.createElement("textarea")
+		var anchor = ">>" + mes_turn + ":" + mes_number
+		ta.value = anchor;
+		document.body.appendChild(ta);
+		ta.select();
+		document.execCommand("copy");
+		ta.parentElement.removeChild(ta);
+
+
+		$('.popup').html(anchor + ' をクリップボードにコピーしました。')
+		$('.popup').addClass('js_active');
+		setTimeout(function() {
+			$('.popup').removeClass('js_active');
+		}, 3000);
 	}
 }
 

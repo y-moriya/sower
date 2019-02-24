@@ -103,7 +103,7 @@ sub OutHTMLSingleLogSayPC {
 	# ログ番号
 	my $loganchor = &SWLog::GetAnchorlogID($sow, $vil, $log);
 	if ($loganchor ne "") {
-		$loganchor = "<span class=\"mes_number\" onclick=\"add_link('$loganchor')\">($loganchor)</span>"
+		$loganchor = "<span class=\"mes_number\" onclick=\"add_link('$loganchor', '$sow->{'turn'}')\">($loganchor)</span>"
 	}
 
 	# 発言種別
@@ -224,7 +224,7 @@ sub OutHTMLSingleLogGuestPC {
 	# ログ番号
 	my $loganchor = &SWLog::GetAnchorlogID($sow, $vil, $log);
 	if ($loganchor ne "") {
-		$loganchor = "<span class=\"mes_number\" onclick=\"add_link('$loganchor')\">($loganchor)</span>"
+		$loganchor = "<span class=\"mes_number\" onclick=\"add_link('$loganchor', '$sow->{'turn'}')\">($loganchor)</span>"
 	}
 
 	# 発言中のアンカー等を整形
@@ -313,7 +313,7 @@ sub OutHTMLSingleLogAdminPC {
 
 	my $loganchor = &SWLog::GetAnchorlogID($sow, $vil, $log);
 	if ($loganchor ne "") {
-		$loganchor = "<span class=\"mes_number\" onclick=\"add_link('$loganchor')\">($loganchor)</span>"
+		$loganchor = "<span class=\"mes_number\" onclick=\"add_link('$loganchor', '$sow->{'turn'}')\">($loganchor)</span>"
 	}
 
 	# 等幅処理

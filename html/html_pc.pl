@@ -182,6 +182,7 @@ sub OutHTMLFooterPC {
 
 	print <<"_HTML_";
 <div class="inframe">
+<p class="popup"></p>
 <address>
 ($cput CPUs)<br$net>
 $sow->{'VERSION_SW'} <a href="$sow->{'URL_AUTHOR'}">$sow->{'COPY_AUTHOR'}</a><br$net>
