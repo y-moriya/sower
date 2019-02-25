@@ -419,7 +419,6 @@ function add_link(mes_number, mes_turn) {
 			popupmsg.innerHTML = '';
 		} else {
 			var ta = document.createElement("textarea")
-			var anchor = ">>" + mes_turn + ":" + mes_number
 			ta.value = anchor;
 			document.body.appendChild(ta);
 			ta.select();
