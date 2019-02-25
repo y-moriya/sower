@@ -594,6 +594,9 @@ span.mes_number:hover {
   color: #fff;
 /*  background: #442; */
   background: #553;
+} .action_nom a:hover {
+  text-decoration: none;
+  color: #fff;
 }
 
 /* ‚µ‚¨‚è ----------*/
@@ -603,6 +606,9 @@ span.mes_number:hover {
   border: 1px solid #fff;
 
   font-weight: bold;
+  color: #fff;
+} .action_bm a:hover {
+  text-decoration: none;
   color: #fff;
 }
 

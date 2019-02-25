@@ -621,6 +621,11 @@ span.mes_number:hover {
   background: #debea1;
 }
 
+.action_nom a:hover {
+  text-decoration: none;
+  color: #000000;
+}
+
 /* ‚µ‚¨‚è ----------*/
 .action_bm {
   margin: 0px 0px 10px 0px;
@@ -630,6 +635,11 @@ span.mes_number:hover {
   color: #000000;
   background: #d1d1d1;
   font-weight: bold;
+}
+
+.action_bm a:hover {
+  text-decoration: none;
+  color: #000000;
 }
 
 .action_type {

@@ -405,16 +405,31 @@ function add_link(mes_number, mes_turn) {
 			textareas[i].value = textareas[i].value + ">>" + mes_number + " " ;
 		}
 	} else {
-		var ta = document.createElement("textarea")
-		var anchor = ">>" + mes_turn + ":" + mes_number
-		ta.value = anchor;
-		document.body.appendChild(ta);
-		ta.select();
-		document.execCommand("copy");
-		ta.parentElement.removeChild(ta);
+		var anchor = ">>" + mes_turn + ":" + mes_number;
 
+		var ua = navigator.userAgent;
+		if (ua.indexOf("iPhone") >= 0 || ua.indexOf("iPad") >= 0 || ua.indexOf("iPod") >= 0) {
+			var popupmsg = document.getElementById('popupmsg');
+			popupmsg.innerHTML = anchor;
+			var range = document.createRange();
+			range.selectNode(popupmsg);
+			window.getSelection().addRange(range);
 
-		$('.popup').html(anchor + ' をクリップボードにコピーしました。')
+			document.execCommand("copy");
+			popupmsg.innerHTML = '';
+		} else {
+			var ta = document.createElement("textarea")
+			var anchor = ">>" + mes_turn + ":" + mes_number
+			ta.value = anchor;
+			document.body.appendChild(ta);
+			ta.select();
+			document.execCommand("copy");
+			ta.parentElement.removeChild(ta);
+		}
+
+		var msg = anchor + ' をクリップボードにコピーしました。';
+
+		$('.popup').html(msg);
 		$('.popup').addClass('js_active');
 		setTimeout(function() {
 			$('.popup').removeClass('js_active');
@@ -438,7 +453,7 @@ function mesFixCountDown() {
 	}
 }
 
-$(document).ready(function(){
+$(document).ready(function() {
 	ajaxitems = [];
 	setAjaxEvent($(".inframe"));
 	getSowFeedUrl();

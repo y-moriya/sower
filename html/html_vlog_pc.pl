@@ -55,7 +55,6 @@ sub OutHTMLVlogPC {
 終了しました。
 </p>
 <hr class="invisible_hr"$net>
-
 _HTML_
 
 		&SWHtmlPC::OutHTMLReturnPC($sow); # トップページへ戻る

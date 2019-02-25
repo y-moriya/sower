@@ -536,6 +536,9 @@ address {
     padding: 4px;
     color: #cca;
     border: 1px solid #cca;
+} .action_nom a:hover {
+    text-decoration: none;
+    color: #cca;
 }
 
 /* ‚µ‚¨‚è ----------*/ .action_bm {
@@ -544,6 +547,9 @@ address {
     font-weight: bold;
     color: #221;
     background: #ddc;
+} .action_bm a:hover {
+    text-decoration: none;
+    color: #221;
 } .action_type {
 }
 

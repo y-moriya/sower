@@ -182,6 +182,7 @@ sub OutHTMLFooterPC {
 
 	print <<"_HTML_";
 <div class="inframe">
+<p id="popupmsg"></p>
 <p class="popup"></p>
 <address>
 ($cput CPUs)<br$net>
