@@ -294,6 +294,18 @@ sub GetRequestValues {
 	}
 	push (@$reqkeys, @basereqkeys);
 
+	my @customreqkeys;
+	if ($query->{'cmd'} eq 'makevilpr' && $query->{'roletable'} eq 'custom') {
+		my $roleid = $sow->{'ROLEID'};
+		for ($i = 1; $i < @$roleid; $i++) {
+			my $countrole = 0;
+			if (defined($query->{"cnt$roleid->[$i]"})) {
+				push (@customreqkeys, "cnt$roleid->[$i]");
+			}
+		}
+		push (@$reqkeys, @customreqkeys);
+	}
+
 	my %reqvals = ();
 	foreach (@$reqkeys) {
 		$reqvals{$_} = $sow->{'query'}->{$_} if ((defined($sow->{'query'}->{$_})) && ($sow->{'query'}->{$_} ne ''));
