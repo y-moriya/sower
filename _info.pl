@@ -9,13 +9,12 @@ sub OutHTMLAdminInfo {
 	my $net = $sow->{'html'}->{'net'}; # Null End Tag
 	my $atr_id = $sow->{'html'}->{'atr_id'};
 
-	print <<"_HTML_";
-<h2>管理人からのお知らせ</h2>
-<p>
-2019/3/25（月） AM1:00～AM7:00の間にサーバーメンテナンスが実施されます。<br>
-メンテナンス中に1時間程度サーバーにアクセス出来なくなる時間帯がありますので、村の進行にはお気をつけください。
-</p>
-_HTML_
+# 	print <<"_HTML_";
+# <h2>管理人からのお知らせ</h2>
+# <p>
+
+# </p>
+# _HTML_
 
 }
 
