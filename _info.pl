@@ -9,12 +9,13 @@ sub OutHTMLAdminInfo {
 	my $net = $sow->{'html'}->{'net'}; # Null End Tag
 	my $atr_id = $sow->{'html'}->{'atr_id'};
 
-# 	print <<"_HTML_";
-# <h2>管理人からのお知らせ</h2>
-# <p>
-
-# </p>
-# _HTML_
+	print <<"_HTML_";
+<h2>管理人からのお知らせ</h2>
+<p>
+2019/04/24
+霧雨降る街をキャラセットに追加しました。
+</p>
+_HTML_
 
 }
 

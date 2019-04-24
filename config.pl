@@ -17,6 +17,7 @@ sub GetConfig {
 		'troika',
 		'ao',
 		'wbbs',
+		'mistyrain',
 	);
 
 	# 文字列リソースセットID
@@ -392,6 +393,7 @@ sub GetConfig {
 		'トロイカ by <a href="http://asakp2.rosx.net/">かえるぴょこぴょこ／あさくら</a>',
 		'仰げば狼 by おくみつ',
 		'人狼BBS10周年 画像 by AICE',
+		'霧雨降る街 by <a href="http://misty-rain.sakura.ne.jp/fall0rain/">きりのれいん</a>',
 	);
 
 	# キャッシュクリアのためファイル名に日付を入れた。（更新忘れそう）

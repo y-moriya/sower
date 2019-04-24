@@ -184,6 +184,8 @@ function icoChange() {
 	  s += ".jpg";
   } else if (s.match("wbbs")) {
 	  s += ".jpg";
+  } else if (s.match("mistyrain")) {
+	  s += ".png";
   }
   document.charaImg.src = imgDir+s;
 }
