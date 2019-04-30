@@ -19,12 +19,14 @@ sub OutHTMLSingleLogInfoPC {
 
 	print <<"_HTML_";
 <p class="$class">
-<a class=\"anchor\" $atr_id=\"$log->{'logid'}\">
+<a class=\"anchor\" $atr_id=\"$log->{'logid'}\"></a>
 $entry$logmes
 </p>
+
 <hr class="invisible_hr"$net>
 
 _HTML_
+
 }
 
 #----------------------------------------
@@ -452,7 +454,6 @@ sub OutHTMLSingleLogPC {
 	if (($log->{'mestype'} == $sow->{'MESTYPE_INFONOM'}) || ($log->{'mestype'} == $sow->{'MESTYPE_INFOSP'})) {
 		# インフォメーション
 		&OutHTMLSingleLogInfoPC($sow, $vil, $log, $no, $newsay, $anchor, $modesingle);
-
 	} elsif ($log->{'mestype'} >= $sow->{'MESTYPE_DELETED'}) {
 		if (($log->{'logsubid'} eq $sow->{'LOGSUBID_ACTION'}) || ($log->{'logsubid'} eq $sow->{'LOGSUBID_BOOKMARK'})) {
 			# アクション／しおり
