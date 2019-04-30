@@ -175,6 +175,16 @@ _HTML_
   <div>
 _HTML_
 	} else {
+
+		# 日付にパーマリンク付与
+		if (CanAddPermalink($sow, $vil, $log) eq 1) {
+			my $reqvals = &SWBase::GetRequestValues($sow);
+			my $link = &SWBase::GetLinkValues($sow, $reqvals);
+			my $amp   = $sow->{'html'}->{'amp'};
+			$link = "$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}?$link";
+			$date = "<a href=\"$link$amp" . "logid=$log->{'logid'}\">$date</a>";
+		}
+
 		print "  <div class=\"clearboth\">\n";
 		print "    <div class=\"mes_date\">$loganchor $date</div>\n";
 	}
@@ -205,6 +215,16 @@ sub OutHTMLSingleLogGuestPC {
 	if ($vil->{'timestamp'} > 0 && ($vil->isepilogue() == 0)) {
 		$date = $sow->{'dt'}->cvtdtsht($log->{'date'});
 	}
+
+	# 日付にパーマリンク付与
+	if (CanAddPermalink($sow, $vil, $log) eq 1) {
+		my $reqvals = &SWBase::GetRequestValues($sow);
+		my $link = &SWBase::GetLinkValues($sow, $reqvals);
+		my $amp   = $sow->{'html'}->{'amp'};
+		$link = "$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}?$link";
+		$date = "<a href=\"$link$amp" . "logid=$log->{'logid'}\">$date</a>";
+	}
+
 	$sow->{'charsets'}->loadchrrs($logpl->{'csid'});
 	my $charset = $sow->{'charsets'}->{'csid'}->{$logpl->{'csid'}};
 	my $chrname = $log->{'chrname'};
@@ -303,6 +323,13 @@ sub OutHTMLSingleLogAdminPC {
 	if ($vil->{'timestamp'} > 0) {
 		$date = $sow->{'dt'}->cvtdtsht($log->{'date'});
 	}
+	
+	# 日付にパーマリンク付与
+	my $reqvals = &SWBase::GetRequestValues($sow);
+	my $link = &SWBase::GetLinkValues($sow, $reqvals);
+	my $amp   = $sow->{'html'}->{'amp'};
+	$link = "$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}?$link";
+	$date = "<a href=\"$link$amp" . "logid=$log->{'logid'}\">$date</a>";
 
 	# クラス名
 	my @messtyle = ('mes_maker', 'mes_admin');
@@ -510,6 +537,24 @@ sub GetLogPL {
 	}
 
 	return $logpl;
+}
+
+#----------------------------------------
+# パーマリンクを表示してもよいかどうか
+#----------------------------------------
+sub CanAddPermalink {
+	my ($sow, $vil, $log) = @_;
+	my $result = 1;
+	if ($vil->isepilogue() eq 1) {
+		$result = 1;
+	} else {
+		if ($log->{'mestype'} eq $sow->{'MESTYPE_TSAY'} || 
+				$log->{'mestype'} eq $sow->{'MESTYPE_QUE'} || 
+				$log->{'logid'} eq $sow->{'PREVIEW_LOGID'}) {
+					$result = 0;
+				}
+	}
+	return $result;
 }
 
 1;

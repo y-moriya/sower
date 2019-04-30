@@ -381,6 +381,7 @@ sub InitConst {
 		MEMOTYPE_MEMO    => 2,
 
 		LOGCOUNT_UNDEF    => 99999,
+		PREVIEW_LOGID	  => 'SS99999',
 		MAXWIDTH_TURN     => 3,     # “ú•t‚ÌŒ…”
 		MAXWIDTH_LOGCOUNT => 5,     # ƒƒO”Ô†‚ÌŒ…”
 		LOGMESTYPE        => \@logmestype,
