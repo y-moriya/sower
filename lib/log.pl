@@ -222,18 +222,15 @@ sub ReplaceAnchorHTML {
 
 		$anchor->{'logkeys'}->{$logid} = -1 if (!defined($anchor->{'logkeys'}->{$logid}));
 		if ($turn == $sow->{'turn'}) {
-#			if (($anchor->{'rowover'} == 0) || ($anchor->{'logkeys'}->{$logid} >= 0)) {
 			if ($anchor->{'logkeys'}->{$logid} >= 0) {
 				$reqvals->{'rowall'} = '';
 				$link = "#$logid";
 				$blank = '';
-				#$title = &GetPopupAnchor($sow, $vil, $logid, $anchor) if ($sow->{'cfg'}->{'ENABLED_POPUP'} > 0);
 			} else {
 				$reqvals->{'turn'} = $turn if ($turn != $vil->{'turn'});
 				$reqvals->{'logid'} = $logid;
 				$link = &SWBase::GetLinkValues($sow, $reqvals);
 				$link = "$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}?vid=1&$link";
-				#$title = &GetPopupAnchor($sow, $vil, $logid, $anchor) if ($sow->{'cfg'}->{'ENABLED_POPUP'} > 0);
 			}
 		} else {
 			$reqvals->{'turn'} = $turn if ($turn != $vil->{'turn'});
@@ -245,9 +242,6 @@ sub ReplaceAnchorHTML {
 		# 正規表現での誤認識を防ぐ
 		&BackQuoteAnchorMark(\$anchortext);
 
-		#$title = " title=\"$title\"" if ($title ne '');
-    	#$title = " onmouseover=\"popup('$title', event);\" onmouseout=\"popdown();\"" if ($title ne '');
-		#$$mes =~ s/$anchortext/<a href=\"$link\" class=\"res_anchor\"$blank$title>&gt;&gt;$linktext<\/a>/;
 		$$mes =~ s/$anchortext/<a href=\"$link\" class=\"res_anchor\"$blank>&gt;&gt;$linktext<\/a>/;
 	}
 
@@ -285,8 +279,6 @@ sub ReplaceAnchorHTMLMb {
 	my $cfg = $sow->{'cfg'};
 	my $reqvals = &SWBase::GetRequestValues($sow);
 
-	#$mes =~ s/(s?https?:\/\/[^\/<>\s]+)[-_.!~*'()a-zA-Z0-9;\/?:\@&=+\$,%#]+/<a href=\"$&\" class=\"res_anchor\">&lt;$1&gt;<\/a>/g; リファラ問題解決してからー
-
 	while ($mes =~ /<mw ([a-zA-Z]+\d+),([^,]*),([^>]+)>/) {
 		my $anchortext = $&;
 		my $logid = $1;
@@ -311,7 +303,6 @@ sub ReplaceAnchorHTMLMb {
 		&BackQuoteAnchorMark(\$anchortext);
 
 		$mes =~ s/$anchortext/<a href=\"$link\">&gt;&gt;$linktext<\/a>/;
-#		$mes =~ s/$anchortext/&gt;&gt;$linktext/;
 	}
 
 	return $mes;

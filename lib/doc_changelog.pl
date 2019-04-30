@@ -42,10 +42,9 @@ sub outhtmlnew {
 	my $atr_id = $sow->{'html'}->{'atr_id'};
 
 	print <<"_HTML_";
-<h3>Sower Version 1.1.3 (2019/02/09)</h3>
+<h3>Sower Version 1.1.4 (2019/04/30)</h3>
 <ul>
-  <li>プロローグの発言数消費をなくした。</li>
-  <li>入力している発言文字数が上限を超えると警告が表\示されるようにした。</li>
+  <li>発言時刻にPermalinkを追加。クリックするとその発言のみが表\示されます。</li>
 </ul>
 _HTML_
 
@@ -69,6 +68,11 @@ _HTML_
 
 	print <<"_HTML_";
 <hr class="invisible_hr"$net>
+<h3>Sower Version 1.1.3 (2019/02/09)</h3>
+<ul>
+  <li>プロローグの発言数消費をなくした。</li>
+  <li>入力している発言文字数が上限を超えると警告が表\示されるようにした。</li>
+</ul>
 <h3>Sower Version 1.1.2 (2019/02/03)</h3>
 <ul>
   <li>sowメンテナンスプロジェクトのsow2.02aから下記の主要な修正をマージ</li>
