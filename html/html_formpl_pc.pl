@@ -372,6 +372,7 @@ _HTML_
 		# キャラ画像アドレスの取得
 		my $img = &SWHtmlPC::GetImgUrl($sow, $curpl, $charset->{'BODY'});
 		if ($curpl->iswhisper > 0) {
+			# TODO: 狼の囁き以外でもWSAY画像を使用しているので、要修正
 			$img = &SWHtmlPC::GetImgUrl($sow, $curpl, $charset->{'BODY'}, 0, $sow->{'MESTYPE_WSAY'});
 		}
 

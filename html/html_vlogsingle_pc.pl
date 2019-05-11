@@ -10,6 +10,11 @@ sub OutHTMLSingleLogInfoPC {
 
 	my $logmes = $log->{'log'};
 	$logmes = "<a $atr_id=\"newsay\">$logmes</a>" if ($newsay > 0);
+	my $logid = $log->{'logid'};
+	if (IsMaskedLogid($sow, $vil, $log) eq 1) {
+		$logid = $log->{'maskedid'}
+	}
+
 	&SWHtml::ConvertNET($sow, \$logmes);
 
 	my $class = "info";
@@ -19,7 +24,7 @@ sub OutHTMLSingleLogInfoPC {
 
 	print <<"_HTML_";
 <p class="$class">
-<a class=\"anchor\" $atr_id=\"$log->{'logid'}\"></a>
+<a class=\"anchor\" $atr_id=\"$logid\"></a>
 $entry$logmes
 </p>
 
@@ -108,6 +113,11 @@ sub OutHTMLSingleLogSayPC {
 		$loganchor = "<span class=\"mes_number\" onclick=\"add_link('$loganchor', '$sow->{'turn'}')\">($loganchor)</span>"
 	}
 
+	my $logid = $log->{'logid'};
+	if (IsMaskedLogid($sow, $vil, $log) eq 1) {
+		$logid = $log->{'maskedid'}
+	}
+
 	# 発言種別
 	my @logmestypetexts = ('', '', '', '【削除】', '【管理人削除】', '【未確】', '', '【独】', '【赤】', '【墓】', '', '', '【鳴】', '【念】', '');
 	my $logmestypetext = '';
@@ -134,7 +144,7 @@ sub OutHTMLSingleLogSayPC {
 _HTML_
 
 	# 名前表示（上配置）
-	print "  <h3 class=\"mesname\">$logmestypetext <a class=\"anchor\" $atr_id=\"$log->{'logid'}\">$chrname</a>$showid</h3>\n\n" if ($charset->{'LAYOUT_NAME'} eq 'top');
+	print "  <h3 class=\"mesname\">$logmestypetext <a class=\"anchor\" $atr_id=\"$logid\">$chrname</a>$showid</h3>\n\n" if ($charset->{'LAYOUT_NAME'} eq 'top');
 
 	# 顔画像の表示
 	print <<"_HTML_";
@@ -146,7 +156,7 @@ _HTML_
 _HTML_
 
 	# 名前表示（右配置）
-	print "    <h3 class=\"mesname\">$logmestypetext <a class=\"anchor\" $atr_id=\"$log->{'logid'}\">$chrname</a>$showid</h3>\n" if ($charset->{'LAYOUT_NAME'} ne 'top');
+	print "    <h3 class=\"mesname\">$logmestypetext <a class=\"anchor\" $atr_id=\"$logid\">$chrname</a>$showid</h3>\n" if ($charset->{'LAYOUT_NAME'} ne 'top');
 
 	# 発言の表示
 	print <<"_HTML_";
@@ -179,7 +189,7 @@ _HTML_
 	} else {
 
 		# 日付にパーマリンク付与
-		if (CanAddPermalink($sow, $vil, $log) eq 1) {
+		if (IsMaskedLogid($sow, $vil, $log) eq 0) {
 			my $reqvals = &SWBase::GetRequestValues($sow);
 			my $link = &SWBase::GetLinkValues($sow, $reqvals);
 			my $amp   = $sow->{'html'}->{'amp'};
@@ -219,7 +229,7 @@ sub OutHTMLSingleLogGuestPC {
 	}
 
 	# 日付にパーマリンク付与
-	if (CanAddPermalink($sow, $vil, $log) eq 1) {
+	if (IsMaskedLogid($sow, $vil, $log) eq 0) {
 		my $reqvals = &SWBase::GetRequestValues($sow);
 		my $link = &SWBase::GetLinkValues($sow, $reqvals);
 		my $amp   = $sow->{'html'}->{'amp'};
@@ -247,6 +257,11 @@ sub OutHTMLSingleLogGuestPC {
 	my $loganchor = &SWLog::GetAnchorlogID($sow, $vil, $log);
 	if ($loganchor ne "") {
 		$loganchor = "<span class=\"mes_number\" onclick=\"add_link('$loganchor', '$sow->{'turn'}')\">($loganchor)</span>"
+	}
+
+	my $logid = $log->{'logid'};
+	if (IsMaskedLogid($sow, $vil, $log) eq 1) {
+		$logid = $log->{'maskedid'}
 	}
 
 	# 発言中のアンカー等を整形
@@ -280,7 +295,7 @@ sub OutHTMLSingleLogGuestPC {
 _HTML_
 
 	# 名前表示（上配置）
-	print "  <h3 class=\"mesname\"><a class=\"anchor\" $atr_id=\"$log->{'logid'}\">$chrname</a>$showid</h3>\n\n" if ($charset->{'LAYOUT_NAME'} eq 'top');
+	print "  <h3 class=\"mesname\"><a class=\"anchor\" $atr_id=\"$logid\">$chrname</a>$showid</h3>\n\n" if ($charset->{'LAYOUT_NAME'} eq 'top');
 
 	# 顔画像の表示
 	print <<"_HTML_";
@@ -292,7 +307,7 @@ _HTML_
 _HTML_
 
 	# 名前表示（右配置）
-	print "    <h3 class=\"mesname\"><a class=\"anchor\" $atr_id=\"$log->{'logid'}\">$chrname</a>$showid</h3>\n" if ($charset->{'LAYOUT_NAME'} ne 'top');
+	print "    <h3 class=\"mesname\"><a class=\"anchor\" $atr_id=\"$logid\">$chrname</a>$showid</h3>\n" if ($charset->{'LAYOUT_NAME'} ne 'top');
 
 	# 発言の表示
 	print <<"_HTML_";
@@ -541,18 +556,19 @@ sub GetLogPL {
 }
 
 #----------------------------------------
-# パーマリンクを表示してもよいかどうか
+# Logidを表示してもよいかどうか
 #----------------------------------------
-sub CanAddPermalink {
+sub IsMaskedLogid {
 	my ($sow, $vil, $log) = @_;
-	my $result = 1;
+	my $result = 0;
 	if ($vil->isepilogue() eq 1) {
-		$result = 1;
+		$result = 0;
 	} else {
 		if ($log->{'mestype'} eq $sow->{'MESTYPE_TSAY'} || 
 				$log->{'mestype'} eq $sow->{'MESTYPE_QUE'} || 
+				$log->{'mestype'} eq $sow->{'MESTYPE_INFOSP'} ||
 				$log->{'logid'} eq $sow->{'PREVIEW_LOGID'}) {
-					$result = 0;
+					$result = 1;
 				}
 	}
 	return $result;

@@ -102,8 +102,8 @@ _HTML_
 			my $newsay = 0;
 			$newsay = 1 if (($i == $#$logs) && ($modesingle == 0));
 			my $log = $logfile->{'logfile'}->{'file'}->read($logs->[$i]->{'pos'});
+			my $logid = $log->{'logid'};
 			if (($modesingle == 0) && ($i == 0) && (($maxrow != 0) && ($rows->{'rowover'} > 0))) {
-				my $logid = $log->{'logid'};
 				if ((($log->{'mestype'} eq $sow->{'MESTYPE_INFOSP'}) || ($log->{'mestype'} eq $sow->{'MESTYPE_TSAY'})) && ($vil->isepilogue() == 0)) {
 					$logid = $log->{'maskedid'};
 				}
@@ -111,18 +111,22 @@ _HTML_
 			}
 			&SWHtmlVlogSinglePC::OutHTMLSingleLogPC($sow, $vil, $log, $i, $newsay, \%anchor, $modesingle);
 			if ($i == $#$logs) {
-				my $logid = $log->{'logid'};
+				# TODO: できればもっと頭のいい処理にしたい
 				my $pi = $i;
 				my $prevlog;
 				my $mestype = $log->{'mestype'};
-				while (($mestype eq $sow->{'MESTYPE_QUE'}) || $mestype eq $sow->{'MESTYPE_INFOSP'}) { #入村時のメッセージバグを避けるためのかなりテキトーな処理。要修正。
+				while ($mestype eq $sow->{'MESTYPE_QUE'}) {
 					$pi = $pi - 1;
 					$prevlog = $logfile->{'logfile'}->{'file'}->read($logs->[$pi]->{'pos'});
 					$mestype = $prevlog->{'mestype'};
 					$logid = $prevlog->{'logid'};
 
+					if ((($prevlog->{'mestype'} eq $sow->{'MESTYPE_INFOSP'}) || ($prevlog->{'mestype'} eq $sow->{'MESTYPE_TSAY'})) && ($vil->isepilogue() == 0)) {
+						$logid = $prevlog->{'maskedid'};
+					}
 					break if ($pi == 0);
 				}
+
 				if ((($log->{'mestype'} eq $sow->{'MESTYPE_INFOSP'}) || ($log->{'mestype'} eq $sow->{'MESTYPE_TSAY'})) && ($vil->isepilogue() == 0)) {
 					$logid = $log->{'maskedid'};
 				}

@@ -708,7 +708,7 @@ sub GetConfig {
 		FILE_SCORE     => "score.cgi",
 
 		# キャッシュクリアのためファイル名に日付を入れた。（更新忘れそう）
-		FILE_JS_SOW    => "sow.js?date=20190430",
+		FILE_JS_SOW    => "sow.js?date=20190511",
 		FILE_JS_JQUERY => "jquery.js",
 		FILE_JS_DRAG   => "jquery.easydrag.js",
 		FILE_JS_FILTER => "filter.js",

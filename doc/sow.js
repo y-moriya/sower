@@ -334,7 +334,7 @@ function getMoreLog(link) {
 		base.after(mes);
 		$(link).show();
 		img.hide();
-		if (oldestLogId === "SS00000" || oldestLogId === "") {
+		if (oldestLogId === undefined || oldestLogId === "IS00000" || oldestLogId === "") {
 			base.hide();
 		} else {
 			base.show();
@@ -352,10 +352,10 @@ function getNewLog(link) {
 	$("#getnewloglink").hide();
 	$.get(href,{},function(data){
 		var mes = $(data).find(".inframe:first").children(":not(h2,#readmore,#newinfo)");
-		var atags = mes.find('a.anchor');
+		var atags = mes.find('a.anchor[name]');
 		var oldestLogId = $(atags[0]).attr("name");
 		var latestLogId = $(atags[atags.length-1]).attr("name");
-		if ((oldestLogId === "SS00000") || (oldestLogId === "")) {
+		if ((oldestLogId === undefined) || (oldestLogId === "IS00000") || (oldestLogId === "")) {
 			base.find("img").hide();
 			$("#newinfomes").text("最終取得時刻 エラー発生。手動で更新してください。");
 			$("#newinfomes").show();
