@@ -195,7 +195,7 @@ _HTML_
 				require "$cfg->{'DIR_HTML'}/html_pc.pl";
 				my $logpl = &SWHtmlVlogSinglePC::GetLogPL($sow, $vil, $log);
 				my $charset = $sow->{'charsets'}->{'csid'}->{$logpl->{'csid'}};
-				$img = &SWHtmlPC::GetImgUrl($sow, $logpl, $charset->{'FACE'}, $log->{'expression'});
+				$img = &SWHtmlPC::GetImgUrl($sow, $vil, $logpl, $charset->{'FACE'}, $log->{'expression'});
 				$img = "<img src=\"$img\"><br$net>";
 			}
 
@@ -245,7 +245,7 @@ sub OutHTMLMbImg {
 	my $pl = $vil->getplbypno($pno);
 	my $charset = $sow->{'charsets'}->{'csid'}->{$pl->{'csid'}};
 	require "$sow->{'cfg'}->{'DIR_HTML'}/html_pc.pl";
-	my $img = &SWHtmlPC::GetImgUrl($sow, $pl, $charset->{'FACE'}, 0);
+	my $img = &SWHtmlPC::GetImgUrl($sow, $vil, $pl, $charset->{'FACE'}, 0);
 
 	print <<"_HTML_";
 <!--◆「キャラの名前」の顔画像<br>-->

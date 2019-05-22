@@ -101,7 +101,7 @@ sub OutHTMLSingleLogSayPC {
 	my @messtyle = ('mes_undef', 'mes_undef', 'mes_undef', 'mes_del', 'mes_deladmin', 'mes_que', 'mes_nom', 'mes_think', 'mes_wolf', 'mes_grave', 'mes_maker', 'mes_admin', 'mes_sympa', 'mes_bat', 'mes_guest');
 
 	# キャラ画像アドレスの取得
-	my $img = &SWHtmlPC::GetImgUrl($sow, $logpl, $charset->{'FACE'}, $log->{'expression'}, $log->{'mestype'});
+	my $img = &SWHtmlPC::GetImgUrl($sow, $vil, $logpl, $charset->{'FACE'}, $log->{'expression'}, $log->{'mestype'});
 	# キャラ画像部とその他部の横幅を取得
 	my $imgwhid = 'BODY';
 	$imgwhid = 'FACE' if ($charset->{'BODY'} ne '');
@@ -246,7 +246,7 @@ sub OutHTMLSingleLogGuestPC {
 	$charset = $vil->{'csid'};
 	$charset = $sow->{'charsets'}->{'csid'}->{$charset};
 	#my $img = "$charset->{'DIR'}/guest$charset->{'EXT'}";
-	my $img = &SWHtmlPC::GetImgUrl($sow, $logpl, $charset->{'FACE'}, $log->{'expression'}, $log->{'mestype'});
+	my $img = &SWHtmlPC::GetImgUrl($sow, $vil, $logpl, $charset->{'FACE'}, $log->{'expression'}, $log->{'mestype'});
 
 	# キャラ画像部とその他部の横幅を取得
 	my $imgwhid = 'BODY';

@@ -154,7 +154,7 @@ sub OutHTMLMemoFormPC {
 	$mes =~ s/<br( \/)?>/&#13\;/ig;
 
 	# キャラ画像アドレスの取得
-	my $img = &SWHtmlPC::GetImgUrl($sow, $curpl, $charset->{'BODY'});
+	my $img = &SWHtmlPC::GetImgUrl($sow, $vil, $curpl, $charset->{'BODY'});
 
 	# キャラ画像部とその他部の横幅を取得
 	my ($lwidth, $rwidth) = &SWHtmlPC::GetFormBlockWidth($sow, $charset->{'IMGBODYW'});

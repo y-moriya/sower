@@ -105,7 +105,7 @@ sub OutHTMLSayPC {
 	my $charset = $sow->{'charsets'}->{'csid'}->{$curpl->{'csid'}};
 
 	# キャラ画像アドレスの取得
-	my $img = &SWHtmlPC::GetImgUrl($sow, $curpl, $charset->{'BODY'});
+	my $img = &SWHtmlPC::GetImgUrl($sow, $vil, $curpl, $charset->{'BODY'});
 
 	# キャラ画像部とその他部の横幅を取得
 	my ($lwidth, $rwidth) = &SWHtmlPC::GetFormBlockWidth($sow, $charset->{'IMGBODYW'});
@@ -370,10 +370,10 @@ _HTML_
 		my $charset = $sow->{'charsets'}->{'csid'}->{$curpl->{'csid'}};
 
 		# キャラ画像アドレスの取得
-		my $img = &SWHtmlPC::GetImgUrl($sow, $curpl, $charset->{'BODY'});
+		my $img = &SWHtmlPC::GetImgUrl($sow, $vil, $curpl, $charset->{'BODY'});
 		if ($curpl->iswhisper > 0) {
 			# TODO: 狼の囁き以外でもWSAY画像を使用しているので、要修正
-			$img = &SWHtmlPC::GetImgUrl($sow, $curpl, $charset->{'BODY'}, 0, $sow->{'MESTYPE_WSAY'});
+			$img = &SWHtmlPC::GetImgUrl($sow, $vil, $curpl, $charset->{'BODY'}, 0, $sow->{'MESTYPE_WSAY'});
 		}
 
 		# キャラ画像部とその他部の横幅を取得
@@ -852,7 +852,7 @@ sub OutHTMLVilMakerPC {
 	my $charset = $sow->{'charsets'}->{'csid'}->{$imgpl{'csid'}};
 
 	# キャラ画像アドレスの取得
-	my $img = &SWHtmlPC::GetImgUrl($sow, \%imgpl, $charset->{'BODY'});
+	my $img = &SWHtmlPC::GetImgUrl($sow, $vil, \%imgpl, $charset->{'BODY'});
 
 	# キャラ画像部とその他部の横幅を取得
 	my ($lwidth, $rwidth) = &SWHtmlPC::GetFormBlockWidth($sow, $charset->{'IMGBODYW'});
@@ -931,7 +931,7 @@ sub OutHTMLVilGuestPC {
 	my $charset = $sow->{'charsets'}->{'csid'}->{$imgpl{'csid'}};
 
 	# キャラ画像アドレスの取得
-	my $img = &SWHtmlPC::GetImgUrl($sow, \%imgpl, $charset->{'BODY'});
+	my $img = &SWHtmlPC::GetImgUrl($sow, $vil, \%imgpl, $charset->{'BODY'});
 
 	# キャラ画像部とその他部の横幅を取得
 	my ($lwidth, $rwidth) = &SWHtmlPC::GetFormBlockWidth($sow, $charset->{'IMGBODYW'});

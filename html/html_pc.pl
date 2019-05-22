@@ -334,7 +334,7 @@ _HTML_
 # キャラ画像アドレスの取得
 #----------------------------------------
 sub GetImgUrl {
-	my ($sow, $imgpl, $imgparts, $expression, $mestype) = @_;
+	my ($sow, $vil, $imgpl, $imgparts, $expression, $mestype) = @_;
 
 	my $charset = $sow->{'charsets'}->{'csid'}->{$imgpl->{'csid'}};
 
@@ -352,11 +352,36 @@ sub GetImgUrl {
 	}
 
 	my $imggrwl = '';
-	$imggrwl = $charset->{'GRAVE'} if (($imgpl->{'deathday'} <= $sow->{'turn'}) && ($imgpl->{'deathday'} >= 0) && ($charset->{'GRAVE'} ne '')); # 墓石表示
+	$imggrwl = $charset->{'GRAVE'} if (isGraveImg($sow, $vil, $imgpl, $charset, $mestype) eq 1); # 墓石表示
 	$imggrwl = $charset->{'WOLF'} if (($mestype eq $sow->{'MESTYPE_WSAY'}) && ($charset->{'WOLF'} ne '')); # 囁き表示
 	my $img = "$charset->{'DIR'}/$imgid$imggrwl$imgparts$expression$charset->{'EXT'}";
 
 	return $img;
+}
+
+#----------------------------------------
+# キャラ画像アドレスが死者用かどうか
+#----------------------------------------
+sub isGraveImg {
+	my ($sow, $vil, $imgpl, $charset, $mestype) = @_;
+
+	if (!(defined $mestype)) {
+		return 0;
+	}
+
+	if ($mestype eq $sow->{'MESTYPE_MAKER'} ||
+		$mestype eq $sow->{'MESTYPE_ADMIN'} || 
+		$mestype eq $sow->{'MESTYPE_GUEST'}) {
+		return 0;
+	}
+
+	if ($charset->{'GRAVE'} ne '') {
+		if (($imgpl->{'deathday'} <= $sow->{'turn'}) && ($imgpl->{'deathday'} >= 0)) {
+			return 1;
+		}
+	}
+	
+	return 0;
 }
 
 #----------------------------------------
