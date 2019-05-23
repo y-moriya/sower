@@ -42,7 +42,7 @@ sub outhtmlnew {
 	my $atr_id = $sow->{'html'}->{'atr_id'};
 
 	print <<"_HTML_";
-<h3>Sower Version 1.1.4 (2019/04/30)</h3>
+<h3>Sower Version 1.1.4 (2019/05/23)</h3>
 <ul>
   <li>発言時刻にPermalinkを追加。クリックするとその発言のみが表\示されます。</li>
 </ul>
