@@ -379,6 +379,7 @@ sub getvlogs {
 	);
 
 	# 検索モードのセット
+	# TODO: 1
 	my $mode = '';
 	my $skip = 0;
 	if ($query->{'logid'} ne '') {
@@ -743,7 +744,9 @@ sub CheckLogPermition {
         $logpermit = 0 if ($log->{'mestype'} ne $sow->{'MESTYPE_ADMIN'});
       } elsif ($query->{'pno'} == '-7'){
         $logpermit = 0 if ($log->{'mestype'} ne $sow->{'MESTYPE_GUEST'});
-      }
+      } elsif ($query->{'pno'} == '-8'){
+				$logpermit = 0 if ($log->{'mestype'} ne $sow->{'MESTYPE_SAY'});
+			}
     }
 	}
 

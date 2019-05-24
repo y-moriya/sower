@@ -1076,7 +1076,7 @@ _HTML_
     print "    <option value=\"$_->{'pno'}\"$selected>$chrname</option>\n";
   }
   my $i;
-  for ($i = -2; $i >= -7; $i--){
+  for ($i = -2; $i >= -8; $i--){
     my $fltname = "";
     $fltname = "á“Æ‚èŒ¾â" if ($i == -2);
     $fltname = "áš‘‚«â" if ($i == -3);
@@ -1084,6 +1084,7 @@ _HTML_
     $fltname = "á‘ºŒš‚Äl”­Œ¾â" if ($i == -5);
     $fltname = "áŠÇ—Ò”­Œ¾â" if ($i == -6);
     $fltname = "á–TŠÏÒ”­Œ¾â" if ($i == -7);
+		$fltname = "á’Êí”­Œ¾â" if ($i == -8);
     my $selected = "";
     if ((defined($pno)) && ($pno == $i)){
       $selected = " selected";
