@@ -189,7 +189,7 @@ _HTML_
 	} else {
 
 		# 日付にパーマリンク付与
-		if (IsMaskedLogid($sow, $vil, $log) eq 0) {
+		if ((&SWUser::GetShowParmalinkFlag eq 1) && (IsMaskedLogid($sow, $vil, $log) eq 0)) {
 			my $reqvals = &SWBase::GetRequestValues($sow);
 			my $link = &SWBase::GetLinkValues($sow, $reqvals);
 			my $amp   = $sow->{'html'}->{'amp'};
@@ -229,7 +229,7 @@ sub OutHTMLSingleLogGuestPC {
 	}
 
 	# 日付にパーマリンク付与
-	if (IsMaskedLogid($sow, $vil, $log) eq 0) {
+	if ((&SWUser::GetShowParmalinkFlag eq 1) && (IsMaskedLogid($sow, $vil, $log) eq 0)) {
 		my $reqvals = &SWBase::GetRequestValues($sow);
 		my $link = &SWBase::GetLinkValues($sow, $reqvals);
 		my $amp   = $sow->{'html'}->{'amp'};

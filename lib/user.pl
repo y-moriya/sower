@@ -495,12 +495,26 @@ sub GetHandle {
 
 	my $user = SWUser->new($sow);
 	$user->{'uid'} = $sow->{'uid'};
-  return if ($sow->{'uid'} eq '');
+	return if ($sow->{'uid'} eq '');
 	$user->openuser(1);
 	$user->closeuser();
-  my $handle = $user->{'uid'};
-  $handle = $user->{'handlename'} if ($user->{'handlename'} ne '');
-  return $handle
+	my $handle = $user->{'uid'};
+	$handle = $user->{'handlename'} if ($user->{'handlename'} ne '');
+	return $handle
+}
+
+#----------------------------------------
+# 固定リンク表示フラグの取得
+#----------------------------------------
+sub GetShowParmalinkFlag {
+	my $sow = $_[0];
+
+	my $user = SWUser->new($sow);
+	$user->{'uid'} = $sow->{'uid'};
+	return if ($sow->{'uid'} eq '');
+	$user->openuser(1);
+	$user->closeuser();
+	return $user->{'parmalink'};
 }
 
 1;
