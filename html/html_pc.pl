@@ -374,8 +374,11 @@ sub isGraveImg {
 		$mestype eq $sow->{'MESTYPE_GUEST'}) {
 		return 0;
 	}
-
+	
 	if ($charset->{'GRAVE'} ne '') {
+		if ($sow->{'turn'} == $vil->{'epilogue'}) {
+			return 0;
+		}
 		if (($imgpl->{'deathday'} <= $sow->{'turn'}) && ($imgpl->{'deathday'} >= 0)) {
 			return 1;
 		}
