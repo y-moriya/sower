@@ -43,6 +43,7 @@ sub SetDataCmdEditProfile {
 	$user->{'url'} = $query->{'url'};
 	$user->{'url'} = '' if ($query->{'url'} eq 'http://');
 	$user->{'introduction'} = $query->{'intro'};
+	$user->{'parmalink'} = ($query->{'parmalink'} eq '1') ? 1 : 0;
 	$user->writeuser();
 	$user->closeuser();
 

@@ -52,6 +52,9 @@ sub OutHTMLProfile {
 	my $introduction = 'なし';
 	$introduction = $user->{'introduction'} if ($user->{'introduction'} ne '');
 
+	my $parmalink = '非表\示';
+	$parmalink = '表\示' if ($user->{'parmalink'} == 1);
+
 	print <<"_HTML_";
 <h2>$query->{'prof'}さんの情報$linkedit</h2>
 
@@ -64,6 +67,10 @@ sub OutHTMLProfile {
 
   <span class="multicolumn_label">URL：</span><span class="multicolumn_left">$url</span>
   <br class="multicolumn_clear"$net>
+
+  <span class="multicolumn_label">固定リンク：</span><span class="multicolumn_left">$parmalink</span>
+  <br class="multicolumn_clear"$net>
+
 _HTML_
 
 	if (1) {

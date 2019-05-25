@@ -116,6 +116,7 @@ sub InitConst {
 		handlename => 1, # ユーザーのハンドル名
 		url        => 1, # ユーザーのURL
 		intro      => 2, # ユーザーの自己紹介
+		parmalink  => 0, # ユーザーのパーマリンクオンオフフラグ
 
 		vidstart   => 0, # 村番号範囲指定（開始）
 		vidend     => 0, # 村番号範囲指定（終了）

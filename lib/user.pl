@@ -37,6 +37,7 @@ sub GetUserDataLabel {
 		'handlename',
 		'url',
 		'introduction',
+		'parmalink',
 		'entriedvils',
 		'penaltydt',
 		'ptype',

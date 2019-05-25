@@ -34,6 +34,11 @@ sub OutHTMLEditProfileForm {
 	my $intro = $user->{'introduction'};
 	$intro =~ s/<br( \/)?>/\n/ig;
 
+	my $parma_0selected = '';
+	$parma_0selected = ' selected' if ($user->{'parmalink'} != 1);
+	my $parma_1selected = '';
+	$parma_1selected = ' selected' if ($user->{'parmalink'} == 1);
+
 	print <<"_HTML_";
 <form action="$urlsow" method="$cfg->{'METHOD_FORM'}">
 <div class="form_vmake">
@@ -50,6 +55,14 @@ sub OutHTMLEditProfileForm {
     <label for="intro" class="multicolumn_label">自己紹介：</label>
     <textarea id="intro" class="multicolumn_left" name="intro" cols="30" rows="3">$intro</textarea>
     <br class="multicolumn_clear"$net>
+
+	<label for="parmalink" class="multicolumn_label" >固定リンク：</label>
+	<select id="parmalink" name="parmalink" class="multicolumn_label">
+		<option value="0"$parma_0selected>非表\示</option>
+		<option value="1"$parma_1selected>表\示</option>
+	</select>
+    <br class="multicolumn_clear"$net>
+
   </fieldset>
 
   <div class="exevmake">$hidden
