@@ -98,10 +98,18 @@ sub TaskBranch {
 	my $noregist = &AdminIDCheck($sow);
 	if ($cmd eq 'login') {
 		# ログイン
+		if ($ENV{'REQUEST_METHOD'} ne 'POST') {
+			$sow->{'debug'}->raise($sow->{'APLOG_CAUTION'}, "不正なリクエストです。","invalid request method.");
+			return;
+		} 
 		require "$dirlib/cmd_login.pl";
 		&SWCmdLogin::CmdLogin($sow);
 	} elsif ($cmd eq 'logout') {
 		# ログアウト
+		if ($ENV{'REQUEST_METHOD'} ne 'POST') {
+			$sow->{'debug'}->raise($sow->{'APLOG_CAUTION'}, "不正なリクエストです。","invalid request method.");
+			return;
+		} 
 		require "$dirlib/cmd_logout.pl";
 		&SWCmdLogout::CmdLogout($sow);
 	} elsif ($noregist > 0) {
@@ -118,6 +126,10 @@ sub TaskBranch {
 		&SWHtmlEditProfileForm::OutHTMLEditProfileForm($sow);
 	} elsif ($cmd eq 'editprof') {
 		# ユーザー情報編集
+		if ($ENV{'REQUEST_METHOD'} ne 'POST') {
+			$sow->{'debug'}->raise($sow->{'APLOG_CAUTION'}, "不正なリクエストです。","invalid request method.");
+			return;
+		} 
 		require "$dirlib/cmd_editprof.pl";
 		&SWCmdEditProfile::CmdEditProfile($sow);
 	} elsif ($sow->{'query'}->{'prof'} ne '') {
@@ -130,14 +142,26 @@ sub TaskBranch {
 		&SWHtmlMakeVilPreview::OutHTMLMakeVilPreview($sow);
 	} elsif ($cmd eq 'makevil') {
 		# 村作成
+		if ($ENV{'REQUEST_METHOD'} ne 'POST') {
+			$sow->{'debug'}->raise($sow->{'APLOG_CAUTION'}, "不正なリクエストです。","invalid request method.");
+			return;
+		} 
 		require "$dirlib/cmd_makevil.pl";
 		&SWCmdMakeVil::CmdMakeVil($sow);
 	} elsif ($cmd eq 'editvil') {
 		# 村編集
+		if ($ENV{'REQUEST_METHOD'} ne 'POST') {
+			$sow->{'debug'}->raise($sow->{'APLOG_CAUTION'}, "不正なリクエストです。","invalid request method.");
+			return;
+		} 
 		require "$dirlib/cmd_editvil.pl";
 		&SWCmdEditVil::CmdEditVil($sow);
 	} elsif ($cmd eq 'editepivil') {
 		# 閲覧制限変更
+		if ($ENV{'REQUEST_METHOD'} ne 'POST') {
+			$sow->{'debug'}->raise($sow->{'APLOG_CAUTION'}, "不正なリクエストです。","invalid request method.");
+			return;
+		} 
 		require "$dirlib/cmd_editepivil.pl";
 		&SWCmdEpilogueEditVil::CmdEpilogueEditVil($sow);
 	} elsif ($cmd eq 'makevilform') {
@@ -166,10 +190,18 @@ sub TaskBranch {
 		&SWCmdEntryFormMb::CmbEntryFormMb($sow);
 	} elsif ($cmd eq 'entrypr') {
 		# エントリー発言プレビュー表示
+		if ($ENV{'REQUEST_METHOD'} ne 'POST') {
+			$sow->{'debug'}->raise($sow->{'APLOG_CAUTION'}, "不正なリクエストです。","invalid request method.");
+			return;
+		} 
 		require "$dirlib/cmd_entrypr.pl";
 		&SWCmdEntryPreview::CmdEntryPreview($sow);
 	} elsif ($cmd eq 'entry') {
 		# エントリー
+		if ($ENV{'REQUEST_METHOD'} ne 'POST') {
+			$sow->{'debug'}->raise($sow->{'APLOG_CAUTION'}, "不正なリクエストです。","invalid request method.");
+			return;
+		} 
 		require "$dirlib/cmd_entry.pl";
 		&SWCmdEntry::CmdEntry($sow);
 	} elsif ($cmd eq 'cfg') {
@@ -182,6 +214,10 @@ sub TaskBranch {
 		&SWHtmlDialog::OutHTMLDialog($sow);
 	} elsif ($cmd eq 'exit') {
 		# 村から出る
+		if ($ENV{'REQUEST_METHOD'} ne 'POST') {
+			$sow->{'debug'}->raise($sow->{'APLOG_CAUTION'}, "不正なリクエストです。","invalid request method.");
+			return;
+		} 
 		require "$dirlib/cmd_exit.pl";
 		&SWCmdExit::CmdExit($sow);
   	} elsif ($cmd eq 'selrolepr') {
@@ -190,10 +226,18 @@ sub TaskBranch {
 		&SWHtmlDialog::OutHTMLDialog($sow);
   	} elsif ($cmd eq 'selrole') {
 		# 希望役職変更
+		if ($ENV{'REQUEST_METHOD'} ne 'POST') {
+			$sow->{'debug'}->raise($sow->{'APLOG_CAUTION'}, "不正なリクエストです。","invalid request method.");
+			return;
+		} 
 		require "$dirlib/cmd_selrole.pl";
 		&SWCmdSelRole::CmdSelRole($sow);
 	} elsif ($cmd eq 'kick') {
 		# 村から出す
+		if ($ENV{'REQUEST_METHOD'} ne 'POST') {
+			$sow->{'debug'}->raise($sow->{'APLOG_CAUTION'}, "不正なリクエストです。","invalid request method.");
+			return;
+		} 
 		require "$dirlib/cmd_exit.pl";
 		&SWCmdExit::CmdKick($sow);
 	} elsif ($cmd eq 'writepr') {
@@ -210,26 +254,50 @@ sub TaskBranch {
 		&SWCmdWriteMemoFormMb::CmbWriteMemoFormMb($sow);
 	} elsif ($cmd eq 'write') {
 		# 発言
+		if ($ENV{'REQUEST_METHOD'} ne 'POST') {
+			$sow->{'debug'}->raise($sow->{'APLOG_CAUTION'}, "不正なリクエストです。","invalid request method.");
+			return;
+		} 
 		require "$dirlib/cmd_write.pl";
 		&SWCmdWrite::CmdWrite($sow);
 	} elsif ($cmd eq 'editmes') {
 		# 発言修正
+		if ($ENV{'REQUEST_METHOD'} ne 'POST') {
+			$sow->{'debug'}->raise($sow->{'APLOG_CAUTION'}, "不正なリクエストです。","invalid request method.");
+			return;
+		} 
 		require "$dirlib/cmd_editmes.pl";
 		&SWCmdEditMes::CmdEditMes($sow);
 	} elsif ($cmd eq 'cancel') {
 		# 発言撤回
+		if ($ENV{'REQUEST_METHOD'} ne 'POST') {
+			$sow->{'debug'}->raise($sow->{'APLOG_CAUTION'}, "不正なリクエストです。","invalid request method.");
+			return;
+		} 
 		require "$dirlib/cmd_cancel.pl";
 		&SWCmdCancel::CmdCancel($sow);
 	} elsif ($cmd eq 'action') {
 		# アクション
+		if ($ENV{'REQUEST_METHOD'} ne 'POST') {
+			$sow->{'debug'}->raise($sow->{'APLOG_CAUTION'}, "不正なリクエストです。","invalid request method.");
+			return;
+		} 
 		require "$dirlib/cmd_action.pl";
 		&SWCmdAction::CmdAction($sow);
 	} elsif ($cmd eq 'wrmemo') {
 		# メモ書き込み
+		if ($ENV{'REQUEST_METHOD'} ne 'POST') {
+			$sow->{'debug'}->raise($sow->{'APLOG_CAUTION'}, "不正なリクエストです。","invalid request method.");
+			return;
+		} 
 		require "$dirlib/cmd_wrmemo.pl";
 		&SWCmdWriteMemo::CmdWriteMemo($sow);
 	} elsif ($cmd eq 'editjob') {
 		# 肩書き変更
+		if ($ENV{'REQUEST_METHOD'} ne 'POST') {
+			$sow->{'debug'}->raise($sow->{'APLOG_CAUTION'}, "不正なリクエストです。","invalid request method.");
+			return;
+		} 
 		require "$dirlib/cmd_editjob.pl";
 		&SWCmdEditJobName::CmdEditJobName($sow);
 	} elsif ($cmd eq 'startpr') {
@@ -240,12 +308,20 @@ sub TaskBranch {
 		&SWHtmlDialog::OutHTMLDialog($sow);
 	} elsif ($cmd eq 'start') {
 		# 村開始
+		if ($ENV{'REQUEST_METHOD'} ne 'POST') {
+			$sow->{'debug'}->raise($sow->{'APLOG_CAUTION'}, "不正なリクエストです。","invalid request method.");
+			return;
+		} 
 		require "$dirlib/vld_start.pl";
 		&SWValidityStart::CheckValidityStart($sow);
 		require "$dirlib/cmd_start.pl";
 		&SWCmdStartSession::CmdStartSession($sow);
 	} elsif (($cmd eq 'vote') || ($cmd eq 'skill')){
 		# 投票／能力対象設定
+		if ($ENV{'REQUEST_METHOD'} ne 'POST') {
+			$sow->{'debug'}->raise($sow->{'APLOG_CAUTION'}, "不正なリクエストです。","invalid request method.");
+			return;
+		} 
 		require "$dirlib/cmd_vote.pl";
 		&SWCmdVote::CmdVote($sow);
 	} elsif ($cmd eq 'updatepr') {
@@ -262,10 +338,18 @@ sub TaskBranch {
 		&SWHtmlDialog::OutHTMLDialog($sow);
 	} elsif ($cmd eq 'commit') {
 		# 時間を進める
+		if ($ENV{'REQUEST_METHOD'} ne 'POST') {
+			$sow->{'debug'}->raise($sow->{'APLOG_CAUTION'}, "不正なリクエストです。","invalid request method.");
+			return;
+		} 
 		require "$dirlib/cmd_commit.pl";
 		&SWCmdCommit::CmdCommit($sow);
 	} elsif ($cmd eq 'update') {
 		# 更新（手動、デバッグ用）
+		if ($ENV{'REQUEST_METHOD'} ne 'POST') {
+			$sow->{'debug'}->raise($sow->{'APLOG_CAUTION'}, "不正なリクエストです。","invalid request method.");
+			return;
+		} 
 		require "$dirlib/vld_start.pl";
 		&SWValidityStart::CheckValidityUpdate($sow);
 		require "$dirlib/cmd_update.pl";
@@ -276,6 +360,10 @@ sub TaskBranch {
 		&SWHtmlDebugVillage::OutHTMLDebugVillage($sow);
 	} elsif ($cmd eq 'scrapvil') {
 		# 廃村（手動、デバッグ用）
+		if ($ENV{'REQUEST_METHOD'} ne 'POST') {
+			$sow->{'debug'}->raise($sow->{'APLOG_CAUTION'}, "不正なリクエストです。","invalid request method.");
+			return;
+		} 
 		require "$dirlib/vld_start.pl";
 		&SWValidityStart::CheckValidityUpdate($sow);
 		require "$dirlib/cmd_update.pl";
@@ -286,6 +374,10 @@ sub TaskBranch {
 		&SWHtmlRoleMatrix::OutHTMLRoleMatrix($sow);
 	} elsif ($cmd eq 'extend') {
 		# 延長（暫定）
+		if ($ENV{'REQUEST_METHOD'} ne 'POST') {
+			$sow->{'debug'}->raise($sow->{'APLOG_CAUTION'}, "不正なリクエストです。","invalid request method.");
+			return;
+		} 
 		require "$dirlib/cmd_extend.pl";
 		&SWCmdExtend::CmdExtend($sow);
 	} elsif ($cmd eq 'admin') {
@@ -294,26 +386,50 @@ sub TaskBranch {
 		&SWHtmlAdminManager::OutHTMLAdminManager ($sow);
 	} elsif ($cmd eq 'restrec') {
 		# 戦績再構築
+		if ($ENV{'REQUEST_METHOD'} ne 'POST') {
+			$sow->{'debug'}->raise($sow->{'APLOG_CAUTION'}, "不正なリクエストです。","invalid request method.");
+			return;
+		} 
 		require "$dirlib/cmd_restrec.pl";
 		&SWCmdRestRecord::CmdRestRecord($sow);
 	} elsif (($cmd eq 'restviform') || ($cmd eq 'restvi')) {
 		# 村一覧再構築
+		if ($ENV{'REQUEST_METHOD'} ne 'POST') {
+			$sow->{'debug'}->raise($sow->{'APLOG_CAUTION'}, "不正なリクエストです。","invalid request method.");
+			return;
+		} 
 		require "$dirlib/cmd_restvi.pl";
 		&SWCmdRestVIndex::CmdRestVIndex($sow);
 	} elsif (($cmd eq 'restplayingvil') || ($cmd eq 'restpvil')) {
 		# 参加中の村一覧クリア
+		if ($ENV{'REQUEST_METHOD'} ne 'POST') {
+			$sow->{'debug'}->raise($sow->{'APLOG_CAUTION'}, "不正なリクエストです。","invalid request method.");
+			return;
+		} 
 		require "$dirlib/cmd_restpvil.pl";
 		&SWCmdRestPlayingVil::CmdRestPlayingVil($sow);
 	} elsif ($cmd eq 'deletevil') {
 		# 村データ削除
+		if ($ENV{'REQUEST_METHOD'} ne 'POST') {
+			$sow->{'debug'}->raise($sow->{'APLOG_CAUTION'}, "不正なリクエストです。","invalid request method.");
+			return;
+		} 
 		require "$dirlib/cmd_deletevil.pl";
 		&SWCmdDeleteVil::CmdDeleteVil($sow);
 	} elsif ($cmd eq 'movevil') {
 		# 村データ移動
+		if ($ENV{'REQUEST_METHOD'} ne 'POST') {
+			$sow->{'debug'}->raise($sow->{'APLOG_CAUTION'}, "不正なリクエストです。","invalid request method.");
+			return;
+		} 
 		require "$dirlib/cmd_movevil.pl";
 		&SWCmdMoveVil::CmdMoveVil($sow);
 	} elsif (($cmd eq 'editpform') || ($cmd eq 'editpenalty')) {
 		# ペナルティ設定・解除
+		if ($ENV{'REQUEST_METHOD'} ne 'POST') {
+			$sow->{'debug'}->raise($sow->{'APLOG_CAUTION'}, "不正なリクエストです。","invalid request method.");
+			return;
+		} 
 		require "$dirlib/cmd_editpenalty.pl";
 		&SWCmdEditPenalty::CmdEditPenalty($sow);
 	} elsif ($cmd eq 'rss') {

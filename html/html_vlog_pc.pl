@@ -16,6 +16,9 @@ sub OutHTMLVlogPC {
 	my $link = &SWBase::GetLinkValues($sow, $reqvals);
 	$link = "$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}?$link";
 
+	# TODO: parmalinkの場合は該当の発言に飛ぶようにする？
+	my $titlelink = "$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}?vid=$query->{'vid'}";
+
 	my $logfilelist = $logfile->getlist();
 
 	# ログID指定表示スイッチ
@@ -32,7 +35,7 @@ sub OutHTMLVlogPC {
 	my $twitter = "<p class=\"return\"><a href=\"http://twitter.com/share\" class=\"twitter-share-button\" data-count=\"horizontal\" data-via=\"webwolves\" data-lang=\"ja\">Tweet</a><script type=\"text/javascript\" src=\"http://platform.twitter.com/widgets.js\"></script></p>";
 	$linkrss = '' if ($cfg->{'ENABLED_RSS'} == 0);
 	$twitter = '' if ($vil->{'turn'} > 0);
-	print "<h2>$query->{'vid'} $vil->{'vname'}";
+	print "<h2><a href=\"$titlelink\">$query->{'vid'} $vil->{'vname'}</a>";
 	print "$titleupdate$linkrss$twitter" if ($vil->{'epilogue'} >= $vil->{'turn'});
 	print "</h2>\n\n";
 

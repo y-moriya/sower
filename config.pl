@@ -16,7 +16,7 @@ sub GetConfig {
 		'sow',
 		'troika',
 		'ao',
-		'wbbs',
+		'wbbs10',
 		'mistyrain',
 	);
 
