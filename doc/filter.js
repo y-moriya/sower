@@ -485,8 +485,11 @@ function changeClass(id, classname) {
 
 //クッキーへの書き込み
 function writeCookieFilter() {
-	// ゾンビクッキーだがめんどくさいので。(^^;)
-	var expires = '; expires=Thu, 1-Jan-2030 00:00:00 GMT';
+	var dt = new Date();
+	const nowSec = dt.getTime();
+	dt.setTime(nowSec + 14 * 24 * 60 * 60 * 1000);
+	const expiresdate = dt.toUTCString().replace(/, (\d?) (\w*) (\d?) (\d?:\d?:\d?)/, ", $1-$2-$3 $4");
+	const expires = '; expires=' + expiresdate;
 
 	document.cookie = 'modified=' + 'js' + expires;
 	document.cookie = 'fixedfilter=' + fixedfilter  + expires;
