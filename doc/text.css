@@ -106,7 +106,7 @@ address {
   margin: 0px auto 0px auto;
   padding: 0px;
 
-  width: 500px;
+  width: 600px;
 }
 
 /* フィルタを左に配置した時の外枠 ----------*/
@@ -128,7 +128,7 @@ address {
 .contentframe {
   margin: 0px;
   padding: 0px;
-  width: 500px;
+  width: 600px;
   text-align: left;
 }
 
@@ -136,7 +136,7 @@ address {
 .contentframe_navileft {
   margin: 0px;
   padding: 0px;
-  width: 500px;
+  width: 600px;
   text-align: left;
   float: right;
 }

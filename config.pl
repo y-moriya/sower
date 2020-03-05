@@ -405,8 +405,8 @@ sub GetConfig {
 
 	my %css_text = (
 		TITLE => 'ŠÈˆÕ•\¦',
-		FILE  => 'text.css?date=20190225',
-		WIDTH => 500,
+		FILE  => 'text.css?date=20200305',
+		WIDTH => 600,
 	);
 
 	my %css_junawide = (
