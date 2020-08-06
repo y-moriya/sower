@@ -42,10 +42,9 @@ sub outhtmlnew {
 	my $atr_id = $sow->{'html'}->{'atr_id'};
 
 	print <<"_HTML_";
-<h3>Sower Version 1.1.4 (2019/05/23-25)</h3>
+<h3>Sower Version 1.1.5 (2020/08/06)</h3>
 <ul>
-  <li>発言時刻にPermalinkを追加。クリックするとその発言のみが表\示されます。</li>
-  <li>上記はユーザー設定でリンクを追加するかどうかオンオフできます。デフォルトはオフです。</li>
+  <li>Viewport の設定を追加</li>
 </ul>
 _HTML_
 
@@ -68,6 +67,12 @@ _HTML_
 	$self->outhtmlnew();
 
 	print <<"_HTML_";
+<hr class="invisible_hr"$net>
+<h3>Sower Version 1.1.4 (2019/05/23-25)</h3>
+<ul>
+  <li>発言時刻にPermalinkを追加。クリックするとその発言のみが表\示されます。</li>
+  <li>上記はユーザー設定でリンクを追加するかどうかオンオフできます。デフォルトはオフです。</li>
+</ul>
 <hr class="invisible_hr"$net>
 <h3>Sower Version 1.1.3 (2019/02/09)</h3>
 <ul>

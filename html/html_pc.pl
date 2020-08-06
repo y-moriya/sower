@@ -30,6 +30,7 @@ sub OutHTMLHeaderPC {
 
 	print <<"_HTML_";
   <meta name="Author" content="$sow->{'NAME_AUTHOR'}"$net>
+  <meta name="viewport" content="width=750,user-scalable=yes">
   <link rel="shortcut icon" href="$cfg->{'BASEDIR_DOC'}/$cfg->{'FILE_FAVICON'}"$net>
 _HTML_
 
@@ -583,19 +584,13 @@ sub OutHTMLPageNaviPC {
 		my $pageno = $i + 1;
 		if (($i == $endpage) || ($query->{'cmd'} eq 'vinfo')) {
 			print "[$pageno]";
-#		} elsif ($i == $firstpage + $maxrow - 1) {
-#			print "[<a href=\"$urlsow\">$pageno</a>]";
 		} else {
 			my $log = $pages->[$i * $row];
 			my $logid = $log->{'logid'};
 			$logid = $log->{'maskedid'} if (($vil->isepilogue() == 0) && (defined($log->{'maskedid'})) && (($log->{'mestype'} == $sow->{'MESTYPE_INFOSP'}) || ($log->{'mestype'} == $sow->{'MESTYPE_TSAY'})));
 			print "[<a href=\"$urlsow$amp" . "move=page$amp" . "pageno=$pageno\">$pageno</a>]";
 		}
-		if ($i < $firstpage + $maxrow - 1) {
-			print "\n";
-		} else {
-			print "\n";
-		}
+		print "\n";
 	}
 }
 
