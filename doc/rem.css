@@ -124,13 +124,13 @@ address {
 /* 外枠トップ ----------*/ .outframetop {
     margin: 0px auto 0px auto;
     padding: 0px;
-    width: 750px;
+    width: 600px;
 }
 
 /* 内枠トップ ----------*/ .contentframetop {
     margin: 0px;
     padding: 0px;
-    width: 750px;
+    width: 600px;
     text-align: left;
     border: 1em solid #110;
     border-left: 0;

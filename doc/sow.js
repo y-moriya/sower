@@ -141,7 +141,7 @@ function setAjaxEvent(target){
 					ajaxitems.push(mes);
 					var topm    = mouse.pageY +  16;
 					var leftm   = mouse.pageX; // Œˆ‚ß‚¤‚¿A–{“–‚Í‚æ‚­‚È‚¢B
-					var leftend = $("body").width() - mes.width() - 8;
+					var leftend = $(document).width() - mes.width() - 8;
 					if( leftend < leftm ) {
 						leftm   = leftend;
 					}

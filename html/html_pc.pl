@@ -30,7 +30,7 @@ sub OutHTMLHeaderPC {
 
 	print <<"_HTML_";
   <meta name="Author" content="$sow->{'NAME_AUTHOR'}"$net>
-  <meta name="viewport" content="width=750,user-scalable=yes">
+  <meta name="viewport" content="width=device-width,user-scalable=yes">
   <link rel="shortcut icon" href="$cfg->{'BASEDIR_DOC'}/$cfg->{'FILE_FAVICON'}"$net>
 _HTML_
 
