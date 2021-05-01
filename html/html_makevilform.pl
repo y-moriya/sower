@@ -14,9 +14,9 @@ sub OutHTMLMakeVilForm {
         $vcmd  = 'editvil';
     }
 
-    $sow->{'html'} = SWHtml->new($sow);       # HTMLモードの初期化
-    my $net = $sow->{'html'}->{'net'};        # Null End Tag
-    $sow->{'http'}->outheader();              # HTTPヘッダの出力
+    $sow->{'html'} = SWHtml->new($sow);    # HTMLモードの初期化
+    my $net = $sow->{'html'}->{'net'};            # Null End Tag
+    $sow->{'http'}->outheader();                  # HTTPヘッダの出力
     $sow->{'html'}->outheader("村の$vmode");    # HTMLヘッダの出力
     $sow->{'html'}->outcontentheader();
 
@@ -26,7 +26,7 @@ sub OutHTMLMakeVilForm {
     my $urlsow = "$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}";
     &SWBase::LoadTextRS( $sow, $vil );
 
-    &SWHtmlPC::OutHTMLLogin($sow);            # ログインボタン
+    &SWHtmlPC::OutHTMLLogin($sow);                # ログインボタン
 
     # 日付別ログへのリンク
     &SWHtmlPC::OutHTMLTurnNavi( $sow, $vil )
@@ -87,8 +87,7 @@ _HTML_
         my $selected = '';
         $selected = " $sow->{'html'}->{'selected'}"
           if ( $vil->{'updhour'} == $i );
-        print
-          "      <option value=\"$i\"$selected>$i時$sow->{'html'}->{'option'}\n";
+        print "      <option value=\"$i\"$selected>$i時$sow->{'html'}->{'option'}\n";
     }
 
     print <<"_HTML_";
@@ -97,12 +96,11 @@ _HTML_
 _HTML_
 
     for ( $i = 0 ; $i < 60 ; $i += 30 ) {
-        my $min      = sprintf( '%02d分', $i );
+        my $min = sprintf( '%02d分', $i );
         my $selected = '';
         $selected = " $sow->{'html'}->{'selected'}"
           if ( $vil->{'updminite'} == $i );
-        print
-"      <option value=\"$i\"$selected>$min$sow->{'html'}->{'option'}\n";
+        print "      <option value=\"$i\"$selected>$min$sow->{'html'}->{'option'}\n";
     }
 
     print <<"_HTML_";
@@ -118,8 +116,7 @@ _HTML_
         my $selected = '';
         $selected = " $sow->{'html'}->{'selected'}"
           if ( $vil->{'updinterval'} == $i );
-        print
-"      <option value=\"$i\"$selected>$interval$sow->{'html'}->{'option'}\n";
+        print "      <option value=\"$i\"$selected>$interval$sow->{'html'}->{'option'}\n";
     }
 
     my $votetype_anonymity = " $sow->{'html'}->{'selected'}";
@@ -208,11 +205,10 @@ _HTML_
             $sow->{'charsets'}->loadchrrs($_);
             push( @captions, $sow->{'charsets'}->{'csid'}->{$_}->{'CAPTION'} );
         }
-        my $caption  = join( 'と', @captions );
+        my $caption = join( 'と', @captions );
         my $selected = '';
         $selected = " $sow->{'html'}->{'selected'}" if ( $vil->{'csid'} eq $_ );
-        print
-"      <option value=\"$_\"$selected> $caption$sow->{'html'}->{'option'}\n";
+        print "      <option value=\"$_\"$selected> $caption$sow->{'html'}->{'option'}\n";
     }
 
     # 村編集で登場人物欄を変更すると……。
@@ -231,8 +227,7 @@ _HTML_
         my $selected = '';
         $selected = " $sow->{'html'}->{'selected'}"
           if ( $vil->{'saycnttype'} eq $_ );
-        print
-"      <option value=\"$_\"$selected>$countssay->{$_}->{'CAPTION'}$sow->{'html'}->{'option'}\n";
+        print "      <option value=\"$_\"$selected>$countssay->{$_}->{'CAPTION'}$sow->{'html'}->{'option'}\n";
     }
 
     print <<"_HTML_";
@@ -250,8 +245,7 @@ _HTML_
         my $selected = '';
         $selected = " $sow->{'html'}->{'selected'}"
           if ( $vil->{'starttype'} eq $_ );
-        print
-"      <option value=\"$_\"$selected>$starttype->{$_}$sow->{'html'}->{'option'}\n";
+        print "      <option value=\"$_\"$selected>$starttype->{$_}$sow->{'html'}->{'option'}\n";
     }
 
     # システムの文章
@@ -273,8 +267,7 @@ _HTML_
 
         my %dummyvil = ( trsid => $_, );
         &SWBase::LoadTextRS( $sow, \%dummyvil );
-        print
-"      <option value=\"$_\"$selected>$sow->{'textrs'}->{'CAPTION'}$sow->{'html'}->{'option'}\n";
+        print "      <option value=\"$_\"$selected>$sow->{'textrs'}->{'CAPTION'}$sow->{'html'}->{'option'}\n";
     }
     $sow->{'trsid'}  = $defaulttrsid;
     $sow->{'textrs'} = $defaulttextrs;
@@ -390,8 +383,7 @@ _HTML_
         my $selected = '';
         $selected = " $sow->{'html'}->{'selected'}"
           if ( $vil->{'rating'} eq $_ );
-        print
-"      <option value=\"$_\"$selected>$rating->{$_}->{'CAPTION'}$sow->{'html'}->{'option'}\n";
+        print "      <option value=\"$_\"$selected>$rating->{$_}->{'CAPTION'}$sow->{'html'}->{'option'}\n";
     }
 
     print <<"_HTML_";
@@ -415,8 +407,7 @@ _HTML_
             my $selected = '';
             $selected = " $sow->{'html'}->{'selected'}"
               if ( $vil->{'noactmode'} eq $i );
-            print
-"      <option value=\"$i\"$selected>$_$sow->{'html'}->{'option'}\n";
+            print "      <option value=\"$i\"$selected>$_$sow->{'html'}->{'option'}\n";
             $i++;
         }
     }
@@ -425,8 +416,7 @@ _HTML_
             my $selected = '';
             $selected = " $sow->{'html'}->{'selected'}"
               if ( $cfg->{'DEFAULT_NOACTMODE'} eq $i );
-            print
-"      <option value=\"$i\"$selected>$_$sow->{'html'}->{'option'}\n";
+            print "      <option value=\"$i\"$selected>$_$sow->{'html'}->{'option'}\n";
             $i++;
         }
     }
@@ -500,8 +490,7 @@ _HTML_
     <input type="hidden" name="makeruid" value="$sow->{'uid'}"$net>$hidden
 _HTML_
 
-    print
-      "    <input type=\"hidden\" name=\"vid\" value=\"$vil->{'vid'}\"$net>\n"
+    print "    <input type=\"hidden\" name=\"vid\" value=\"$vil->{'vid'}\"$net>\n"
       if ( $vcmd eq 'editvil' );
 
     my $disabled = '';

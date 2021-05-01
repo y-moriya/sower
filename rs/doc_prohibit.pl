@@ -8,13 +8,13 @@ package SWDocProhibit;
 # コンストラクタ
 #----------------------------------------
 sub new {
-	my ($class, $sow) = @_;
-	my $self = {
-		sow   => $sow,
-		title => '禁止行為', # タイトル
-	};
+    my ( $class, $sow ) = @_;
+    my $self = {
+        sow   => $sow,
+        title => '禁止行為',    # タイトル
+    };
 
-	return bless($self, $class);
+    return bless( $self, $class );
 }
 
 #---------------------------------------------
@@ -22,18 +22,18 @@ sub new {
 # 運営者が適時書き換えて下さい。
 #---------------------------------------------
 sub outhtmlsimple {
-	my $self = shift;
-	my $sow = $self->{'sow'};
-	my $cfg   = $sow->{'cfg'};
-	my $net = $sow->{'html'}->{'net'}; # Null End Tag
-	my $atr_id = $sow->{'html'}->{'atr_id'};
+    my $self   = shift;
+    my $sow    = $self->{'sow'};
+    my $cfg    = $sow->{'cfg'};
+    my $net    = $sow->{'html'}->{'net'};      # Null End Tag
+    my $atr_id = $sow->{'html'}->{'atr_id'};
 
-	$reqvals->{'cmd'} = 'prohibit';
-	$reqvals->{'css'} = $sow->{'query'}->{'css'} if ($sow->{'query'}->{'css'} ne '');
-	my $url_prohibit = &SWBase::GetLinkValues($sow, $reqvals);
-	$url_prohibit = "$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}?$url_prohibit";
+    $reqvals->{'cmd'} = 'prohibit';
+    $reqvals->{'css'} = $sow->{'query'}->{'css'} if ( $sow->{'query'}->{'css'} ne '' );
+    my $url_prohibit = &SWBase::GetLinkValues( $sow, $reqvals );
+    $url_prohibit = "$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}?$url_prohibit";
 
-	print <<"_HTML_";
+    print <<"_HTML_";
 <h2><a $atr_id="prohibit">禁止行為</a> (<a href="$url_prohibit">詳細</a>)</h2>
 <p class="paragraph">
 以下の行為は禁止しています。
@@ -57,13 +57,13 @@ _HTML_
 # 運営者が適時書き換えて下さい。
 #---------------------------------------------
 sub outhtml {
-	my $self = shift;
-	my $sow = $self->{'sow'};
-	my $cfg   = $sow->{'cfg'};
-	my $net = $sow->{'html'}->{'net'}; # Null End Tag
-	my $atr_id = $sow->{'html'}->{'atr_id'};
+    my $self   = shift;
+    my $sow    = $self->{'sow'};
+    my $cfg    = $sow->{'cfg'};
+    my $net    = $sow->{'html'}->{'net'};      # Null End Tag
+    my $atr_id = $sow->{'html'}->{'atr_id'};
 
-	print <<"_HTML_";
+    print <<"_HTML_";
 <h2>禁止行為</h2>
 <p class="paragraph">
 以下の行為は禁止しています。<br$net>

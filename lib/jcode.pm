@@ -8,9 +8,9 @@ use Carp;
 use strict;
 use vars qw($RCSID $VERSION $DEBUG);
 
-$RCSID = q$Id: Jcode.pm,v 2.7 2008/05/10 18:15:19 dankogai Exp dankogai $;
+$RCSID   = q$Id: Jcode.pm,v 2.7 2008/05/10 18:15:19 dankogai Exp dankogai $;
 $VERSION = do { my @r = ( q$Revision: 2.7 $ =~ /\d+/g ); sprintf "%d." . "%02d" x $#r, @r };
-$DEBUG = 0;
+$DEBUG   = 0;
 
 # we no longer use Exporter
 use vars qw($USE_ENCODE);

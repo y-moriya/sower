@@ -46,7 +46,7 @@ sub createvil {
         $filename = &GetFNameVilDirVid( $self->{'sow'}, $self->{'vid'} );
     }
 
-    my $fh   = \*VIL;
+    my $fh = \*VIL;
     my $file = SWFile->new( $self->{'sow'}, 'vil', $fh, $filename, $self );
     $file->openfile( '>', '村データ', "[vid=$self->{'vid'}]", );
     $self->{'file'} = $file;
@@ -118,7 +118,7 @@ sub readvil {
     }
 
     # ファイルを開く
-    my $fh   = \*VIL;
+    my $fh = \*VIL;
     my $file = SWFile->new( $self->{'sow'}, 'vil', $fh, $filename, $self );
     $file->openfile( '+<', '村データ', "[vid=$self->{'vid'}]", );
     $self->{'file'} = $file;
@@ -170,7 +170,7 @@ sub readvil {
     else {
         $sow->{'turn'} = $self->{'turn'};
 
-#		$sow->{'turn'} = $self->{'epilogue'} if ($self->{'epilogue'} < $self->{'turn'});
+        #		$sow->{'turn'} = $self->{'epilogue'} if ($self->{'epilogue'} < $self->{'turn'});
     }
 
     # カレントプレイヤー（ログイン中のプレイヤー）
@@ -203,8 +203,11 @@ sub writevil {
         $self->{'vid'}, $ENV{'REMOTE_PORT'}, $$, $sow->{'cfg'}->{'FILE_VIL'},
     );
     open( $fh, ">$tempfname" )
-      || $sow->{'debug'}->raise( $sow->{'APLOG_WARNING'},
-        "村データの書き込みに失敗しました。", "cannot write vil data." );
+      || $sow->{'debug'}->raise(
+        $sow->{'APLOG_WARNING'},
+        "村データの書き込みに失敗しました。",
+        "cannot write vil data."
+      );
 
     $self->{'entrypwd'} = $self->{'sow'}->{'DATATEXT_NONE'}
       if ( $self->{'entrypwd'} eq '' );
@@ -384,17 +387,14 @@ sub getinfocap {
 
             # 役職配分表示
             require "$sow->{'cfg'}->{'DIR_LIB'}/setrole.pl";
-            my $rolematrix =
-              &SWSetRole::GetSetRoleTable( $sow, $self, $self->{'roletable'},
-                scalar(@$pllist) );
+            my $rolematrix = &SWSetRole::GetSetRoleTable( $sow, $self, $self->{'roletable'}, scalar(@$pllist) );
             $roletabletext = '';
             for ( $i = 1 ; $i < @$roleid ; $i++ ) {
                 my $roleplcnt = $rolematrix->[$i];
                 $roleplcnt++
                   if ( $i == $sow->{'ROLEID_VILLAGER'} );    # ダミーキャラの分１増やす
                 if ( $roleplcnt > 0 ) {
-                    $roletabletext .=
-                      "$sow->{'textrs'}->{'ROLENAME'}->[$i]: $roleplcnt人 ";
+                    $roletabletext .= "$sow->{'textrs'}->{'ROLENAME'}->[$i]: $roleplcnt人 ";
                 }
             }
             $resultcap = "（$roletabletext）\n";
@@ -406,8 +406,7 @@ sub getinfocap {
             $roletabletext = '';
             for ( $i = 1 ; $i < @$roleid ; $i++ ) {
                 if ( $self->{"cnt$roleid->[$i]"} > 0 ) {
-                    $roletabletext .=
-"$sow->{'textrs'}->{'ROLENAME'}->[$i]: $self->{'cnt' . $roleid->[$i]}人 ";
+                    $roletabletext .= "$sow->{'textrs'}->{'ROLENAME'}->[$i]: $self->{'cnt' . $roleid->[$i]}人 ";
                 }
             }
             $resultcap = "（$roletabletext）\n";
@@ -514,8 +513,7 @@ sub updateentriedvil {
     my $pllist = $self->getpllist();
     foreach (@$pllist) {
         my $user = SWUser->new($sow);
-        $user->writeentriedvil( $_->{'uid'}, $self->{'vid'}, $_->getchrname(),
-            $playing );
+        $user->writeentriedvil( $_->{'uid'}, $self->{'vid'}, $_->getchrname(), $playing );
     }
 
     return;
@@ -743,10 +741,7 @@ sub GetFNameVil {
     my ( $sow, $vid ) = @_;
     $vid = 0 if ( $vid eq '' );
 
-    my $datafile = sprintf( "%s/%04d_%s",
-        $sow->{'cfg'}->{'DIR_VIL'},
-        $vid, $sow->{'cfg'}->{'FILE_VIL'},
-    );
+    my $datafile = sprintf( "%s/%04d_%s", $sow->{'cfg'}->{'DIR_VIL'}, $vid, $sow->{'cfg'}->{'FILE_VIL'}, );
     return $datafile;
 }
 
@@ -769,10 +764,7 @@ sub GetFNameVilDirVid {
     my ( $sow, $vid ) = @_;
     $vid = 0 if ( $vid eq '' );
 
-    my $datafile = sprintf( "%s/%04d/%04d_%s",
-        $sow->{'cfg'}->{'DIR_VIL'},
-        $vid, $vid, $sow->{'cfg'}->{'FILE_VIL'},
-    );
+    my $datafile = sprintf( "%s/%04d/%04d_%s", $sow->{'cfg'}->{'DIR_VIL'}, $vid, $vid, $sow->{'cfg'}->{'FILE_VIL'}, );
     return $datafile;
 }
 

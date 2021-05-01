@@ -1,0 +1,8 @@
+{
+    "[perl]": {
+        "editor.formatOnSave": true,
+        "editor.tabSize": 4,
+    },
+    "perltidy.executable": "perltidy",
+    "perltidy.profile": "/workspaces/sower/.perltidyrc"
+}

@@ -29,11 +29,8 @@ sub openfile {
     my ( $self, $rw, $mesname, $mesop ) = @_;
     my $sow = $self->{'sow'};
 
-    $sow->{'debug'}->raise(
-        $sow->{'APLOG_NOTICE'},
-        "$mesname が見つかりません。",
-        "$self->{'fileid'} not found.$mesop"
-      )
+    $sow->{'debug'}
+      ->raise( $sow->{'APLOG_NOTICE'}, "$mesname が見つかりません。", "$self->{'fileid'} not found.$mesop" )
       if ( !( -e $self->{'filename'} ) && ( index( $rw, '<' ) >= 0 ) )
       ;    # 読み込みモードでファイルが見つからない時
 
@@ -46,14 +43,11 @@ sub openfile {
 
     # ファイルを開く
     my $fh = $self->{'filehandle'};
-    open( $fh, "$rw$self->{'filename'}" ) || $sow->{'debug'}->raise(
-        $sow->{'APLOG_WARNING'},
-        "$mesname $mesexemode1",
-        "$self->{'fileid'} $mesexemode2 $mesop"
-    );
+    open( $fh, "$rw$self->{'filename'}" )
+      || $sow->{'debug'}
+      ->raise( $sow->{'APLOG_WARNING'}, "$mesname $mesexemode1", "$self->{'fileid'} $mesexemode2 $mesop" );
 
-    $sow->{'debug'}
-      ->writeaplog( $sow->{'APLOG_OTHERS'}, "opened. [$self->{'fileid'}]" );
+    $sow->{'debug'}->writeaplog( $sow->{'APLOG_OTHERS'}, "opened. [$self->{'fileid'}]" );
 
     $self->{'open'}                       = 'open';
     $self->{'size'}                       = -s $self->{'filename'};
@@ -75,8 +69,7 @@ sub closefile {
         close( $self->{'filehandle'} );
         $self->{'open'} = 'close';
 
-        $sow->{'debug'}
-          ->writeaplog( $sow->{'APLOG_OTHERS'}, "closed. [$self->{'fileid'}]" );
+        $sow->{'debug'}->writeaplog( $sow->{'APLOG_OTHERS'}, "closed. [$self->{'fileid'}]" );
     }
 }
 

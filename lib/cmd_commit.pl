@@ -18,7 +18,7 @@ sub CmdCommit {
     }
     else {
         my $reqvals = &SWBase::GetRequestValues($sow);
-        my $link    = &SWBase::GetLinkValues( $sow, $reqvals );
+        my $link = &SWBase::GetLinkValues( $sow, $reqvals );
         $link = "$cfg->{'URL_SW'}/$cfg->{'FILE_SOW'}?$link#newsay";
 
         $sow->{'http'}->{'location'} = "$link";
@@ -49,8 +49,7 @@ sub SetDataCmdCommit {
     my $curpl = $sow->{'curpl'};
 
     # 参加チェック
-    $sow->{'debug'}
-      ->raise( $sow->{'APLOG_CAUTION'}, "あなたは既に死んでいます。", "you're dead." )
+    $sow->{'debug'}->raise( $sow->{'APLOG_CAUTION'}, "あなたは既に死んでいます。", "you're dead." )
       if ( $curpl->{'live'} ne 'live' );    # 通常起きない
     $sow->{'debug'}
       ->raise( $sow->{'APLOG_CAUTION'}, "今日は時間を進める事はできません。", "cannot commit." )
@@ -95,8 +94,7 @@ sub SetDataCmdCommit {
     $vil->closevil();
 
     $sow->{'debug'}->writeaplog( $sow->{'APLOG_POSTED'},
-"Commited. [uid=$sow->{'uid'}, vid=$vil->{'vid'}, action=$query->{'commit'}]"
-    );
+        "Commited. [uid=$sow->{'uid'}, vid=$vil->{'vid'}, action=$query->{'commit'}]" );
 
     return $vil;
 }

@@ -48,8 +48,7 @@ sub SetDataCmdLogin {
         $user->createuser( $query->{'uid'}, $query->{'pwd'} );
         $user->setcookie( $sow->{'setcookie'} );
     }
-    $sow->{'debug'}
-      ->writeaplog( $sow->{'APLOG_POSTED'}, "Login. [$query->{'uid'}]" );
+    $sow->{'debug'}->writeaplog( $sow->{'APLOG_POSTED'}, "Login. [$query->{'uid'}]" );
 
     return;
 }

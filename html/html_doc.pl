@@ -38,19 +38,19 @@ sub OutHTMLDocument {
         $doc = SWDocChangeLog->new($sow);
     }
 
-    $sow->{'html'} = SWHtml->new($sow);              # HTMLモードの初期化
-    my $net     = $sow->{'html'}->{'net'};           # Null End Tag
-    my $outhttp = $sow->{'http'}->outheader();       # HTTPヘッダの出力
-    return if ( $outhttp == 0 );                     # ヘッダ出力のみ
-    $sow->{'html'}->outheader( $doc->{'title'} );    # HTMLヘッダの出力
+    $sow->{'html'} = SWHtml->new($sow);    # HTMLモードの初期化
+    my $net     = $sow->{'html'}->{'net'};        # Null End Tag
+    my $outhttp = $sow->{'http'}->outheader();    # HTTPヘッダの出力
+    return if ( $outhttp == 0 );                  # ヘッダ出力のみ
+    $sow->{'html'}->outheader( $doc->{'title'} ); # HTMLヘッダの出力
     $sow->{'html'}->outcontentheader();
 
-    &SWHtmlPC::OutHTMLLogin($sow);                   # ログイン欄の出力
-    $doc->outhtml();                                 # 本文出力
-    &SWHtmlPC::OutHTMLReturnPC($sow);                # トップページへ戻る
+    &SWHtmlPC::OutHTMLLogin($sow);                # ログイン欄の出力
+    $doc->outhtml();                              # 本文出力
+    &SWHtmlPC::OutHTMLReturnPC($sow);             # トップページへ戻る
 
     $sow->{'html'}->outcontentfooter();
-    $sow->{'html'}->outfooter();                     # HTMLフッタの出力
+    $sow->{'html'}->outfooter();                  # HTMLフッタの出力
     $sow->{'http'}->outfooter();
 
     return;

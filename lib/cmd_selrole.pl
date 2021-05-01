@@ -22,7 +22,7 @@ sub CmdSelRole {
     }
     else {
         my $reqvals = &SWBase::GetRequestValues($sow);
-        my $link    = &SWBase::GetLinkValues( $sow, $reqvals );
+        my $link = &SWBase::GetLinkValues( $sow, $reqvals );
         $link = "$cfg->{'URL_SW'}/$cfg->{'FILE_SOW'}?$link#newsay";
 
         $sow->{'http'}->{'location'} = "$link";
@@ -50,13 +50,16 @@ sub SetDataCmdSelRole {
     my ( $q_csid, $q_cid ) = split( '/', $query->{'csid_cid'} );
 
     my $curpl = $sow->{'curpl'};
-    $sow->{'debug'}->raise( $sow->{'APLOG_NOTICE'},
-        'あなたはこの村へ参加していません。', "user not found.[$sow->{'uid'}]" )
-      if ( !defined($curpl) );
-    $sow->{'debug'}->raise( $sow->{'APLOG_CAUTION'},
+    $sow->{'debug'}->raise(
+        $sow->{'APLOG_NOTICE'},
+        'あなたはこの村へ参加していません。',
+        "user not found.[$sow->{'uid'}]"
+    ) if ( !defined($curpl) );
+    $sow->{'debug'}->raise(
+        $sow->{'APLOG_CAUTION'},
         'ダミーキャラは希望役職を変更する事ができません。',
-        "npc cannot change selected role.[$sow->{'uid'}]" )
-      if ( $sow->{'uid'} eq $sow->{'cfg'}->{'USERID_NPC'} );
+        "npc cannot change selected role.[$sow->{'uid'}]"
+    ) if ( $sow->{'uid'} eq $sow->{'cfg'}->{'USERID_NPC'} );
 
     # 変更処理
     require "$sow->{'cfg'}->{'DIR_LIB'}/log.pl";

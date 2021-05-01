@@ -21,8 +21,11 @@ sub CheckValidityStart {
 
     $debug->raise( $sow->{'APLOG_CAUTION'}, "ログイン？して下さい。", "no login.$errfrom" )
       if ( $sow->{'user'}->logined() <= 0 );
-    $debug->raise( $sow->{'APLOG_CAUTION'},
-        "村を開始するには村建て人権限か管理人権限が必要です。", "no permition.$errfrom" )
+    $debug->raise(
+        $sow->{'APLOG_CAUTION'},
+        "村を開始するには村建て人権限か管理人権限が必要です。",
+        "no permition.$errfrom"
+      )
       if ( ( $sow->{'uid'} ne $vil->{'makeruid'} )
         && ( $sow->{'uid'} ne $sow->{'cfg'}->{'USERID_ADMIN'} ) );
     $debug->raise(
@@ -30,8 +33,11 @@ sub CheckValidityStart {
         "人数が足りません。ダミーキャラを含め、最低 4 人必要です。",
         "need 4 persons.$errfrom"
     ) if ( @$pllist < 4 );
-    $debug->raise( $sow->{'APLOG_CAUTION'},
-        "現在参加している人数と定員が等しくありません。", "invalid vplcnt or total plcnt.$errfrom" )
+    $debug->raise(
+        $sow->{'APLOG_CAUTION'},
+        "現在参加している人数と定員が等しくありません。",
+        "invalid vplcnt or total plcnt.$errfrom"
+      )
       if ( ( @$pllist != $vil->{'vplcnt'} )
         && ( $vil->{'roletable'} eq 'custom' ) );
     $debug->raise( $sow->{'APLOG_CAUTION'}, "村が開始しています。", "game started." )
@@ -63,13 +69,18 @@ sub CheckValidityUpdate {
       if ( $sow->{'user'}->logined() <= 0 );
     if ( $sow->{'uid'} ne $sow->{'cfg'}->{'USERID_ADMIN'} ) {
         if ( $sow->{'query'}->{'cmd'} eq 'scrapvil' ) {
-            $debug->raise( $sow->{'APLOG_CAUTION'},
-                "廃村するには管理人権限が必要です。", "no permition.$errfrom" );
+            $debug->raise(
+                $sow->{'APLOG_CAUTION'},
+                "廃村するには管理人権限が必要です。",
+                "no permition.$errfrom"
+            );
         }
         else {
-            $debug->raise( $sow->{'APLOG_CAUTION'},
-                "村を更新するには村建て人権限か管理人権限が必要です。", "no permition.$errfrom" )
-              if ( $sow->{'uid'} ne $vil->{'makeruid'} );
+            $debug->raise(
+                $sow->{'APLOG_CAUTION'},
+                "村を更新するには村建て人権限か管理人権限が必要です。",
+                "no permition.$errfrom"
+            ) if ( $sow->{'uid'} ne $vil->{'makeruid'} );
         }
     }
 

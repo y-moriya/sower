@@ -74,8 +74,11 @@ _HTML_
 _HTML_
 
     my @logmestype = ( 0, 1, 2, 3, 4 );
-    my @logmestypetext =
-      ( '通常発言', '独り言', '囁き/共鳴/念話', '死者のうめき', '傍観者発言', );
+    my @logmestypetext = (
+        '通常発言',         '独り言',
+        '囁き/共鳴/念話', '死者のうめき',
+        '傍観者発言',
+    );
     for ( $i = 0 ; $i < @logmestype ; $i++ ) {
         my $enable = 'enable';
         $enable = 'disenable'
@@ -84,7 +87,7 @@ _HTML_
         print " class=\"sayfilter_content_$enable\"";
         print " onclick=\"changeFilterByCheckBoxMesType('$logmestype[$i]');\"";
 
-   #		print " onkeypress=\"changeFilterByCheckBoxMesType('$logmestype[$i]');\"";
+        #		print " onkeypress=\"changeFilterByCheckBoxMesType('$logmestype[$i]');\"";
         print "><div class=\"sayfilter_incontent\">";
         print "<input id=\"checktypefilter_$logmestype[$i]\"";
         print " $atr_id=\"checktypefilter_$logmestype[$i]\""
@@ -178,15 +181,13 @@ sub OutHTMLSayFilterPlayers {
     print "$livetypetext{$livetype} ($filtercnt)";
     print "</h4>\n";
 
-    print
-"<div id=\"livetype$livetypeno{$livetype}\" class=\"sayfilter_content\"$display>\n"
+    print "<div id=\"livetype$livetypeno{$livetype}\" class=\"sayfilter_content\"$display>\n"
       if ( @filterlist > 0 );
 
     my $i = 0;
-    $display    = '';
-    @filterlist = sort {
-        $a->{'deathday'} <=> $b->{'deathday'} or $a->{'pno'} <=> $b->{'pno'}
-    } @filterlist if ( $livetype ne 'live' );
+    $display = '';
+    @filterlist = sort { $a->{'deathday'} <=> $b->{'deathday'} or $a->{'pno'} <=> $b->{'pno'} } @filterlist
+      if ( $livetype ne 'live' );
     foreach (@filterlist) {
         my $enable  = 'enable';
         my $checked = " $sow->{'html'}->{'checked'}";
@@ -197,9 +198,8 @@ sub OutHTMLSayFilterPlayers {
 
         my $logined = $sow->{'user'}->logined();
         my $unit =
-          $sow->{'basictrs'}->{'SAYTEXT'}
-          ->{ $sow->{'cfg'}->{'COUNTS_SAY'}->{ $vil->{'saycnttype'} }
-              ->{'COUNT_TYPE'} }->{'UNIT_SAY'};
+          $sow->{'basictrs'}->{'SAYTEXT'}->{ $sow->{'cfg'}->{'COUNTS_SAY'}->{ $vil->{'saycnttype'} }->{'COUNT_TYPE'} }
+          ->{'UNIT_SAY'};
         my $shortchrname =
           $sow->{'charsets'}->getshortchrname( $_->{'csid'}, $_->{'cid'} );
         my $showid = "";
@@ -255,8 +255,7 @@ sub OutHTMLSayFilterPlayers {
             {
                 if ( $_->{'actaddpt'} > 4 ) {
                     $small = $_->{'actaddpt'} % $sow->{'cfg'}->{'CANDY_LS'};
-                    $large = ( $_->{'actaddpt'} - $small ) /
-                      $sow->{'cfg'}->{'CANDY_LS'};
+                    $large = ( $_->{'actaddpt'} - $small ) / $sow->{'cfg'}->{'CANDY_LS'};
                     $restaddpt =
 "<img src=\"$sow->{'cfg'}->{'DIR_IMG'}/candy_s.png\" width=\"8\" height=\"8\" alt=\"飴\" title=\"飴\">"
                       x $small;
@@ -270,8 +269,7 @@ sub OutHTMLSayFilterPlayers {
                       x $_->{'actaddpt'};
                 }
             }
-            print
-"<div style=\"text-align: right;\">$_->{'saidcount'}回 残$restsay$unit $restaddpt</div>";
+            print "<div style=\"text-align: right;\">$_->{'saidcount'}回 残$restsay$unit $restaddpt</div>";
         }
         print "</div>";
         print "</div>";

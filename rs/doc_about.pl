@@ -8,26 +8,26 @@ package SWDocAbout;
 # コンストラクタ
 #----------------------------------------
 sub new {
-	my ($class, $sow) = @_;
-	my $self = {
-		sow   => $sow,
-		title => "個人戦の定義", # タイトル
-	};
+    my ( $class, $sow ) = @_;
+    my $self = {
+        sow   => $sow,
+        title => "個人戦の定義",    # タイトル
+    };
 
-	return bless($self, $class);
+    return bless( $self, $class );
 }
 
 #----------------------------------------
 # 概略の表示
 #----------------------------------------
 sub outhtml {
-	my $self = shift;
-	my $sow = $self->{'sow'};
-	my $cfg   = $sow->{'cfg'};
-	my $net = $sow->{'html'}->{'net'}; # Null End Tag
-	my $atr_id = $sow->{'html'}->{'atr_id'};
+    my $self   = shift;
+    my $sow    = $self->{'sow'};
+    my $cfg    = $sow->{'cfg'};
+    my $net    = $sow->{'html'}->{'net'};      # Null End Tag
+    my $atr_id = $sow->{'html'}->{'atr_id'};
 
-	print <<"_HTML_";
+    print <<"_HTML_";
 <h2>個人戦の定義</h2>
 
 

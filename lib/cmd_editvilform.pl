@@ -14,11 +14,13 @@ sub CmdEditVilForm {
     $vil->readvil();
 
     my $errfrom = "[uid=$sow->{'uid'}, cmd=$query->{'cmd'}]";
-    $sow->{'debug'}
-      ->raise( $sow->{'APLOG_CAUTION'}, "ログインして下さい。", "no login.$errfrom" )
+    $sow->{'debug'}->raise( $sow->{'APLOG_CAUTION'}, "ログインして下さい。", "no login.$errfrom" )
       if ( $sow->{'user'}->logined() <= 0 );
-    $sow->{'debug'}->raise( $sow->{'APLOG_CAUTION'},
-        "村作成者以外には村の編集は行えません。", "no permition.$errfrom" )
+    $sow->{'debug'}->raise(
+        $sow->{'APLOG_CAUTION'},
+        "村作成者以外には村の編集は行えません。",
+        "no permition.$errfrom"
+      )
       if ( ( $sow->{'uid'} ne $vil->{'makeruid'} )
         && ( $sow->{'uid'} ne $sow->{'cfg'}->{'USERID_ADMIN'} ) );
 

@@ -26,7 +26,7 @@ sub new {
     $self->{'file'} =
       SWBoaRandomAccess->new( $sow, $filename, \*LOG, 'log', \@datalabel,
         'ログデータ', "[vid=$self->{'vil'}->{'vid'}/turn=$self->{'turn'}]",
-        $mode,   $self->{'version'}, );
+        $mode, $self->{'version'}, );
 
     return $self;
 }
@@ -47,9 +47,8 @@ sub getfnamelog {
     else {
         $datafile = sprintf(
             "%s/%04d/%04d_%02d%s",
-            $self->{'sow'}->{'cfg'}->{'DIR_VIL'}, $self->{'vil'}->{'vid'},
-            $self->{'vil'}->{'vid'},              $self->{'turn'},
-            $self->{'sow'}->{'cfg'}->{'FILE_LOG'},
+            $self->{'sow'}->{'cfg'}->{'DIR_VIL'}, $self->{'vil'}->{'vid'}, $self->{'vil'}->{'vid'},
+            $self->{'turn'},                      $self->{'sow'}->{'cfg'}->{'FILE_LOG'},
         );
     }
     return $datafile;
@@ -64,11 +63,9 @@ sub getlogdatalabel {
 
     # Version 2.1
     @datalabel = (
-        'logid',      'mestype', 'logsubid',   'maskedid',
-        'uid',        'cid',     'csid',       'chrname',
-        'expression', 'date',    'log',        'monospace',
-        'loud',       'memoid',  'remoteaddr', 'fowardedfor',
-        'agent',
+        'logid', 'mestype', 'logsubid',   'maskedid',    'uid', 'cid',
+        'csid',  'chrname', 'expression', 'date',        'log', 'monospace',
+        'loud',  'memoid',  'remoteaddr', 'fowardedfor', 'agent',
     );
 
     return @datalabel;

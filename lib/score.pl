@@ -27,8 +27,7 @@ sub new {
 
     my $fh = \*SCORE;
     if ( ( $mode > 0 ) || ( -e $filename ) ) {
-        my $file =
-          SWFile->new( $self->{'sow'}, 'score', $fh, $filename, $self );
+        my $file = SWFile->new( $self->{'sow'}, 'score', $fh, $filename, $self );
         $file->openfile( $modeid, '人狼譜データ', "[vid=$self->{'vid'}]", );
         $self->{'file'} = $file;
     }
@@ -148,16 +147,11 @@ sub getfnamescore {
 
     my $datafile;
     if ( $self->{'vil'}->{'dir'} == 0 ) {
-        $datafile = sprintf( "%s/%04d_%s",
-            $sow->{'cfg'}->{'DIR_VIL'},
-            $vid, $sow->{'cfg'}->{'FILE_SCORE'},
-        );
+        $datafile = sprintf( "%s/%04d_%s", $sow->{'cfg'}->{'DIR_VIL'}, $vid, $sow->{'cfg'}->{'FILE_SCORE'}, );
     }
     else {
-        $datafile = sprintf( "%s/%04d/%04d_%s",
-            $sow->{'cfg'}->{'DIR_VIL'},
-            $vid, $vid, $sow->{'cfg'}->{'FILE_SCORE'},
-        );
+        $datafile =
+          sprintf( "%s/%04d/%04d_%s", $sow->{'cfg'}->{'DIR_VIL'}, $vid, $vid, $sow->{'cfg'}->{'FILE_SCORE'}, );
     }
     return $datafile;
 }

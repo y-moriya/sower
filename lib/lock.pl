@@ -52,8 +52,7 @@ sub gunlock {
     my $sow  = $self->{'sow'};
 
     if ( $sow->{'cfg'}->{'ENABLED_GLOCK'} == 0 ) {
-        $sow->{'debug'}
-          ->writeaplog( $sow->{'APLOG_OTHERS'}, 'no lock.[Unlock]' );
+        $sow->{'debug'}->writeaplog( $sow->{'APLOG_OTHERS'}, 'no lock.[Unlock]' );
         return;
     }
     elsif ( $sow->{'cfg'}->{'ENABLED_GLOCK'} == 1 ) {
@@ -71,12 +70,12 @@ sub gflock {
     my $self = shift;
     my $sow  = $self->{'sow'};
 
-    $sow->{'debug'}->raise( $sow->{'APLOG_WARNING'},
-        'ファイルロックに失敗しました。', 'lockfile not found.' )
+    $sow->{'debug'}
+      ->raise( $sow->{'APLOG_WARNING'}, 'ファイルロックに失敗しました。', 'lockfile not found.' )
       if !( -e $sow->{'cfg'}->{'FILE_LOCK'} );    # ファイルがない
     open( LOCK, "+<$sow->{'cfg'}->{'FILE_LOCK'}" )
-      || $sow->{'debug'}->raise( $sow->{'APLOG_WARNING'},
-        'ファイルロックに失敗しました。', 'lockfile could not open.' );
+      || $sow->{'debug'}
+      ->raise( $sow->{'APLOG_WARNING'}, 'ファイルロックに失敗しました。', 'lockfile could not open.' );
     eval { flock( LOCK, 2 ); };
     $self->{'lock'} = 'lock';
     $sow->{'debug'}->writeaplog( $sow->{'APLOG_OTHERS'}, 'locked.[flock]' );
@@ -130,8 +129,7 @@ sub glockr {
     $self->{'lock'}     = 'lock';
     $self->{'filename'} = $fname;
 
-    $sow->{'debug'}->writeaplog( $sow->{'APLOG_OTHERS'},
-        'unlock.[rename, timeout: "$result"]' )
+    $sow->{'debug'}->writeaplog( $sow->{'APLOG_OTHERS'}, 'unlock.[rename, timeout: "$result"]' )
       if ( $result ne '' );
     $sow->{'debug'}->writeaplog( $sow->{'APLOG_OTHERS'}, 'locked.[rename]' );
 }
@@ -144,8 +142,7 @@ sub gunlockr {
     my $sow  = $self->{'sow'};
 
     if ( $self->{'lock'} eq 'lock' ) {
-        $sow->{'debug'}
-          ->writeaplog( $sow->{'APLOG_OTHERS'}, 'unlock.[rename]' );
+        $sow->{'debug'}->writeaplog( $sow->{'APLOG_OTHERS'}, 'unlock.[rename]' );
         my $fname = $self->{'filename'};
         rename( $fname, $sow->{'cfg'}->{'FILE_LOCK'} );
         $self->{'lock'} = '';
@@ -163,7 +160,7 @@ sub gunlockrtimeout {
 
     $sow->{'cfg'}->{'FILE_LOCK'} =~ /\/[^\/]*\z/;
     my $fname = substr( $&, 1 );
-    my $dir   = $`;
+    my $dir = $`;
     opendir( LOCKDIR, $dir );
     my @files = readdir(LOCKDIR);
     closedir(LOCKDIR);

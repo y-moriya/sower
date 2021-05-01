@@ -19,16 +19,13 @@ sub new {
 #----------------------------------------
 sub getdatalabel {
     my @datalabel = (
-        'uid',          'cid',         'csid',       'jobname',
-        'role',         'rolesubid',   'selrole',    'live',
-        'deathday',     'say',         'tsay',       'wsay',
-        'spsay',        'bsay',        'gsay',       'psay',
-        'esay',         'say_act',     'actaddpt',   'saidcount',
-        'saidpoint',    'countinfosp', 'countthink', 'vote',
-        'target',       'target2',     'entrust',    'bonds',
-        'lovers',       'commit',      'entrieddt',  'limitentrydt',
-        'lastwritepos', 'history',     'modified',   'savedraft',
-        'draftmestype', 'draftmspace', 'draftloud',
+        'uid',          'cid',          'csid',         'jobname',     'role',       'rolesubid',
+        'selrole',      'live',         'deathday',     'say',         'tsay',       'wsay',
+        'spsay',        'bsay',         'gsay',         'psay',        'esay',       'say_act',
+        'actaddpt',     'saidcount',    'saidpoint',    'countinfosp', 'countthink', 'vote',
+        'target',       'target2',      'entrust',      'bonds',       'lovers',     'commit',
+        'entrieddt',    'limitentrydt', 'lastwritepos', 'history',     'modified',   'savedraft',
+        'draftmestype', 'draftmspace',  'draftloud',
     );
 
     return @datalabel;
@@ -40,17 +37,17 @@ sub getdatalabel {
 sub createpl {
     my ( $self, $uid ) = @_;
 
-    $self->{'uid'}       = $uid;
-    $self->{'live'}      = 'live';
-    $self->{'deathday'}  = -1;
-    $self->{'role'}      = -1;
-    $self->{'rolesubid'} = -1;
-    $self->{'jobname'}   = '';
-    $self->{'vote'}      = 0;
-    $self->{'entrust'}   = 0;
-    $self->{'target'}    = 0;
-    $self->{'target2'}   = 0;
-    $self->{'bonds'}     = '', $self->{'lovers'} = '', $self->{'history'} = '';
+    $self->{'uid'}          = $uid;
+    $self->{'live'}         = 'live';
+    $self->{'deathday'}     = -1;
+    $self->{'role'}         = -1;
+    $self->{'rolesubid'}    = -1;
+    $self->{'jobname'}      = '';
+    $self->{'vote'}         = 0;
+    $self->{'entrust'}      = 0;
+    $self->{'target'}       = 0;
+    $self->{'target2'}      = 0;
+    $self->{'bonds'}        = '', $self->{'lovers'} = '', $self->{'history'} = '';
     $self->{'saidcount'}    = 0;
     $self->{'saidpoint'}    = 0;
     $self->{'countinfosp'}  = 0;
@@ -108,8 +105,7 @@ sub writepl {
 #----------------------------------------
 sub setsaycount {
     my $self   = shift;
-    my $saycnt = $self->{'sow'}->{'cfg'}->{'COUNTS_SAY'}
-      ->{ $self->{'vil'}->{'saycnttype'} };
+    my $saycnt = $self->{'sow'}->{'cfg'}->{'COUNTS_SAY'}->{ $self->{'vil'}->{'saycnttype'} };
 
     $self->{'say'}         = $saycnt->{'MAX_SAY'};
     $self->{'tsay'}        = $saycnt->{'MAX_TSAY'};
@@ -137,17 +133,16 @@ sub setsaycount {
 #----------------------------------------
 sub chargesaycount {
     my $self   = shift;
-    my $saycnt = $self->{'sow'}->{'cfg'}->{'COUNTS_SAY'}
-      ->{ $self->{'vil'}->{'saycnttype'} };
+    my $saycnt = $self->{'sow'}->{'cfg'}->{'COUNTS_SAY'}->{ $self->{'vil'}->{'saycnttype'} };
 
-    $self->{'say'}      += $saycnt->{'MAX_SAY'};
-    $self->{'tsay'}     += $saycnt->{'MAX_TSAY'};
-    $self->{'wsay'}     += $saycnt->{'MAX_WSAY'};
-    $self->{'spsay'}    += $saycnt->{'MAX_SPSAY'};
-    $self->{'bsay'}     += $saycnt->{'MAX_BSAY'};
-    $self->{'gsay'}     += $saycnt->{'MAX_GSAY'};
-    $self->{'psay'}     += $saycnt->{'MAX_SAY'};       # プロローグのチャージ量は進行中と同じにしてみた
-    $self->{'esay'}     += $saycnt->{'MAX_ESAY'};
+    $self->{'say'}   += $saycnt->{'MAX_SAY'};
+    $self->{'tsay'}  += $saycnt->{'MAX_TSAY'};
+    $self->{'wsay'}  += $saycnt->{'MAX_WSAY'};
+    $self->{'spsay'} += $saycnt->{'MAX_SPSAY'};
+    $self->{'bsay'}  += $saycnt->{'MAX_BSAY'};
+    $self->{'gsay'}  += $saycnt->{'MAX_GSAY'};
+    $self->{'psay'}  += $saycnt->{'MAX_SAY'};    # プロローグのチャージ量は進行中と同じにしてみた
+    $self->{'esay'}  += $saycnt->{'MAX_ESAY'};
     $self->{'say_act'}  += $saycnt->{'MAX_SAY_ACT'};
     $self->{'actaddpt'} += $saycnt->{'MAX_ADDSAY'};
 
@@ -159,8 +154,7 @@ sub chargesaycount {
 #----------------------------------------
 sub addsaycount {
     my $self   = shift;
-    my $saycnt = $self->{'sow'}->{'cfg'}->{'COUNTS_SAY'}
-      ->{ $self->{'vil'}->{'saycnttype'} };
+    my $saycnt = $self->{'sow'}->{'cfg'}->{'COUNTS_SAY'}->{ $self->{'vil'}->{'saycnttype'} };
     $self->{'say'}  += $saycnt->{'ADD_SAY'};
     $self->{'psay'} += $saycnt->{'ADD_SAY'};
     $self->{'esay'} += $saycnt->{'ADD_SAY'};
@@ -176,7 +170,7 @@ sub gettargetlist {
     my $vil = $self->{'vil'};
     my @targetlist;
 
-    my @bonds      = split( '/', $self->{'bonds'} . '/' );
+    my @bonds = split( '/', $self->{'bonds'} . '/' );
     my $livepllist = $vil->getlivepllist();
     my $livepl;
     foreach $livepl (@$livepllist) {
@@ -186,8 +180,7 @@ sub gettargetlist {
             && ( $livepl->{'uid'} eq $sow->{'cfg'}->{'USERID_NPC'} ) )
           ;    # ピクシーの対象にはダミーキャラを含まない
         next
-          if ( ( defined($targetpno) ) && ( $livepl->{'pno'} == $targetpno ) )
-          ;    # 第一対象と同じ場合は除外
+          if ( ( defined($targetpno) ) && ( $livepl->{'pno'} == $targetpno ) );   # 第一対象と同じ場合は除外
 
         if ( ( $cmd eq 'vote' ) || ( $self->iswolf() > 0 ) ) {
 
@@ -247,7 +240,7 @@ sub gettargetlistwithrandom {
     $randomtarget = 0
       if ( ( $cmd ne 'vote' )
         && ( $self->iswolf() > 0 )
-        && ( $vil->{'turn'} == 1 ) );    # １日目の襲撃対象にはランダムを含まない
+        && ( $vil->{'turn'} == 1 ) );                        # １日目の襲撃対象にはランダムを含まない
     if ( $randomtarget > 0 ) {
         my %randomtarget = (
             chrname => 'ランダム',
@@ -266,7 +259,7 @@ sub addbond {
     my ( $self, $target ) = @_;
 
     my $isbond = 0;
-    my @bonds  = split( '/', $self->{'bonds'} . '/' );
+    my @bonds = split( '/', $self->{'bonds'} . '/' );
     foreach (@bonds) {
         $isbond = 1 if ( $_ == $target );
     }
@@ -292,8 +285,7 @@ sub changeselrole {
 #----------------------------------------
 sub getchrname {
     my $self = shift;
-    return $self->{'sow'}->{'charsets'}
-      ->getchrname( $self->{'csid'}, $self->{'cid'}, $self->{'jobname'} );
+    return $self->{'sow'}->{'charsets'}->getchrname( $self->{'csid'}, $self->{'cid'}, $self->{'jobname'} );
 }
 
 #----------------------------------------
@@ -301,8 +293,7 @@ sub getchrname {
 #----------------------------------------
 sub getchrnameinitial {
     my $self = shift;
-    return $self->{'sow'}->{'charsets'}
-      ->getchrnameinitial( $self->{'csid'}, $self->{'cid'} );
+    return $self->{'sow'}->{'charsets'}->getchrnameinitial( $self->{'csid'}, $self->{'cid'} );
 }
 
 #----------------------------------------
@@ -356,10 +347,10 @@ sub iswin {
     $sow = $self->{'sow'};
     $vil = $self->{'vil'};
 
-    my $win = 2;                                                           # 負け
+    my $win = 2;    # 負け
     $win = 1
       if ( $vil->{'winner'} == $sow->{'ROLECAMP'}[ $self->{'role'} ] );    # 勝ち
-    $win = 0 if ( $vil->{'winner'} == 0 );    # 引き分け
+    $win = 0 if ( $vil->{'winner'} == 0 );                                 # 引き分け
 
     return $win;
 }

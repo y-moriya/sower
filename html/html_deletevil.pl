@@ -19,8 +19,7 @@ sub OutHTMLDeleteVil {
         my $vidtext = "$query->{'vidstart'}村";
         $vidtext .= "～$query->{'vidend'}村"
           if ( $query->{'vidstart'} != $query->{'vidend'} );
-        print
-          "<p class=\"info\">\n$vidtextの村データを削除しました。\n</p>\n\n";
+        print "<p class=\"info\">\n$vidtextの村データを削除しました。\n</p>\n\n";
     }
 
     print <<"_HTML_";

@@ -26,7 +26,7 @@ sub new {
     $self->{'file'} =
       SWBoaRandomAccess->new( $sow, $filename, \*MEMO, 'memo', \@datalabel,
         'ƒƒ‚ƒf[ƒ^', "[vid=$self->{'vil'}->{'vid'}/turn=$self->{'turn'}]",
-        $mode,   $self->{'version'}, );
+        $mode, $self->{'version'}, );
 
     return $self;
 }
@@ -47,9 +47,8 @@ sub getfnamememo {
     else {
         $datafile = sprintf(
             "%s/%04d/%04d_%02d%s",
-            $self->{'sow'}->{'cfg'}->{'DIR_VIL'}, $self->{'vil'}->{'vid'},
-            $self->{'vil'}->{'vid'},              $self->{'turn'},
-            $self->{'sow'}->{'cfg'}->{'FILE_MEMO'},
+            $self->{'sow'}->{'cfg'}->{'DIR_VIL'}, $self->{'vil'}->{'vid'}, $self->{'vil'}->{'vid'},
+            $self->{'turn'},                      $self->{'sow'}->{'cfg'}->{'FILE_MEMO'},
         );
     }
     return $datafile;
@@ -64,9 +63,8 @@ sub getmemodatalabel {
 
     # Version 1.0
     @datalabel = (
-        'logid',     'mestype',    'uid',         'cid',
-        'csid',      'chrname',    'date',        'log',
-        'monospace', 'remoteaddr', 'fowardedfor', 'agent',
+        'logid', 'mestype', 'uid',       'cid',        'csid',        'chrname',
+        'date',  'log',     'monospace', 'remoteaddr', 'fowardedfor', 'agent',
     );
 
     return @datalabel;

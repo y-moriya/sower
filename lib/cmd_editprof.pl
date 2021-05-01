@@ -44,7 +44,7 @@ sub SetDataCmdEditProfile {
     my $lenintro = length( $query->{'intro'} );
     $debug->raise(
         $sow->{'APLOG_CAUTION'},
-        "自己紹介が長すぎます（$lenintroバイト）。最大$sow->{'cfg'}->{'MAXSIZE_INTRO'}バイトまでです。",
+"自己紹介が長すぎます（$lenintroバイト）。最大$sow->{'cfg'}->{'MAXSIZE_INTRO'}バイトまでです。",
         "introduction too long.$errfrom"
     ) if ( $lenintro > $sow->{'cfg'}->{'MAXSIZE_INTRO'} );
 
@@ -60,8 +60,7 @@ sub SetDataCmdEditProfile {
     $user->writeuser();
     $user->closeuser();
 
-    $sow->{'debug'}->writeaplog( $sow->{'APLOG_POSTED'},
-        "Edit Profile. [uid=$sow->{'uid'}]" );
+    $sow->{'debug'}->writeaplog( $sow->{'APLOG_POSTED'}, "Edit Profile. [uid=$sow->{'uid'}]" );
 
     return;
 }

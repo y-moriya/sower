@@ -14,10 +14,9 @@ sub OutHTMLVIndex {
 
     my $maxrow = $sow->{'cfg'}->{'MAX_ROW'};    # 標準行数
     $maxrow = $query->{'row'}
-      if ( defined( $query->{'row'} ) && ( $query->{'row'} ne '' ) )
-      ;                                         # 引数による行数指定
+      if ( defined( $query->{'row'} ) && ( $query->{'row'} ne '' ) );    # 引数による行数指定
     $maxrow = -1
-      if ( ( $maxrow eq 'all' ) || ( $query->{'rowall'} ne '' ) );  # 引数による全表示指定
+      if ( ( $maxrow eq 'all' ) || ( $query->{'rowall'} ne '' ) );       # 引数による全表示指定
 
     my $pageno = 0;
     $pageno = $query->{'pageno'} if ( defined( $query->{'pageno'} ) );
@@ -56,7 +55,7 @@ _HTML_
     my $virow   = -1;
     foreach (@$vilist) {
         my $date = sprintf( "%02d:%02d", $_->{'updhour'}, $_->{'updminite'} );
-        my $vil  = SWFileVil->new( $sow, $_->{'vid'} );
+        my $vil = SWFileVil->new( $sow, $_->{'vid'} );
         $vil->readvil();
         my $pllist = $vil->getpllist();
         $vil->closevil();
@@ -133,19 +132,13 @@ _HTML_
         my $countssay = $sow->{'cfg'}->{'COUNTS_SAY'};
         my $imgpwdkey = '';
         if ( defined( $vil->{'entrylimit'} ) ) {
-            $imgpwdkey =
-"<img src=\"$cfg->{'DIR_IMG'}/key.png\" width=\"16\" height=\"16\" alt=\"[鍵]\"$net> "
+            $imgpwdkey = "<img src=\"$cfg->{'DIR_IMG'}/key.png\" width=\"16\" height=\"16\" alt=\"[鍵]\"$net> "
               if ( $vil->{'entrylimit'} eq 'password' );
         }
 
         my $imgrating = '';
         if ( ( defined( $vil->{'rating'} ) ) && ( $vil->{'rating'} ne '' ) ) {
-            if (
-                defined(
-                    $sow->{'cfg'}->{'RATING'}->{ $vil->{'rating'} }->{'FILE'}
-                )
-              )
-            {
+            if ( defined( $sow->{'cfg'}->{'RATING'}->{ $vil->{'rating'} }->{'FILE'} ) ) {
                 my $rating = $sow->{'cfg'}->{'RATING'}->{ $vil->{'rating'} };
                 $imgrating =
 "<img src=\"$cfg->{'DIR_IMG'}/$rating->{'FILE'}\" width=\"$rating->{'WIDTH'}\" height=\"$rating->{'HEIGHT'}\" alt=\"[$rating->{'ALT'}]\" title=\"$rating->{'CAPTION'}\"$net> "
@@ -158,8 +151,7 @@ _HTML_
         my $link = &SWBase::GetLinkValues( $sow, $reqvals );
         $reqvals->{'cmd'} = 'vinfo';
         my $linkvinfo = &SWBase::GetLinkValues( $sow, $reqvals );
-        my $vcomment =
-          &SWLog::ReplaceAnchorHTMLRSS( $sow, $vil, $vil->{'vcomment'} );
+        my $vcomment = &SWLog::ReplaceAnchorHTMLRSS( $sow, $vil, $vil->{'vcomment'} );
 
         print <<"_HTML_";
   <tr>
@@ -209,8 +201,7 @@ _HTML_
         if ( ( $pageno > 0 ) && ( $maxrow > 0 ) ) {
             $reqvals->{'pageno'} = $pageno - 1;
             my $link = &SWBase::GetLinkValues( $sow, $reqvals );
-            print
-"<a href=\"$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}?$link\">前のページ</a> \n";
+            print "<a href=\"$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}?$link\">前のページ</a> \n";
         }
         else {
             print "前のページ \n";
@@ -219,8 +210,7 @@ _HTML_
         if ( ( ( $pageno + 1 ) * $maxrow <= $virow ) && ( $maxrow > 0 ) ) {
             $reqvals->{'pageno'} = $pageno + 1;
             my $link = &SWBase::GetLinkValues( $sow, $reqvals );
-            print
-"<a href=\"$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}?$link\">次のページ</a> \n";
+            print "<a href=\"$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}?$link\">次のページ</a> \n";
         }
         else {
             print "次のページ \n";
@@ -229,8 +219,7 @@ _HTML_
         if ( ( $virow + 1 ) != $vicount ) {
             $reqvals->{'rowall'} = 'on';
             my $link = &SWBase::GetLinkValues( $sow, $reqvals );
-            print
-"<a href=\"$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}?$link\">全表\示</a>\n";
+            print "<a href=\"$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}?$link\">全表\示</a>\n";
         }
         else {
             print "全表\示\n";

@@ -82,9 +82,7 @@ sub SetDataCmdMakeVil {
       $sow->{'dt'}->getnextupdatedt( $vil, $sow->{'time'}, 1, 0 );
     $vil->{'nextchargedt'} =
       $sow->{'dt'}->getnextupdatedt( $vil, $sow->{'time'}, 1, 0 );
-    $vil->{'scraplimitdt'} =
-      $sow->{'dt'}->getnextupdatedt( $vil, $sow->{'time'},
-        $sow->{'cfg'}->{'TIMEOUT_SCRAP'}, 1 );
+    $vil->{'scraplimitdt'} = $sow->{'dt'}->getnextupdatedt( $vil, $sow->{'time'}, $sow->{'cfg'}->{'TIMEOUT_SCRAP'}, 1 );
 
     $vil->{'votetype'}     = $query->{'votetype'};
     $vil->{'starttype'}    = $query->{'starttype'};
@@ -122,7 +120,7 @@ sub SetDataCmdMakeVil {
 
     # キャラセットの読み込み
     my @csids = split( '/', $csids );
-    my $csid  = $csids[0];
+    my $csid = $csids[0];
     foreach (@csids) {
         $sow->{'charsets'}->loadchrrs($_);
     }
@@ -146,15 +144,11 @@ sub SetDataCmdMakeVil {
     $sowgrobal->closemw();
 
     # ログデータ・メモデータファイルの作成
-    my $logfile  = SWBoa->new( $sow, $vil, $vil->{'turn'}, 1 );
+    my $logfile = SWBoa->new( $sow, $vil, $vil->{'turn'}, 1 );
     my $memofile = SWSnake->new( $sow, $vil, $vil->{'turn'}, 1 );
 
     # プロローグアナウンス
-    $logfile->writeinfo(
-        '',
-        $sow->{'MESTYPE_INFONOM'},
-        $textrs->{'ANNOUNCE_FIRST'}->[0]
-    );
+    $logfile->writeinfo( '', $sow->{'MESTYPE_INFONOM'}, $textrs->{'ANNOUNCE_FIRST'}->[0] );
 
     # ダミーキャラ参加
     my %entry = (
@@ -185,8 +179,7 @@ sub SetDataCmdMakeVil {
         $score->close();
     }
 
-    $sow->{'debug'}
-      ->writeaplog( $sow->{'APLOG_POSTED'}, "Make Vil. [uid=$sow->{'uid'}]" );
+    $sow->{'debug'}->writeaplog( $sow->{'APLOG_POSTED'}, "Make Vil. [uid=$sow->{'uid'}]" );
 
     return;
 }

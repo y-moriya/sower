@@ -30,13 +30,11 @@ sub getlocaldt {
 sub cvtdt {
     my ( $self, $dt ) = @_;
 
-    my ( $sec, $min, $hour, $day, $mon, $year, $week, $yday, $summer ) =
-      $self->getlocaldt($dt);
+    my ( $sec, $min, $hour, $day, $mon, $year, $week, $yday, $summer ) = $self->getlocaldt($dt);
     my $result = sprintf(
         "%4d/%02d/%02d(%s) %02d:%02d:%02d",
         $year + 1900,
-        ++$mon, $day,
-        ( 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat' )[$week],
+        ++$mon, $day, ( 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat' )[$week],
         $hour, $min, $sec
     );
 
@@ -49,14 +47,12 @@ sub cvtdt {
 sub cvtdtsht {
     my ( $self, $dt ) = @_;
 
-    my ( $sec, $min, $hour, $day, $mon, $year, $week, $yday, $summer ) =
-      $self->getlocaldt($dt);
+    my ( $sec, $min, $hour, $day, $mon, $year, $week, $yday, $summer ) = $self->getlocaldt($dt);
     $min = int( $min / 10 ) * 10;
     my $result = sprintf(
         "%4d/%02d/%02d(%s) %02d:%02d ",
         $year + 1900,
-        ++$mon, $day,
-        ( 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat' )[$week],
+        ++$mon, $day, ( 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat' )[$week],
         $hour, $min
     );
 
@@ -69,8 +65,7 @@ sub cvtdtsht {
 sub cvtdtmb {
     my ( $self, $dt ) = @_;
 
-    my ( $sec, $min, $hour, $day, $mon, $year, $week, $yday, $summer ) =
-      $self->getlocaldt($dt);
+    my ( $sec, $min, $hour, $day, $mon, $year, $week, $yday, $summer ) = $self->getlocaldt($dt);
     my $result = sprintf( "%02d/%02d %02d:%02d", ++$mon, $day, $hour, $min );
 
     return $result;
@@ -82,8 +77,7 @@ sub cvtdtmb {
 sub cvtdtmbsht {
     my ( $self, $dt ) = @_;
 
-    my ( $sec, $min, $hour, $day, $mon, $year, $week, $yday, $summer ) =
-      $self->getlocaldt($dt);
+    my ( $sec, $min, $hour, $day, $mon, $year, $week, $yday, $summer ) = $self->getlocaldt($dt);
     $min = int( $min / 10 ) * 10;
     my $result = sprintf( "%02d/%02d %02d:%02d ", ++$mon, $day, $hour, $min );
 
@@ -121,8 +115,7 @@ sub getnextupdatedt {
 sub getlastupdatedt {
     my ( $self, $vil, $basedt ) = @_;
 
-    my ( $sec, $min, $hour, $day, $mon, $year, $week, $yday, $summer ) =
-      $self->getlocaldt($basedt);
+    my ( $sec, $min, $hour, $day, $mon, $year, $week, $yday, $summer ) = $self->getlocaldt($basedt);
     $basedt -= $sec;
     my $result = $basedt - ( $hour * 60 + $min ) * 60;
     $result += ( $vil->{'updhour'} * 60 + $vil->{'updminite'} ) * 60;
@@ -146,8 +139,7 @@ sub getnextupdatedtwithoutvil {
     else {
         # 24h’PˆÊXV
         my $basedt_sec;
-        ( $result, $basedt_sec ) =
-          $self->getlastupdatedtwithoutvil( $updhour, $updminite, $basedt );
+        ( $result, $basedt_sec ) = $self->getlastupdatedtwithoutvil( $updhour, $updminite, $basedt );
         if ( $commit > 0 ) {
             $result += 60 * 60 * 24 if ( $result != $basedt_sec );
         }
@@ -163,8 +155,7 @@ sub getnextupdatedtwithoutvil {
 sub getlastupdatedtwithoutvil {
     my ( $self, $updhour, $updminite, $basedt ) = @_;
 
-    my ( $sec, $min, $hour, $day, $mon, $year, $week, $yday, $summer ) =
-      $self->getlocaldt($basedt);
+    my ( $sec, $min, $hour, $day, $mon, $year, $week, $yday, $summer ) = $self->getlocaldt($basedt);
     $basedt -= $sec;
     my $result = $basedt - ( $hour * 60 + $min ) * 60;
     $result += ( $updhour * 60 + $updminite ) * 60;
@@ -179,8 +170,7 @@ sub getlastupdatedtwithoutvil {
 sub getcommitdt {
     my ( $self, $basedt ) = @_;
 
-    my ( $sec, $min, $hour, $day, $mon, $year, $week, $yday, $summer ) =
-      $self->getlocaldt($basedt);
+    my ( $sec, $min, $hour, $day, $mon, $year, $week, $yday, $summer ) = $self->getlocaldt($basedt);
     $basedt -= ( $sec + ( $min % 30 ) * 60 );
     my $result = $basedt + 60 * 30;
 
@@ -193,16 +183,12 @@ sub getcommitdt {
 sub getcookiedt {
     my ( $self, $dt ) = @_;
 
-    my ( $sec, $min, $hour, $day, $mon, $year, $week, $yday, $summer ) =
-      gmtime($dt);
+    my ( $sec, $min, $hour, $day, $mon, $year, $week, $yday, $summer ) = gmtime($dt);
     my $expire = sprintf(
         "%s, %02d-%s-%04d %02d:%02d:%02d GMT",
         ( 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat' )[$week],
         $day,
-        (
-            'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-            'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
-        )[$mon],
+        ( 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec' )[$mon],
         $year + 1900,
         $hour, $min, $sec
     );
@@ -216,16 +202,12 @@ sub getcookiedt {
 sub gethttpdt {
     my ( $self, $dt ) = @_;
 
-    my ( $sec, $min, $hour, $day, $mon, $year, $week, $yday, $summer ) =
-      gmtime($dt);
+    my ( $sec, $min, $hour, $day, $mon, $year, $week, $yday, $summer ) = gmtime($dt);
     my $expire = sprintf(
         "%s, %02d %s %04d %02d:%02d:%02d GMT",
         ( 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat' )[$week],
         $day,
-        (
-            'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-            'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
-        )[$mon],
+        ( 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec' )[$mon],
         $year + 1900,
         $hour, $min, $sec
     );
@@ -239,13 +221,8 @@ sub gethttpdt {
 sub cvtw3cdtf {
     my ( $self, $dt ) = @_;
 
-    my ( $sec, $min, $hour, $day, $mon, $year, $week, $yday, $summer ) =
-      $self->getlocaldt($dt);
-    my $result = sprintf(
-        "%4d-%02d-%02dT%02d:%02d:%02d+09:00",
-        $year + 1900,
-        ++$mon, $day, $hour, $min, $sec
-    );
+    my ( $sec, $min, $hour, $day, $mon, $year, $week, $yday, $summer ) = $self->getlocaldt($dt);
+    my $result = sprintf( "%4d-%02d-%02dT%02d:%02d:%02d+09:00", $year + 1900, ++$mon, $day, $hour, $min, $sec );
 
     return $result;
 }

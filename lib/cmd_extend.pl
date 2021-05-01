@@ -20,7 +20,7 @@ sub CmdExtend {
     }
     else {
         my $reqvals = &SWBase::GetRequestValues($sow);
-        my $link    = &SWBase::GetLinkValues( $sow, $reqvals );
+        my $link = &SWBase::GetLinkValues( $sow, $reqvals );
         $link = "$cfg->{'URL_SW'}/$cfg->{'FILE_SOW'}?$link#newsay";
 
         $sow->{'http'}->{'location'} = "$link";
@@ -46,8 +46,7 @@ sub SetDataCmdExtend {
     # リソースの読み込み
     &SWBase::LoadVilRS( $sow, $vil );
 
-    $sow->{'debug'}
-      ->raise( $sow->{'APLOG_NOTICE'}, "管理人権限が必要です。", "no permition.$errfrom" )
+    $sow->{'debug'}->raise( $sow->{'APLOG_NOTICE'}, "管理人権限が必要です。", "no permition.$errfrom" )
       if ( $sow->{'uid'} ne $sow->{'cfg'}->{'USERID_ADMIN'} );
     $vil->{'nextupdatedt'} = $vil->{'nextupdatedt'} + 24 * 60 * 60;
     $vil->writevil();

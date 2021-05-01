@@ -17,8 +17,8 @@ sub CheckValidityText {
     }
     if ( $lendata > $sow->{'cfg'}->{"MAXSIZE_$dataconst"} ) {
 
-#		my $enabletext = &SWString::GetTrimStringBytes($data, 0, $sow->{'cfg'}->{"MAXSIZE_$dataconst"});
-#		my $disenabletext = substr($data, length($enabletext));
+        #		my $enabletext = &SWString::GetTrimStringBytes($data, 0, $sow->{'cfg'}->{"MAXSIZE_$dataconst"});
+        #		my $disenabletext = substr($data, length($enabletext));
         $sow->{'debug'}->raise(
             $sow->{'APLOG_NOTICE'},
 "$datanameが長すぎます（$lendataバイト）。最大$sow->{'cfg'}->{'MAXSIZE_' . $dataconst} バイトまでです。",

@@ -18,7 +18,7 @@ sub CmdStartSession {
     }
     else {
         my $reqvals = &SWBase::GetRequestValues($sow);
-        my $link    = &SWBase::GetLinkValues( $sow, $reqvals );
+        my $link = &SWBase::GetLinkValues( $sow, $reqvals );
         $link = "$cfg->{'URL_SW'}/$cfg->{'FILE_SOW'}?$link#newsay";
 
         $sow->{'http'}->{'location'} = $link;

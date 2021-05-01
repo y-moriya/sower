@@ -54,17 +54,17 @@ sub SetDataCmdWriteMemo {
     &SWValidityVil::CheckValidityVil( $sow, $vil );
 
     my $writepl = &SWBase::GetCurrentPl( $sow, $vil );
-    $debug->raise( $sow->{'APLOG_NOTICE'},
-        "あなたは死んでいます。", "you dead.[$errfrom]" )
+    $debug->raise( $sow->{'APLOG_NOTICE'}, "あなたは死んでいます。", "you dead.[$errfrom]" )
       if ( ( $writepl->{'live'} ne 'live' ) && ( $vil->isepilogue() == 0 ) );
 
     # 残りアクションがゼロの時
     require "$sow->{'cfg'}->{'DIR_LIB'}/write.pl";
     my ( $dummy, $saytype ) = &SWWrite::GetMesType( $sow, $vil, $writepl );
-    $debug->raise( $sow->{'APLOG_NOTICE'},
+    $debug->raise(
+        $sow->{'APLOG_NOTICE'},
         "アクションが足りません。",
-        "not enough saypoint.[$saytype: $writepl->{$saytype} / 1]" )
-      if ( $writepl->{$saytype} <= 0 );
+        "not enough saypoint.[$saytype: $writepl->{$saytype} / 1]"
+    ) if ( $writepl->{$saytype} <= 0 );
 
     # 行数・文字数の取得の取得
     my $mes           = $query->{'mes'};
@@ -75,13 +75,12 @@ sub SetDataCmdWriteMemo {
     # 行数／文字数制限警告
     $debug->raise(
         $sow->{'APLOG_NOTICE'},
-        "行数が多すぎます（$lineslogcount行）。$cfg->{'MAXSIZE_MEMOLINE'}行以内に収めないと書き込めません。",
+"行数が多すぎます（$lineslogcount行）。$cfg->{'MAXSIZE_MEMOLINE'}行以内に収めないと書き込めません。",
         "too many mes lines.$errfrom"
     ) if ( $lineslogcount > $cfg->{'MAXSIZE_MEMOLINE'} );
     my $unitcaution =
-      $sow->{'basictrs'}->{'SAYTEXT'}
-      ->{ $sow->{'cfg'}->{'COUNTS_SAY'}->{ $vil->{'saycnttype'} }
-          ->{'COUNT_TYPE'} }->{'UNIT_CAUTION'};
+      $sow->{'basictrs'}->{'SAYTEXT'}->{ $sow->{'cfg'}->{'COUNTS_SAY'}->{ $vil->{'saycnttype'} }->{'COUNT_TYPE'} }
+      ->{'UNIT_CAUTION'};
     $debug->raise(
         $sow->{'APLOG_NOTICE'},
 "文字が多すぎます（$countmes$unitcaution）。$cfg->{'MAXSIZE_MEMOCNT'}$unitcaution以内に収めないと書き込めません。",
@@ -99,9 +98,8 @@ sub SetDataCmdWriteMemo {
     my $checknosay = &SWString::CheckNoSay( $sow, $query->{'mes'} );
 
     my $memofile = SWSnake->new( $sow, $vil, $vil->{'turn'}, 0 );
-    my $newmemo  = $memofile->getnewmemo($writepl);
-    $debug->raise( $sow->{'APLOG_NOTICE'},
-        'メモを貼っていません。', "memo not found.$errfrom" )
+    my $newmemo = $memofile->getnewmemo($writepl);
+    $debug->raise( $sow->{'APLOG_NOTICE'}, 'メモを貼っていません。', "memo not found.$errfrom" )
       if ( ( $checknosay == 0 ) && ( $newmemo->{'log'} eq '' ) );
 
     # メモデータファイルへの書き込み
@@ -143,16 +141,14 @@ sub SetDataCmdWriteMemo {
         $query->{'mes'} = 'メモを貼った。';
         &SWWrite::ExecuteCmdWrite( $sow, $vil, $writepl, $memo{'logid'} );
 
-        $debug->writeaplog( $sow->{'APLOG_POSTED'},
-            "WriteMemo. [uid=$sow->{'uid'}, vid=$vil->{'vid'}]" );
+        $debug->writeaplog( $sow->{'APLOG_POSTED'}, "WriteMemo. [uid=$sow->{'uid'}, vid=$vil->{'vid'}]" );
     }
     else {
         # メモをはがす
         $query->{'mes'} = 'メモをはがした。';
         &SWWrite::ExecuteCmdWrite( $sow, $vil, $writepl, $memo{'logid'} );
 
-        $debug->writeaplog( $sow->{'APLOG_POSTED'},
-            "DeleteMemo. [uid=$sow->{'uid'}, vid=$vil->{'vid'}]" );
+        $debug->writeaplog( $sow->{'APLOG_POSTED'}, "DeleteMemo. [uid=$sow->{'uid'}, vid=$vil->{'vid'}]" );
     }
     $vil->closevil();
 

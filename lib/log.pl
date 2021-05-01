@@ -9,9 +9,7 @@ package SWLog;
 #----------------------------------------
 sub CreateLogID {
     my ( $sow, $mestype, $logsubid, $logcnt ) = @_;
-    my $logid = sprintf( "%s%s%05d",
-        $sow->{'LOGMESTYPE'}->[$mestype],
-        $logsubid, $logcnt, );
+    my $logid = sprintf( "%s%s%05d", $sow->{'LOGMESTYPE'}->[$mestype], $logsubid, $logcnt, );
 
     return $logid;
 }
@@ -54,16 +52,14 @@ sub GetAnchorlogID {
 sub ReplacePreviewAnchor {
     my ( $sow, $vil, $log ) = @_;
     my $mes = $log->{'log'};
-    $sow->{'debug'}
-      ->writeaplog( $sow->{'APLOG_OTHERS'}, "Target. [$log->{'log'}]" );
+    $sow->{'debug'}->writeaplog( $sow->{'APLOG_OTHERS'}, "Target. [$log->{'log'}]" );
     while ( $mes =~
-/&gt;&gt;[\+\-\*\#\%\=\!g]?(\d{1,$sow->{'MAXWIDTH_TURN'}}:)?[\+\-\*\#\%\=\!g]?\d{1,$sow->{'MAXWIDTH_LOGCOUNT'}}/
+        /&gt;&gt;[\+\-\*\#\%\=\!g]?(\d{1,$sow->{'MAXWIDTH_TURN'}}:)?[\+\-\*\#\%\=\!g]?\d{1,$sow->{'MAXWIDTH_LOGCOUNT'}}/
       )
     {
         my $anchortext = $&;
         my ( $mestypestr, $mestypestr2, $turn, $logno );
-        $anchortext =~
-/(&gt;&gt;)([AS]?)([\+\-\*\#\%\=\!g]?)(\d+:)?([\+\-\*\#\%\=\!g]?)(\d+)/;
+        $anchortext =~ /(&gt;&gt;)([AS]?)([\+\-\*\#\%\=\!g]?)(\d+:)?([\+\-\*\#\%\=\!g]?)(\d+)/;
         my $mestypemark1 = $3;
         my $mestypemark2 = $5;
         $mestypestr = $3;
@@ -84,15 +80,13 @@ sub ReplacePreviewAnchor {
         my $logmestype    = $sow->{'LOGMESTYPE'};
         my $loganchormark = $sow->{'MARK_LOGANCHOR'};
         my $i;
-        for ( $i = $sow->{'MESTYPE_SAY'} ;
-            $i <= $sow->{'MESTYPE_GUEST'} ; $i++ )
-        {
+        for ( $i = $sow->{'MESTYPE_SAY'} ; $i <= $sow->{'MESTYPE_GUEST'} ; $i++ ) {
             $mestype = $i
               if ( $mestypestr eq $loganchormark->{ $logmestype->[$i] } );
         }
 
         my $logsubid = $sow->{'LOGSUBID_SAY'};
-        my $logid    = &CreateLogID( $sow, $mestype, $logsubid, $logno );
+        my $logid = &CreateLogID( $sow, $mestype, $logsubid, $logno );
 
         # リンクの文字列用データ
         my $linktext = $anchortext;
@@ -123,13 +117,12 @@ sub ReplaceAnchor {
 
 #	while ($mes =~ /&gt;&gt;[AS]?[\+\-\*\#\%\=\!]?(\d{1,$sow->{'MAXWIDTH_TURN'}}:)?[\+\-\*\#\%\=\!]?\d{1,$sow->{'MAXWIDTH_LOGCOUNT'}}/) {
     while ( $mes =~
-/&gt;&gt;[\+\-\*\#\%\=\!g]?(\d{1,$sow->{'MAXWIDTH_TURN'}}:)?[\+\-\*\#\%\=\!g]?\d{1,$sow->{'MAXWIDTH_LOGCOUNT'}}/
+        /&gt;&gt;[\+\-\*\#\%\=\!g]?(\d{1,$sow->{'MAXWIDTH_TURN'}}:)?[\+\-\*\#\%\=\!g]?\d{1,$sow->{'MAXWIDTH_LOGCOUNT'}}/
       )
     {
         my $anchortext = $&;
         my ( $mestypestr, $mestypestr2, $turn, $logno );
-        $anchortext =~
-/(&gt;&gt;)([AS]?)([\+\-\*\#\%\=\!g]?)(\d+:)?([\+\-\*\#\%\=\!g]?)(\d+)/;
+        $anchortext =~ /(&gt;&gt;)([AS]?)([\+\-\*\#\%\=\!g]?)(\d+:)?([\+\-\*\#\%\=\!g]?)(\d+)/;
         my $mestypemark1 = $3;
         my $mestypemark2 = $5;
         $mestypestr = $3;
@@ -150,16 +143,14 @@ sub ReplaceAnchor {
         my $logmestype    = $sow->{'LOGMESTYPE'};
         my $loganchormark = $sow->{'MARK_LOGANCHOR'};
         my $i;
-        for ( $i = $sow->{'MESTYPE_SAY'} ;
-            $i <= $sow->{'MESTYPE_GUEST'} ; $i++ )
-        {
+        for ( $i = $sow->{'MESTYPE_SAY'} ; $i <= $sow->{'MESTYPE_GUEST'} ; $i++ ) {
             $mestype = $i
               if ( $mestypestr eq $loganchormark->{ $logmestype->[$i] } );
         }
 
         my $logsubid = $sow->{'LOGSUBID_SAY'};
 
-#		$logsubid = $sow->{'LOGSUBID_ACTION'} if (defined($2) && ($2 eq $sow->{'LOGSUBID_ACTION'})); # てへっ♪（ぉぃ
+ #		$logsubid = $sow->{'LOGSUBID_ACTION'} if (defined($2) && ($2 eq $sow->{'LOGSUBID_ACTION'})); # てへっ♪（ぉぃ
         my $logid = &CreateLogID( $sow, $mestype, $logsubid, $logno );
 
         # リンクの文字列用データ
@@ -175,8 +166,11 @@ sub ReplaceAnchor {
         $saymestype = $sow->{'MESTYPE_SAY'}
           if ( $saymestype == $sow->{'MESTYPE_QUE'} );
         my $rolesay = $sow->{'textrs'}->{'CAPTION_ROLESAY'};
-        $sow->{'debug'}->raise( $sow->{'APLOG_NOTICE'},
-            "秘密会話へのアンカーを通常発言に打つ事はできません。", "cannot anchor [$mestype]." )
+        $sow->{'debug'}->raise(
+            $sow->{'APLOG_NOTICE'},
+            "秘密会話へのアンカーを通常発言に打つ事はできません。",
+            "cannot anchor [$mestype]."
+          )
           if (
                ( $vil->isepilogue() == 0 )
             && ( $saymestype == $sow->{'MESTYPE_SAY'} )
@@ -186,7 +180,7 @@ sub ReplaceAnchor {
           );
 
         $mwtag = $skipmwtag
-          if ( ( $mestypemark1 ne '' ) && ( $mestypemark2 ne '' ) ); # 種別指定が２つある
+          if ( ( $mestypemark1 ne '' ) && ( $mestypemark2 ne '' ) );    # 種別指定が２つある
         if (   ( $mestype != $sow->{'MESTYPE_SAY'} )
             && ( $mestype != $sow->{'MESTYPE_MAKER'} )
             && ( $mestype != $sow->{'MESTYPE_ADMIN'} )
@@ -199,19 +193,18 @@ sub ReplaceAnchor {
                 # 墓下独り言から墓下へのアンカーチェック
                 my $tsay2gsay = 1;
                 $tsay2gsay = 0
-                  if ( $sow->{'cfg'}->{'ENABLED_TSAY_GRAVE'} == 0 );   # 墓下独り言禁止
+                  if ( $sow->{'cfg'}->{'ENABLED_TSAY_GRAVE'} == 0 );    # 墓下独り言禁止
                 $tsay2gsay = 0
-                  if ( $mestype != $sow->{'MESTYPE_GSAY'} );    # アンカー先が墓下ではない
+                  if ( $mestype != $sow->{'MESTYPE_GSAY'} );            # アンカー先が墓下ではない
                 $tsay2gsay = 0
-                  if ( $saymestype != $sow->{'MESTYPE_TSAY'} );  # アンカー元が独り言ではない
-                $tsay2gsay = 0 if ( $saypl->{'live'} eq 'live' );    # まだ生存中
+                  if ( $saymestype != $sow->{'MESTYPE_TSAY'} );         # アンカー元が独り言ではない
+                $tsay2gsay = 0 if ( $saypl->{'live'} eq 'live' );       # まだ生存中
 
                 $mwtag = $skipmwtag
-                  if ( ( $mestype ne $saymestype ) && ( $tsay2gsay == 0 ) )
-                  ;    # 異なるmestypeへは張れない
+                  if ( ( $mestype ne $saymestype ) && ( $tsay2gsay == 0 ) );    # 異なるmestypeへは張れない
                 $mwtag = $skipmwtag
-                  if ( $mestype == $sow->{'MESTYPE_TSAY'} );    # 独り言へは張れない
-                $mwtag = $skipmwtag if ( $turn == 0 );   # プロローグの囁き／独り言／墓下へは張れない
+                  if ( $mestype == $sow->{'MESTYPE_TSAY'} );                    # 独り言へは張れない
+                $mwtag = $skipmwtag if ( $turn == 0 ); # プロローグの囁き／独り言／墓下へは張れない
             }
             else {
 # エピローグ中
@@ -270,24 +263,23 @@ s/(s?https?:\/\/[^\/<>\s]+)[-_.!~*'()a-zA-Z0-9;\/?:\@&=+\$,%#]+/<a href=\"$&\" c
                 $blank               = '';
             }
             else {
-                $reqvals->{'turn'}  = $turn if ( $turn != $vil->{'turn'} );
+                $reqvals->{'turn'} = $turn if ( $turn != $vil->{'turn'} );
                 $reqvals->{'logid'} = $logid;
-                $link               = &SWBase::GetLinkValues( $sow, $reqvals );
+                $link = &SWBase::GetLinkValues( $sow, $reqvals );
                 $link = "$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}?vid=1&$link";
             }
         }
         else {
-            $reqvals->{'turn'}  = $turn if ( $turn != $vil->{'turn'} );
+            $reqvals->{'turn'} = $turn if ( $turn != $vil->{'turn'} );
             $reqvals->{'logid'} = $logid;
-            $link               = &SWBase::GetLinkValues( $sow, $reqvals );
+            $link = &SWBase::GetLinkValues( $sow, $reqvals );
             $link = "$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}?$link";
         }
 
         # 正規表現での誤認識を防ぐ
         &BackQuoteAnchorMark( \$anchortext );
 
-        $$mes =~
-s/$anchortext/<a href=\"$link\" class=\"res_anchor\"$blank>&gt;&gt;$linktext<\/a>/;
+        $$mes =~ s/$anchortext/<a href=\"$link\" class=\"res_anchor\"$blank>&gt;&gt;$linktext<\/a>/;
     }
 
     return $mes;
@@ -310,8 +302,7 @@ sub GetPopupAnchor {
         my $date    = $sow->{'dt'}->cvtdt( $log->{'date'} );
         my $showid  = '';
         $showid = " ($log->{'uid'})" if ( $vil->{'showid'} > 0 );
-        my $targetmes =
-          &ReplaceAnchorHTMLRSS( $sow, $vil, $log->{'log'}, $anchor );
+        my $targetmes = &ReplaceAnchorHTMLRSS( $sow, $vil, $log->{'log'}, $anchor );
         $targetmes =~ s/<br( \/)?>/ /ig;
         $title = "$chrname$showid $date<br>$targetmes";
     }
@@ -348,9 +339,9 @@ sub ReplaceAnchorHTMLMb {
             $link = "#$logid";
         }
         else {
-            $reqvals->{'turn'}  = $turn if ( $turn != $vil->{'turn'} );
+            $reqvals->{'turn'} = $turn if ( $turn != $vil->{'turn'} );
             $reqvals->{'logid'} = $logid;
-            $link               = &SWBase::GetLinkValues( $sow, $reqvals );
+            $link = &SWBase::GetLinkValues( $sow, $reqvals );
             $link = "$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}?$link";
         }
 
@@ -413,20 +404,16 @@ sub CvtRandomText {
     return $mes if ( $cfg->{'ENABLED_RANDOMTEXT'} == 0 );
 
     # 1d6
-    $mes =~
-s/\[\[$cfg->{'RANDOMTEXT_1D6'}\]\]/{my $a = int(rand(6))+1;"<strong>{$a}<\/strong>"}/eg;
+    $mes =~ s/\[\[$cfg->{'RANDOMTEXT_1D6'}\]\]/{my $a = int(rand(6))+1;"<strong>{$a}<\/strong>"}/eg;
 
     # 1d10
-    $mes =~
-s/\[\[$cfg->{'RANDOMTEXT_1D10'}\]\]/{my $a = int(rand(10))+1; sprintf("<strong>(%02d)<\/strong>", $a)}/eg;
+    $mes =~ s/\[\[$cfg->{'RANDOMTEXT_1D10'}\]\]/{my $a = int(rand(10))+1; sprintf("<strong>(%02d)<\/strong>", $a)}/eg;
 
     # 1d20
-    $mes =~
-s/\[\[$cfg->{'RANDOMTEXT_1D20'}\]\]/{my $a = int(rand(20))+1; sprintf("<strong>[%02d]<\/strong>", $a)}/eg;
+    $mes =~ s/\[\[$cfg->{'RANDOMTEXT_1D20'}\]\]/{my $a = int(rand(20))+1; sprintf("<strong>[%02d]<\/strong>", $a)}/eg;
 
     # fortune
-    $mes =~
-s/\[\[$cfg->{'RANDOMTEXT_FORTUNE'}\]\]/{my $a = int(rand(101)); sprintf("<strong>%s<\/strong>", $a)}/eg;
+    $mes =~ s/\[\[$cfg->{'RANDOMTEXT_FORTUNE'}\]\]/{my $a = int(rand(101)); sprintf("<strong>%s<\/strong>", $a)}/eg;
 
     # who
     my $livepllist = $vil->getlivepllist();

@@ -33,8 +33,7 @@ sub SetDataCmdEditVil {
     $vil->readvil();
 
     # 進行中の編集不可
-    $sow->{'debug'}
-      ->raise( $sow->{'APLOG_NOTICE'}, '村が開始しています。', "game started." )
+    $sow->{'debug'}->raise( $sow->{'APLOG_NOTICE'}, '村が開始しています。', "game started." )
       unless ( $vil->isprologue() > 0 );
 
     my @villabel = &SWFileVil::GetVilDataLabel();
@@ -49,8 +48,11 @@ sub SetDataCmdEditVil {
     &SWValidityMakeVil::CheckValidityMakeVil($sow);
 
     my $errfrom = "[uid=$sow->{'uid'}, cmd=$query->{'cmd'}]";
-    $sow->{'debug'}->raise( $sow->{'APLOG_CAUTION'},
-        "村作成者以外には村の編集は行えません。", "no permition.$errfrom" )
+    $sow->{'debug'}->raise(
+        $sow->{'APLOG_CAUTION'},
+        "村作成者以外には村の編集は行えません。",
+        "no permition.$errfrom"
+      )
       if ( ( $sow->{'uid'} ne $vil->{'makeruid'} )
         && ( $sow->{'uid'} ne $sow->{'cfg'}->{'USERID_ADMIN'} ) );
 
@@ -158,15 +160,14 @@ sub SetDataCmdEditVil {
     my $vindex = SWFileVIndex->new($sow);
     $vindex->openvindex();
     my $vindexsingle = $vindex->{'vi'}->{ $vil->{'vid'} };
-    $vindexsingle->{'vname'} = $vil->{'vname'},
+    $vindexsingle->{'vname'}       = $vil->{'vname'},
       $vindexsingle->{'updhour'}   = $vil->{'updhour'},
       $vindexsingle->{'updminite'} = $vil->{'updminite'},
       $vindexsingle->{'vstatus'}   = $sow->{'VSTATUSID_PRO'},
       $vindex->writevindex();
     $vindex->closevindex();
 
-    $sow->{'debug'}
-      ->writeaplog( $sow->{'APLOG_POSTED'}, "Edit Vil. [uid=$sow->{'uid'}]" );
+    $sow->{'debug'}->writeaplog( $sow->{'APLOG_POSTED'}, "Edit Vil. [uid=$sow->{'uid'}]" );
 
     return $vil;
 }

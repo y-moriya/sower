@@ -20,7 +20,7 @@ sub CmdEpilogueEditVil {
     }
     else {
         my $reqvals = &SWBase::GetRequestValues($sow);
-        my $link    = &SWBase::GetLinkValues( $sow, $reqvals );
+        my $link = &SWBase::GetLinkValues( $sow, $reqvals );
         $link = "$cfg->{'URL_SW'}/$cfg->{'FILE_SOW'}?$link#newsay";
 
         $sow->{'http'}->{'location'} = "$link";
@@ -46,16 +46,10 @@ sub SetDataCmdEpilogueEditVil {
     # リソースの読み込み
     &SWBase::LoadVilRS( $sow, $vil );
 
-    $sow->{'debug'}
-      ->raise( $sow->{'APLOG_NOTICE'}, "管理人権限が必要です。", "no permition.$errfrom" )
+    $sow->{'debug'}->raise( $sow->{'APLOG_NOTICE'}, "管理人権限が必要です。", "no permition.$errfrom" )
       if ( $sow->{'uid'} ne $sow->{'cfg'}->{'USERID_ADMIN'} );
-    $sow->{'debug'}
-      ->raise( $sow->{'APLOG_NOTICE'}, "閲覧権限IDが不正です。", "no rating.$errfrom" )
-      if (
-        !defined(
-            $sow->{'cfg'}->{'RATING'}->{ $query->{'rating'} }->{'CAPTION'}
-        )
-      );
+    $sow->{'debug'}->raise( $sow->{'APLOG_NOTICE'}, "閲覧権限IDが不正です。", "no rating.$errfrom" )
+      if ( !defined( $sow->{'cfg'}->{'RATING'}->{ $query->{'rating'} }->{'CAPTION'} ) );
     $vil->{'rating'} = $query->{'rating'};
     $vil->writevil();
     $vil->closevil();

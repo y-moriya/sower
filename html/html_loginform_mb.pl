@@ -11,7 +11,7 @@ sub OutHTMLLoginMb {
     # HTML出力用ライブラリの読み込み
     require "$cfg->{'DIR_HTML'}/html.pl";
 
-    $sow->{'html'} = SWHtml->new($sow);           # HTMLモードの初期化
+    $sow->{'html'} = SWHtml->new($sow);    # HTMLモードの初期化
     my $outhttp = $sow->{'http'}->outheader();    # HTTPヘッダの出力
     return if ( $outhttp == 0 );                  # ヘッダ出力のみ
 

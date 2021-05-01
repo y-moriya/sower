@@ -11,17 +11,15 @@ sub OutHTMLStopID {
     undef( $sow->{'query'}->{'vid'} );
 
     # HTTP/HTMLの出力
-    $sow->{'html'} = SWHtml->new($sow);           # HTMLモードの初期化
-    $sow->{'http'}->outheader();                  # HTTPヘッダの出力
+    $sow->{'html'} = SWHtml->new($sow);                               # HTMLモードの初期化
+    $sow->{'http'}->outheader();                                      # HTTPヘッダの出力
     $sow->{'html'}->outheader('あなたのIDは停止中です');    # HTMLヘッダの出力
     $sow->{'html'}->outcontentheader();
 
-    &SWHtmlPC::OutHTMLLogin($sow);                # ログイン欄の出力
-    my $net = $sow->{'html'}->{'net'};            # Null End Tag
+    &SWHtmlPC::OutHTMLLogin($sow);                                    # ログイン欄の出力
+    my $net = $sow->{'html'}->{'net'};                                # Null End Tag
 
-    my $penaltydt =
-      int( ( $sow->{'user'}->{'penaltydt'} - $sow->{'time'} ) / 60 / 60 / 24 +
-          0.5 );
+    my $penaltydt = int( ( $sow->{'user'}->{'penaltydt'} - $sow->{'time'} ) / 60 / 60 / 24 + 0.5 );
 
     print <<"_HTML_";
 <h2>あなたのIDは停止中です</h2>

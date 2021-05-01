@@ -28,8 +28,11 @@ sub ExecuteCmdWrite {
         }
 
         # 発言数がない（仮）
-        $sow->{'debug'}->raise( $sow->{'APLOG_NOTICE'}, "発言数が足りません。",
-            "not enough saypoint.[$saytype: $writepl->{$saytype} / $saypoint]" )
+        $sow->{'debug'}->raise(
+            $sow->{'APLOG_NOTICE'},
+            "発言数が足りません。",
+            "not enough saypoint.[$saytype: $writepl->{$saytype} / $saypoint]"
+          )
           if ( ( !defined( $writepl->{$saytype} ) )
             || ( ( $writepl->{$saytype} - $saypoint ) < 0 ) );
     }
@@ -52,8 +55,11 @@ sub ExecuteCmdWrite {
             my $checklogmestype = $log->{'mestype'};
             $checklogmestype = $sow->{'MESTYPE_SAY'}
               if ( $log->{'mestype'} == $sow->{'MESTYPE_QUE'} );
-            $sow->{'debug'}->raise( $sow->{'APLOG_NOTICE'},
-                "直前の発言と同じ内容の発言をしようとしています。", "same last mes." )
+            $sow->{'debug'}->raise(
+                $sow->{'APLOG_NOTICE'},
+                "直前の発言と同じ内容の発言をしようとしています。",
+                "same last mes."
+              )
               if ( ( $logmes eq $mes )
                 && ( $checklogmestype == $checkmestype ) );
         }
@@ -120,8 +126,7 @@ sub ExecuteCmdWrite {
                 $writepl->{'saidpoint'} += $saypoint;
             }
         }
-        $writepl->{'limitentrydt'} =
-          $sow->{'time'} + $sow->{'cfg'}->{'TIMEOUT_ENTRY'} * 24 * 60 * 60
+        $writepl->{'limitentrydt'} = $sow->{'time'} + $sow->{'cfg'}->{'TIMEOUT_ENTRY'} * 24 * 60 * 60
           if ( $writepl->{'limitentrydt'} > 0 );
         $writepl->{'lastwritepos'} = $lastwritepos;
 
@@ -176,13 +181,8 @@ sub GetMesType {
         $mestype = $sow->{'MESTYPE_GSAY'};
         $saytype = 'gsay';
     }
-    elsif (
-        (
-               ( $writepl->iswolf() > 0 )
-            || ( $writepl->{'role'} == $sow->{'ROLEID_CPOSSESS'} )
-        )
-        && ( $query->{'wolf'} eq 'on' )
-      )
+    elsif (( ( $writepl->iswolf() > 0 ) || ( $writepl->{'role'} == $sow->{'ROLEID_CPOSSESS'} ) )
+        && ( $query->{'wolf'} eq 'on' ) )
     {
         # ささやき
         $mestype = $sow->{'MESTYPE_WSAY'};

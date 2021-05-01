@@ -15,11 +15,8 @@ sub new {
         bodyjs => \%bodyjs,
         rss    => '',
     };
-    my @file_js = (
-        $sow->{'cfg'}->{'FILE_JS_JQUERY'},
-        $sow->{'cfg'}->{'FILE_JS_DRAG'},
-        $sow->{'cfg'}->{'FILE_JS_SOW'},
-    );
+    my @file_js =
+      ( $sow->{'cfg'}->{'FILE_JS_JQUERY'}, $sow->{'cfg'}->{'FILE_JS_DRAG'}, $sow->{'cfg'}->{'FILE_JS_SOW'}, );
     $self->{'file_js'} = \@file_js;
 
     bless( $self, $class );
@@ -194,7 +191,7 @@ sub GetViewMode {
     $mode = 'wolf'  if ( $query->{'mode'} eq 'wolf' );
     $mode = 'grave' if ( $query->{'mode'} eq 'grave' );
     my @modes    = ( 'human', 'wolf', 'grave', 'all' );
-    my @modename = ( '人',     '狼',    '墓',     '全' );
+    my @modename = ( '人',   '狼',  '墓',   '全' );
 
     return ( $mode, \@modes, \@modename );
 }
@@ -213,7 +210,7 @@ sub GetPagesPermit {
         push( @pages, $_ )
           if ( ( !defined( $_->{'logsubid'} ) )
             || ( $_->{'logsubid'} ne $sow->{'LOGSUBID_ACTION'} )
-            || ( $sow->{'cfg'}->{'ROW_ACTION'} > 0 ) );    # アクションは除外
+            || ( $sow->{'cfg'}->{'ROW_ACTION'} > 0 ) );            # アクションは除外
         $indexno = $#pages if ( $_->{'logid'} eq $plogid );
     }
 

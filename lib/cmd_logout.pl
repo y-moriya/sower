@@ -39,8 +39,7 @@ sub SetDataCmdLogout {
 
         # ログインしていればログアウトする
         $sow->{'user'}->resetcookie( $sow->{'setcookie'} );
-        $sow->{'debug'}
-          ->writeaplog( $sow->{'APLOG_POSTED'}, "Logout. [$sow->{'uid'}]" );
+        $sow->{'debug'}->writeaplog( $sow->{'APLOG_POSTED'}, "Logout. [$sow->{'uid'}]" );
     }
 
     return;

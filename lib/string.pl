@@ -16,18 +16,10 @@ sub GetTrimString {
 
     my $mes;
     if ( $saycnt->{'COUNT_TYPE'} eq 'count' ) {
-        $mes = &GetTrimStringCounts(
-            $text,
-            $saycnt->{'MAX_MESLINE'},
-            $saycnt->{'MAX_MESCNT'}
-        );
+        $mes = &GetTrimStringCounts( $text, $saycnt->{'MAX_MESLINE'}, $saycnt->{'MAX_MESCNT'} );
     }
     else {
-        $mes = &GetTrimStringBytes(
-            $text,
-            $saycnt->{'MAX_MESLINE'},
-            $saycnt->{'MAX_MESCNT'}
-        );
+        $mes = &GetTrimStringBytes( $text, $saycnt->{'MAX_MESLINE'}, $saycnt->{'MAX_MESCNT'} );
     }
 
     &SWBase::EscapeChrRef( \$mes );

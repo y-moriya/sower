@@ -30,18 +30,16 @@ sub OutHTMLVilInfo {
     $sow->{'html'} = SWHtml->new($sow);    # HTMLモードの初期化
     my $net = $sow->{'html'}->{'net'};     # Null End Tag
     my $amp = $sow->{'html'}->{'amp'};
-    $sow->{'http'}->outheader();           # HTTPヘッダの出力
-    $sow->{'html'}
-      ->outheader("村の情報 / $sow->{'query'}->{'vid'} $vil->{'vname'}")
-      ;                                    # HTMLヘッダの出力
+    $sow->{'http'}->outheader();                                                              # HTTPヘッダの出力
+    $sow->{'html'}->outheader("村の情報 / $sow->{'query'}->{'vid'} $vil->{'vname'}"); # HTMLヘッダの出力
     $sow->{'html'}->outcontentheader();
 
     my $reqvals = &SWBase::GetRequestValues($sow);
     $reqvals->{'vid'} = $query->{'vid'};
     my $linkvalue = &SWBase::GetLinkValues( $sow, $reqvals );
-    my $urlsow    = "$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}";
+    my $urlsow = "$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}";
 
-    &SWHtmlPC::OutHTMLLogin($sow);         # ログインボタン表示
+    &SWHtmlPC::OutHTMLLogin($sow);    # ログインボタン表示
 
     # 日付別ログへのリンク
     my $list = $logfile->getlist();

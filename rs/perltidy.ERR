@@ -1,0 +1,24 @@
+Perltidy version is 20180220
+
+171: 		'41' => 'ã‚­',
+        ^            
+found Number where operator expected
+
+171: 		'41' => 'ã‚­',
+        --^          
+found String where operator expected (previous token underlined)
+171:	unexpected character decimal 227 (ã) in script
+171:	unexpected character decimal 130 (‚) in script
+171:	unexpected character decimal 173 (­) in script
+171:	Giving up after error
+
+Final nesting depth of '{'s is 1
+The most recent un-matched '{' is on line 8
+8: sub GetRSChr {
+                ^
+
+Final nesting depth of '('s is 1
+The most recent un-matched '(' is on line 146
+146: my %chrnameinitial = (
+                          ^
+289:	To save a full .LOG file rerun with -g

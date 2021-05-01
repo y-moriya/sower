@@ -19,14 +19,12 @@ sub StartSession {
 
     # ƒƒOEƒƒ‚ƒf[ƒ^ƒtƒ@ƒCƒ‹‚Ìì¬
     require "$sow->{'cfg'}->{'DIR_LIB'}/file_memo.pl";
-    my $logfile  = SWBoa->new( $sow, $vil, $vil->{'turn'}, 1 );
+    my $logfile = SWBoa->new( $sow, $vil, $vil->{'turn'}, 1 );
     my $memofile = SWSnake->new( $sow, $vil, $vil->{'turn'}, 1 );
 
     # –ğE”z•ª‚ğæ“¾
     require "$sow->{'cfg'}->{'DIR_LIB'}/setrole.pl";
-    my $roletable =
-      &SWSetRole::GetSetRoleTable( $sow, $vil, $vil->{'roletable'},
-        scalar(@$pllist) );
+    my $roletable = &SWSetRole::GetSetRoleTable( $sow, $vil, $vil->{'roletable'}, scalar(@$pllist) );
     my @randomroletable;
     my $roleid;
     for ( $roleid = 0 ; $roleid < @$roletable ; $roleid++ ) {
@@ -37,11 +35,8 @@ sub StartSession {
         }
     }
 
-    $logfile->writeinfo(
-        '',
-        $sow->{'MESTYPE_INFONOM'},
-        $sow->{'textrs'}->{'NOSELROLE'}
-    ) if ( $vil->{'noselrole'} > 0 );
+    $logfile->writeinfo( '', $sow->{'MESTYPE_INFONOM'}, $sow->{'textrs'}->{'NOSELROLE'} )
+      if ( $vil->{'noselrole'} > 0 );
 
     # –ğEŠó–]‚ğ•Û‘¶
     foreach (@$pllist) {
@@ -61,10 +56,8 @@ sub StartSession {
             my $randomroletext = $textrs->{'SETRANDOMROLE'};
             my $chrname        = $_->getchrname();
             $randomroletext =~ s/_NAME_/$chrname/g;
-            $randomroletext =~
-              s/_SELROLE_/$textrs->{'ROLENAME'}->[$_->{'selrole'}]/g;
-            $logfile->writeinfo( $_->{'uid'}, $sow->{'MESTYPE_INFOSP'},
-                $randomroletext );
+            $randomroletext =~ s/_SELROLE_/$textrs->{'ROLENAME'}->[$_->{'selrole'}]/g;
+            $logfile->writeinfo( $_->{'uid'}, $sow->{'MESTYPE_INFOSP'}, $randomroletext );
         }
     }
 
@@ -78,19 +71,13 @@ sub StartSession {
     $vil->setsaycountall();
 
     # ‚P“ú–ÚŠJnƒAƒiƒEƒ“ƒX
-    $logfile->writeinfo(
-        '',
-        $sow->{'MESTYPE_INFONOM'},
-        $textrs->{'ANNOUNCE_FIRST'}->[1]
-    );
+    $logfile->writeinfo( '', $sow->{'MESTYPE_INFONOM'}, $textrs->{'ANNOUNCE_FIRST'}->[1] );
 
     # –ğEŠ„‚è“–‚ÄƒAƒiƒEƒ“ƒX
     my $rolename = $textrs->{'ROLENAME'};
     my $i;
 
-    my $rolematrix =
-      &SWSetRole::GetSetRoleTable( $sow, $vil, $vil->{'roletable'},
-        scalar(@$pllist) );
+    my $rolematrix = &SWSetRole::GetSetRoleTable( $sow, $vil, $vil->{'roletable'}, scalar(@$pllist) );
     my @rolelist;
     my $ar = $textrs->{'ANNOUNCE_ROLE'};
     for ( $i = 0 ; $i < @{ $sow->{'ROLEID'} } ; $i++ ) {
@@ -155,8 +142,7 @@ sub StartSession {
     $vindex->updatevindex( $vil, $sow->{'VSTATUSID_PLAY'} );
     $vindex->closevindex();
 
-    $sow->{'debug'}->writeaplog( $sow->{'APLOG_POSTED'},
-        "Start Session. [uid=$sow->{'uid'}, vid=$vil->{'vid'}]" );
+    $sow->{'debug'}->writeaplog( $sow->{'APLOG_POSTED'}, "Start Session. [uid=$sow->{'uid'}, vid=$vil->{'vid'}]" );
 
     return;
 }
@@ -204,8 +190,7 @@ sub UpdateSession {
         if ( $scrapvil == 0 ) {
 
             # “Ë‘R€
-            my ( $history, $suddendeathpl ) =
-              &SuddenDeath( $sow, $vil, $logfile )
+            my ( $history, $suddendeathpl ) = &SuddenDeath( $sow, $vil, $logfile )
               if ( $sow->{'cfg'}->{'ENABLED_SUDDENDEATH'} > 0 );
 
             # “Ë‘R€Ò‚Ì—ì”\”»’è’Ç‹L
@@ -251,10 +236,8 @@ sub UpdateSession {
                 if ( defined( $score->{'file'} ) ) {
                     my @killtargetpl;
                     push( @killtargetpl, $targetpl ) if ( defined($targetpl) );
-                    $score->writeupdate(
-                        $vil->{'turn'}, $suddendeathpl, $executepl,
-                        $seertargetpl,  $guardtargetpl, \@killtargetpl
-                    );
+                    $score->writeupdate( $vil->{'turn'}, $suddendeathpl, $executepl,
+                        $seertargetpl, $guardtargetpl, \@killtargetpl );
                 }
                 $score->close();
             }
@@ -313,11 +296,7 @@ sub UpdateSession {
             if ( $vil->{'turn'} == 2 ) {
 
                 # ‚Q“ú–ÚŠJnƒAƒiƒEƒ“ƒX
-                $logfile->writeinfo(
-                    '',
-                    $sow->{'MESTYPE_INFONOM'},
-                    $textrs->{'ANNOUNCE_FIRST'}->[2]
-                );
+                $logfile->writeinfo( '', $sow->{'MESTYPE_INFONOM'}, $textrs->{'ANNOUNCE_FIRST'}->[2] );
             }
 
             # ¶‘¶Ò•\¦
@@ -331,12 +310,8 @@ sub UpdateSession {
               join( $sow->{'textrs'}->{'ANNOUNCE_LIVES'}->[1], @livesnamelist );
             my $livesnametextend = $sow->{'textrs'}->{'ANNOUNCE_LIVES'}->[2];
             $livesnametextend =~ s/_LIVES_/$livescnt/g;
-            $livesnametext =
-                $sow->{'textrs'}->{'ANNOUNCE_LIVES'}->[0]
-              . $livesnametext
-              . $livesnametextend;
-            $logfile->writeinfo( '', $sow->{'MESTYPE_INFONOM'},
-                $livesnametext );
+            $livesnametext = $sow->{'textrs'}->{'ANNOUNCE_LIVES'}->[0] . $livesnametext . $livesnametextend;
+            $logfile->writeinfo( '', $sow->{'MESTYPE_INFONOM'}, $livesnametext );
 
             # è”²‚«B‚»‚Ì‚¤‚¿’¼‚»‚¤B
             require "$sow->{'cfg'}->{'DIR_LIB'}/file_vindex.pl";
@@ -359,8 +334,7 @@ sub UpdateSession {
 
     my $nextupdatedt = $sow->{'dt'}->cvtdt( $vil->{'nextupdatedt'} );
     $sow->{'debug'}->writeaplog( $sow->{'APLOG_POSTED'},
-"Update Session. [uid=$sow->{'uid'}, vid=$vil->{'vid'}, next=$nextupdatedt]"
-    );
+        "Update Session. [uid=$sow->{'uid'}, vid=$vil->{'vid'}, next=$nextupdatedt]" );
 
     return;
 }
@@ -398,8 +372,7 @@ sub SuddenDeath {
         $_->{'deathday'} = $vil->{'turn'};    # €–S“ú
         push( @suddendeathpl, $_ );
         my $user = SWUser->new($sow);
-        $user->writeentriedvil( $_->{'uid'}, $vil->{'vid'}, $_->getchrname(),
-            0, 1 );
+        $user->writeentriedvil( $_->{'uid'}, $vil->{'vid'}, $_->getchrname(), 0, 1 );
         $user->addsdpenalty();
         $user->writeuser();
         $user->closeuser();
@@ -465,15 +438,13 @@ sub SetRandomTarget {
                       if ( ( $srcpl->{'target2'} >= 0 )
                         && ( $srcpl->{'live'} eq 'live' ) );
                 }
-                &SetRandomTargetSingle( $sow, $vil, $srcpl, 'target', $logfile,
-                    $srctargetpno );
+                &SetRandomTargetSingle( $sow, $vil, $srcpl, 'target', $logfile, $srctargetpno );
             }
 
             if (   ( $srcpl->{'role'} == $sow->{'ROLEID_TRICKSTER'} )
                 && ( $srcpl->{'target2'} == $sow->{'TARGETID_RANDOM'} ) )
             {
-                &SetRandomTargetSingle( $sow, $vil, $srcpl, 'target2',
-                    $logfile, $srcpl->{'target'} );
+                &SetRandomTargetSingle( $sow, $vil, $srcpl, 'target2', $logfile, $srcpl->{'target'} );
             }
         }
     }
@@ -503,11 +474,11 @@ sub SetRandomTargetSingle {
       $targetlist->[ int( rand(@$targetlist) ) ]->{'pno'};
     $targetpl = $vil->getplbypno( $plsingle->{$targetid} );
 
- #	my $listtext = "š" . $plsingle->getchrname() . "‚Ì‘ŠèŒó•âš<br>";
- #	foreach(@$targetlist) {
- #		$listtext .= "$_->{'chrname'}<br>";
- #	}
- #	$logfile->writeinfo($plsingle->{'uid'}, $sow->{'MESTYPE_INFOSP'}, $listtext);
+    #	my $listtext = "š" . $plsingle->getchrname() . "‚Ì‘ŠèŒó•âš<br>";
+    #	foreach(@$targetlist) {
+    #		$listtext .= "$_->{'chrname'}<br>";
+    #	}
+    #	$logfile->writeinfo($plsingle->{'uid'}, $sow->{'MESTYPE_INFOSP'}, $listtext);
 
     # ƒƒO‘‚«‚İ
     my $chrname    = $plsingle->getchrname();
@@ -517,8 +488,7 @@ sub SetRandomTargetSingle {
     $randomtext =~ s/_NAME_/$chrname/g;
     $randomtext =~ s/_ABILITY_/$ability/g;
     $randomtext =~ s/_TARGET_/$targetname/g;
-    $logfile->writeinfo( $plsingle->{'uid'}, $sow->{'MESTYPE_INFOSP'},
-        $randomtext );
+    $logfile->writeinfo( $plsingle->{'uid'}, $sow->{'MESTYPE_INFOSP'}, $randomtext );
 
     return $targetpl;
 }
@@ -547,16 +517,13 @@ sub SetBondsTarget {
             $srctargetpno = $plsingle->{'target2'}
               if ( ( $plsingle->{'target2'} >= 0 )
                 && ( $target2pl->{'live'} eq 'live' ) );
-            $targetpl = &SetRandomTargetSingle( $sow, $vil, $plsingle, 'target',
-                $logfile, $srctargetpno );
+            $targetpl = &SetRandomTargetSingle( $sow, $vil, $plsingle, 'target', $logfile, $srctargetpno );
         }
 
         if ( $target2pl->{'live'} ne 'live' ) {
 
             # İ’è‘ÎÛ‚Q‚ª“Ë‘R€‚µ‚Ä‚¢‚é
-            $target2pl =
-              &SetRandomTargetSingle( $sow, $vil, $plsingle, 'target2',
-                $logfile, $plsingle->{'target'} );
+            $target2pl = &SetRandomTargetSingle( $sow, $vil, $plsingle, 'target2', $logfile, $plsingle->{'target'} );
         }
 
         if ( ( $plsingle->{'target'} < 0 ) || ( $plsingle->{'target2'} < 0 ) ) {
@@ -567,8 +534,7 @@ sub SetBondsTarget {
             my $canceltarget = $sow->{'textrs'}->{'CANCELTARGET'};
             $canceltarget =~ s/_NAME_/$chrname/g;
             $canceltarget =~ s/_ABILITY_/$ability/g;
-            $logfile->writeinfo( $plsingle->{'uid'}, $sow->{'MESTYPE_INFOSP'},
-                $canceltarget );
+            $logfile->writeinfo( $plsingle->{'uid'}, $sow->{'MESTYPE_INFOSP'}, $canceltarget );
             return;
         }
 
@@ -581,8 +547,7 @@ sub SetBondsTarget {
         $result_trickster =~ s/_NAME_/$chrname/g;
         $result_trickster =~ s/_TARGET1_/$targetname/g;
         $result_trickster =~ s/_TARGET2_/$target2name/g;
-        $logfile->writeinfo( $plsingle->{'uid'}, $sow->{'MESTYPE_INFOSP'},
-            $result_trickster );
+        $logfile->writeinfo( $plsingle->{'uid'}, $sow->{'MESTYPE_INFOSP'}, $result_trickster );
     }
 }
 
@@ -646,8 +611,7 @@ sub Execution {
                     $entrusttext =~ s/_NAME_/$chrname/g;
                     $entrusttext =~ s/_TARGET_/$targetname/g;
                     $entrusttext =~ s/_RANDOM_/$_->{'randomentrust'}/g;
-                    $logfile->writeinfo( $_->{'uid'}, $sow->{'MESTYPE_INFOSP'},
-                        $entrusttext );
+                    $logfile->writeinfo( $_->{'uid'}, $sow->{'MESTYPE_INFOSP'}, $entrusttext );
                     $_->{'vote'}    = -1;
                     $_->{'entrust'} = -1;
                 }
@@ -681,8 +645,7 @@ sub Execution {
                 $entrusttext =~ s/_NAME_/$chrname/g;
                 $entrusttext =~ s/_TARGET_/$targetname/g;
                 $entrusttext =~ s/_RANDOM_/$entrusts[$i]->{'randomentrust'}/g;
-                $logfile->writeinfo( $entrusts[$i]->{'uid'},
-                    $sow->{'MESTYPE_INFOSP'}, $entrusttext );
+                $logfile->writeinfo( $entrusts[$i]->{'uid'}, $sow->{'MESTYPE_INFOSP'}, $entrusttext );
             }
             next;
         }
@@ -762,8 +725,7 @@ sub Execution {
         $executepl->{'live'}     = 'executed';
         $executepl->{'deathday'} = $vil->{'turn'};
         my $user = SWUser->new($sow);
-        $user->writeentriedvil( $executepl->{'uid'}, $vil->{'vid'},
-            $executepl->getchrname(), 0 );
+        $user->writeentriedvil( $executepl->{'uid'}, $vil->{'vid'}, $executepl->getchrname(), 0 );
 
         # —ì”\”»’è
         my $mediumresult = &GetResultSeer( $sow, $executepl );
@@ -785,7 +747,7 @@ sub Execution {
 sub Suicide {
     my ( $sow, $vil, $deadpl, $logfile ) = @_;
 
-    my @bonds   = split( '/', $deadpl->{'bonds'} . '/' );
+    my @bonds = split( '/', $deadpl->{'bonds'} . '/' );
     my $chrname = $deadpl->getchrname();
     foreach (@bonds) {
         my $targetpl = $vil->getplbypno($_);
@@ -793,8 +755,7 @@ sub Suicide {
             $targetpl->{'live'}     = 'suicide';
             $targetpl->{'deathday'} = $vil->{'turn'};
             my $user = SWUser->new($sow);
-            $user->writeentriedvil( $targetpl->{'uid'}, $vil->{'vid'},
-                $targetpl->getchrname(), 0 );
+            $user->writeentriedvil( $targetpl->{'uid'}, $vil->{'vid'}, $targetpl->getchrname(), 0 );
 
             my $suicidetext = $sow->{'textrs'}->{'SUICIDEBONDS'};
             my $targetname  = $targetpl->getchrname();
@@ -833,8 +794,7 @@ sub Seer {
                 $targetpl->{'live'}     = 'cursed';
                 $targetpl->{'deathday'} = $vil->{'turn'};
                 my $user = SWUser->new($sow);
-                $user->writeentriedvil( $targetpl->{'uid'}, $vil->{'vid'},
-                    $targetpl->getchrname(), 0 );
+                $user->writeentriedvil( $targetpl->{'uid'}, $vil->{'vid'}, $targetpl->getchrname(), 0 );
             }
 
             # ô˜T
@@ -845,16 +805,14 @@ sub Seer {
                 $_->{'live'}     = 'cursed';
                 $_->{'deathday'} = $vil->{'turn'};
                 my $user = SWUser->new($sow);
-                $user->writeentriedvil( $_->{'uid'}, $vil->{'vid'},
-                    $_->getchrname(), 0 );
+                $user->writeentriedvil( $_->{'uid'}, $vil->{'vid'}, $_->getchrname(), 0 );
             }
 
             # è‚¢î•ñ‘‚«‚İ
             my $seertext = $sow->{'textrs'}->{'EXECUTESEER'};
             $seertext =~ s/_NAME_/$seername/g;
             $seertext =~ s/_TARGET_/$targetname/g;
-            $logfile->writeinfo( $_->{'uid'}, $sow->{'MESTYPE_INFOSP'},
-                $seertext );
+            $logfile->writeinfo( $_->{'uid'}, $sow->{'MESTYPE_INFOSP'}, $seertext );
 
             push( @seertargetpl, $targetpl );
         }
@@ -884,8 +842,7 @@ sub SelectKill {
     my $killtext = '';
     foreach (@$livepllist) {
         next if ( $_->iswolf() == 0 );    # l˜T/ô˜T/’q˜TˆÈŠO‚ÍœŠO
-        $sow->{'debug'}->writeaplog( $sow->{'APLOG_OTHERS'},
-            "KillTarget: $_->{'uid'}($_->{'pno'})=$_->{'target'}" );
+        $sow->{'debug'}->writeaplog( $sow->{'APLOG_OTHERS'}, "KillTarget: $_->{'uid'}($_->{'pno'})=$_->{'target'}" );
         next if ( $_->{'target'} < 0 );    # ‚¨‚Ü‚©‚¹‚ÍœŠO
 
         my $targetpl = $vil->getplbypno( $_->{'target'} );
@@ -894,8 +851,7 @@ sub SelectKill {
             # ‘ÎÛ‚ªl˜T/ô˜T/’q˜T‚Ìê‡‚ÍœŠOi‚ ‚è‚¦‚È‚¢‚Í‚¸j
             # l˜T/ô˜T/’q˜T‚ğPŒ‚‘ÎÛ‚Æ‚·‚é‚Ì‚È‚ç‚±‚±‚ÌğŒ‚ğ•Ï‚¦‚é
             $sow->{'debug'}->writeaplog( $sow->{'APLOG_WARNING'},
-"target is a wolf.[wolfid=$_->{'uid'}, target=$targetpl->{'uid'}]"
-            );
+                "target is a wolf.[wolfid=$_->{'uid'}, target=$targetpl->{'uid'}]" );
             next;
         }
 
@@ -914,14 +870,12 @@ sub SelectKill {
         for ( $i = 0 ; $i < @votes ; $i++ ) {
             push( @lastvote, $i ) if ( $votes[$i] > 0 );
         }
-        $sow->{'debug'}
-          ->writeaplog( $sow->{'APLOG_OTHERS'}, "KillTarget(All): @lastvote" );
+        $sow->{'debug'}->writeaplog( $sow->{'APLOG_OTHERS'}, "KillTarget(All): @lastvote" );
 
         # PŒ‚‘ÎÛ‚ÌŒˆ’è
         my $killtarget = $lastvote[ int( rand(@lastvote) ) ];
         $targetpl = $vil->getplbypno($killtarget);
-        $sow->{'debug'}->writeaplog( $sow->{'APLOG_OTHERS'},
-            "Final KillTarget: $killtarget" );
+        $sow->{'debug'}->writeaplog( $sow->{'APLOG_OTHERS'}, "Final KillTarget: $killtarget" );
 
         # PŒ‚ƒƒbƒZ[ƒW¶¬
         if ( ( $vil->{'turn'} > 2 ) && ( $targetpl->{'live'} eq 'live' ) ) {
@@ -936,16 +890,15 @@ sub SelectKill {
             # PŒ‚ÒŒˆ’è
             my @murders;
             foreach (@$livepllist) {
-                next if ( $_->iswolf() == 0 );               # l˜T/ô˜T/’q˜TˆÈŠO‚ÍœŠO
-                next if ( $_->{'target'} != $killtarget );   # PŒ‚Œˆ’èÒ‚É“Š•[‚µ‚Ä‚¢‚È‚¢Ò‚ÍœŠO
+                next if ( $_->iswolf() == 0 );                # l˜T/ô˜T/’q˜TˆÈŠO‚ÍœŠO
+                next if ( $_->{'target'} != $killtarget );    # PŒ‚Œˆ’èÒ‚É“Š•[‚µ‚Ä‚¢‚È‚¢Ò‚ÍœŠO
                 push( @murders, $_ );
             }
             my $murderpl = $murders[ int( rand(@murders) ) ];
             if ( !defined( $murderpl->{'uid'} ) ) {
 
                 # PŒ‚Ò‚ª–¢’è‹`i‚ ‚è‚¦‚È‚¢‚Í‚¸j
-                $sow->{'debug'}
-                  ->writeaplog( $sow->{'APLOG_WARNING'}, "murderpl is undef." );
+                $sow->{'debug'}->writeaplog( $sow->{'APLOG_WARNING'}, "murderpl is undef." );
             }
             else {
                 # PŒ‚ƒƒbƒZ[ƒW‘‚«‚İ
@@ -987,8 +940,7 @@ sub WriteGuardTarget {
         my $guardtext  = $sow->{'textrs'}->{'EXECUTEGUARD'};
         $guardtext =~ s/_NAME_/$guardname/g;
         $guardtext =~ s/_TARGET_/$targetname/g;
-        $logfile->writeinfo( $_->{'uid'}, $sow->{'MESTYPE_INFOSP'},
-            $guardtext );
+        $logfile->writeinfo( $_->{'uid'}, $sow->{'MESTYPE_INFOSP'}, $guardtext );
 
         push( @guardtargetpl, $targetpl );
     }
@@ -1036,8 +988,7 @@ sub Kill {
             push( @$deadpl, $targetpl );
             $targetpl->{'deathday'} = $vil->{'turn'};
             my $user = SWUser->new($sow);
-            $user->writeentriedvil( $targetpl->{'uid'}, $vil->{'vid'},
-                $targetpl->getchrname(), 0 );
+            $user->writeentriedvil( $targetpl->{'uid'}, $vil->{'vid'}, $targetpl->getchrname(), 0 );
 
             # PŒ‚Œ‹‰Ê’Ç‹L
             foreach (@$livepllist) {
@@ -1046,8 +997,7 @@ sub Kill {
                     $result_kill = $sow->{'textrs'}->{'RESULT_KILLIW'}
                       if ( $_->{'role'} == $sow->{'ROLEID_INTWOLF'} );
                     $result_kill =~ s/_TARGET_/$targetname/g;
-                    $result_kill =~
-s/_ROLE_/$sow->{'textrs'}->{'ROLENAME'}->[$targetpl->{'role'}]/g;
+                    $result_kill =~ s/_ROLE_/$sow->{'textrs'}->{'ROLENAME'}->[$targetpl->{'role'}]/g;
                     $_->{'history'} .= "$result_kill<br>";
                 }
             }
@@ -1065,7 +1015,7 @@ s/_ROLE_/$sow->{'textrs'}->{'ROLENAME'}->[$targetpl->{'role'}]/g;
     else {
         # €–SÒ•\¦
         for ( $i = 0 ; $i < $deadplcnt ; $i++ ) {
-            my $deadtextpl  = splice( @$deadpl, int( rand(@$deadpl) ), 1 );
+            my $deadtextpl = splice( @$deadpl, int( rand(@$deadpl) ), 1 );
             my $deadchrname = $deadtextpl->getchrname();
             $deadtext = $sow->{'textrs'}->{'ANNOUNCE_KILL'}->[1];
             $deadtext =~ s/_TARGET_/$deadchrname/g;
@@ -1114,29 +1064,24 @@ sub SetInitVoteTarget {
     my ( $sow, $vil, $logfile ) = @_;
     my $livepllist = $vil->getlivepllist();
 
-    $sow->{'debug'}
-      ->writeaplog( $sow->{'APLOG_OTHERS'}, "Start: SetInitVoteTarget." );
+    $sow->{'debug'}->writeaplog( $sow->{'APLOG_OTHERS'}, "Start: SetInitVoteTarget." );
     my $liveplcnt = @$livepllist;
-    $sow->{'debug'}
-      ->writeaplog( $sow->{'APLOG_OTHERS'}, "LivePL: @$livepllist" );
+    $sow->{'debug'}->writeaplog( $sow->{'APLOG_OTHERS'}, "LivePL: @$livepllist" );
     foreach (@$livepllist) {
         &SetInitVoteTargetSingle( $sow, $vil, $_, 'vote',   $logfile );
         &SetInitVoteTargetSingle( $sow, $vil, $_, 'target', $logfile );
-        &SetInitVoteTargetSingle( $sow, $vil, $_, 'target2', $logfile,
-            $_->{'target'} )
+        &SetInitVoteTargetSingle( $sow, $vil, $_, 'target2', $logfile, $_->{'target'} )
           if ( $_->{'role'} == $sow->{'ROLEID_TRICKSTER'} );
 
         if ( $_->iswolf() > 0 ) {
             if ( $vil->{'turn'} != 1 ) {
                 $_->{'target'} = $sow->{'TARGETID_TRUST'};    # l˜T‚Í‚¨‚Ü‚©‚¹
                 $sow->{'debug'}->writeaplog( $sow->{'APLOG_OTHERS'},
-"ChangeTarget UNDEF (Wolf): $_->{'uid'}($_->{'pno'})=$_->{'target'}"
-                );
+                    "ChangeTarget UNDEF (Wolf): $_->{'uid'}($_->{'pno'})=$_->{'target'}" );
             }
         }
     }
-    $sow->{'debug'}
-      ->writeaplog( $sow->{'APLOG_OTHERS'}, "End: SetInitVoteTarget." );
+    $sow->{'debug'}->writeaplog( $sow->{'APLOG_OTHERS'}, "End: SetInitVoteTarget." );
 
     return;
 }
@@ -1154,20 +1099,19 @@ sub SetInitVoteTargetSingle {
         $plsingle->{$targetid} =
           $targetlist->[ int( rand(@$targetlist) ) ]->{'pno'};
         $sow->{'debug'}->writeaplog( $sow->{'APLOG_OTHERS'},
-"SetInitVote/Target[$targetid]: $plsingle->{'uid'}($plsingle->{'pno'})=randtarget"
-        );
+            "SetInitVote/Target[$targetid]: $plsingle->{'uid'}($plsingle->{'pno'})=randtarget" );
 
-     #		foreach(@$targetlist) {
-     #			$listtext .= "$_->{'chrname'}<br>";
-     #		}
-     #		my $targetname = $vil->getplbypno($plsingle->{$targetid})->getchrname();
-     #		$listtext .= "<br>Œˆ’èæF$targetname";
+        #		foreach(@$targetlist) {
+        #			$listtext .= "$_->{'chrname'}<br>";
+        #		}
+        #		my $targetname = $vil->getplbypno($plsingle->{$targetid})->getchrname();
+        #		$listtext .= "<br>Œˆ’èæF$targetname";
     }
     else {
         #		$listtext .= '‘ÎÛ‚ª‚ ‚è‚Ü‚¹‚ñB';
     }
 
- #	$logfile->writeinfo($plsingle->{'uid'}, $sow->{'MESTYPE_INFOSP'}, $listtext);
+    #	$logfile->writeinfo($plsingle->{'uid'}, $sow->{'MESTYPE_INFOSP'}, $listtext);
 
     return;
 }
@@ -1192,11 +1136,10 @@ sub UpdateTurn {
     my ( $sow, $vil, $commit ) = @_;
 
     $vil->{'turn'} += 1;
-    $vil->{'cntmemo'}      = 0;
-    $vil->{'nextupdatedt'} = $sow->{'dt'}
-      ->getnextupdatedt( $vil, $sow->{'time'}, $vil->{'updinterval'}, $commit );
+    $vil->{'cntmemo'} = 0;
+    $vil->{'nextupdatedt'} = $sow->{'dt'}->getnextupdatedt( $vil, $sow->{'time'}, $vil->{'updinterval'}, $commit );
 
-#	$vil->{'nextchargedt'} = $sow->{'dt'}->getnextupdatedt($vil, $sow->{'time'}, 1, $commit);
+    #	$vil->{'nextchargedt'} = $sow->{'dt'}->getnextupdatedt($vil, $sow->{'time'}, 1, $commit);
     $vil->{'nextchargedt'} = $sow->{'time'} + 24 * 60 * 60;
     $sow->{'turn'} += 1;
 }

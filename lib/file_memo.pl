@@ -214,8 +214,7 @@ sub getmemo {
         || ( $maxrow < 0 ) )
     {
         # ‡•ûŒü’Tõ
-        ( $logs, $logkeys, $rowover, $firstlog ) =
-          $self->GetVLogsForward( $mode, $skip, $maxrow );
+        ( $logs, $logkeys, $rowover, $firstlog ) = $self->GetVLogsForward( $mode, $skip, $maxrow );
         if ( $firstlog >= 0 ) {
             $rows{'start'} = 1
               if ( ( defined( $logs->[0] ) )
@@ -225,11 +224,10 @@ sub getmemo {
     }
     else {
         # ‹t•ûŒü’Tõ
-        ( $logs, $logkeys, $rowover, $lastlog ) =
-          $self->GetVLogsReverse( $mode, $skip, $maxrow );
+        ( $logs, $logkeys, $rowover, $lastlog ) = $self->GetVLogsReverse( $mode, $skip, $maxrow );
         if ( $lastlog >= 0 ) {
             $rows{'start'} = 1 if ( $rowover == 0 );
-            $rows{'end'}   = 1
+            $rows{'end'} = 1
               if ( ( $#$logs >= 0 )
                 && ( $logs->[$#$logs]->{'indexno'} == $lastlog ) );
         }

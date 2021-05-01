@@ -19,8 +19,7 @@ sub OutHTMLProfile {
     my $nospaceprof = $query->{'prof'};
     $nospaceprof =~ s/^ *//;
     $nospaceprof =~ s/ *$//;
-    $sow->{'debug'}
-      ->raise( $sow->{'APLOG_CAUTION'}, "ユーザーIDを指定して下さい。", "no prof." )
+    $sow->{'debug'}->raise( $sow->{'APLOG_CAUTION'}, "ユーザーIDを指定して下さい。", "no prof." )
       if ( length($nospaceprof) == 0 );
 
     # テキストリソースの読込
@@ -28,18 +27,18 @@ sub OutHTMLProfile {
     &SWBase::LoadTextRS( $sow, \%vil );
 
     # HTMLの出力
-    $sow->{'html'} = SWHtml->new($sow);                        # HTMLモードの初期化
-    my $net = $sow->{'html'}->{'net'};                         # Null End Tag
-    $sow->{'http'}->outheader();                               # HTTPヘッダの出力
+    $sow->{'html'} = SWHtml->new($sow);    # HTMLモードの初期化
+    my $net = $sow->{'html'}->{'net'};                                           # Null End Tag
+    $sow->{'http'}->outheader();                                                 # HTTPヘッダの出力
     $sow->{'html'}->outheader("$query->{'prof'}さんのユーザー情報");    # HTMLヘッダの出力
     $sow->{'html'}->outcontentheader();
 
-    &SWHtmlPC::OutHTMLLogin($sow);                             # ログイン欄の出力
+    &SWHtmlPC::OutHTMLLogin($sow);                                               # ログイン欄の出力
 
     my $reqvals = &SWBase::GetRequestValues($sow);
     $reqvals->{'cmd'} = 'editprofform';
     my $linkvalue = &SWBase::GetLinkValues( $sow, $reqvals );
-    my $linkedit  = '';
+    my $linkedit = '';
     $linkedit = " <a href=\"$urlsow?$linkvalue\">編集</a>"
       if ( $sow->{'uid'} eq $query->{'prof'} );
 
@@ -81,8 +80,10 @@ _HTML_
         my $penaltydt =
           int( ( $user->{'penaltydt'} - $sow->{'time'} ) / 60 / 60 / 24 + 0.5 );
         my @penalty = (
-            "なし",                    "なし（保護観察期間中：あと約$penaltydt日）",
-            "参加停止中（あと約$penaltydt日）", "ID停止中（あと約$penaltydt日）",
+            "なし",
+            "なし（保護観察期間中：あと約$penaltydt日）",
+            "参加停止中（あと約$penaltydt日）",
+            "ID停止中（あと約$penaltydt日）",
         );
         print <<"_HTML_";
   <span class="multicolumn_label">ペナルティ：</span><span class="multicolumn_left">$penalty[$user->{'ptype'}]</span>
@@ -134,8 +135,7 @@ _HTML_
             my $vil = SWFileVil->new( $sow, $_->{'vid'} );
             $vil->readvil();
             my $linkvalue = &SWBase::GetLinkValues( $sow, $reqvals );
-            print
-"<li><a href=\"$urlsow?$linkvalue#newsay\">$_->{'vid'}村 $vil->{'vname'}</a> $_->{'chrname'}</li>\n";
+            print "<li><a href=\"$urlsow?$linkvalue#newsay\">$_->{'vid'}村 $vil->{'vname'}</a> $_->{'chrname'}</li>\n";
             $vil->closevil();
         }
         print "<li>現在参加中の村はありません。</li>\n" if ( @$entriedvils == 0 );
@@ -176,12 +176,10 @@ _HTML_
     if ( ( @$recordlist > 0 ) && ( $query->{'rowall'} ne '' ) ) {
 
         # 陣営別
-        &OutHTMLRecordSingle( $sow, $camps, '陣営',
-            $sow->{'textrs'}->{'CAPTION_WINNER'} );
+        &OutHTMLRecordSingle( $sow, $camps, '陣営', $sow->{'textrs'}->{'CAPTION_WINNER'} );
 
         # 役職別
-        &OutHTMLRecordSingle( $sow, $roles, '役職',
-            $sow->{'textrs'}->{'ROLENAME'} );
+        &OutHTMLRecordSingle( $sow, $roles, '役職', $sow->{'textrs'}->{'ROLENAME'} );
 
         print <<"_HTML_";
 <h3>参加村一覧</h3>
@@ -204,12 +202,11 @@ _HTML_
         foreach (@list) {
             $reqvals->{'vid'} = $_->{'vid'};
             my $linkvalue = &SWBase::GetLinkValues( $sow, $reqvals );
-            my $liveday   = $_->{'liveday'};
+            my $liveday = $_->{'liveday'};
             $liveday++ if ( $_->{'live'} ne 'live' );
             my $rolenametext = "($rolename->[$_->{'role'}])";
             $rolenametext = '' if ( $_->{'role'} < 0 );
-            print
-"<li><a href=\"$urlsow?$linkvalue#newsay\">$_->{'vid'} $_->{'vname'}</a><br$net>【"
+            print "<li><a href=\"$urlsow?$linkvalue#newsay\">$_->{'vid'} $_->{'vname'}</a><br$net>【"
               . $winstr[ $_->{'win'} + 1 ]
               . "】 $_->{'chrname'}$rolenametext、$liveday$livetext{$_->{'live'}}</li>\n";
         }
@@ -238,8 +235,7 @@ _HTML_
                 $uid =~ s/%([a-fA-F0-9][a-fA-F0-9])/pack("H2", $1)/eg;
                 $reqvals->{'prof'} = $encodeduid;
                 my $linkvalue = &SWBase::GetLinkValues( $sow, $reqvals );
-                push( @bondtext,
-                    "$chrname(<a href=\"$urlsow?$linkvalue\">$uid</a>)" );
+                push( @bondtext, "$chrname(<a href=\"$urlsow?$linkvalue\">$uid</a>)" );
             }
             my $bondtext = join( '、', @bondtext );
             $reqvals->{'prof'} = '';
@@ -270,7 +266,7 @@ _HTML_
         my %vs;
         foreach (@list) {
             print "<li>$_->{'vid'}村：";
-            my @otherpl    = split( '/', $_->{'otherpl'} );
+            my @otherpl = split( '/', $_->{'otherpl'} );
             my $suddendead = 0;
             $suddendead = 1 if ( $_->{'live'} eq 'suddendead' );
             foreach (@otherpl) {
@@ -300,8 +296,7 @@ _HTML_
                 $vs{$encodeduid}->{'url'} = "$urlsow?$linkvalue";
                 my $marksingle = $winmark[ $win + 1 ];
                 $marksingle = '－' if ( $suddendead > 0 );
-                print
-                  "$marksingle<a href=\"$vs{$encodeduid}->{'url'}\">$uid</a>、";
+                print "$marksingle<a href=\"$vs{$encodeduid}->{'url'}\">$uid</a>、";
             }
             print "</li>\n";
         }
@@ -324,9 +319,9 @@ _HTML_
         my @vskeys  = keys(%vs);
         my @vs      = sort {
                  $vs{$b}->{'total'} <=> $vs{$a}->{'total'}
-              or $vs{$b}->{'win'}   <=> $vs{$a}->{'win'}
-              or $vs{$b}->{'draw'}  <=> $vs{$a}->{'draw'}
-              or $vs{$b}->{'lose'}  <=> $vs{$a}->{'lose'}
+              or $vs{$b}->{'win'} <=> $vs{$a}->{'win'}
+              or $vs{$b}->{'draw'} <=> $vs{$a}->{'draw'}
+              or $vs{$b}->{'lose'} <=> $vs{$a}->{'lose'}
         } @vskeys;
         foreach (@vs) {
             next
@@ -368,7 +363,7 @@ sub SetRecordText {
     if ( $data->{'total'} > 0 ) {
         $average     = int( ( $data->{'win'} * 100 / $total ) + 0.5 );
         $liveaverage = int( ( $data->{'livecount'} * 100 / $total ) + 0.5 );
-        $livedays    = sprintf( "%3.1f", $data->{'liveday'} / $total );
+        $livedays = sprintf( "%3.1f", $data->{'liveday'} / $total );
     }
     return ( $average, $liveaverage, $livedays );
 }

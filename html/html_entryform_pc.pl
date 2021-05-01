@@ -60,8 +60,7 @@ _HTML_
         foreach (@$chrorder) {
             next if ( defined( $csid_cid{"$csid_val/$_"} ) );    # 参加済みのキャラは除外
             my $chrname = $sow->{'charsets'}->getchrname( $csid_val, $_ );
-            print
-"      <option value=\"$csid_val/$_\">$chrname$sow->{'html'}->{'option'}\n";
+            print "      <option value=\"$csid_val/$_\">$chrname$sow->{'html'}->{'option'}\n";
         }
     }
 
@@ -71,7 +70,7 @@ _HTML_
     $reqvals->{'cmd'}  = 'chrlist';
     $reqvals->{'csid'} = $vil->{'csid'};
     $reqvals->{'vid'}  = '';
-    $linkvalue         = &SWBase::GetLinkValues( $sow, $reqvals );
+    $linkvalue = &SWBase::GetLinkValues( $sow, $reqvals );
     print " <a href=\"$urlsow?$linkvalue\" target=\"_blank\">配役一覧</a>\n";
     my $noselrole = '';
     if ( $vil->{'noselrole'} > 0 ) {
@@ -89,16 +88,13 @@ _HTML_
 
     # 希望する能力の表示
     my $rolename = $sow->{'textrs'}->{'ROLENAME'};
-    my $rolematrix =
-      &SWSetRole::GetSetRoleTable( $sow, $vil, $vil->{'roletable'},
-        $vil->{'vplcnt'} );
+    my $rolematrix = &SWSetRole::GetSetRoleTable( $sow, $vil, $vil->{'roletable'}, $vil->{'vplcnt'} );
 
     my $i;
     foreach ( $i = 0 ; $i < @{ $sow->{'ROLEID'} } ; $i++ ) {
         my $output = $rolematrix->[$i];
         $output = 1 if ( $i == 0 );    # おまかせは必ず表示
-        print
-"        <option value=\"$i\">$rolename->[$i]$sow->{'html'}->{'option'}\n"
+        print "        <option value=\"$i\">$rolename->[$i]$sow->{'html'}->{'option'}\n"
           if ( $output > 0 );
     }
 
@@ -129,14 +125,12 @@ _HTML_
     my $checkedmspace = '';
     $checkedmspace = " $sow->{'html'}->{'checked'}"
       if ( ( $draft > 0 ) && ( $sow->{'draftmspace'} > 0 ) );
-    print
-"      <label><input type=\"checkbox\" name=\"monospace\" value=\"on\"$checkedmspace$net>等幅</label>\n";
+    print "      <label><input type=\"checkbox\" name=\"monospace\" value=\"on\"$checkedmspace$net>等幅</label>\n";
 
     my $checkedloud = '';
     $checkedloud = " $sow->{'html'}->{'checked'}"
       if ( ( $draft > 0 ) && ( $sow->{'draftloud'} > 0 ) );
-    print
-"      <label><input type=\"checkbox\" name=\"loud\" value=\"on\"$checkedloud$net>大声</label>\n";
+    print "      <label><input type=\"checkbox\" name=\"loud\" value=\"on\"$checkedloud$net>大声</label>\n";
     print <<"_HTML_";
     </div>
 _HTML_

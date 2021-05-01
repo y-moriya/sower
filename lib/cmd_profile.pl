@@ -13,8 +13,7 @@ sub CmdProfile {
     # ユーザー情報のHTML出力
     require "$cfg->{'DIR_HTML'}/html.pl";
     require "$cfg->{'DIR_HTML'}/html_profile.pl";
-    &SWHtmlProfile::OutHTMLProfile( $sow, $recordlist, $totalrecord, $camps,
-        $roles );
+    &SWHtmlProfile::OutHTMLProfile( $sow, $recordlist, $totalrecord, $camps, $roles );
 }
 
 #----------------------------------------
@@ -55,8 +54,7 @@ sub SumUserRecord {
             &AddRecordSingle( $totalrecord, $_ );
 
             # 陣営別戦績集計
-            &AddRecordSingle( $camps[ $sow->{'ROLECAMP'}[ $_->{'role'} ] ],
-                $_ );
+            &AddRecordSingle( $camps[ $sow->{'ROLECAMP'}[ $_->{'role'} ] ], $_ );
 
             # 役職別戦績集計
             &AddRecordSingle( $roles[ $_->{'role'} ], $_ );

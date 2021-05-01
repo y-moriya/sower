@@ -23,13 +23,10 @@ sub new {
     # ログカウントファイルの新規作成／開く
     my $fnamelogcnt     = $self->getfnamelogcnt();
     my @logcntdatalabel = $self->getlogcntdatalabel();
-    $self->{'file'} = SWFileHash->new(
-        $sow,                            $fnamelogcnt,
-        \*LOGCNT,                        'logcnt',
-        \@logcntdatalabel,               'ログカウントデータ',
-        "[vid=$self->{'vil'}->{'vid'}]", $mode,
-        $self->{'version'},
-    );
+    $self->{'file'} =
+      SWFileHash->new( $sow, $fnamelogcnt, \*LOGCNT, 'logcnt', \@logcntdatalabel, 'ログカウントデータ',
+        "[vid=$self->{'vil'}->{'vid'}]",
+        $mode, $self->{'version'}, );
     $self->{'file'}->read() if ( $mode == 0 );
 
     return $self;
@@ -67,9 +64,8 @@ sub getlogcntdatalabel {
 
     # Version 2.0
     @datalabel = (
-        'countundef',  'countinfo',  'countinfosp',   'countque',
-        'countsay',    'countthink', 'countwolf',     'countgrave',
-        'countmaker',  'countadmin', 'countsympathy', 'countwerebat',
+        'countundef',  'countinfo',  'countinfosp', 'countque',   'countsay',      'countthink',
+        'countwolf',   'countgrave', 'countmaker',  'countadmin', 'countsympathy', 'countwerebat',
         'countsayact', 'countguest',
     );
 

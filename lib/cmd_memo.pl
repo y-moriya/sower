@@ -51,7 +51,7 @@ sub OutHTMLCmdMemo {
       if ( $sow->{'turn'} > $vil->{'epilogue'} );    # 終了している時は終了日
 
     # メモファイル・村ログファイルを開く
-    my $logfile  = SWBoa->new( $sow, $vil, $turn, 0 );
+    my $logfile = SWBoa->new( $sow, $vil, $turn, 0 );
     my $memofile = SWSnake->new( $sow, $vil, $turn, 0 );
 
     # タイトルの取得
@@ -92,13 +92,11 @@ sub OutHTMLCmdMemo {
     # HTMLの出力
     if ( $ua eq 'mb' ) {
         require "$cfg->{'DIR_HTML'}/html_memo_mb.pl";
-        &SWHtmlMemoMb::OutHTMLMemoMb( $sow, $vil, $logfile, $memofile, $maxrow,
-            $logs, $logkeys, $rows );
+        &SWHtmlMemoMb::OutHTMLMemoMb( $sow, $vil, $logfile, $memofile, $maxrow, $logs, $logkeys, $rows );
     }
     else {
         require "$cfg->{'DIR_HTML'}/html_memo_pc.pl";
-        &SWHtmlMemoPC::OutHTMLMemoPC( $sow, $vil, $logfile, $memofile, $maxrow,
-            $logs, $logkeys, $rows );
+        &SWHtmlMemoPC::OutHTMLMemoPC( $sow, $vil, $logfile, $memofile, $maxrow, $logs, $logkeys, $rows );
     }
     $memofile->close();
     $logfile->close();

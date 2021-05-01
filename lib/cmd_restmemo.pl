@@ -40,8 +40,7 @@ sub SetRestMemoIndex {
     my $debug   = $sow->{'debug'};
     my $errfrom = "[uid=$sow->{'uid'}, cmd=$query->{'cmd'}]";
 
-    $debug->raise( $sow->{'APLOG_CAUTION'},
-        '管理権限がありません。', "cannot restructure memoidx.$errfrom" )
+    $debug->raise( $sow->{'APLOG_CAUTION'}, '管理権限がありません。', "cannot restructure memoidx.$errfrom" )
       if ( $sow->{'uid'} ne $sow->{'cfg'}->{'USERID_ADMIN'} );
 
     # 村データの読み込み

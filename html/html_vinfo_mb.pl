@@ -20,29 +20,26 @@ sub OutHTMLVilInfoMb {
     # リソースの読み込み
     &SWBase::LoadVilRS( $sow, $vil );
 
-    $sow->{'html'} = SWHtml->new($sow);    # HTMLモードの初期化
-    $sow->{'http'}->outheader();           # HTTPヘッダの出力
-    $sow->{'html'}->outheader("村の情報 / $sow->{'query'}->{'vid'} $vil->{'vname'}")
-      ;                                    # HTMLヘッダの出力
+    $sow->{'html'} = SWHtml->new($sow);                                                      # HTMLモードの初期化
+    $sow->{'http'}->outheader();                                                             # HTTPヘッダの出力
+    $sow->{'html'}->outheader("村の情報 / $sow->{'query'}->{'vid'} $vil->{'vname'}");    # HTMLヘッダの出力
     $sow->{'html'}->outcontentheader();
 
     my $vplcntstart = '';
     $vplcntstart = $vil->{'vplcntstart'} if ( $vil->{'vplcntstart'} > 0 );
 
-    my $net    = $sow->{'html'}->{'net'};      # Null End Tag
+    my $net    = $sow->{'html'}->{'net'};                                                    # Null End Tag
     my $amp    = $sow->{'html'}->{'amp'};
     my $atr_id = $sow->{'html'}->{'atr_id'};
 
     # 村名及びリンク表示
-    print
-"<a $atr_id=\"top\">$sow->{'query'}->{'vid'} $vil->{'vname'}</a><br$net>\n";
+    print "<a $atr_id=\"top\">$sow->{'query'}->{'vid'} $vil->{'vname'}</a><br$net>\n";
 
     # キャラ名表示
     if ( defined( $sow->{'curpl'}->{'uid'} ) ) {
         my $chrname  = $sow->{'curpl'}->getchrname();
         my $rolename = '';
-        $rolename =
-          "($sow->{'textrs'}->{'ROLENAME'}->[$sow->{'curpl'}->{'role'}])"
+        $rolename = "($sow->{'textrs'}->{'ROLENAME'}->[$sow->{'curpl'}->{'role'}])"
           if ( $sow->{'curpl'}->{'role'} > 0 );
         print "$chrname$rolename<br$net>\n";
     }
@@ -82,7 +79,7 @@ _HTML_
     my $reqvals = &SWBase::GetRequestValues($sow);
     $reqvals->{'pno'} = '';
     my $linkvalue = &SWBase::GetLinkValues( $sow, $reqvals );
-    my $urlsow    = "$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}";
+    my $urlsow = "$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}";
 
     print "□生存者<br$net>\n";
     &OutHTMLSayFilterPlayersMb( $sow, $vil, 'live' );
@@ -93,8 +90,7 @@ _HTML_
     print "□突然死者<br$net>\n";
     &OutHTMLSayFilterPlayersMb( $sow, $vil, 'suddendead' );
 
-    print "<a href=\"$urlsow?$linkvalue\">解除</a><br$net>\n"
-      ;    #if ($vil->{'turn'} != 0);
+    print "<a href=\"$urlsow?$linkvalue\">解除</a><br$net>\n";    #if ($vil->{'turn'} != 0);
 
     print <<"_HTML_";
 <hr$net>
@@ -164,16 +160,13 @@ _HTML_
 
         # 役職配分表示
         require "$sow->{'cfg'}->{'DIR_LIB'}/setrole.pl";
-        my $rolematrix =
-          &SWSetRole::GetSetRoleTable( $sow, $vil, $vil->{'roletable'},
-            scalar(@$pllist) );
+        my $rolematrix = &SWSetRole::GetSetRoleTable( $sow, $vil, $vil->{'roletable'}, scalar(@$pllist) );
         $roletabletext = '';
         for ( $i = 1 ; $i < @$roleid ; $i++ ) {
             my $roleplcnt = $rolematrix->[$i];
-            $roleplcnt++ if ( $i == $sow->{'ROLEID_VILLAGER'} );  # ダミーキャラの分１増やす
+            $roleplcnt++ if ( $i == $sow->{'ROLEID_VILLAGER'} );    # ダミーキャラの分１増やす
             if ( $roleplcnt > 0 ) {
-                $roletabletext .=
-                  "$sow->{'textrs'}->{'ROLENAME'}->[$i]: $roleplcnt人 ";
+                $roletabletext .= "$sow->{'textrs'}->{'ROLENAME'}->[$i]: $roleplcnt人 ";
             }
         }
         print "（$roletabletext）<br$net>\n";
@@ -184,8 +177,7 @@ _HTML_
         $roletabletext = '';
         for ( $i = 1 ; $i < @$roleid ; $i++ ) {
             if ( $vil->{"cnt$roleid->[$i]"} > 0 ) {
-                $roletabletext .=
-"$sow->{'textrs'}->{'ROLENAME'}->[$i]: $vil->{'cnt' . $roleid->[$i]}人 ";
+                $roletabletext .= "$sow->{'textrs'}->{'ROLENAME'}->[$i]: $vil->{'cnt' . $roleid->[$i]}人 ";
             }
         }
         print "（$roletabletext）<br$net>\n";
@@ -357,20 +349,19 @@ sub OutHTMLSayFilterPlayersMb {
     @filterlist = sort {
             $a->{'deathday'} <=> $b->{'deathday'}
           ? $a->{'deathday'} <=> $b->{'deathday'}
-          : $a->{'pno'}      <=> $b->{'pno'}
+          : $a->{'pno'} <=> $b->{'pno'}
     } @filterlist if ( $livetype ne 'live' );
 
     my $reqvals = &SWBase::GetRequestValues($sow);
     $reqvals->{'pno'} = '';
     my $linkvalue = &SWBase::GetLinkValues( $sow, $reqvals );
-    my $urlsow    = "$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}";
+    my $urlsow = "$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}";
 
     foreach (@filterlist) {
         my $chrname = $_->getchrname();
         my $unit =
-          $sow->{'basictrs'}->{'SAYTEXT'}
-          ->{ $sow->{'cfg'}->{'COUNTS_SAY'}->{ $vil->{'saycnttype'} }
-              ->{'COUNT_TYPE'} }->{'UNIT_SAY'};
+          $sow->{'basictrs'}->{'SAYTEXT'}->{ $sow->{'cfg'}->{'COUNTS_SAY'}->{ $vil->{'saycnttype'} }->{'COUNT_TYPE'} }
+          ->{'UNIT_SAY'};
         my $restsay = $_->{'say'};
         $restsay = $_->{'gsay'} if ( $_->{'live'} ne 'live' );
         $restsay = $_->{'psay'} if ( $vil->{'turn'} == 0 );

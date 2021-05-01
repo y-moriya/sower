@@ -68,18 +68,14 @@ _XML_
         my $dcdate = $sow->{'dt'}->cvtw3cdtf( $items->[$i]->{'date'} );
         my $desc   = $items->[$i]->{'content'};
         $desc =~ s/<br( \/)?>/ /ig;
-        $desc = &SWString::GetTrimStringRSSDesc( $desc,
-            $sow->{'cfg'}->{'MAXSIZE_RSSDESC'} );
+        $desc = &SWString::GetTrimStringRSSDesc( $desc, $sow->{'cfg'}->{'MAXSIZE_RSSDESC'} );
         &SWHtml::ConvertNET( $sow, \$items->[$i]->{'content'} );
         if ( $utf8 > 0 ) {
-            &SWBase::JcodeConvert( $sow, \$date, 'utf8', 'sjis' );
-            &SWBase::JcodeConvert( $sow, \$items->[$i]->{'title'},
-                'utf8', 'sjis' );
-            &SWBase::JcodeConvert( $sow, \$desc, 'utf8', 'sjis' );
-            &SWBase::JcodeConvert( $sow, \$items->[$i]->{'name'},
-                'utf8', 'sjis' );
-            &SWBase::JcodeConvert( $sow, \$items->[$i]->{'content'},
-                'utf8', 'sjis' );
+            &SWBase::JcodeConvert( $sow, \$date,                     'utf8', 'sjis' );
+            &SWBase::JcodeConvert( $sow, \$items->[$i]->{'title'},   'utf8', 'sjis' );
+            &SWBase::JcodeConvert( $sow, \$desc,                     'utf8', 'sjis' );
+            &SWBase::JcodeConvert( $sow, \$items->[$i]->{'name'},    'utf8', 'sjis' );
+            &SWBase::JcodeConvert( $sow, \$items->[$i]->{'content'}, 'utf8', 'sjis' );
         }
 
         print <<"_XML_";

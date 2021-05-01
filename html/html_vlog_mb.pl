@@ -20,15 +20,13 @@ _HTML_
     }
 
     # ‘º–¼‹y‚ÑƒŠƒ“ƒN•\¦
-    print
-"<a $atr_id=\"top\">$sow->{'query'}->{'vid'} $vil->{'vname'}</a><br$net>\n";
+    print "<a $atr_id=\"top\">$sow->{'query'}->{'vid'} $vil->{'vname'}</a><br$net>\n";
 
     # ƒLƒƒƒ‰–¼•\¦
     if ( defined( $sow->{'curpl'}->{'uid'} ) ) {
         my $chrname  = $sow->{'curpl'}->getchrname();
         my $rolename = '';
-        $rolename =
-          "($sow->{'textrs'}->{'ROLENAME'}->[$sow->{'curpl'}->{'role'}])"
+        $rolename = "($sow->{'textrs'}->{'ROLENAME'}->[$sow->{'curpl'}->{'role'}])"
           if ( $sow->{'curpl'}->{'role'} >= 0 );
         my $markbonds = '';
         $markbonds = " š$sow->{'textrs'}->{'MARK_BONDS'}"
@@ -93,8 +91,7 @@ _HTML_
             # ÅV“ú•\¦
 
             # –¢Q‰Á^–¢ƒƒOƒCƒ“ƒAƒiƒEƒ“ƒX
-            if ( ( $vil->{'turn'} == 0 ) && ( $sow->{'user'}->logined() <= 0 ) )
-            {
+            if ( ( $vil->{'turn'} == 0 ) && ( $sow->{'user'}->logined() <= 0 ) ) {
                 print <<"_HTML_";
 <p>
 ‰‰‚¶‚½‚¢ƒLƒƒƒ‰ƒNƒ^[‚ğ‘I‚ÑA”­Œ¾‚µ‚Ä‚­‚¾‚³‚¢B<br$net>
@@ -108,8 +105,7 @@ _HTML_
 _HTML_
             }
 
-            my $nosaytext =
-              &SWHtmlVlog::GetNoSayListText( $sow, $vil, $pl, $plid );
+            my $nosaytext = &SWHtmlVlog::GetNoSayListText( $sow, $vil, $pl, $plid );
             if (   ( $vil->{'turn'} != 0 )
                 && ( $vil->isepilogue() == 0 )
                 && ( $nosaytext ne '' ) )
@@ -161,8 +157,7 @@ _HTML_
         {
             # ƒAƒNƒVƒ‡ƒ“
             # ”­Œ¾’†‚ÌƒAƒ“ƒJ[‚ğ®Œ`
-            my $mes = &SWLog::ReplaceAnchorHTMLMb( $sow, $vil, $log->{'log'},
-                $logkeys );
+            my $mes = &SWLog::ReplaceAnchorHTMLMb( $sow, $vil, $log->{'log'}, $logkeys );
             &SWHtml::ConvertNET( $sow, \$mes );
             my @logmestypetext = ( '', '', '', '', '', '', '', '', '' );
             my $actcolorbegin  = '';
@@ -202,23 +197,17 @@ _HTML_
         else {
             # ƒLƒƒƒ‰ƒNƒ^[‚Ì”­Œ¾
             my @logmestypetext = (
-                '',    '',    '',    'yíœz', 'yŠÇ—líœz', 'y–¢Šmz',
-                'ylz', 'y“Æz', 'yÔz', 'y•æz',  '',        '',
-                'y–Âz', 'y”Oz'
+                '', '', '', 'yíœz', 'yŠÇ—líœz', 'y–¢Šmz',
+                'ylz', 'y“Æz', 'yÔz', 'y•æz', '', '', 'y–Âz', 'y”Oz'
             );
 
             # ”­Œ¾F
-            my @logcolor = (
-                '',      '',     '',    'gray', 'gray', '',
-                '',      'gray', 'red', 'blue', '',     '',
-                'green', 'purple'
-            );
+            my @logcolor = ( '', '', '', 'gray', 'gray', '', '', 'gray', 'red', 'blue', '', '', 'green', 'purple' );
 
             # ”­Œ¾’†‚ÌƒAƒ“ƒJ[‚ğ®Œ`
             my $loganchor = &SWLog::GetAnchorlogID( $sow, $vil, $log );
             $loganchor = "($loganchor)" if $loganchor ne "";
-            my $mes = &SWLog::ReplaceAnchorHTMLMb( $sow, $vil, $log->{'log'},
-                $logkeys );
+            my $mes = &SWLog::ReplaceAnchorHTMLMb( $sow, $vil, $log->{'log'}, $logkeys );
             &SWHtml::ConvertNET( $sow, \$mes );
 
             my $colorstart = '';
@@ -237,9 +226,7 @@ _HTML_
                 my $logpl = &SWHtmlVlogSinglePC::GetLogPL( $sow, $vil, $log );
                 my $charset =
                   $sow->{'charsets'}->{'csid'}->{ $logpl->{'csid'} };
-                $img =
-                  &SWHtmlPC::GetImgUrl( $sow, $vil, $logpl, $charset->{'FACE'},
-                    $log->{'expression'} );
+                $img = &SWHtmlPC::GetImgUrl( $sow, $vil, $logpl, $charset->{'FACE'}, $log->{'expression'} );
                 $img = "<img src=\"$img\"><br$net>";
             }
 
@@ -259,11 +246,10 @@ _HTML_
             if ( $log->{'mestype'} == $sow->{'MESTYPE_QUE'} ) {
 
                 # ”­Œ¾“P‰ñƒ{ƒ^ƒ“‚Ì•\¦
-                my ( $logmestype, $logsubid, $logcnt ) =
-                  &SWLog::GetLogIDArray($log);
+                my ( $logmestype, $logsubid, $logcnt ) = &SWLog::GetLogIDArray($log);
                 $sow->{'query'}->{'cmd'} = 'cancel';
                 my $reqvals = &SWBase::GetRequestValues($sow);
-                my $hidden  = &SWBase::GetHiddenValues( $sow, $reqvals, '' );
+                my $hidden = &SWBase::GetHiddenValues( $sow, $reqvals, '' );
 
                 print <<"_HTML_";
 <form action="$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}" method="$sow->{'cfg'}->{'METHOD_FORM'}">

@@ -148,12 +148,11 @@ sub OutHTMLCmdVLog {
     # 表示行数の設定
     my $maxrow = $sow->{'cfg'}->{'MAX_ROW'};    # 標準行数
     $maxrow = $query->{'row'}
-      if ( defined( $query->{'row'} ) && ( $query->{'row'} ne '' ) )
-      ;                                         # 引数による行数指定
+      if ( defined( $query->{'row'} ) && ( $query->{'row'} ne '' ) );    # 引数による行数指定
 
-#	$query->{'rowall'} = 'on' if ((($ua ne 'mb')) && ($sow->{'turn'} < $vil->{'turn'})); # 自動全表示
+    #	$query->{'rowall'} = 'on' if ((($ua ne 'mb')) && ($sow->{'turn'} < $vil->{'turn'})); # 自動全表示
     $maxrow = -1
-      if ( ( $maxrow eq 'all' ) || ( $query->{'rowall'} ne '' ) );  # 引数による全表示指定
+      if ( ( $maxrow eq 'all' ) || ( $query->{'rowall'} ne '' ) );       # 引数による全表示指定
 
     # ログの取得
     my ( $logs, $logkeys, $rows );
@@ -167,14 +166,12 @@ sub OutHTMLCmdVLog {
     # HTMLの出力
     if ( $ua eq 'mb' ) {
         require "$cfg->{'DIR_HTML'}/html_vlog_mb.pl";
-        &SWHtmlVlogMb::OutHTMLVlogMb( $sow, $vil, $logfile, $maxrow, $logs,
-            $logkeys, $rows );
+        &SWHtmlVlogMb::OutHTMLVlogMb( $sow, $vil, $logfile, $maxrow, $logs, $logkeys, $rows );
     }
     else {
         require "$cfg->{'DIR_HTML'}/html_vlog_pc.pl";
         require "$cfg->{'DIR_HTML'}/html_sayfilter.pl";
-        &SWHtmlVlogPC::OutHTMLVlogPC( $sow, $vil, $logfile, $maxrow, $logs,
-            $logkeys, $rows );
+        &SWHtmlVlogPC::OutHTMLVlogPC( $sow, $vil, $logfile, $maxrow, $logs, $logkeys, $rows );
     }
     $logfile->close();
 
@@ -233,17 +230,17 @@ sub CheckUpdateSession {
     my $commitedpl    = $vil->getcommitedpl();
 
     my $isupdate = 0;
-    $isupdate = 1 if ( $vil->{'nextupdatedt'} <= $sow->{'time'} );   # 更新時間が来ている
+    $isupdate = 1 if ( $vil->{'nextupdatedt'} <= $sow->{'time'} );    # 更新時間が来ている
     $isupdate = 2
       if ( ( $sow->{'time'} >= $vil->{'nextcommitdt'} )
         && ( $cntlivepl == $commitedpl )
-        && ( $cntlivepl > 0 ) );    # 全員が時間を進めている
+        && ( $cntlivepl > 0 ) );                                      # 全員が時間を進めている
 
     my $scrap = 0;
     $scrap = 1
       if ( ( $vil->{'scraplimitdt'} != 0 )
         && ( $sow->{'time'} >= $vil->{'scraplimitdt'} )
-        && ( $vil->{'turn'} == 0 ) );    # 廃村期限を過ぎている
+        && ( $vil->{'turn'} == 0 ) );                                 # 廃村期限を過ぎている
 
     if ( $vil->{'turn'} == 0 ) {
 
@@ -278,7 +275,7 @@ sub CheckUpdateSession {
             # 発言数回復
             $vil->chargesaycountall() if ( $vil->{'turn'} > 0 );
 
-#			$vil->{'nextchargedt'} = $sow->{'dt'}->getnextupdatedt($vil, $sow->{'time'}, 1, 0);
+            #			$vil->{'nextchargedt'} = $sow->{'dt'}->getnextupdatedt($vil, $sow->{'time'}, 1, 0);
             $vil->{'nextchargedt'} += 24 * 60 * 60;
             $vil->writevil();
         }
@@ -322,11 +319,7 @@ sub CheckUpdateSession {
                     require "$sow->{'cfg'}->{'DIR_LIB'}/log.pl";
                     require "$sow->{'cfg'}->{'DIR_LIB'}/file_log.pl";
                     my $logfile = SWBoa->new( $sow, $vil, $vil->{'turn'}, 0 );
-                    $logfile->writeinfo(
-                        '',
-                        $sow->{'MESTYPE_INFONOM'},
-                        $sow->{'textrs'}->{'ANNOUNCE_EXTENSION'}
-                    );
+                    $logfile->writeinfo( '', $sow->{'MESTYPE_INFONOM'}, $sow->{'textrs'}->{'ANNOUNCE_EXTENSION'} );
                     $logfile->close();
                 }
             }
@@ -387,13 +380,8 @@ sub SetHTTPUpdateVLog {
         {
             # ささやき
             $modified = $vil->{'modifiedwsay'}
-              if (
-                (
-                       ( $curpl->iswolf() > 0 )
-                    || ( $curpl->{'role'} == $sow->{'ROLEID_CPOSSESS'} )
-                )
-                && ( $modified < $vil->{'modifiedwsay'} )
-              );
+              if ( ( ( $curpl->iswolf() > 0 ) || ( $curpl->{'role'} == $sow->{'ROLEID_CPOSSESS'} ) )
+                && ( $modified < $vil->{'modifiedwsay'} ) );
 
             # 共鳴
             $modified = $vil->{'modifiedspsay'}
@@ -432,7 +420,7 @@ sub SetLinkElements {
     my $amp = $sow->{'html'}->{'amp'};
 
     my $reqvals = &SWBase::GetRequestValues($sow);
-    my $link    = &SWBase::GetLinkValues( $sow, $reqvals );
+    my $link = &SWBase::GetLinkValues( $sow, $reqvals );
     $link = "$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}?$link";
     my @links = ();
 

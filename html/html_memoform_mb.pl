@@ -43,9 +43,8 @@ _HTML_
 _HTML_
 
     my $unitaction =
-      $sow->{'basictrs'}->{'SAYTEXT'}
-      ->{ $sow->{'cfg'}->{'COUNTS_SAY'}->{ $vil->{'saycnttype'} }
-          ->{'COUNT_TYPE'} }->{'UNIT_ACTION'};
+      $sow->{'basictrs'}->{'SAYTEXT'}->{ $sow->{'cfg'}->{'COUNTS_SAY'}->{ $vil->{'saycnttype'} }->{'COUNT_TYPE'} }
+      ->{'UNIT_ACTION'};
     $reqvals->{'cmd'} = '';
     my $hidden = &SWBase::GetHiddenValues( $sow, $reqvals, '' );
 

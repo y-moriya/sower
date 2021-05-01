@@ -34,9 +34,9 @@ sub OutHTMLIndex {
     $sow->{'http'}->setnotmodified();    # 最終更新日時
 
     # HTTP/HTMLの出力
-    $sow->{'html'} = SWHtml->new($sow);                 # HTMLモードの初期化
-    my $outhttp = $sow->{'http'}->outheader();          # HTTPヘッダの出力
-    return if ( $outhttp == 0 );                        # ヘッダ出力のみ
+    $sow->{'html'} = SWHtml->new($sow);    # HTMLモードの初期化
+    my $outhttp = $sow->{'http'}->outheader();    # HTTPヘッダの出力
+    return if ( $outhttp == 0 );                  # ヘッダ出力のみ
     $sow->{'html'}->{'rss'} = "$urlsow?cmd=rss";        # 村の一覧のRSS
     $sow->{'html'}->outheader( $cfg->{'NAME_TOP'} );    # HTMLヘッダの出力
     $sow->{'html'}->outcontentheader();
@@ -46,14 +46,13 @@ sub OutHTMLIndex {
         my $savecss = $reqvals->{'css'};
         $reqvals->{'css'} = '';
         $reqvals->{'ua'}  = 'mb';
-        my $linkmb  = &SWBase::GetLinkValues( $sow, $reqvals );
+        my $linkmb = &SWBase::GetLinkValues( $sow, $reqvals );
         my $urlhome = '';
         $urlhome = "<a href=\"$cfg->{'URL_HOME'}\">$cfg->{'NAME_HOME'}</a>/"
           if ( ( $cfg->{'URL_HOME'} ne '' )
             && ( $cfg->{'URL_HOME'} ne 'http://***/' ) );
         my $supportbbs = '';
-        $supportbbs =
-          "<a href=\"$cfg->{'URL_BBS_PC'}\">$cfg->{'NAME_BBS_PC'}</a>/"
+        $supportbbs = "<a href=\"$cfg->{'URL_BBS_PC'}\">$cfg->{'NAME_BBS_PC'}</a>/"
           if ( $cfg->{'URL_BBS_PC'} ne '' );
 
         $reqvals->{'ua'} = '';
@@ -81,8 +80,7 @@ _HTML_
             my $selected = '';
             $selected = " $sow->{'html'}->{'selected'}"
               if ( $_ eq $selectedcssid );
-            print
-"    <option value=\"$_\"$selected>$cfg->{'CSS'}->{$_}->{'TITLE'}$sow->{'html'}->{'option'}\n";
+            print "    <option value=\"$_\"$selected>$cfg->{'CSS'}->{$_}->{'TITLE'}$sow->{'html'}->{'option'}\n";
         }
 
         print <<"_HTML_";
@@ -117,7 +115,7 @@ _HTML_
     if ( $vcnt >= $sow->{'cfg'}->{'MAX_VILLAGES'} ) {
         $linkvmake = "";
         $caution_vmake =
-          ' <span class="infotext">現在稼働中の村の数が上限に達しているので、村を作成できません。</span>';
+' <span class="infotext">現在稼働中の村の数が上限に達しているので、村を作成できません。</span>';
     }
 
     if ( $sow->{'cfg'}->{'ENABLED_VMAKE'} > 0 ) {
@@ -196,8 +194,7 @@ _HTML_
         $reqvals->{'csid'} = $_;
         $sow->{'charsets'}->loadchrrs($_);
         $linkvalue = &SWBase::GetLinkValues( $sow, $reqvals );
-        print
-"<li><a href=\"$urlsow?$linkvalue\">$sow->{'charsets'}->{'csid'}->{$_}->{'CAPTION'}</a></li>\n";
+        print "<li><a href=\"$urlsow?$linkvalue\">$sow->{'charsets'}->{'csid'}->{$_}->{'CAPTION'}</a></li>\n";
     }
 
     print <<"_HTML_";
@@ -215,7 +212,7 @@ _HTML_
 
     $reqvals->{'cmd'}  = 'changelog';
     $reqvals->{'csid'} = '';
-    $linkvalue         = &SWBase::GetLinkValues( $sow, $reqvals );
+    $linkvalue = &SWBase::GetLinkValues( $sow, $reqvals );
 
     print <<"_HTML_";
 <hr class="invisible_hr"$net>

@@ -128,8 +128,7 @@ sub writeatvindex {
     my $atvilist       = $self->{'atvilist'};
     my $atvindexsingle = '';
     foreach $atvindexsingle (@$atvilist) {
-        print $fh join( "<>", map { $atvindexsingle->{$_} } @datalabel )
-          . "<>\n";
+        print $fh join( "<>", map { $atvindexsingle->{$_} } @datalabel ) . "<>\n";
     }
 }
 

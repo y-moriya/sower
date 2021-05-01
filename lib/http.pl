@@ -49,9 +49,7 @@ sub outheader {
 
     # http出力（デバッグ用）
     if ( $sow->{'cfg'}->{'ENABLED_HTTPLOG'} > 0 ) {
-        open( HTTP,
-            ">$sow->{'cfg'}->{'DIR_LOG'}/"
-              . sprintf( "http%x-%3d.txt", $sow->{'time'}, rand(1000) ) );
+        open( HTTP, ">$sow->{'cfg'}->{'DIR_LOG'}/" . sprintf( "http%x-%3d.txt", $sow->{'time'}, rand(1000) ) );
         my @envkeys = keys(%ENV);
         foreach (@envkeys) {
             print HTTP "[$_] $ENV{$_}\n";
@@ -79,10 +77,9 @@ sub outheader {
     }
 
     # クッキーの出力
-    my $expirescookie = $sow->{'dt'}
-      ->getcookiedt( $sow->{'time'} + $sow->{'cfg'}->{'TIMEOUT_COOKIE'} );
-    my $setcookie = $sow->{'setcookie'};    # 保留
-    my @keys      = keys(%$setcookie);
+    my $expirescookie = $sow->{'dt'}->getcookiedt( $sow->{'time'} + $sow->{'cfg'}->{'TIMEOUT_COOKIE'} );
+    my $setcookie     = $sow->{'setcookie'};                                                               # 保留
+    my @keys          = keys(%$setcookie);
     foreach (@keys) {
         my $value = &SWBase::EncodeURL( $setcookie->{$_} );
         $header .= "Set-Cookie: $_=$value; expires=$expirescookie;\n";
@@ -265,8 +262,7 @@ sub getquery {
     if ( $ENV{'REQUEST_METHOD'} eq 'POST' ) {
         my $content_length = $ENV{'CONTENT_LENGTH'};
         if ( $ENV{'CONTENT_LENGTH'} > $sow->{'cfg'}->{'MAXSIZE_QUERY'} ) {
-            $sow->{'debug'}->writeaplog( $sow->{'APLOG_CAUTION'},
-                "query too long.[post/$content_length bytes]" );
+            $sow->{'debug'}->writeaplog( $sow->{'APLOG_CAUTION'}, "query too long.[post/$content_length bytes]" );
             $content_length = $sow->{'cfg'}->{'MAXSIZE_QUERY'};
         }
         read( STDIN, $buffer, $content_length );
@@ -274,8 +270,7 @@ sub getquery {
     else {
         my $content_length = length( $ENV{'QUERY_STRING'} );
         if ( $content_length > $sow->{'cfg'}->{'MAXSIZE_QUERY'} ) {
-            $sow->{'debug'}->writeaplog( $sow->{'APLOG_CAUTION'},
-                "query too long.[get/$content_length bytes]" );
+            $sow->{'debug'}->writeaplog( $sow->{'APLOG_CAUTION'}, "query too long.[get/$content_length bytes]" );
             $content_length = $sow->{'cfg'}->{'MAXSIZE_QUERY'};
         }
         $buffer = substr( $ENV{'QUERY_STRING'}, 0, $content_length );
@@ -290,12 +285,12 @@ sub getquery {
         $key =~ s/\W/ /g;    #a-zA-Z0-9_ 以外の文字を無効化
 
         $data = '' if ( !defined($data) );
-        $data =~ tr/\?/ /;                                        # '?'を空白に変換
+        $data =~ tr/\?/ /;    # '?'を空白に変換
         $data =~ tr/+/ /;
         $data =~ s/%([a-fA-F0-9][a-fA-F0-9])/pack("H2", $1)/eg;
         my ($datalen) = length($data);
-        $data =~ s/&#13\;/\n/g;        # #13のみ改行に変換（&#13; を処理できない端末対策）
-        $data =~ s/\[\[br\]\]/\n/g;    # #13のみ改行に変換（&#13; を空白に変換してしまう端末対策）
+        $data =~ s/&#13\;/\n/g;      # #13のみ改行に変換（&#13; を処理できない端末対策）
+        $data =~ s/\[\[br\]\]/\n/g;  # #13のみ改行に変換（&#13; を空白に変換してしまう端末対策）
         &SWBase::EscapeChrRef( \$data );
 
         if (   ( defined( $sow->{'QUERY_INVALID'}->{$key} ) )
@@ -316,8 +311,7 @@ sub getquery {
 
         # Not a Number(NaN)、Infinity(Inf) 対策
         if ( !defined( $sow->{'QUERY_INVALID'}->{$key} ) ) {
-            $sow->{'debug'}->writeaplog( $sow->{'APLOG_CAUTION'},
-                "invalid querydata. [$key]" );
+            $sow->{'debug'}->writeaplog( $sow->{'APLOG_CAUTION'}, "invalid querydata. [$key]" );
             $query{$key} = 'INVALID';
         }
         elsif (( $sow->{'QUERY_INVALID'}->{$key} == 0 )
@@ -368,7 +362,7 @@ sub getcookie {
             $_ =~ /=/;
             my $name  = $`;
             my $value = $';
-            $value =~ tr/\?/ /;                                      # '?'を空白に変換
+            $value =~ tr/\?/ /;    # '?'を空白に変換
             $value =~ tr/+/ /;
             $value =~ s/%([a-fA-F0-9][a-fA-F0-9])/pack("H2", $1)/eg;
             $cookie{$name} = $value;
@@ -456,8 +450,7 @@ sub SetIfModifiedSince {
 
     my $result = 1;
     if ( $ENV{'HTTP_IF_MODIFIED_SINCE'} =~
-m/([A-Za-z]+,) ([0-9]+) ([A-Z][a-z][a-z]) ([0-9]+) ([0-9]+):([0-9]+):([0-9]+) GMT/
-      )
+        m/([A-Za-z]+,) ([0-9]+) ([A-Z][a-z][a-z]) ([0-9]+) ([0-9]+):([0-9]+):([0-9]+) GMT/ )
     {
         @sincedt = ( $4, $month2num{$3}, $2, $5, $6, $7 );
 

@@ -12,21 +12,21 @@ sub OutHTMLScore {
     require "$cfg->{'DIR_HTML'}/html.pl";
     require "$cfg->{'DIR_HTML'}/dtd_plaintext.pl";
 
-    $sow->{'debug'}->raise( $sow->{'APLOG_CAUTION'},
-        "このサーバでは人狼譜出力は無効になっています。", "disabled output score" )
-      if ( $cfg->{'ENABLED_SCORE'} == 0 );
+    $sow->{'debug'}->raise(
+        $sow->{'APLOG_CAUTION'},
+        "このサーバでは人狼譜出力は無効になっています。",
+        "disabled output score"
+    ) if ( $cfg->{'ENABLED_SCORE'} == 0 );
 
     # 村データの読み込み
     my $vil = SWFileVil->new( $sow, $query->{'vid'} );
     $vil->readvil();
-    $sow->{'debug'}
-      ->raise( $sow->{'APLOG_CAUTION'}, "まだ村が終了していません。", "no winner." )
+    $sow->{'debug'}->raise( $sow->{'APLOG_CAUTION'}, "まだ村が終了していません。", "no winner." )
       if ( $vil->{'turn'} < $vil->{'epilogue'} );
     $vil->closevil();
 
     my $score = SWScore->new( $sow, $vil, 0 );
-    $sow->{'debug'}
-      ->raise( $sow->{'APLOG_CAUTION'}, "人狼譜データが見つかりません。", "no score." )
+    $sow->{'debug'}->raise( $sow->{'APLOG_CAUTION'}, "人狼譜データが見つかりません。", "no score." )
       if ( !defined( $score->{'file'} ) );
 
     $sow->{'html'} = SWHtml->new( $sow, 'plain' );    # HTMLモードの初期化

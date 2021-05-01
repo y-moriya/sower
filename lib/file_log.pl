@@ -163,26 +163,17 @@ sub executesay {
     # 隠しメッセージ／独り言用ログID生成
     my $maskedid    = '';
     my $cntmaskedid = '';
-    if (
-        (
-               ( $say->{'mestype'} == $sow->{'MESTYPE_INFOSP'} )
-            || ( $say->{'mestype'} == $sow->{'MESTYPE_TSAY'} )
-        )
-        && ( $self->{'vil'}->isepilogue() == 0 )
-      )
+    if (   ( ( $say->{'mestype'} == $sow->{'MESTYPE_INFOSP'} ) || ( $say->{'mestype'} == $sow->{'MESTYPE_TSAY'} ) )
+        && ( $self->{'vil'}->isepilogue() == 0 ) )
     {
         $cntmaskedid =
-"$sow->{'LOGCOUNT_MESTYPE'}->[$say->{'mestype'}]$sow->{'LOGCOUNT_SUBID'}->{$sow->{'LOGSUBID_SAY'}}";
-        $maskedid =
-          &SWLog::CreateLogID( $sow, $say->{'mestype'}, $say->{'logsubid'},
-            $saypl->{$cntmaskedid} );
+          "$sow->{'LOGCOUNT_MESTYPE'}->[$say->{'mestype'}]$sow->{'LOGCOUNT_SUBID'}->{$sow->{'LOGSUBID_SAY'}}";
+        $maskedid = &SWLog::CreateLogID( $sow, $say->{'mestype'}, $say->{'logsubid'}, $saypl->{$cntmaskedid} );
     }
 
     # ログIDカウンタのデータラベルを生成
-    my $logcntid =
-"$sow->{'LOGCOUNT_MESTYPE'}->[$say->{'mestype'}]$sow->{'LOGCOUNT_SUBID'}->{$say->{'logsubid'}}";
-    $logcntid =
-"$sow->{'LOGCOUNT_MESTYPE'}->[$sow->{'MESTYPE_UNDEF'}]$sow->{'LOGCOUNT_SUBID'}->{$say->{'logsubid'}}"
+    my $logcntid = "$sow->{'LOGCOUNT_MESTYPE'}->[$say->{'mestype'}]$sow->{'LOGCOUNT_SUBID'}->{$say->{'logsubid'}}";
+    $logcntid = "$sow->{'LOGCOUNT_MESTYPE'}->[$sow->{'MESTYPE_UNDEF'}]$sow->{'LOGCOUNT_SUBID'}->{$say->{'logsubid'}}"
       if ( $say->{'undef'} > 0 );    # 襲撃メッセージ
     if ( !defined( $logcnt->{$logcntid} ) ) {
 
@@ -191,15 +182,13 @@ sub executesay {
             $say->{'mestype'}  = $sow->{'MESTYPE_UNDEF'};
             $say->{'logsubid'} = $sow->{'LOGSUBID_UNDEF'};
         }
-        $logcntid =
-"$sow->{'LOGCOUNT_MESTYPE'}->[$say->{'mestype'}]$sow->{'LOGCOUNT_SUBID'}->{$say->{'logsubid'}}";
+        $logcntid = "$sow->{'LOGCOUNT_MESTYPE'}->[$say->{'mestype'}]$sow->{'LOGCOUNT_SUBID'}->{$say->{'logsubid'}}";
     }
 
     # ログID生成
     my $mestype = $say->{'mestype'};
     $mestype = $sow->{'MESTYPE_UNDEF'} if ( $say->{'undef'} > 0 );
-    my $logid = &SWLog::CreateLogID( $sow, $mestype, $say->{'logsubid'},
-        $logcnt->{$logcntid} );
+    my $logid = &SWLog::CreateLogID( $sow, $mestype, $say->{'logsubid'}, $logcnt->{$logcntid} );
     $maskedid = $logid if ( $maskedid eq '' );
 
     # 名前の取得
@@ -207,7 +196,7 @@ sub executesay {
     $chrname = $say->{'chrname'} if ( $say->{'chrname'} ne '' );
 
     # ログへの書き込み
-    my $mes    = &SWLog::ReplaceAnchor( $sow, $self->{'vil'}, $say );
+    my $mes = &SWLog::ReplaceAnchor( $sow, $self->{'vil'}, $say );
     my $memoid = $sow->{'DATATEXT_NONE'};
     $memoid = $say->{'memoid'} if ( defined( $say->{'memoid'} ) );
     my %log = (
@@ -296,7 +285,7 @@ sub entrychara {
     if ( $sow->{'cfg'}->{'ENABLED_PLLOG'} > 0 ) {
         my $selrolename = $textrs->{'ROLENAME'}->[ $epl->{'selrole'} ];
         $selrolename = $textrs->{'RANDOMROLE'} if ( $epl->{'selrole'} < 0 );
-        $mes         = $textrs->{'ANNOUNCE_SELROLE'};
+        $mes = $textrs->{'ANNOUNCE_SELROLE'};
         $mes =~ s/_NAME_/$chrname/;
         $mes =~ s/_SELROLE_/$selrolename/;
         %say = (
@@ -357,15 +346,15 @@ sub fixque {
             || ( $logcount ne $_->{'queid'} ) )
         {
             # ログデータに該当するログがない。
-            $sow->{'debug'}->writeaplog( $sow->{'APLOG_NOTICE'},
-                "FixQue, [queid=$_->{'queid'}, logid=$log->{'logid'}]" );
+            $sow->{'debug'}
+              ->writeaplog( $sow->{'APLOG_NOTICE'}, "FixQue, [queid=$_->{'queid'}, logid=$log->{'logid'}]" );
         }
         else {
             # 発言確定
             my $indexno =
               $self->{'logindex'}->{'file'}->getbyid( $log->{'logid'} );
-            $log->{'logid'} = &SWLog::CreateLogID( $sow, $sow->{'MESTYPE_SAY'},
-                $log->{'logsubid'}, $logcnt->{'countsay'} );
+            $log->{'logid'} =
+              &SWLog::CreateLogID( $sow, $sow->{'MESTYPE_SAY'}, $log->{'logsubid'}, $logcnt->{'countsay'} );
             $logcnt->{'countsay'}++;
             $log->{'mestype'} = $sow->{'MESTYPE_SAY'};
             $self->update( $log, $indexno );
@@ -441,12 +430,8 @@ sub getvlogs {
         $masked = 1
           if (
             (
-                (
-                    $logmestype eq
-                    $sow->{'LOGMESTYPE'}->[ $sow->{'MESTYPE_INFOSP'} ]
-                )
-                || ( $logmestype eq
-                    $sow->{'LOGMESTYPE'}->[ $sow->{'MESTYPE_TSAY'} ] )
+                   ( $logmestype eq $sow->{'LOGMESTYPE'}->[ $sow->{'MESTYPE_INFOSP'} ] )
+                || ( $logmestype eq $sow->{'LOGMESTYPE'}->[ $sow->{'MESTYPE_TSAY'} ] )
             )
             && ( $self->{'vil'}->isepilogue() == 0 )
           );
@@ -468,8 +453,7 @@ sub getvlogs {
     if ( $foward > 0 ) {
 
         # 順方向探索
-        ( $logs, $logkeys, $rowover, $firstlog ) =
-          $self->GetVLogsForward( $mode, $skip, $maxrow, $masked );
+        ( $logs, $logkeys, $rowover, $firstlog ) = $self->GetVLogsForward( $mode, $skip, $maxrow, $masked );
         if ( $firstlog >= 0 ) {
             $rows{'start'} = 1
               if ( ( defined( $logs->[0] ) )
@@ -479,11 +463,10 @@ sub getvlogs {
     }
     else {
         # 逆方向探索
-        ( $logs, $logkeys, $rowover, $lastlog ) =
-          $self->GetVLogsReverse( $mode, $skip, $maxrow, $masked );
+        ( $logs, $logkeys, $rowover, $lastlog ) = $self->GetVLogsReverse( $mode, $skip, $maxrow, $masked );
         if ( $lastlog >= 0 ) {
             $rows{'start'} = 1 if ( $rowover == 0 );
-            $rows{'end'}   = 1
+            $rows{'end'} = 1
               if ( ( $#$logs >= 0 )
                 && ( $logs->[$#$logs]->{'indexno'} == $lastlog ) );
         }
@@ -576,7 +559,7 @@ sub GetVLogsForward {
                 $logkeys{$logid} = $logidx->{'indexno'};
                 $rowcount++
                   if ( ( $logidx->{'logsubid'} ne $sow->{'LOGSUBID_ACTION'} )
-                    || ( $sow->{'cfg'}->{'ROW_ACTION'} > 0 ) );  # アクションは行数に数えない
+                    || ( $sow->{'cfg'}->{'ROW_ACTION'} > 0 ) );    # アクションは行数に数えない
             }
 
             if ( ( $rowcount > $maxrow ) && ( $maxrow > 0 ) ) {
@@ -586,8 +569,7 @@ sub GetVLogsForward {
                 do {
                     $dellog = shift(@logs);
                     $logkeys{ $dellog->{'logid'} } = -1;
-                } until (
-                    ( $dellog->{'logsubid'} ne $sow->{'LOGSUBID_ACTION'} )
+                } until ( ( $dellog->{'logsubid'} ne $sow->{'LOGSUBID_ACTION'} )
                       || ( $sow->{'cfg'}->{'ROW_ACTION'} > 0 )
                       || ( @logs == 0 ) );
                 $rowcount = $maxrow;
@@ -673,7 +655,7 @@ sub GetVLogsReverse {
                 $logkeys{ $logidx->{'logid'} } = $logidx->{'indexno'};
                 $rowcount++
                   if ( ( $logidx->{'logsubid'} ne $sow->{'LOGSUBID_ACTION'} )
-                    || ( $sow->{'cfg'}->{'ROW_ACTION'} > 0 ) );  # アクションは行数に数えない
+                    || ( $sow->{'cfg'}->{'ROW_ACTION'} > 0 ) );    # アクションは行数に数えない
             }
 
             if ( ( $rowcount > $maxrow ) && ( $maxrow > 0 ) ) {
@@ -683,8 +665,7 @@ sub GetVLogsReverse {
                 do {
                     $dellog = pop(@logs);
                     $logkeys{ $dellog->{'logid'} } = -1;
-                } until (
-                    ( $dellog->{'logsubid'} ne $sow->{'LOGSUBID_ACTION'} )
+                } until ( ( $dellog->{'logsubid'} ne $sow->{'LOGSUBID_ACTION'} )
                       || ( $sow->{'cfg'}->{'ROW_ACTION'} > 0 )
                       || ( @logs == 0 ) );
                 $rowcount = $maxrow;
@@ -725,30 +706,27 @@ sub delete {
             || ( $logcount ne $del_queid ) )
         {
             # ログデータに該当するログがない（本来ありえない）
-            $sow->{'debug'}->writeaplog( $sow->{'APLOG_WARNING'},
-                "Cancel, [queid=$del_queid, logid=$log->{'logid'}]" );
+            $sow->{'debug'}->writeaplog( $sow->{'APLOG_WARNING'}, "Cancel, [queid=$del_queid, logid=$log->{'logid'}]" );
         }
         else {
             $sow->{'debug'}->raise(
                 $sow->{'APLOG_CAUTION'},
                 "削除しようとした保留中の発言が見つかりません。",
-"cannot delete say.[cmd=cancel, vid=$self->{'vil'}->{'vid'}, del_queid=$del_queid]"
+                "cannot delete say.[cmd=cancel, vid=$self->{'vil'}->{'vid'}, del_queid=$del_queid]"
               )
               if ( $log->{'uid'} ne $sow->{'uid'} )
-              ;    # 権限のないユーザからの撤回コマンドが飛んできた場合、セキュリティのためこういう警告にする
+              ; # 権限のないユーザからの撤回コマンドが飛んできた場合、セキュリティのためこういう警告にする
             $sow->{'debug'}->raise(
                 $sow->{'APLOG_CAUTION'},
                 "削除しようとした保留中の発言が見つかりません。",
-"cannot delete say.[cmd=cancel, vid=$self->{'vil'}->{'vid'}, del_queid=$del_queid]"
+                "cannot delete say.[cmd=cancel, vid=$self->{'vil'}->{'vid'}, del_queid=$del_queid]"
             ) if ( $sow->{'time'} >= $que->{'fixtime'} );
 
             # ログから削除
             my $logindexno =
               $self->{'logindex'}->{'file'}->getbyid( $log->{'logid'} );
             $log->{'mestype'} = $sow->{'MESTYPE_DELETED'};
-            $log->{'logid'} =
-              &SWLog::CreateLogID( $sow, $log->{'mestype'}, $log->{'logsubid'},
-                $del_queid );
+            $log->{'logid'} = &SWLog::CreateLogID( $sow, $log->{'mestype'}, $log->{'logsubid'}, $del_queid );
             $self->update( $log, $logindexno );
 
             my $pl = $vil->getpl( $log->{'uid'} );
@@ -765,7 +743,7 @@ sub delete {
         $sow->{'debug'}->raise(
             $sow->{'APLOG_NOTICE'},
             "削除しようとした保留中の発言が見つかりません。",
-"cannot delete say.[cmd=cancel, vid=$self->{'vil'}->{'vid'}, del_queid=$del_queid]"
+            "cannot delete say.[cmd=cancel, vid=$self->{'vil'}->{'vid'}, del_queid=$del_queid]"
         );
     }
 }
@@ -815,21 +793,21 @@ sub CheckLogPermition {
     $logpermit = 1
       if ( ( $log->{'mestype'} == $sow->{'MESTYPE_SAY'} )
         && ( $log->{'logsubid'} ne $sow->{'LOGSUBID_BOOKMARK'} ) );    # 通常発言
-    $logpermit = 1 if ( $log->{'mestype'} == $sow->{'MESTYPE_MAKER'} ); # 村建て人発言
-    $logpermit = 1 if ( $log->{'mestype'} == $sow->{'MESTYPE_ADMIN'} ); # 管理人発言
-    $logpermit = 1 if ( $log->{'mestype'} == $sow->{'MESTYPE_GUEST'} ); # 傍観者発言
+    $logpermit = 1 if ( $log->{'mestype'} == $sow->{'MESTYPE_MAKER'} );    # 村建て人発言
+    $logpermit = 1 if ( $log->{'mestype'} == $sow->{'MESTYPE_ADMIN'} );    # 管理人発言
+    $logpermit = 1 if ( $log->{'mestype'} == $sow->{'MESTYPE_GUEST'} );    # 傍観者発言
 
     if ( $self->{'vil'}->{'epilogue'} < $self->{'vil'}->{'turn'} ) {
 
         # 終了後
         $logpermit = 1
           if ( ( $log->{'mestype'} == $sow->{'MESTYPE_WSAY'} )
-            && ( $query->{'mode'} eq 'wolf' ) );    # 狼視点
+            && ( $query->{'mode'} eq 'wolf' ) );                           # 狼視点
         $logpermit = 1
           if ( ( $log->{'mestype'} == $sow->{'MESTYPE_GSAY'} )
-            && ( $query->{'mode'} eq 'grave' ) );    # 墓視点
-        $logpermit = 1 if ( $query->{'mode'} eq 'all' );    # 全視点
-        $logpermit = 1 if ( $query->{'mode'} eq '' );       # 全視点
+            && ( $query->{'mode'} eq 'grave' ) );                          # 墓視点
+        $logpermit = 1 if ( $query->{'mode'} eq 'all' );                   # 全視点
+        $logpermit = 1 if ( $query->{'mode'} eq '' );                      # 全視点
     }
     elsif (( $self->{'vil'}->isepilogue() > 0 )
         && ( $log->{'mestype'} != $sow->{'MESTYPE_QUE'} ) )
@@ -854,14 +832,9 @@ sub CheckLogPermition {
         {
             # ささやき
             $logpermit = 1
-              if (
-                (
-                       ( $curpl->iswolf() > 0 )
-                    || ( $curpl->{'role'} == $sow->{'ROLEID_CPOSSESS'} )
-                )
+              if ( ( ( $curpl->iswolf() > 0 ) || ( $curpl->{'role'} == $sow->{'ROLEID_CPOSSESS'} ) )
                 && ( $log->{'mestype'} == $sow->{'MESTYPE_WSAY'} )
-                && ( $query->{'mode'} ne 'human' )
-              );
+                && ( $query->{'mode'} ne 'human' ) );
 
             # 共鳴
             $logpermit = 1
@@ -892,7 +865,7 @@ sub CheckLogPermition {
 
     $logpermit = 1
       if ( ( $logined > 0 )
-        && ( $sow->{'uid'} eq $sow->{'cfg'}->{'USERID_ADMIN'} ) );    # 管理者モード
+        && ( $sow->{'uid'} eq $sow->{'cfg'}->{'USERID_ADMIN'} ) );       # 管理者モード
 
     # 個人フィルタ（暫定）
     # プロローグで使えると何か支障あるのかな？

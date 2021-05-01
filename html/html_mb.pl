@@ -54,7 +54,7 @@ sub OutHTMLReturnVilMb {
     $reqvals->{'cmd'} = $query->{'cmdfrom'} if ( $query->{'cmdfrom'} ne '' );
     my $link = &SWBase::GetLinkValues( $sow, $reqvals );
     $link = "$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}?$link";
-    my $hidden    = &SWBase::GetHiddenValues( $sow, $reqvals, '' );
+    my $hidden = &SWBase::GetHiddenValues( $sow, $reqvals, '' );
     my $accesskey = '';
     $accesskey = ' accesskey="4"' if ( $position == 0 );
 
@@ -99,8 +99,7 @@ sub OutHTMLTurnNaviMb {
         print "情報/\n";
     }
     else {
-        print "<a href=\"$urlsow?$linkvalues$amp"
-          . "c=vinfo\" accesskey=\"3\">情報</a>/\n";
+        print "<a href=\"$urlsow?$linkvalues$amp" . "c=vinfo\" accesskey=\"3\">情報</a>/\n";
     }
 
     # 日付リンク
@@ -111,15 +110,12 @@ sub OutHTMLTurnNaviMb {
     $linklog = "<a href=\"$urldefault\" accesskey=\"*\">ログ</a>"
       if ( $position == 0 );
     my $linkmemo = "<a href=\"$urldefault$amp" . "c=memo\">メモ</a>";
-    $linkmemo =
-      "<a href=\"$urldefault$amp" . "c=memo\" accesskey=\"0\">メモ</a>"
+    $linkmemo = "<a href=\"$urldefault$amp" . "c=memo\" accesskey=\"0\">メモ</a>"
       if ( $position == 0 );
     my $linkmemohist = "<a href=\"$urldefault$amp" . "cmd=hist\">履歴</a>";
-    $linkmemohist =
-      "<a href=\"$urldefault$amp" . "cmd=hist\" accesskey=\"#\">履歴</a>"
+    $linkmemohist = "<a href=\"$urldefault$amp" . "cmd=hist\" accesskey=\"#\">履歴</a>"
       if ( $position == 0 );
-    my $linkvindex =
-      "<a href=\"$urlsow?$linkvalues$amp" . "cmd=vindex\">村一覧</a>";
+    my $linkvindex = "<a href=\"$urlsow?$linkvalues$amp" . "cmd=vindex\">村一覧</a>";
     $linkmemo = 'メモ'
       if ( ( $query->{'cmd'} eq 'memo' )
         || ( $query->{'cmd'} eq 'vinfo' )
@@ -130,7 +126,7 @@ sub OutHTMLTurnNaviMb {
         || ( $sow->{'turn'} > $vil->{'epilogue'} ) );
     my $memolinks = '';
     $memolinks = "$linkmemo/$linkmemohist/" if ( $vil->{'noactmode'} <= 1 );
-    $linklog   = 'ログ'
+    $linklog = 'ログ'
       if ( ( $query->{'cmd'} eq '' ) || ( $query->{'cmd'} eq 'vinfo' ) );
     print "$linklog/$memolinks$linkvindex<br$net>\n";
 
@@ -169,13 +165,11 @@ sub OutHTMLTurnNaviMb {
     my $cmdentry = 'c=enformmb';
 
     if ( $vil->{'turn'} <= $vil->{'epilogue'} ) {
-        $wrformmbt =
-          "<a href=\"$urlnew$amp" . "$cmdwrite\" accesskey=\"7\">書</a>";
+        $wrformmbt = "<a href=\"$urlnew$amp" . "$cmdwrite\" accesskey=\"7\">書</a>";
         $wrformmbb = "<a href=\"$urlnew$amp" . "$cmdwrite\">書</a>";
     }
     if ( $vil->checkentried() < 0 ) {
-        $wrformmbt =
-          "<a href=\"$urlnew$amp" . "$cmdentry\" accesskey=\"7\">書</a>";
+        $wrformmbt = "<a href=\"$urlnew$amp" . "$cmdentry\" accesskey=\"7\">書</a>";
         $wrformmbb = "<a href=\"$urlnew$amp" . "$cmdentry\">書</a>";
     }
     my $cfgform = "$urlnew$amp" . "c=cfg";
@@ -209,7 +203,7 @@ sub OutHTMLPageNaviMb {
     $reqvals->{'cmd'} = $query->{'cmd'}
       if ( ( $query->{'cmd'} eq 'memo' ) || ( $query->{'cmd'} eq 'hist' ) );
     my $linkvalues = &SWBase::GetLinkValues( $sow, $reqvals );
-    my $urlsow     = "$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}?$linkvalues";
+    my $urlsow = "$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}?$linkvalues";
 
     # 可視ログのカウント
     my ( $pages, $indexno ) = &SWHtml::GetPagesPermit( $sow, $logs, $list );
@@ -220,13 +214,13 @@ sub OutHTMLPageNaviMb {
     $row = $cfg->{'MAX_ROW_MB'} if ( $row <= 0 );
 
     my $maxpage = int( ( @$pages + $row - 1 ) / $row );    # 最大ページ
-    my $maxrow  = $cfg->{'MAX_PAGES_MB'};
+    my $maxrow = $cfg->{'MAX_PAGES_MB'};
     $maxrow = $maxpage if ( $maxrow > $maxpage );          # 最大ページリンク数
 
     # 最初に表示するページリンク番号
     $firstpage =
       int( $indexno / $row ) - int( ( $cfg->{'MAX_PAGES_MB'} - 1 ) / 2 );
-    $firstpage = 0                  if ( $firstpage < 0 );
+    $firstpage = 0 if ( $firstpage < 0 );
     $firstpage = $maxpage - $maxrow if ( $firstpage + $maxrow > $maxpage );
 
     # 現在表示中の日付番号属性値
@@ -252,10 +246,7 @@ sub OutHTMLPageNaviMb {
                 && (   ( $log->{'mestype'} == $sow->{'MESTYPE_INFOSP'} )
                     || ( $log->{'mestype'} == $sow->{'MESTYPE_TSAY'} ) )
               );
-            print "<a href=\"$urlsow$amp"
-              . $turn
-              . "move=page$amp"
-              . "logid=$logid\">P$pageno</a>";
+            print "<a href=\"$urlsow$amp" . $turn . "move=page$amp" . "logid=$logid\">P$pageno</a>";
         }
         if ( $i < $firstpage + $maxrow - 1 ) {
             print "/";
@@ -281,17 +272,17 @@ sub OutHTMLDayNaviMb {
     my $reqvals = &SWBase::GetRequestValues($sow);
     $reqvals->{'turn'} = '';
     my $linkvalues = &SWBase::GetLinkValues( $sow, $reqvals );
-    my $urlsow     = "$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}?$linkvalues";
+    my $urlsow = "$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}?$linkvalues";
 
     my $i;
     for ( $i = 0 ; $i <= $vil->{'turn'} ; $i++ ) {
         my $turn = "";
         $turn = $amp . "t=$i" if ( $i != $vil->{'turn'} );
         my $turnname = "$i日";
-        $turnname = "プロ"       if ( $i == 0 );
+        $turnname = "プロ"          if ( $i == 0 );
         $turnname = "プロローグ" if ( ( $i == 0 ) && ( $vil->{'turn'} == 0 ) );
-        $turnname = "エピ"       if ( $i == $vil->{'epilogue'} );
-        $turnname = "終了"       if ( $i > $vil->{'epilogue'} );
+        $turnname = "エピ"          if ( $i == $vil->{'epilogue'} );
+        $turnname = "終了"          if ( $i > $vil->{'epilogue'} );
 
         if (   ( $i == $sow->{'turn'} )
             && ( $query->{'cmd'} ne 'editvilform' )
@@ -319,7 +310,7 @@ sub OutHTMLViewModeNaviMb {
     my $reqvals = &SWBase::GetRequestValues($sow);
     $reqvals->{'mode'} = '';
     my $linkvalues = &SWBase::GetLinkValues( $sow, $reqvals );
-    my $urlsow     = "$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}?$linkvalues";
+    my $urlsow = "$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}?$linkvalues";
 
     if ( $vil->{'epilogue'} < $vil->{'turn'} ) {
         print "視点：";
@@ -329,8 +320,7 @@ sub OutHTMLViewModeNaviMb {
                 print "$modename->[$i] ";
             }
             else {
-                print "<a href=\"$urlsow$amp"
-                  . "m=$modes->[$i]\">$modename->[$i]</a> ";
+                print "<a href=\"$urlsow$amp" . "m=$modes->[$i]\">$modename->[$i]</a> ";
             }
         }
         print "<br$net>\n";
@@ -350,7 +340,7 @@ sub GetPrevLink {
     $reqvals->{'cmd'} = $query->{'cmd'}
       if ( ( $query->{'cmd'} eq 'memo' ) || ( $query->{'cmd'} eq 'hist' ) );
     my $linkvalues = &SWBase::GetLinkValues( $sow, $reqvals );
-    my $urlsow     = "$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}?$linkvalues";
+    my $urlsow = "$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}?$linkvalues";
 
     my $prev = '＜';
     if ( ( $rows->{'start'} == 0 ) && ( defined( $logs->[0]->{'mestype'} ) ) ) {
@@ -364,16 +354,10 @@ sub GetPrevLink {
                 || ( $startlog->{'mestype'} == $sow->{'MESTYPE_TSAY'} ) )
           )
         {
-            $prev =
-                "<a href=\"$urlsow$amp"
-              . "move=prev$amp"
-              . "logid=$startlog->{'maskedid'}\"";
+            $prev = "<a href=\"$urlsow$amp" . "move=prev$amp" . "logid=$startlog->{'maskedid'}\"";
         }
         else {
-            $prev =
-                "<a href=\"$urlsow$amp"
-              . "move=prev$amp"
-              . "logid=$startlog->{'logid'}\"";
+            $prev = "<a href=\"$urlsow$amp" . "move=prev$amp" . "logid=$startlog->{'logid'}\"";
         }
         if ( $position == 0 ) {
             $prev = "$prev accesskey=\"4\">＜</a>";
@@ -399,7 +383,7 @@ sub GetNextLink {
     $reqvals->{'cmd'} = $query->{'cmd'}
       if ( ( $query->{'cmd'} eq 'memo' ) || ( $query->{'cmd'} eq 'hist' ) );
     my $linkvalues = &SWBase::GetLinkValues( $sow, $reqvals );
-    my $urlsow     = "$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}?$linkvalues";
+    my $urlsow = "$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}?$linkvalues";
 
     my $next = '＞';
     if (   ( $rows->{'end'} == 0 )
@@ -416,16 +400,10 @@ sub GetNextLink {
                 || ( $endlog->{'mestype'} == $sow->{'MESTYPE_TSAY'} ) )
           )
         {
-            $next =
-                "<a href=\"$urlsow$amp"
-              . "move=next$amp"
-              . "logid=$endlog->{'maskedid'}\"";
+            $next = "<a href=\"$urlsow$amp" . "move=next$amp" . "logid=$endlog->{'maskedid'}\"";
         }
         else {
-            $next =
-                "<a href=\"$urlsow$amp"
-              . "move=next$amp"
-              . "logid=$endlog->{'logid'}\"";
+            $next = "<a href=\"$urlsow$amp" . "move=next$amp" . "logid=$endlog->{'logid'}\"";
         }
         if ( $position == 0 ) {
             $next = "$next accesskey=\"6\">＞</a>";

@@ -8,7 +8,7 @@ sub GetHTMLVlogTitle {
     my $daytitle = "$sow->{'turn'}日目";
     $daytitle = 'プロローグ' if ( $sow->{'turn'} == 0 );
     $daytitle = 'エピローグ' if ( $sow->{'turn'} == $vil->{'epilogue'} );
-    $daytitle = '終了'    if ( $sow->{'turn'} > $vil->{'epilogue'} );
+    $daytitle = '終了'          if ( $sow->{'turn'} > $vil->{'epilogue'} );
     return "$daytitle / $sow->{'query'}->{'vid'} $vil->{'vname'}";
 }
 

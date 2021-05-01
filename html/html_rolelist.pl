@@ -102,8 +102,7 @@ _HTML_
         my $history = '';
         my $j;
         for ( $j = 0 ; $j < 2 ; $j++ ) {
-            $history .= &GetResultRole( $sow, $sow->{'curpl'},
-                $pllist->[ $targets[$i][$j] ] );
+            $history .= &GetResultRole( $sow, $sow->{'curpl'}, $pllist->[ $targets[$i][$j] ] );
         }
         $sow->{'curpl'}->{'history'} = $history;
 
@@ -144,8 +143,7 @@ sub GetResultRole {
         $result_kill = $textrs->{'RESULT_KILLIW'}
           if ( $curpl->{'role'} == $sow->{'ROLEID_INTWOLF'} );
         $result_kill =~ s/_TARGET_/$chrname/g;
-        $result_kill =~
-          s/_ROLE_/$sow->{'textrs'}->{'ROLENAME'}->[$targetpl->{'role'}]/g;
+        $result_kill =~ s/_ROLE_/$sow->{'textrs'}->{'ROLENAME'}->[$targetpl->{'role'}]/g;
         $result = "$result_kill<br>";
     }
     elsif ( $role == $sow->{'ROLEID_GUARD'} ) {

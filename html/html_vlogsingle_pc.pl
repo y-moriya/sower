@@ -43,7 +43,7 @@ sub OutHTMLSingleLogActionPC {
     my $atr_id = $sow->{'html'}->{'atr_id'};
 
     my $logpl = &GetLogPL( $sow, $vil, $log );
-    my $date  = $sow->{'dt'}->cvtdt( $log->{'date'} );
+    my $date = $sow->{'dt'}->cvtdt( $log->{'date'} );
     if ( $vil->{'timestamp'} > 0 && ( $vil->isepilogue() == 0 ) ) {
         $date = $sow->{'dt'}->cvtdtsht( $log->{'date'} );
     }
@@ -90,7 +90,7 @@ sub OutHTMLSingleLogSayPC {
 
     # 日時とキャラクター名
     my $logpl = &GetLogPL( $sow, $vil, $log );
-    my $date  = $sow->{'dt'}->cvtdt( $log->{'date'} );
+    my $date = $sow->{'dt'}->cvtdt( $log->{'date'} );
     if ( $vil->{'timestamp'} > 0 && ( $vil->isepilogue() == 0 ) ) {
         $date = $sow->{'dt'}->cvtdtsht( $log->{'date'} );
     }
@@ -101,15 +101,13 @@ sub OutHTMLSingleLogSayPC {
 
     # クラス名
     my @messtyle = (
-        'mes_undef',    'mes_undef', 'mes_undef', 'mes_del',
-        'mes_deladmin', 'mes_que',   'mes_nom',   'mes_think',
-        'mes_wolf',     'mes_grave', 'mes_maker', 'mes_admin',
-        'mes_sympa',    'mes_bat',   'mes_guest'
+        'mes_undef', 'mes_undef', 'mes_undef', 'mes_del',   'mes_deladmin', 'mes_que',
+        'mes_nom',   'mes_think', 'mes_wolf',  'mes_grave', 'mes_maker',    'mes_admin',
+        'mes_sympa', 'mes_bat',   'mes_guest'
     );
 
     # キャラ画像アドレスの取得
-    my $img = &SWHtmlPC::GetImgUrl( $sow, $vil, $logpl, $charset->{'FACE'},
-        $log->{'expression'}, $log->{'mestype'} );
+    my $img = &SWHtmlPC::GetImgUrl( $sow, $vil, $logpl, $charset->{'FACE'}, $log->{'expression'}, $log->{'mestype'} );
 
     # キャラ画像部とその他部の横幅を取得
     my $imgwhid = 'BODY';
@@ -121,7 +119,7 @@ sub OutHTMLSingleLogSayPC {
     my $loganchor = &SWLog::GetAnchorlogID( $sow, $vil, $log );
     if ( $loganchor ne "" ) {
         $loganchor =
-"<span class=\"mes_number\" onclick=\"add_link('$loganchor', '$sow->{'turn'}')\">($loganchor)</span>";
+          "<span class=\"mes_number\" onclick=\"add_link('$loganchor', '$sow->{'turn'}')\">($loganchor)</span>";
     }
 
     my $logid = $log->{'logid'};
@@ -131,13 +129,11 @@ sub OutHTMLSingleLogSayPC {
 
     # 発言種別
     my @logmestypetexts = (
-        '',    '',    '',    '【削除】', '【管理人削除】', '【未確】',
-        '',    '【独】', '【赤】', '【墓】',  '',        '',
-        '【鳴】', '【念】', ''
+        '', '', '', '【削除】', '【管理人削除】', '【未確】', '', '【独】', '【赤】', '【墓】',
+        '', '', '【鳴】', '【念】', ''
     );
     my $logmestypetext = '';
-    $logmestypetext =
-      " <span class=\"mestype\">$logmestypetexts[$log->{'mestype'}]</span>"
+    $logmestypetext = " <span class=\"mestype\">$logmestypetexts[$log->{'mestype'}]</span>"
       if ( $logmestypetexts[ $log->{'mestype'} ] ne '' );
 
     # 発言中のアンカー等を整形
@@ -164,8 +160,7 @@ sub OutHTMLSingleLogSayPC {
 _HTML_
 
     # 名前表示（上配置）
-    print
-"  <h3 class=\"mesname\">$logmestypetext <a class=\"anchor\" $atr_id=\"$logid\">$chrname</a>$showid</h3>\n\n"
+    print "  <h3 class=\"mesname\">$logmestypetext <a class=\"anchor\" $atr_id=\"$logid\">$chrname</a>$showid</h3>\n\n"
       if ( $charset->{'LAYOUT_NAME'} eq 'top' );
 
     # 顔画像の表示
@@ -178,8 +173,7 @@ _HTML_
 _HTML_
 
     # 名前表示（右配置）
-    print
-"    <h3 class=\"mesname\">$logmestypetext <a class=\"anchor\" $atr_id=\"$logid\">$chrname</a>$showid</h3>\n"
+    print "    <h3 class=\"mesname\">$logmestypetext <a class=\"anchor\" $atr_id=\"$logid\">$chrname</a>$showid</h3>\n"
       if ( $charset->{'LAYOUT_NAME'} ne 'top' );
 
     # 発言の表示
@@ -192,7 +186,7 @@ _HTML_
     # 発言の削除ボタン
     if ( $log->{'mestype'} == $sow->{'MESTYPE_QUE'} ) {
         my $reqvals = &SWBase::GetRequestValues($sow);
-        my $hidden  = &SWBase::GetHiddenValues( $sow, $reqvals, '      ' );
+        my $hidden = &SWBase::GetHiddenValues( $sow, $reqvals, '      ' );
         my ( $logmestype, $logsubid, $logcnt ) = &SWLog::GetLogIDArray($log);
 
         print <<"_HTML_";
@@ -250,7 +244,7 @@ sub OutHTMLSingleLogGuestPC {
 
     # 日時とユーザー名
     my $logpl = &GetLogPL( $sow, $vil, $log );
-    my $date  = $sow->{'dt'}->cvtdt( $log->{'date'} );
+    my $date = $sow->{'dt'}->cvtdt( $log->{'date'} );
     if ( $vil->{'timestamp'} > 0 && ( $vil->isepilogue() == 0 ) ) {
         $date = $sow->{'dt'}->cvtdtsht( $log->{'date'} );
     }
@@ -276,8 +270,7 @@ sub OutHTMLSingleLogGuestPC {
     $charset = $sow->{'charsets'}->{'csid'}->{$charset};
 
     #my $img = "$charset->{'DIR'}/guest$charset->{'EXT'}";
-    my $img = &SWHtmlPC::GetImgUrl( $sow, $vil, $logpl, $charset->{'FACE'},
-        $log->{'expression'}, $log->{'mestype'} );
+    my $img = &SWHtmlPC::GetImgUrl( $sow, $vil, $logpl, $charset->{'FACE'}, $log->{'expression'}, $log->{'mestype'} );
 
     # キャラ画像部とその他部の横幅を取得
     my $imgwhid = 'BODY';
@@ -289,7 +282,7 @@ sub OutHTMLSingleLogGuestPC {
     my $loganchor = &SWLog::GetAnchorlogID( $sow, $vil, $log );
     if ( $loganchor ne "" ) {
         $loganchor =
-"<span class=\"mes_number\" onclick=\"add_link('$loganchor', '$sow->{'turn'}')\">($loganchor)</span>";
+          "<span class=\"mes_number\" onclick=\"add_link('$loganchor', '$sow->{'turn'}')\">($loganchor)</span>";
     }
 
     my $logid = $log->{'logid'};
@@ -333,8 +326,7 @@ sub OutHTMLSingleLogGuestPC {
 _HTML_
 
     # 名前表示（上配置）
-    print
-"  <h3 class=\"mesname\"><a class=\"anchor\" $atr_id=\"$logid\">$chrname</a>$showid</h3>\n\n"
+    print "  <h3 class=\"mesname\"><a class=\"anchor\" $atr_id=\"$logid\">$chrname</a>$showid</h3>\n\n"
       if ( $charset->{'LAYOUT_NAME'} eq 'top' );
 
     # 顔画像の表示
@@ -347,8 +339,7 @@ _HTML_
 _HTML_
 
     # 名前表示（右配置）
-    print
-"    <h3 class=\"mesname\"><a class=\"anchor\" $atr_id=\"$logid\">$chrname</a>$showid</h3>\n"
+    print "    <h3 class=\"mesname\"><a class=\"anchor\" $atr_id=\"$logid\">$chrname</a>$showid</h3>\n"
       if ( $charset->{'LAYOUT_NAME'} ne 'top' );
 
     # 発言の表示
@@ -400,7 +391,7 @@ sub OutHTMLSingleLogAdminPC {
     my $loganchor = &SWLog::GetAnchorlogID( $sow, $vil, $log );
     if ( $loganchor ne "" ) {
         $loganchor =
-"<span class=\"mes_number\" onclick=\"add_link('$loganchor', '$sow->{'turn'}')\">($loganchor)</span>";
+          "<span class=\"mes_number\" onclick=\"add_link('$loganchor', '$sow->{'turn'}')\">($loganchor)</span>";
     }
 
     # 等幅処理
@@ -518,37 +509,31 @@ sub OutHTMLSingleLogPC {
         || ( $log->{'mestype'} == $sow->{'MESTYPE_INFOSP'} ) )
     {
         # インフォメーション
-        &OutHTMLSingleLogInfoPC( $sow, $vil, $log, $no, $newsay, $anchor,
-            $modesingle );
+        &OutHTMLSingleLogInfoPC( $sow, $vil, $log, $no, $newsay, $anchor, $modesingle );
     }
     elsif ( $log->{'mestype'} >= $sow->{'MESTYPE_DELETED'} ) {
         if (   ( $log->{'logsubid'} eq $sow->{'LOGSUBID_ACTION'} )
             || ( $log->{'logsubid'} eq $sow->{'LOGSUBID_BOOKMARK'} ) )
         {
             # アクション／しおり
-            &OutHTMLSingleLogActionPC( $sow, $vil, $log, $no, $newsay, $anchor,
-                $modesingle );
+            &OutHTMLSingleLogActionPC( $sow, $vil, $log, $no, $newsay, $anchor, $modesingle );
         }
         elsif (( $log->{'mestype'} == $sow->{'MESTYPE_MAKER'} )
             || ( $log->{'mestype'} == $sow->{'MESTYPE_ADMIN'} ) )
         {
-            &OutHTMLSingleLogAdminPC( $sow, $vil, $log, $no, $newsay, $anchor,
-                $modesingle );
+            &OutHTMLSingleLogAdminPC( $sow, $vil, $log, $no, $newsay, $anchor, $modesingle );
         }
         elsif ( $log->{'mestype'} == $sow->{'MESTYPE_GUEST'} ) {
-            &OutHTMLSingleLogGuestPC( $sow, $vil, $log, $no, $newsay, $anchor,
-                $modesingle );
+            &OutHTMLSingleLogGuestPC( $sow, $vil, $log, $no, $newsay, $anchor, $modesingle );
         }
         elsif ( $log->{'mestype'} >= $sow->{'MESTYPE_CAST'} ) {
 
             # 配役一覧
-            &OutHTMLSingleLogCastPC( $sow, $vil, $log, $no, $newsay, $anchor,
-                $modesingle );
+            &OutHTMLSingleLogCastPC( $sow, $vil, $log, $no, $newsay, $anchor, $modesingle );
         }
         else {
             # キャラクター発言
-            &OutHTMLSingleLogSayPC( $sow, $vil, $log, $no, $newsay, $anchor,
-                $modesingle );
+            &OutHTMLSingleLogSayPC( $sow, $vil, $log, $no, $newsay, $anchor, $modesingle );
         }
     }
 }

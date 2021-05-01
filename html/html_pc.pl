@@ -18,14 +18,11 @@ sub OutHTMLHeaderPC {
     # Content-Type / Content-Style-Type の出力
     # 通常はHTTPに出力するので不要
     if ( $sow->{'cfg'}->{'OUTPUT_HTTP_EQUIV'} > 0 ) {
-        print
-"  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=Shift_JIS\"$net>\n"
+        print "  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=Shift_JIS\"$net>\n"
           if ( $sow->{'http'}->{'contenttype'} eq 'html' );
-        print
-"  <meta http-equiv=\"Content-Style-Type\" content=\"$sow->{'http'}->{'styletype'}\"$net>\n"
+        print "  <meta http-equiv=\"Content-Style-Type\" content=\"$sow->{'http'}->{'styletype'}\"$net>\n"
           if ( $sow->{'http'}->{'styletype'} ne '' );
-        print
-"  <meta http-equiv=\"Content-Script-Type\" content=\"$sow->{'http'}->{'scripttype'}\"$net>\n"
+        print "  <meta http-equiv=\"Content-Script-Type\" content=\"$sow->{'http'}->{'scripttype'}\"$net>\n"
           if ( $sow->{'http'}->{'scripttype'} ne '' );
     }
 
@@ -46,7 +43,7 @@ _HTML_
     my $alternate = '';
     my $cssid     = 'default';
     $cssid = $sow->{'query'}->{'css'} if ( $sow->{'query'}->{'css'} ne '' );
-    $cssid = 'default'                if ( !defined( $css->{$cssid} ) );
+    $cssid = 'default' if ( !defined( $css->{$cssid} ) );
     foreach (@csskey) {
         next if ( $_ ne $cssid );    # alternateは取りあえず停止中
         $alternate = 'alternate ';
@@ -70,16 +67,14 @@ _HTML_
 
     # link要素の出力
     foreach ( @{ $sow->{'html'}->{'links'} } ) {
-        print
-"  <link rel=\"$_->{'rel'}\" href=\"$_->{'url'}\" title=\"$_->{'title'}\"$net>\n";
+        print "  <link rel=\"$_->{'rel'}\" href=\"$_->{'url'}\" title=\"$_->{'title'}\"$net>\n";
     }
 
     # JavaScriptの出力
     if ( defined( $sow->{'html'}->{'file_js'} ) ) {
         my $file_js = $sow->{'html'}->{'file_js'};
         foreach (@$file_js) {
-            print
-"  <script type=\"text/javascript\" src=\"$cfg->{'BASEDIR_DOC'}/$_\"></script>\n";
+            print "  <script type=\"text/javascript\" src=\"$cfg->{'BASEDIR_DOC'}/$_\"></script>\n";
         }
     }
 
@@ -152,8 +147,7 @@ sub OutHTMLContentFrameHeader {
 
     my $titlestart = "<a href=\"$urlsow?$link\">";
     my $titleend   = '</a>';
-    if ( ( $query->{'cmd'} eq 'entrypr' ) || ( $query->{'cmd'} eq 'writepr' ) )
-    {
+    if ( ( $query->{'cmd'} eq 'entrypr' ) || ( $query->{'cmd'} eq 'writepr' ) ) {
         $titlestart = '';
         $titleend   = '';
     }
@@ -309,7 +303,7 @@ _HTML_
 
         $reqvals->{'prof'} = '';
         $reqvals->{'cmd'}  = 'admin';
-        $link              = &SWBase::GetLinkValues( $sow, $reqvals );
+        $link = &SWBase::GetLinkValues( $sow, $reqvals );
         my $linkadmin = '';
         $linkadmin = "\n  [<a href=\"$urlsow?$link\">管理画面</a>] / "
           if ( $sow->{'uid'} eq $cfg->{'USERID_ADMIN'} );
@@ -399,12 +393,11 @@ sub GetImgUrl {
 
     my $imggrwl = '';
     $imggrwl = $charset->{'GRAVE'}
-      if ( isGraveImg( $sow, $vil, $imgpl, $charset, $mestype ) eq 1 );   # 墓石表示
+      if ( isGraveImg( $sow, $vil, $imgpl, $charset, $mestype ) eq 1 );    # 墓石表示
     $imggrwl = $charset->{'WOLF'}
       if ( ( $mestype eq $sow->{'MESTYPE_WSAY'} )
-        && ( $charset->{'WOLF'} ne '' ) );                                # 囁き表示
-    my $img =
-      "$charset->{'DIR'}/$imgid$imggrwl$imgparts$expression$charset->{'EXT'}";
+        && ( $charset->{'WOLF'} ne '' ) );                                 # 囁き表示
+    my $img = "$charset->{'DIR'}/$imgid$imggrwl$imgparts$expression$charset->{'EXT'}";
 
     return $img;
 }
@@ -454,7 +447,8 @@ sub GetFormBlockWidth {
     # キャラセットごとの幅の違いに対応するためにwidthを広く取ることにした
     #$imgwidth = $imgwidth + 4 + 4 + 50;
     $imgwidth = 118;
-    my $textwidth = $css->{$cssid}->{'WIDTH'} - 32 - 2 - 8 -
+    my $textwidth =
+      $css->{$cssid}->{'WIDTH'} - 32 - 2 - 8 -
       $imgwidth - 8 - 2;    # 8 を引かないと IE で何故かうまく動かない
     $imgwidth  .= "px";
     $textwidth .= "px";
@@ -509,14 +503,10 @@ sub OutHTMLTurnNavi {
     $reqvals->{'turn'} = $sow->{'turn'};
     $linkvalues = &SWBase::GetLinkValues( $sow, $reqvals );
 
-    my $linklog =
-      "<a href=\"$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}?$linkvalues\">ログ</a>";
-    my $linkmemo =
-        "<a href=\"$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}?$linkvalues$amp"
-      . "cmd=memo\">メモ</a>";
+    my $linklog  = "<a href=\"$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}?$linkvalues\">ログ</a>";
+    my $linkmemo = "<a href=\"$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}?$linkvalues$amp" . "cmd=memo\">メモ</a>";
     my $linkmemohist =
-        "<a href=\"$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}?$linkvalues$amp"
-      . "cmd=hist\">メモ履歴</a>";
+      "<a href=\"$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}?$linkvalues$amp" . "cmd=hist\">メモ履歴</a>";
     $linkmemo = 'メモ'
       if ( ( $query->{'cmd'} eq 'memo' )
         || ( $query->{'cmd'} eq 'vinfo' )
@@ -527,10 +517,9 @@ sub OutHTMLTurnNavi {
         || ( $sow->{'turn'} > $vil->{'epilogue'} ) );
     my $memolinks = '';
     $memolinks = "[$linkmemo/$linkmemohist] / " if ( $vil->{'noactmode'} <= 1 );
-    $linklog   = 'ログ'
+    $linklog = 'ログ'
       if ( ( $query->{'cmd'} eq '' ) || ( $query->{'cmd'} eq 'vinfo' ) );
-    my $linkform =
-"<a href=\"$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}?$linknew#newsay\">発言欄へ</a>";
+    my $linkform = "<a href=\"$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}?$linknew#newsay\">発言欄へ</a>";
     $linkform = '発言欄へ' if ( $vil->{'turn'} > $vil->{'epilogue'} );
 
     if (   ( $position > 0 )
@@ -554,8 +543,7 @@ sub OutHTMLTurnNavi {
         print "情報\n";
     }
     else {
-        print "<a href=\"$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}?$linknew$amp"
-          . "cmd=vinfo\">情報</a>\n";
+        print "<a href=\"$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}?$linknew$amp" . "cmd=vinfo\">情報</a>\n";
     }
 
     my $cmdlog = 0;
@@ -570,7 +558,7 @@ sub OutHTMLTurnNavi {
         my $turnname = "$i日目";
         $turnname = "プロローグ" if ( $i == 0 );
         $turnname = "エピローグ" if ( $i == $vil->{'epilogue'} );
-        $turnname = "終了"    if ( $i > $vil->{'epilogue'} );
+        $turnname = "終了"          if ( $i > $vil->{'epilogue'} );
 
         if (   ( $i == $sow->{'turn'} )
             && ( $cmdlog > 0 )
@@ -579,8 +567,7 @@ sub OutHTMLTurnNavi {
             print "$turnname\n";
         }
         else {
-            print
-"<a href=\"$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}?$linknew$postturn$postmode\">$turnname</a>\n";
+            print "<a href=\"$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}?$linknew$postturn$postmode\">$turnname</a>\n";
         }
     }
 
@@ -610,8 +597,7 @@ _HTML_
                 print "$modename->[$i]\n";
             }
             else {
-                print
-"<a href=\"$sow->{'cfg'}->{'FILE_SOW'}?$linkvalues$postturn$amp"
+                print "<a href=\"$sow->{'cfg'}->{'FILE_SOW'}?$linkvalues$postturn$amp"
                   . "mode=$modes->[$i]\">$modename->[$i]</a>\n";
             }
         }
@@ -644,7 +630,7 @@ sub OutHTMLPageNaviPC {
     my $reqvals = &SWBase::GetRequestValues($sow);
     $reqvals->{'cmd'} = '';
     my $linkvalues = &SWBase::GetLinkValues( $sow, $reqvals );
-    my $urlsow     = "$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}?$linkvalues";
+    my $urlsow = "$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}?$linkvalues";
 
     # 可視ログのカウント
     my ( $pages, $indexno ) = &SWHtml::GetPagesPermit( $sow, $logs, $list );
@@ -655,7 +641,7 @@ sub OutHTMLPageNaviPC {
     $row = $cfg->{'MAX_ROW'} if ( $row <= 0 );
 
     my $maxpage = int( ( @$pages + $row - 1 ) / $row );    # 最大ページ
-    my $maxrow  = $maxpage;
+    my $maxrow = $maxpage;
 
     # 最初に表示するページリンク番号
     my $firstpage = 0;
@@ -684,9 +670,7 @@ sub OutHTMLPageNaviPC {
                 && (   ( $log->{'mestype'} == $sow->{'MESTYPE_INFOSP'} )
                     || ( $log->{'mestype'} == $sow->{'MESTYPE_TSAY'} ) )
               );
-            print "[<a href=\"$urlsow$amp"
-              . "move=page$amp"
-              . "pageno=$pageno\">$pageno</a>]";
+            print "[<a href=\"$urlsow$amp" . "move=page$amp" . "pageno=$pageno\">$pageno</a>]";
         }
         print "\n";
     }
@@ -704,9 +688,7 @@ sub GetTitleNextUpdate {
         $title = " ($date に更新)";
     }
     else {
-        $title = ' ('
-          . sprintf( "%02d:%02d", $vil->{'updhour'}, $vil->{'updminite'} )
-          . '更新)';
+        $title = ' (' . sprintf( "%02d:%02d", $vil->{'updhour'}, $vil->{'updminite'} ) . '更新)';
     }
 
     return $title;

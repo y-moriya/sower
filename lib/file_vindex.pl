@@ -8,10 +8,7 @@ package SWFileVIndex;
 # 村一覧データラベル
 #----------------------------------------
 sub GetVIndexDataLabel {
-    my @datalabel = (
-        'vid',     'vname',     'vcomment', 'makeruid',
-        'updhour', 'updminite', 'vstatus',  'createdt',
-    );
+    my @datalabel = ( 'vid', 'vname', 'vcomment', 'makeruid', 'updhour', 'updminite', 'vstatus', 'createdt', );
     return @datalabel;
 }
 
@@ -70,7 +67,7 @@ sub openvindex {
     while ( $i < $datacnt ) {
         my %vindexsingle;
         chomp( $data[$i] );
-        $vindexsingle{'delete'} = 0;                            # 削除用
+        $vindexsingle{'delete'} = 0;    # 削除用
         @vindexsingle{@datalabel} = split( /<>/, $data[$i] );
 
         # 配列にセット

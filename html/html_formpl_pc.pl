@@ -54,7 +54,7 @@ sub OutHTMLPlayerFormPC {
       if ( ( $curpl->iswhisper() == 0 ) || ( $query->{'mode'} ne 'human' ) );
     &OutHTMLRoleFormPC( $sow, $vil )
       if ( $curpl->iswhisper() > 0 && $vil->{'emulated'} < 1 );
-    &OutHTMLExitButtonPC( $sow, $vil )    if ( $vil->{'turn'} == 0 );
+    &OutHTMLExitButtonPC( $sow, $vil ) if ( $vil->{'turn'} == 0 );
     &OutHTMLSelRoleButtonPC( $sow, $vil ) if ( $vil->{'turn'} == 0 );
 
     # 村建て人フォーム／管理人フォーム／傍観者フォーム表示
@@ -99,16 +99,13 @@ sub OutHTMLRoleFormPC {
     my $reqvals = &SWBase::GetRequestValues($sow);
     $reqvals->{'mode'} = 'human';
     my $link = &SWBase::GetLinkValues( $sow, $reqvals );
-    print
-      "<a href=\"$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}?$link\">（村視点）</a> ";
+    print "<a href=\"$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}?$link\">（村視点）</a> ";
     $reqvals->{'mode'} = 'whisper';
     my $link = &SWBase::GetLinkValues( $sow, $reqvals );
-    print
-      "<a href=\"$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}?$link\">（囁きのみ）</a> ";
+    print "<a href=\"$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}?$link\">（囁きのみ）</a> ";
     $reqvals->{'mode'} = '';
     my $link = &SWBase::GetLinkValues( $sow, $reqvals );
-    print
-      "<a href=\"$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}?$link\">（解除）</a> ";
+    print "<a href=\"$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}?$link\">（解除）</a> ";
 }
 
 #----------------------------------------
@@ -155,11 +152,10 @@ _HTML_
     # 名前とID
     my $reqvals = &SWBase::GetRequestValues($sow);
     $reqvals->{'prof'} = $sow->{'uid'};
-    my $link    = &SWBase::GetLinkValues( $sow, $reqvals );
+    my $link = &SWBase::GetLinkValues( $sow, $reqvals );
     my $uidtext = $sow->{'uid'};
     $uidtext =~ s/ /&nbsp\;/g;
-    $uidtext =
-      "<a href=\"$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}?$link\">$uidtext</a>";
+    $uidtext = "<a href=\"$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}?$link\">$uidtext</a>";
 
     my $chrname = $curpl->getchrname();
 
@@ -173,9 +169,7 @@ _HTML_
 
     my $countname = "point";
     my $countstr  = "pt消費";
-    if ( $cfg->{'COUNTS_SAY'}->{ $vil->{'saycnttype'} }->{'COUNT_TYPE'} eq
-        'count' )
-    {
+    if ( $cfg->{'COUNTS_SAY'}->{ $vil->{'saycnttype'} }->{'COUNT_TYPE'} eq 'count' ) {
         $countstr  = "文字";
         $countname = "count";
     }
@@ -244,8 +238,7 @@ _HTML_
             {    # プロローグ独り言設定チェック
                 my $unit =
                   $sow->{'basictrs'}->{'SAYTEXT'}
-                  ->{ $sow->{'cfg'}->{'COUNTS_SAY'}->{ $vil->{'saycnttype'} }
-                      ->{'COUNT_TYPE'} }->{'UNIT_SAY'};
+                  ->{ $sow->{'cfg'}->{'COUNTS_SAY'}->{ $vil->{'saycnttype'} }->{'COUNT_TYPE'} }->{'UNIT_SAY'};
                 my $checked = '';
                 $checked = " $sow->{'html'}->{'checked'}"
                   if ( ( $draft > 0 )
@@ -305,7 +298,7 @@ sub OutHTMLActionFormPC {
     my $pllist  = $vil->getpllist();
 
     my $reqvals = &SWBase::GetRequestValues($sow);
-    my $hidden  = &SWBase::GetHiddenValues( $sow, $reqvals, '      ' );
+    my $hidden = &SWBase::GetHiddenValues( $sow, $reqvals, '      ' );
 
     my $chrname = $curpl->getchrname();
     print <<"_HTML_";
@@ -320,12 +313,10 @@ _HTML_
     foreach (@$pllist) {
         next if ( $_->{'uid'} eq $sow->{'uid'} );    # 自分自身は除外
         next
-          if ( ( $_->{'live'} ne 'live' ) && ( $vil->isepilogue() == 0 ) )
-          ;                                          # 死者は除外
+          if ( ( $_->{'live'} ne 'live' ) && ( $vil->isepilogue() == 0 ) );    # 死者は除外
 
         my $targetname = $_->getchrname();
-        print
-"        <option value=\"$_->{'pno'}\">$targetname$sow->{'html'}->{'option'}\n";
+        print "        <option value=\"$_->{'pno'}\">$targetname$sow->{'html'}->{'option'}\n";
     }
 
     print <<"_HTML_";
@@ -341,14 +332,12 @@ _HTML_
     my $actions = $sow->{'textrs'}->{'ACTIONS'};
     my $i;
     for ( $i = 0 ; $i < @$actions ; $i++ ) {
-        print
-"        <option value=\"$i\">$actions->[$i]$sow->{'html'}->{'option'}\n";
+        print "        <option value=\"$i\">$actions->[$i]$sow->{'html'}->{'option'}\n";
     }
 
     # しおり
     my $actions_bookmark = $sow->{'textrs'}->{'ACTIONS_BOOKMARK'};
-    print
-"        <option value=\"-2\">$actions_bookmark$sow->{'html'}->{'option'}\n";
+    print "        <option value=\"-2\">$actions_bookmark$sow->{'html'}->{'option'}\n";
 
     # 促し
     if (   ( defined( $curpl->{'actaddpt'} ) )
@@ -357,17 +346,15 @@ _HTML_
     {
         my $restaddpt     = $sow->{'textrs'}->{'ACTIONS_RESTADDPT'};
         my $actions_addpt = $sow->{'textrs'}->{'ACTIONS_ADDPT'};
-        $restaddpt     =~ s/_POINT_/$curpl->{'actaddpt'}/g;
+        $restaddpt =~ s/_POINT_/$curpl->{'actaddpt'}/g;
         $actions_addpt =~ s/_REST_/$restaddpt/g;
-        print
-"        <option value=\"-1\">$actions_addpt$sow->{'html'}->{'option'}\n";
+        print "        <option value=\"-1\">$actions_addpt$sow->{'html'}->{'option'}\n";
     }
 
     # アクション入力欄とアクションボタン
     my $unitaction =
-      $sow->{'basictrs'}->{'SAYTEXT'}
-      ->{ $sow->{'cfg'}->{'COUNTS_SAY'}->{ $vil->{'saycnttype'} }
-          ->{'COUNT_TYPE'} }->{'UNIT_ACTION'};
+      $sow->{'basictrs'}->{'SAYTEXT'}->{ $sow->{'cfg'}->{'COUNTS_SAY'}->{ $vil->{'saycnttype'} }->{'COUNT_TYPE'} }
+      ->{'UNIT_ACTION'};
     my $actdisabled = '';
     $actdisabled = " $sow->{'html'}->{'disabled'}"
       if ( $vil->{'emulated'} > 0 );
@@ -401,11 +388,9 @@ sub OutHTMLRolePC {
 
     # 能力者欄のスタイルシートのクラス名
     my @rolestyles = (
-        'random',  'undef',    'vil',      'wolf',
-        'seer',    'medium',   'possess',  'guard',
-        'fm',      'hamster',  'cpossess', 'stigma',
-        'fanatic', 'sympathy', 'werebat',  'cwolf',
-        'intwolf', 'trickster'
+        'random',  'undef',    'vil',     'wolf',    'seer',     'medium',
+        'possess', 'guard',    'fm',      'hamster', 'cpossess', 'stigma',
+        'fanatic', 'sympathy', 'werebat', 'cwolf',   'intwolf',  'trickster'
     );
     $rolestyle = "formpl_$rolestyles[$role->{'role'} + 1]";
 
@@ -429,8 +414,7 @@ _HTML_
             # 聖痕者処理
             my $stigma_subid = $sow->{'textrs'}->{'STIGMA_SUBID'};
             if ( $curpl->{'rolesubid'} >= 0 ) {
-                $mes =~
-s/_ROLESUBID_/$stigma_subid->[$sow->{'curpl'}->{'rolesubid'}]/g;
+                $mes =~ s/_ROLESUBID_/$stigma_subid->[$sow->{'curpl'}->{'rolesubid'}]/g;
             }
             else {
                 $mes =~ s/_ROLESUBID_//g;
@@ -450,14 +434,11 @@ _HTML_
         my $charset = $sow->{'charsets'}->{'csid'}->{ $curpl->{'csid'} };
 
         # キャラ画像アドレスの取得
-        my $img =
-          &SWHtmlPC::GetImgUrl( $sow, $vil, $curpl, $charset->{'BODY'} );
+        my $img = &SWHtmlPC::GetImgUrl( $sow, $vil, $curpl, $charset->{'BODY'} );
         if ( $curpl->iswhisper > 0 ) {
 
             # TODO: 狼の囁き以外でもWSAY画像を使用しているので、要修正
-            $img =
-              &SWHtmlPC::GetImgUrl( $sow, $vil, $curpl, $charset->{'BODY'}, 0,
-                $sow->{'MESTYPE_WSAY'} );
+            $img = &SWHtmlPC::GetImgUrl( $sow, $vil, $curpl, $charset->{'BODY'}, 0, $sow->{'MESTYPE_WSAY'} );
         }
 
         # キャラ画像部とその他部の横幅を取得
@@ -504,17 +485,15 @@ _HTML_
             my $saycnt = $cfg->{'COUNTS_SAY'}->{ $vil->{'saycnttype'} };
             my $unit =
               $sow->{'basictrs'}->{'SAYTEXT'}
-              ->{ $sow->{'cfg'}->{'COUNTS_SAY'}->{ $vil->{'saycnttype'} }
-                  ->{'COUNT_TYPE'} }->{'UNIT_SAY'};
+              ->{ $sow->{'cfg'}->{'COUNTS_SAY'}->{ $vil->{'saycnttype'} }->{'COUNT_TYPE'} }->{'UNIT_SAY'};
             my %htmlsay;
             $htmlsay{'buttonlabel'} = $sow->{'textrs'}->{'BUTTONLABEL_PC'};
             my $caption_rolesay =
               $sow->{'textrs'}->{'CAPTION_ROLESAY'}->[ $curpl->{'role'} ];
             $htmlsay{'buttonlabel'} =~ s/_BUTTON_/$caption_rolesay/g;
-            $htmlsay{'saycnttext'} =
-              " あと$curpl->{$sow->{'SAYCOUNTID'}->[$curpl->{'role'}]}$unit";
-            $htmlsay{'disabled'} = 0;
-            $htmlsay{'disabled'} = 1 if ( $vil->{'emulated'} > 0 );
+            $htmlsay{'saycnttext'} = " あと$curpl->{$sow->{'SAYCOUNTID'}->[$curpl->{'role'}]}$unit";
+            $htmlsay{'disabled'}   = 0;
+            $htmlsay{'disabled'}   = 1 if ( $vil->{'emulated'} > 0 );
 
             my $draft = 0;
             $draft = 1
@@ -539,8 +518,7 @@ _HTML_
             my $checkedloud = '';
             $checkedloud = " $sow->{'html'}->{'checked'}"
               if ( ( $draft > 0 ) && ( $sow->{'draftloud'} > 0 ) );
-            print
-"      <label><input type=\"checkbox\" name=\"loud\" value=\"on\"$checkedloud$net>大声</label>\n";
+            print "      <label><input type=\"checkbox\" name=\"loud\" value=\"on\"$checkedloud$net>大声</label>\n";
 
             print <<"_HTML_";
       <input type="hidden" name="$sayswitch" value="on"$net>
@@ -562,8 +540,7 @@ _HTML_
             # 聖痕者処理
             my $stigma_subid = $sow->{'textrs'}->{'STIGMA_SUBID'};
             if ( $curpl->{'rolesubid'} >= 0 ) {
-                $mes =~
-s/_ROLESUBID_/$stigma_subid->[$sow->{'curpl'}->{'rolesubid'}]/g;
+                $mes =~ s/_ROLESUBID_/$stigma_subid->[$sow->{'curpl'}->{'rolesubid'}]/g;
             }
             else {
                 $mes =~ s/_ROLESUBID_//g;
@@ -578,8 +555,7 @@ _HTML_
         # 能力結果履歴
         my $history = $curpl->{'history'};
         &SWHtml::ConvertNET( $sow, \$history );
-        print
-"    <div class=\"formpl_content\"><p><strong>$history</strong></p></div>\n"
+        print "    <div class=\"formpl_content\"><p><strong>$history</strong></p></div>\n"
           if ( $history ne '' );
 
         # 運命の絆
@@ -645,7 +621,7 @@ sub OutHTMLUpdateSessionButtonPC {
     }
 
     my $reqvals = &SWBase::GetRequestValues($sow);
-    my $hidden  = &SWBase::GetHiddenValues( $sow, $reqvals, '    ' );
+    my $hidden = &SWBase::GetHiddenValues( $sow, $reqvals, '    ' );
 
     print <<"_HTML_";
 <div class="formpl_gm">
@@ -685,7 +661,7 @@ sub OutHTMLScrapVilButtonPC {
     my $net = $sow->{'html'}->{'net'};
 
     my $reqvals = &SWBase::GetRequestValues($sow);
-    my $hidden  = &SWBase::GetHiddenValues( $sow, $reqvals, '    ' );
+    my $hidden = &SWBase::GetHiddenValues( $sow, $reqvals, '    ' );
 
     print <<"_HTML_";
 <div class="formpl_gm">
@@ -711,13 +687,13 @@ sub OutHTMLCommitFormPC {
     my $net = $sow->{'html'}->{'net'};
 
     my $reqvals = &SWBase::GetRequestValues($sow);
-    my $hidden  = &SWBase::GetHiddenValues( $sow, $reqvals, '    ' );
+    my $hidden = &SWBase::GetHiddenValues( $sow, $reqvals, '    ' );
 
     my $disabled = '';
     my $nosay    = '';
     if ( $sow->{'curpl'}->{'saidcount'} == 0 ) {
         $disabled = " $sow->{'html'}->{'disabled'}";
-        $nosay    = "<br$net><br$net>最低一発言して確定しないと、時間を進める事ができません。";
+        $nosay = "<br$net><br$net>最低一発言して確定しないと、時間を進める事ができません。";
     }
 
     print <<"_HTML_";
@@ -812,16 +788,13 @@ _HTML_
     # 希望する能力の表示
     my $rolename = $sow->{'textrs'}->{'ROLENAME'};
     require "$sow->{'cfg'}->{'DIR_LIB'}/setrole.pl";
-    my $rolematrix =
-      &SWSetRole::GetSetRoleTable( $sow, $vil, $vil->{'roletable'},
-        $vil->{'vplcnt'} );
+    my $rolematrix = &SWSetRole::GetSetRoleTable( $sow, $vil, $vil->{'roletable'}, $vil->{'vplcnt'} );
 
     my $i;
     foreach ( $i = 0 ; $i < @{ $sow->{'ROLEID'} } ; $i++ ) {
         my $output = $rolematrix->[$i];
         $output = 1 if ( $i == 0 );    # おまかせは必ず表示
-        print
-"        <option value=\"$i\">$rolename->[$i]$sow->{'html'}->{'option'}\n"
+        print "        <option value=\"$i\">$rolename->[$i]$sow->{'html'}->{'option'}\n"
           if ( $output > 0 );
     }
 
@@ -850,7 +823,7 @@ sub OutHTMLVotePC {
 
     # 属性値の取得
     my $reqvals = &SWBase::GetRequestValues($sow);
-    my $hidden  = &SWBase::GetHiddenValues( $sow, $reqvals, '      ' );
+    my $hidden = &SWBase::GetHiddenValues( $sow, $reqvals, '      ' );
 
     print <<"_HTML_";
     <form action="$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}" method="$cfg->{'METHOD_FORM'}">
@@ -912,8 +885,7 @@ _HTML_
             $selected = " $sow->{'html'}->{'selected'}";
             $selstar  = ' *';
         }
-        print
-"        <option value=\"$_->{'pno'}\"$selected>$_->{'chrname'}$selstar$sow->{'html'}->{'option'}\n";
+        print "        <option value=\"$_->{'pno'}\"$selected>$_->{'chrname'}$selstar$sow->{'html'}->{'option'}\n";
     }
 
     my $disabled = '';
@@ -940,8 +912,7 @@ _HTML_
                 $selected = " $sow->{'html'}->{'selected'}";
                 $selstar  = ' *';
             }
-            print
-"        <option value=\"$_->{'pno'}\"$selected>$_->{'chrname'}$selstar$sow->{'html'}->{'option'}\n";
+            print "        <option value=\"$_->{'pno'}\"$selected>$_->{'chrname'}$selstar$sow->{'html'}->{'option'}\n";
         }
         print "      </select>";
     }
@@ -1212,13 +1183,13 @@ _HTML_
     my $i;
     for ( $i = -2 ; $i >= -8 ; $i-- ) {
         my $fltname = "";
-        $fltname = "≪独り言≫"    if ( $i == -2 );
-        $fltname = "≪囁き≫"     if ( $i == -3 );
-        $fltname = "≪死者の呻き≫"  if ( $i == -4 );
+        $fltname = "≪独り言≫"          if ( $i == -2 );
+        $fltname = "≪囁き≫"             if ( $i == -3 );
+        $fltname = "≪死者の呻き≫"    if ( $i == -4 );
         $fltname = "≪村建て人発言≫" if ( $i == -5 );
-        $fltname = "≪管理者発言≫"  if ( $i == -6 );
-        $fltname = "≪傍観者発言≫"  if ( $i == -7 );
-        $fltname = "≪通常発言≫"   if ( $i == -8 );
+        $fltname = "≪管理者発言≫"    if ( $i == -6 );
+        $fltname = "≪傍観者発言≫"    if ( $i == -7 );
+        $fltname = "≪通常発言≫"       if ( $i == -8 );
         my $selected = "";
 
         if ( ( defined($pno) ) && ( $pno == $i ) ) {
@@ -1245,8 +1216,7 @@ sub OutHTMLExpressionFormPC {
     my ( $sow, $vil ) = @_;
     my $net = $sow->{'html'}->{'net'};
 
-    my $expression = $sow->{'charsets'}->{'csid'}->{ $sow->{'curpl'}->{'csid'} }
-      ->{'EXPRESSION'};
+    my $expression = $sow->{'charsets'}->{'csid'}->{ $sow->{'curpl'}->{'csid'} }->{'EXPRESSION'};
     if ( @$expression > 0 ) {
         print <<"_HTML_";
     <div class="formpl_content">
@@ -1258,8 +1228,7 @@ _HTML_
         for ( $i = 0 ; $i < @$expression ; $i++ ) {
             my $selected = '';
             $selected = " $sow->{'html'}->{'selected'}" if ( $i == 0 );
-            print
-"        <option value=\"$i\"$selected>$expression->[$i]$sow->{'html'}->{'option'}\n";
+            print "        <option value=\"$i\"$selected>$expression->[$i]$sow->{'html'}->{'option'}\n";
         }
         print "      </select>\n";
         print "    </div>\n";
@@ -1278,7 +1247,7 @@ sub OutHTMLKickFormPC {
 
     # 属性値の取得
     my $reqvals = &SWBase::GetRequestValues($sow);
-    my $hidden  = &SWBase::GetHiddenValues( $sow, $reqvals, '      ' );
+    my $hidden = &SWBase::GetHiddenValues( $sow, $reqvals, '      ' );
 
     print <<"_HTML_";
 <form action="$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}" method="$sow->{'cfg'}->{'METHOD_FORM'}">

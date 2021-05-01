@@ -73,26 +73,21 @@ _HTML_
 
     my $order = $charset->{'ORDER'};
     foreach (@$order) {
-        my $chrname    = $sow->{'charsets'}->getchrname( $csid, $_ );
+        my $chrname = $sow->{'charsets'}->getchrname( $csid, $_ );
         my $expression = '';
         $expression = '_0' if ( @{ $charset->{'EXPRESSION'} } > 0 );
         print "\n<tr>\n";
-        print
-          "  <td style=\"text-align: center;\"><img src=\"$charset->{'DIR'}/"
-          . $_
+        print "  <td style=\"text-align: center;\"><img src=\"$charset->{'DIR'}/" . $_
           . "$body$expression$charset->{'EXT'}\" width=\"$charset->{'IMGBODYW'}\" height=\"$charset->{'IMGBODYH'}\" alt=\"$chrname‚Ì‰æ‘œ\"$net></td>\n";
-        print
-          "  <td style=\"text-align: center;\"><img src=\"$charset->{'DIR'}/"
+        print "  <td style=\"text-align: center;\"><img src=\"$charset->{'DIR'}/"
           . $_
           . "_face$expression$charset->{'EXT'}\" width=\"$charset->{'IMGFACEW'}\" height=\"$charset->{'IMGFACEH'}\" alt=\"$chrname‚ÌŠç‰æ‘œ\"$net></td>\n"
           if ( $body ne '' );
-        print
-          "  <td style=\"text-align: center;\"><img src=\"$charset->{'DIR'}/"
+        print "  <td style=\"text-align: center;\"><img src=\"$charset->{'DIR'}/"
           . $_
           . "$grave$expression$charset->{'EXT'}\" width=\"$charset->{'IMGBODYW'}\" height=\"$charset->{'IMGBODYH'}\" alt=\"$chrname‚Ì•æ‰º‰æ‘œ\"$net></td>\n"
           if ( $grave ne '' );
-        print
-          "  <td style=\"text-align: center;\"><img src=\"$charset->{'DIR'}/"
+        print "  <td style=\"text-align: center;\"><img src=\"$charset->{'DIR'}/"
           . $_
           . "$wolf$expression$charset->{'EXT'}\" width=\"$charset->{'IMGBODYW'}\" height=\"$charset->{'IMGBODYH'}\" alt=\"$chrname‚Ìš‘‚«‰æ‘œ\"$net></td>\n"
           if ( $wolf ne '' );

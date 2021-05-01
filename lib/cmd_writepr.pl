@@ -15,9 +15,7 @@ sub CmdWritePreview {
     &SWBase::LoadVilRS( $sow, $vil );
 
     # 入力値のチェック
-    if ( $sow->{'query'}->{'submit_type'} eq
-        $sow->{'textrs'}->{'CAPTION_TSAY_PC'} )
-    {
+    if ( $sow->{'query'}->{'submit_type'} eq $sow->{'textrs'}->{'CAPTION_TSAY_PC'} ) {
         $sow->{'query'}->{'think'} = 'on';
     }
     require "$sow->{'cfg'}->{'DIR_LIB'}/vld_write.pl";
@@ -56,11 +54,7 @@ sub OutHTMLCmdWritePreview {
     require "$sow->{'cfg'}->{'DIR_HTML'}/html.pl";
 
     require "$sow->{'cfg'}->{'DIR_LIB'}/log.pl";
-    my $logid = &SWLog::CreateLogID(
-        $sow, $sow->{'MESTYPE_SAY'},
-        $sow->{'LOGSUBID_SAY'},
-        $sow->{'LOGCOUNT_UNDEF'}
-    );
+    my $logid = &SWLog::CreateLogID( $sow, $sow->{'MESTYPE_SAY'}, $sow->{'LOGSUBID_SAY'}, $sow->{'LOGCOUNT_UNDEF'} );
     my $curpl = &SWBase::GetCurrentPl( $sow, $vil );
     my ( $mestype, $saytype ) = &SWWrite::GetMesType( $sow, $vil, $curpl );
     $mestype = $sow->{'MESTYPE_SAY'} if ( $mestype eq $sow->{'MESTYPE_QUE'} );

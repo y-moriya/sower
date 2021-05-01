@@ -8,26 +8,26 @@ package SWDocHowTo;
 # コンストラクタ
 #----------------------------------------
 sub new {
-	my ($class, $sow) = @_;
-	my $self = {
-		sow   => $sow,
-		title => '遊び方', # タイトル
-	};
+    my ( $class, $sow ) = @_;
+    my $self = {
+        sow   => $sow,
+        title => '遊び方',    # タイトル
+    };
 
-	return bless($self, $class);
+    return bless( $self, $class );
 }
 
 #---------------------------------------------
 # 遊び方の表示
 #---------------------------------------------
 sub outhtml {
-	my $self = shift;
-	my $sow = $self->{'sow'};
-	my $cfg   = $sow->{'cfg'};
-	my $net = $sow->{'html'}->{'net'}; # Null End Tag
-	my $atr_id = $sow->{'html'}->{'atr_id'};
+    my $self   = shift;
+    my $sow    = $self->{'sow'};
+    my $cfg    = $sow->{'cfg'};
+    my $net    = $sow->{'html'}->{'net'};      # Null End Tag
+    my $atr_id = $sow->{'html'}->{'atr_id'};
 
-	print <<"_HTML_";
+    print <<"_HTML_";
 <h2>遊び方</h2>
 <p class="paragraph">
 $cfg->{'NAME_SW'}は、やや敷居の高いゲームです。遊び方をよく読み、更に既に終了した村のログを２～３村ほど読んで感覚をある程度掴んでから、参加される事をお薦めします。

@@ -21,21 +21,21 @@ sub OutHTMLVIndexMb {
     my $urlsow  = "$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}";
 
     # HTTP/HTMLの出力
-    $sow->{'html'} = SWHtml->new($sow);    # HTMLモードの初期化
-    $sow->{'http'}->outheader();           # HTTPヘッダの出力
-    $sow->{'html'}->outheader('村一覧');      # HTMLヘッダの出力
+    $sow->{'html'} = SWHtml->new($sow);        # HTMLモードの初期化
+    $sow->{'http'}->outheader();               # HTTPヘッダの出力
+    $sow->{'html'}->outheader('村一覧');    # HTMLヘッダの出力
     $sow->{'html'}->outcontentheader();
 
-    my $net    = $sow->{'html'}->{'net'};    # Null End Tag
+    my $net    = $sow->{'html'}->{'net'};      # Null End Tag
     my $vilist = $vindex->getvilist();
 
-#	my @imgratings = '';
-#	my $rating = $cfg->{'RATING'};
-#	my $ratingorder = $rating->{'ORDER'};
-#	foreach (@$ratingorder) {
-#		push(@imgratings, "[$rating->{$_}->{'ALT'}]") if ($rating->{$_}->{'FILE'} ne '');
-#	}
-#	my $imgrating = join(' ', @imgratings);
+    #	my @imgratings = '';
+    #	my $rating = $cfg->{'RATING'};
+    #	my $ratingorder = $rating->{'ORDER'};
+    #	foreach (@$ratingorder) {
+    #		push(@imgratings, "[$rating->{$_}->{'ALT'}]") if ($rating->{$_}->{'FILE'} ne '');
+    #	}
+    #	my $imgrating = join(' ', @imgratings);
 
     if ( $sow->{'query'}->{'cmd'} eq 'vindex' ) {
         print <<"_HTML_";
@@ -90,11 +90,9 @@ _HTML_
 
         my $maxrow = $sow->{'cfg'}->{'MAX_ROW_MB'};    # 標準行数
         $maxrow = $query->{'row'}
-          if ( defined( $query->{'row'} ) && ( $query->{'row'} ne '' ) )
-          ;                                            # 引数による行数指定
+          if ( defined( $query->{'row'} ) && ( $query->{'row'} ne '' ) );    # 引数による行数指定
         $maxrow = -1
-          if ( ( $maxrow eq 'all' ) || ( $query->{'rowall'} ne '' ) )
-          ;                                            # 引数による全表示指定
+          if ( ( $maxrow eq 'all' ) || ( $query->{'rowall'} ne '' ) );       # 引数による全表示指定
 
         my $pageno = 0;
         $pageno = $query->{'pageno'} if ( defined( $query->{'pageno'} ) );
@@ -124,16 +122,14 @@ _HTML_
         if ( ( $pageno > 0 ) && ( $maxrow > 0 ) ) {
             $reqvals->{'pageno'} = $pageno - 1;
             my $link = &SWBase::GetLinkValues( $sow, $reqvals );
-            $prev =
-"<a href=\"$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}?$link\">前</a>";
+            $prev = "<a href=\"$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}?$link\">前</a>";
         }
 
         my $next = '次';
         if ( ( ( $pageno + 1 ) * $maxrow <= $virow ) && ( $maxrow > 0 ) ) {
             $reqvals->{'pageno'} = $pageno + 1;
             my $link = &SWBase::GetLinkValues( $sow, $reqvals );
-            $next =
-"<a href=\"$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}?$link\">次</a>";
+            $next = "<a href=\"$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}?$link\">次</a>";
         }
 
         $reqvals = &SWBase::GetRequestValues($sow);
@@ -203,12 +199,7 @@ _HTML_
 
     my $imgrating = '';
     if ( ( defined( $vil->{'rating'} ) ) && ( $vil->{'rating'} ne '' ) ) {
-        if (
-            defined(
-                $sow->{'cfg'}->{'RATING'}->{ $vil->{'rating'} }->{'FILE'}
-            )
-          )
-        {
+        if ( defined( $sow->{'cfg'}->{'RATING'}->{ $vil->{'rating'} }->{'FILE'} ) ) {
             my $rating = $sow->{'cfg'}->{'RATING'}->{ $vil->{'rating'} };
             $imgrating = "[$rating->{'ALT'}] " if ( $rating->{'FILE'} ne '' );
         }

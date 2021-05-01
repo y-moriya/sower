@@ -8,10 +8,7 @@ package SWFileHash;
 # コンストラクタ
 #----------------------------------------
 sub new {
-    my (
-        $class,     $sow,     $filename, $filehandle, $fileid,
-        $datalabel, $mesname, $mesop,    $mode
-    ) = @_;
+    my ( $class, $sow, $filename, $filehandle, $fileid, $datalabel, $mesname, $mesop, $mode ) = @_;
     my $self = {
         sow       => $sow,
         datalabel => $datalabel,
@@ -21,8 +18,7 @@ sub new {
     my $modeid = '+<';
     $modeid = '>' if ( $mode > 0 );
 
-    my $file =
-      SWFile->new( $self->{'sow'}, $fileid, $filehandle, $filename, $self, );
+    my $file = SWFile->new( $self->{'sow'}, $fileid, $filehandle, $filename, $self, );
     $file->openfile( $modeid, $mesname, $mesop, );
     $self->{'file'} = $file;
 

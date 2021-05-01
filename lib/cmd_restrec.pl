@@ -24,8 +24,7 @@ sub SetDataCmdRestRecord {
     my $debug   = $sow->{'debug'};
     my $errfrom = "[uid=$sow->{'uid'}, cmd=$query->{'cmd'}]";
 
-    $sow->{'debug'}
-      ->raise( $sow->{'APLOG_NOTICE'}, "管理人権限が必要です。", "no permition.$errfrom" )
+    $sow->{'debug'}->raise( $sow->{'APLOG_NOTICE'}, "管理人権限が必要です。", "no permition.$errfrom" )
       if ( $sow->{'uid'} ne $sow->{'cfg'}->{'USERID_ADMIN'} );
 
     $query->{'vidstart'} = -1 if ( !defined( $query->{'vidstart'} ) );
@@ -42,9 +41,9 @@ sub SetDataCmdRestRecord {
     }
 
     $query->{'vidend'} = $query->{'vidstart'} if ( $query->{'vidend'} <= 0 );
-    $sow->{'debug'}->raise( $sow->{'APLOG_NOTICE'}, "村番号が不正です。",
-        "vidstart > vidend.[$query->{'vidstart'}, $query->{'vidend'}] $errfrom"
-    ) if ( $query->{'vidstart'} > $query->{'vidend'} );
+    $sow->{'debug'}->raise( $sow->{'APLOG_NOTICE'},
+        "村番号が不正です。", "vidstart > vidend.[$query->{'vidstart'}, $query->{'vidend'}] $errfrom" )
+      if ( $query->{'vidstart'} > $query->{'vidend'} );
 
     # 戦績の再構築実行
     require "$sow->{'cfg'}->{'DIR_LIB'}/file_vil.pl";
@@ -73,11 +72,11 @@ sub OutHTMLCmdRestRecord {
     require "$cfg->{'DIR_HTML'}/html.pl";
     require "$cfg->{'DIR_HTML'}/html_restrec.pl";
 
-    $sow->{'html'} = SWHtml->new($sow);           # HTMLモードの初期化
+    $sow->{'html'} = SWHtml->new($sow);    # HTMLモードの初期化
     my $net     = $sow->{'html'}->{'net'};        # Null End Tag
     my $outhttp = $sow->{'http'}->outheader();    # HTTPヘッダの出力
     return if ( $outhttp == 0 );                  # ヘッダ出力のみ
-    $sow->{'html'}->outheader('戦績再構築');           # HTMLヘッダの出力
+    $sow->{'html'}->outheader('戦績再構築'); # HTMLヘッダの出力
     $sow->{'html'}->outcontentheader();
 
     &SWHtmlRestRecord::OutHTMLRestRecord($sow);

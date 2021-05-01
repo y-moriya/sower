@@ -4,8 +4,7 @@ package SWHtmlMemoMb;
 # メモ表示（モバイルモード）のHTML出力
 #----------------------------------------
 sub OutHTMLMemoMb {
-    my ( $sow, $vil, $logfile, $memofile, $maxrow, $logs, $logkeys, $rows ) =
-      @_;
+    my ( $sow, $vil, $logfile, $memofile, $maxrow, $logs, $logkeys, $rows ) = @_;
 
     my $net    = $sow->{'html'}->{'net'};      # Null End Tag
     my $amp    = $sow->{'html'}->{'amp'};
@@ -14,7 +13,7 @@ sub OutHTMLMemoMb {
     my $query  = $sow->{'query'};
 
     my $reqvals = &SWBase::GetRequestValues($sow);
-    my $link    = &SWBase::GetLinkValues( $sow, $reqvals );
+    my $link = &SWBase::GetLinkValues( $sow, $reqvals );
     $link = "$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}?$link";
 
     $sow->{'html'}->outcontentheader();
@@ -39,8 +38,7 @@ _HTML_
     if ( defined( $sow->{'curpl'}->{'uid'} ) ) {
         my $chrname  = $sow->{'curpl'}->getchrname();
         my $rolename = '';
-        $rolename =
-          "($sow->{'textrs'}->{'ROLENAME'}->[$sow->{'curpl'}->{'role'}])"
+        $rolename = "($sow->{'textrs'}->{'ROLENAME'}->[$sow->{'curpl'}->{'role'}])"
           if ( $sow->{'curpl'}->{'role'} > 0 );
         print "$chrname$rolename<br$net>\n";
     }
@@ -55,8 +53,7 @@ _HTML_
             # 降順
             my $i;
             for ( $i = $#$logs ; $i >= 0 ; $i-- ) {
-                &OutHTMLMemoSingleMb( $sow, $vil, $logfile, $memofile,
-                    $logs->[$i] );
+                &OutHTMLMemoSingleMb( $sow, $vil, $logfile, $memofile, $logs->[$i] );
             }
         }
         else {

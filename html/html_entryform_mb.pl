@@ -8,16 +8,15 @@ sub OutHTMLEntryFormMb {
     my $cfg   = $sow->{'cfg'};
     my $query = $sow->{'query'};
 
-    $sow->{'html'} = SWHtml->new($sow);           # HTMLモードの初期化
+    $sow->{'html'} = SWHtml->new($sow);    # HTMLモードの初期化
     my $outhttp = $sow->{'http'}->outheader();    # HTTPヘッダの出力
     return if ( $outhttp == 0 );                  # ヘッダ出力のみ
-    $sow->{'html'}->outheader("$sow->{'query'}->{'vid'} $vil->{'vname'}")
-      ;                                           # HTMLヘッダの出力
+    $sow->{'html'}->outheader("$sow->{'query'}->{'vid'} $vil->{'vname'}");    # HTMLヘッダの出力
 
-    my $net = $sow->{'html'}->{'net'};            # Null End Tag
+    my $net = $sow->{'html'}->{'net'};                                        # Null End Tag
 
     my $reqvals = &SWBase::GetRequestValues($sow);
-    my $link    = &SWBase::GetLinkValues( $sow, $reqvals );
+    my $link = &SWBase::GetLinkValues( $sow, $reqvals );
     $link = "$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}?$link";
     my $hidden = &SWBase::GetHiddenValues( $sow, $reqvals, '' );
 
@@ -62,7 +61,7 @@ sub OutHTMLEntrySayMb {
     my $option = $sow->{'html'}->{'option'};
 
     my $reqvals = &SWBase::GetRequestValues($sow);
-    my $hidden  = &SWBase::GetHiddenValues( $sow, $reqvals, '' );
+    my $hidden = &SWBase::GetHiddenValues( $sow, $reqvals, '' );
 
     print <<"_HTML_";
 <form action="$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}" method="$cfg->{'METHOD_FORM_MB'}">
@@ -83,7 +82,7 @@ _HTML_
         my $chrorder = $charset->{'ORDER'};
         foreach (@$chrorder) {
             next if ( defined( $csid_cid{"$csid_val/$_"} ) );    # 参加済みのキャラは除外
-            my $chrname  = $sow->{'charsets'}->getchrname( $csid_val, $_ );
+            my $chrname = $sow->{'charsets'}->getchrname( $csid_val, $_ );
             my $selected = '';
             $selected = " $sow->{'html'}->{'selected'}"
               if ( "$csid_val/$_" eq $query->{'csid_cid'} );
@@ -109,9 +108,7 @@ _HTML_
 
     # 希望する能力の表示
     my $rolename = $sow->{'textrs'}->{'ROLENAME'};
-    my $rolematrix =
-      &SWSetRole::GetSetRoleTable( $sow, $vil, $vil->{'roletable'},
-        $vil->{'vplcnt'} );
+    my $rolematrix = &SWSetRole::GetSetRoleTable( $sow, $vil, $vil->{'roletable'}, $vil->{'vplcnt'} );
 
     my $i;
     foreach ( $i = 0 ; $i < @{ $sow->{'ROLEID'} } ; $i++ ) {
@@ -160,13 +157,11 @@ _HTML_
     my $checked = '';
     $checked = " $sow->{'html'}->{'checked'}"
       if ( ( $query->{'monospace'} ne '' ) && ( $query->{'guest'} eq '' ) );
-    print
-"<input type=\"checkbox\" name=\"monospace\" value=\"on\"$checked$net>等幅\n";
+    print "<input type=\"checkbox\" name=\"monospace\" value=\"on\"$checked$net>等幅\n";
     my $checked = '';
     $checked = " $sow->{'html'}->{'checked'}"
       if ( ( $query->{'loud'} ne '' ) && ( $query->{'guest'} eq '' ) );
-    print
-      "<input type=\"checkbox\" name=\"loud\" value=\"on\"$checked$net>大声\n";
+    print "<input type=\"checkbox\" name=\"loud\" value=\"on\"$checked$net>大声\n";
 
     print <<"_HTML_";
 </form>

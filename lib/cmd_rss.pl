@@ -51,15 +51,21 @@ sub OutRSSVIndex {
 
     if ( $query->{'cmd'} eq 'rss' ) {
         require "$cfg->{'DIR_LIB'}/rss.pl";
-        &SWRSS::OutXMLRSS( $sow, '募集／開始前の村の一覧',
+        &SWRSS::OutXMLRSS(
+            $sow,
+            '募集／開始前の村の一覧',
             '新規作成された村のうち、まだ募集中または開始前の村の一覧です。',
-            $urlsow, \@items );
+            $urlsow, \@items
+        );
     }
     else {
         require "$cfg->{'DIR_LIB'}/summary.pl";
-        &SWSummary::OutSWSummary( $sow, '募集／開始前の村の一覧',
+        &SWSummary::OutSWSummary(
+            $sow,
+            '募集／開始前の村の一覧',
             '新規作成された村のうち、まだ募集中または開始前の村の一覧です。',
-            $urlsow, \@items );
+            $urlsow, \@items
+        );
     }
 
     return;
@@ -101,8 +107,8 @@ sub OutRSSVLog {
     while ( $loop > 0 ) {
         $loop = 0;
 
-        my $logfile   = SWBoa->new( $sow, $vil, $turn, 0 );
-        my $memofile  = SWSnake->new( $sow, $vil, $turn, 0 );
+        my $logfile = SWBoa->new( $sow, $vil, $turn, 0 );
+        my $memofile = SWSnake->new( $sow, $vil, $turn, 0 );
         my $memoindex = $memofile->{'memoindex'}->{'file'};
         my ( $logidx, $rows ) = $logfile->getvlogs($maxrow);
         my @logsday;
@@ -161,11 +167,10 @@ sub OutRSSVLog {
         my $cmd = '';
         $cmd = "&amp;cmd=hist" if ( $log->{'logtype'} eq 'memo' );
         my %item = (
-            title => $chrname,
-            name  => $chrname,
-            date  => $log->{'date'},
-            link  =>
-              "$urlsow?vid=$vil->{'vid'}$turn&amp;logid=$log->{'logid'}$cmd",
+            title   => $chrname,
+            name    => $chrname,
+            date    => $log->{'date'},
+            link    => "$urlsow?vid=$vil->{'vid'}$turn&amp;logid=$log->{'logid'}$cmd",
             content => $content,
         );
         unshift( @items, \%item );

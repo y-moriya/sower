@@ -27,10 +27,10 @@ sub GetLocalConfig {
         # 1:自動生成村を作成する
         ENABLED_AUTOVMAKE => 0,
 
-        NAME_SW       => '人狼物語',       # 名前
-        URL_SW        => 'http://',    # 設置するURL（最後の“/”は必要ありません）
-        \MAX_VILLAGES => 5,            # 最大同時稼働村数
-        TIMEOUT_SCRAP => 14,           # 廃村期限
+        NAME_SW       => '人狼物語',    # 名前
+        URL_SW        => 'http://',         # 設置するURL（最後の“/”は必要ありません）
+        \MAX_VILLAGES => 5,                 # 最大同時稼働村数
+        TIMEOUT_SCRAP => 14,                # 廃村期限
     );
 
     my $cfg  = shift;

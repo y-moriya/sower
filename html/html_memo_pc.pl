@@ -4,8 +4,7 @@ package SWHtmlMemoPC;
 # メモ表示（PCモード）のHTML出力
 #----------------------------------------
 sub OutHTMLMemoPC {
-    my ( $sow, $vil, $logfile, $memofile, $maxrow, $logs, $logkeys, $rows ) =
-      @_;
+    my ( $sow, $vil, $logfile, $memofile, $maxrow, $logs, $logkeys, $rows ) = @_;
 
     require "$sow->{'cfg'}->{'DIR_LIB'}/log.pl";
     require "$sow->{'cfg'}->{'DIR_LIB'}/file_log.pl";
@@ -16,7 +15,7 @@ sub OutHTMLMemoPC {
     my $query = $sow->{'query'};
 
     my $reqvals = &SWBase::GetRequestValues($sow);
-    my $link    = &SWBase::GetLinkValues( $sow, $reqvals );
+    my $link = &SWBase::GetLinkValues( $sow, $reqvals );
     $link = "$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}?$link";
 
     # ログインHTML
@@ -74,8 +73,7 @@ _HTML_
     if ( ( $order eq 'desc' ) || ( $order eq 'd' ) ) {
         my $i;
         for ( $i = $#$logs ; $i >= 0 ; $i-- ) {
-            &OutHTMLMemoSinglePC( $sow, $vil, $memofile, $logs->[$i],
-                \%anchor );
+            &OutHTMLMemoSinglePC( $sow, $vil, $memofile, $logs->[$i], \%anchor );
         }
     }
     else {
@@ -186,11 +184,10 @@ _HTML_
     # 名前とID
     my $reqvals = &SWBase::GetRequestValues($sow);
     $reqvals->{'prof'} = $sow->{'uid'};
-    my $link    = &SWBase::GetLinkValues( $sow, $reqvals );
+    my $link = &SWBase::GetLinkValues( $sow, $reqvals );
     my $uidtext = $sow->{'uid'};
     $uidtext =~ s/ /&nbsp\;/g;
-    $uidtext =
-      "<a href=\"$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}?$link\">$uidtext</a>";
+    $uidtext = "<a href=\"$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}?$link\">$uidtext</a>";
     my $chrname = $curpl->getchrname();
     print <<"_HTML_";
   <div style="float: right; width: $rwidth;">
@@ -206,9 +203,8 @@ _HTML_
 
     # 発言欄textarea要素の出力
     my $unitaction =
-      $sow->{'basictrs'}->{'SAYTEXT'}
-      ->{ $sow->{'cfg'}->{'COUNTS_SAY'}->{ $vil->{'saycnttype'} }
-          ->{'COUNT_TYPE'} }->{'UNIT_ACTION'};
+      $sow->{'basictrs'}->{'SAYTEXT'}->{ $sow->{'cfg'}->{'COUNTS_SAY'}->{ $vil->{'saycnttype'} }->{'COUNT_TYPE'} }
+      ->{'UNIT_ACTION'};
     my %htmlsay = (
         saycnttext  => " あと$curpl->{'say_act'}$unitaction",
         buttonlabel => 'メモを貼る',
@@ -218,8 +214,7 @@ _HTML_
     $htmlsay{'disabled'} = 1 if ( $vil->{'emulated'} > 0 );
     &SWHtmlPC::OutHTMLSayTextAreaPC( $sow, 'wrmemo', \%htmlsay );
 
-    print
-"      <label><input type=\"checkbox\" name=\"monospace\" value=\"on\"$net>等幅</label>\n";
+    print "      <label><input type=\"checkbox\" name=\"monospace\" value=\"on\"$net>等幅</label>\n";
 
     print <<"_HTML_";
       <p>※メモを使うとアクション回数を消費します。</p>

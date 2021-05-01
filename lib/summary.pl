@@ -43,8 +43,7 @@ _HTML_
         my $dcdate = $sow->{'dt'}->cvtw3cdtf( $items->[$i]->{'date'} );
         my $desc   = $items->[$i]->{'content'};
         $desc =~ s/<br( \/)?>/ /ig;
-        $desc = &SWString::GetTrimStringRSSDesc( $desc,
-            $sow->{'cfg'}->{'MAXSIZE_RSSDESC'} );
+        $desc = &SWString::GetTrimStringRSSDesc( $desc, $sow->{'cfg'}->{'MAXSIZE_RSSDESC'} );
         &SWHtml::ConvertNET( $sow, \$items->[$i]->{'content'} );
 
         print <<"_HTML_";

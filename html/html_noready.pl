@@ -15,13 +15,13 @@ sub OutHTMLNoReady {
       if ( $noregist == 2 );
 
     # HTTP/HTMLの出力
-    $sow->{'html'} = SWHtml->new($sow);    # HTMLモードの初期化
-    $sow->{'http'}->outheader();           # HTTPヘッダの出力
-    $sow->{'html'}->outheader('準備中');      # HTMLヘッダの出力
+    $sow->{'html'} = SWHtml->new($sow);        # HTMLモードの初期化
+    $sow->{'http'}->outheader();               # HTTPヘッダの出力
+    $sow->{'html'}->outheader('準備中');    # HTMLヘッダの出力
     $sow->{'html'}->outcontentheader();
 
-    &SWHtmlPC::OutHTMLLogin($sow);         # ログイン欄の出力
-    my $net = $sow->{'html'}->{'net'};     # Null End Tag
+    &SWHtmlPC::OutHTMLLogin($sow);             # ログイン欄の出力
+    my $net = $sow->{'html'}->{'net'};         # Null End Tag
 
     print <<"_HTML_";
 <h2>$noregistnameがまだ登録されていません</h2>

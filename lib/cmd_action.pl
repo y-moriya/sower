@@ -28,7 +28,7 @@ sub CmdAction {
     }
     else {
         my $reqvals = &SWBase::GetRequestValues($sow);
-        my $link    = &SWBase::GetLinkValues( $sow, $reqvals );
+        my $link = &SWBase::GetLinkValues( $sow, $reqvals );
         $link = "$cfg->{'URL_SW'}/$cfg->{'FILE_SOW'}?$link#newsay";
 
         $sow->{'http'}->{'location'} = "$link";
@@ -62,14 +62,15 @@ sub SetDataCmdAction {
             || ( $query->{'actionno'} != -2 ) )
         {
             $targetpl = $vil->getplbypno( $query->{'target'} );
-            $debug->raise( $sow->{'APLOG_CAUTION'},
-                "対象番号が不正です。", "invalid target." )
+            $debug->raise( $sow->{'APLOG_CAUTION'}, "対象番号が不正です。", "invalid target." )
               if ( !defined( $targetpl->{'pno'} ) );
-            $debug->raise( $sow->{'APLOG_CAUTION'},
-                "対象に自分は選べません。", "target is you." )
+            $debug->raise( $sow->{'APLOG_CAUTION'}, "対象に自分は選べません。", "target is you." )
               if ( $sow->{'curpl'}->{'pno'} == $targetpl->{'pno'} );
-            $debug->raise( $sow->{'APLOG_CAUTION'},
-                "アクション対象の人は死んでいます。", "target is dead." )
+            $debug->raise(
+                $sow->{'APLOG_CAUTION'},
+                "アクション対象の人は死んでいます。",
+                "target is dead."
+              )
               if ( ( $targetpl->{'live'} ne 'live' )
                 && ( $vil->isepilogue() == 0 ) );
             $mes = $targetpl->getchrname();
@@ -94,14 +95,20 @@ sub SetDataCmdAction {
         # 定型アクション
         if ( $query->{'actionno'} != -2 ) {
             if ( !defined( $actions->[ $query->{'actionno'} ] ) ) {
-                $sow->{'debug'}->raise( $sow->{'APLOG_CAUTION'},
-                    "アクション番号が不正です。", "invalid action no.$errfrom" );
+                $sow->{'debug'}->raise(
+                    $sow->{'APLOG_CAUTION'},
+                    "アクション番号が不正です。",
+                    "invalid action no.$errfrom"
+                );
             }
             elsif (( !defined( $targetpl->{'pno'} ) )
                 && ( $actions->[ $query->{'actionno'} ] =~ /^[をにがのへ]/ ) )
             {    # 文頭が格助詞で始まるものは対象が必要。
-                $sow->{'debug'}->raise( $sow->{'APLOG_NOTICE'},
-                    "アクションの対象が未選択です。", "no target.$errfrom" );
+                $sow->{'debug'}->raise(
+                    $sow->{'APLOG_NOTICE'},
+                    "アクションの対象が未選択です。",
+                    "no target.$errfrom"
+                );
             }
             elsif ( defined( $targetpl->{'pno'} )
                 && !( $actions->[ $query->{'actionno'} ] =~ /^[をにがのへ]/ ) )
@@ -113,11 +120,12 @@ sub SetDataCmdAction {
         if ( $query->{'actionno'} == -1 ) {
 
             # 話の続きを促す
-            $debug->raise( $sow->{'APLOG_CAUTION'},
-                "促しはもう使い切っています。", "not enough actaddpt." )
-              if ( $sow->{'curpl'}->{'actaddpt'} <= 0 );
-            $debug->raise( $sow->{'APLOG_CAUTION'},
-                "促し無しオプションが有効です。", "nocandy option." )
+            $debug->raise(
+                $sow->{'APLOG_CAUTION'},
+                "促しはもう使い切っています。",
+                "not enough actaddpt."
+            ) if ( $sow->{'curpl'}->{'actaddpt'} <= 0 );
+            $debug->raise( $sow->{'APLOG_CAUTION'}, "促し無しオプションが有効です。", "nocandy option." )
               if ( $vil->{'nocandy'} > 0 );
             my $actions_addpt = $sow->{'textrs'}->{'ACTIONS_ADDPT'};
             $actions_addpt =~ s/_REST_//g;
@@ -138,12 +146,13 @@ sub SetDataCmdAction {
     elsif ( $selectact eq 'freetext' ) {
 
         # 自由入力アクション
-        $debug->raise( $sow->{'APLOG_CAUTION'},
-            "自由入力アクション無しオプションが有効です。", "nofreeact option." )
-          if ( $vil->{'nofreeact'} > 0 );
+        $debug->raise(
+            $sow->{'APLOG_CAUTION'},
+            "自由入力アクション無しオプションが有効です。",
+            "nofreeact option."
+        ) if ( $vil->{'nofreeact'} > 0 );
         require "$sow->{'cfg'}->{'DIR_LIB'}/vld_text.pl";
-        &SWValidityText::CheckValidityText( $sow, $errfrom,
-            $query->{'actiontext'},
+        &SWValidityText::CheckValidityText( $sow, $errfrom, $query->{'actiontext'},
             'ACTION', 'actiontext', 'アクションの内容', 1 );
         $mes .= $query->{'actiontext'};
     }
@@ -160,8 +169,7 @@ sub SetDataCmdAction {
         my $writepl = &SWBase::GetCurrentPl( $sow, $vil );
         &SWWrite::ExecuteCmdWrite( $sow, $vil, $writepl );
 
-        $debug->writeaplog( $sow->{'APLOG_POSTED'},
-            "WriteAction. [uid=$sow->{'uid'}, vid=$vil->{'vid'}]" );
+        $debug->writeaplog( $sow->{'APLOG_POSTED'}, "WriteAction. [uid=$sow->{'uid'}, vid=$vil->{'vid'}]" );
     }
     $vil->closevil();
 

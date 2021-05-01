@@ -24,11 +24,10 @@ sub new {
     my $fnamelogindex     = $self->getfnamelogindex();
     my @logindexdatalabel = $self->getlogindexdatalabel();
     $self->{'file'} = SWHashList->new(
-        $sow,                                                 $fnamelogindex,
-        \*LOGINDEX,                                           'logindex',
-        \@logindexdatalabel,                                  'ログインデックスデータ',
-        "[vid=$self->{'vil'}->{'vid'}/turn=$self->{'turn'}]", $mode,
-        $self->{'version'},
+        $sow, $fnamelogindex, \*LOGINDEX, 'logindex', \@logindexdatalabel,
+        'ログインデックスデータ',
+        "[vid=$self->{'vil'}->{'vid'}/turn=$self->{'turn'}]",
+        $mode, $self->{'version'},
     );
     $self->{'file'}->read() if ( $mode == 0 );
 
@@ -73,8 +72,7 @@ sub getfnamelogindex {
             $self->{'sow'}->{'cfg'}->{'DIR_VIL'},
             $self->{'vil'}->{'vid'},
             $self->{'vil'}->{'vid'},
-            $self->{'turn'},
-            $self->{'sow'}->{'cfg'}->{'FILE_LOGINDEX'},
+            $self->{'turn'}, $self->{'sow'}->{'cfg'}->{'FILE_LOGINDEX'},
         );
     }
 
@@ -89,8 +87,7 @@ sub getlogindexdatalabel {
     my @datalabel;
 
     # Version 2.0
-    @datalabel =
-      ( 'logid', 'mestype', 'logsubid', 'maskedid', 'date', 'uid', 'pos', );
+    @datalabel = ( 'logid', 'mestype', 'logsubid', 'maskedid', 'date', 'uid', 'pos', );
 
     return @datalabel;
 }

@@ -26,13 +26,11 @@ sub new {
     $append = 0 if ( !defined($append) );
     my @userrecorddatalabel = $self->getuserrecorddatalabel();
     $self->{'file'} = SWHashList->new(
-        $sow,                  $fnameuserrecord,
-        \*MEMOINDEX,           'userrecord',
-        \@userrecorddatalabel, '戦績データ',
-        "",                    $mode,
+        $sow,                  $fnameuserrecord,    \*MEMOINDEX, 'userrecord',
+        \@userrecorddatalabel, '戦績データ', "",          $mode,
         $self->{'version'},
     );
-    $self->{'file'}->read()       if ( ( $mode == 0 ) && ( $append == 0 ) );
+    $self->{'file'}->read() if ( ( $mode == 0 ) && ( $append == 0 ) );
     $self->{'file'}->writelabel() if ( $mode == 1 );
 
     return $self;
@@ -46,7 +44,7 @@ sub set {
     my $sow = $self->{'sow'};
 
     my $liveday = $vil->{'turn'};
-    $liveday = $vil->{'epilogue'} if ( $vil->{'turn'} > $vil->{'epilogue'} );
+    $liveday = $vil->{'epilogue'}          if ( $vil->{'turn'} > $vil->{'epilogue'} );
     $liveday = $plsingle->{'deathday'} - 1 if ( $plsingle->{'deathday'} > 0 );
 
     # 同村者
@@ -71,12 +69,12 @@ sub set {
 
     # 絆
     my $bondpl = $self->getbonduidlist( $vil, $plsingle, 'bonds' );
-    my $bonds  = '/';
+    my $bonds = '/';
     $bonds = join( '/', @$bondpl ) if ( @$bondpl > 0 );
 
     # 恋人
     my $loverpl = $self->getbonduidlist( $vil, $plsingle, 'lovers' );
-    my $lovers  = '/';
+    my $lovers = '/';
     $lovers = join( '/', @$loverpl ) if ( @$loverpl > 0 );
 
     my %userrecord = (
@@ -157,8 +155,7 @@ sub getfnameuserrecord {
     my $self = shift;
 
     my $encodename = &SWBase::EncodeURL( $self->{'uid'} );
-    my $datafile   = sprintf( "%s/%s.cgi",
-        $self->{'sow'}->{'cfg'}->{'DIR_RECORD'}, $encodename, );
+    my $datafile = sprintf( "%s/%s.cgi", $self->{'sow'}->{'cfg'}->{'DIR_RECORD'}, $encodename, );
     return $datafile;
 }
 
@@ -171,10 +168,8 @@ sub getuserrecorddatalabel {
 
     # Version 1.0
     @datalabel = (
-        'vid',     'vname', 'csid',    'cid',
-        'chrname', 'win',   'role',    'rolesubid',
-        'liveday', 'live',  'otherpl', 'bonds',
-        'lovers',
+        'vid',     'vname', 'csid',    'cid',   'chrname', 'win', 'role', 'rolesubid',
+        'liveday', 'live',  'otherpl', 'bonds', 'lovers',
     );
 
     return @datalabel;

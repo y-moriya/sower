@@ -13,20 +13,18 @@ sub OutHTMLVlogPC {
     my $query = $sow->{'query'};
 
     my $reqvals = &SWBase::GetRequestValues($sow);
-    my $link    = &SWBase::GetLinkValues( $sow, $reqvals );
+    my $link = &SWBase::GetLinkValues( $sow, $reqvals );
     $link = "$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}?$link";
 
     # TODO: parmalinkの場合は該当の発言に飛ぶようにする？
-    my $titlelink =
-      "$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}?vid=$query->{'vid'}";
+    my $titlelink = "$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}?vid=$query->{'vid'}";
 
     my $logfilelist = $logfile->getlist();
 
     # ログID指定表示スイッチ
     my $modesingle = 0;
     $modesingle = 1
-      if ( ( $query->{'logid'} ne '' ) || ( $query->{'ua'} eq 'mb' ) )
-      ;    # 不具合あったりしないよね？
+      if ( ( $query->{'logid'} ne '' ) || ( $query->{'ua'} eq 'mb' ) );    # 不具合あったりしないよね？
 
     # ログインHTML
     $sow->{'html'}->outcontentheader();
@@ -34,7 +32,7 @@ sub OutHTMLVlogPC {
 
     # 見出し（村名とRSS）
     my $titleupdate = &SWHtmlPC::GetTitleNextUpdate( $sow, $vil );
-    my $linkrss     = " <a href=\"$link$amp" . "cmd=rss\">RSS</a>";
+    my $linkrss = " <a href=\"$link$amp" . "cmd=rss\">RSS</a>";
     my $twitter =
 "<p class=\"return\"><a href=\"http://twitter.com/share\" class=\"twitter-share-button\" data-count=\"horizontal\" data-via=\"webwolves\" data-lang=\"ja\">Tweet</a><script type=\"text/javascript\" src=\"http://platform.twitter.com/widgets.js\"></script></p>";
     $linkrss = '' if ( $cfg->{'ENABLED_RSS'} == 0 );
@@ -81,8 +79,7 @@ _HTML_
     my $rowover = $rows->{'rowover'};
     if ( $modesingle == 0 ) {
         if ( ( $maxrow != 0 ) && ( $rows->{'rowover'} > 0 ) ) {
-            print "<p class=\"row_all\">\n<a href=\"$link$amp"
-              . "rowall=on\">全て表\示</a>\n</p>\n\n";
+            print "<p class=\"row_all\">\n<a href=\"$link$amp" . "rowall=on\">全て表\示</a>\n</p>\n\n";
         }
     }
 
@@ -109,8 +106,7 @@ _HTML_
             $newsay = 1 if ( $i == 0 );
             my $log =
               $logfile->{'logfile'}->{'file'}->read( $logs->[$i]->{'pos'} );
-            &SWHtmlVlogSinglePC::OutHTMLSingleLogPC( $sow, $vil, $log, $i,
-                $newsay, \%anchor, $modesingle );
+            &SWHtmlVlogSinglePC::OutHTMLSingleLogPC( $sow, $vil, $log, $i, $newsay, \%anchor, $modesingle );
         }
     }
     else {
@@ -139,8 +135,7 @@ _HTML_
                 print
 "<p id=\"readmore\" class=\"readmore\"><a href=\"$link&logid=$logid&move=prev\" onclick=\"getMoreLog(this);return false;\">もっと読む</a><img id=\"morelog-ajax-loader\" src=\"$cfg->{'DIR_IMG'}/ajax-loader.gif\" style=\"display: none;\"></p>\n\n";
             }
-            &SWHtmlVlogSinglePC::OutHTMLSingleLogPC( $sow, $vil, $log, $i,
-                $newsay, \%anchor, $modesingle );
+            &SWHtmlVlogSinglePC::OutHTMLSingleLogPC( $sow, $vil, $log, $i, $newsay, \%anchor, $modesingle );
             if ( $i == $#$logs ) {
 
                 # TODO: できればもっと頭のいい処理にしたい
@@ -149,19 +144,14 @@ _HTML_
                 my $mestype = $log->{'mestype'};
                 while ( $mestype eq $sow->{'MESTYPE_QUE'} ) {
                     $pi      = $pi - 1;
-                    $prevlog = $logfile->{'logfile'}->{'file'}
-                      ->read( $logs->[$pi]->{'pos'} );
+                    $prevlog = $logfile->{'logfile'}->{'file'}->read( $logs->[$pi]->{'pos'} );
                     $mestype = $prevlog->{'mestype'};
                     $logid   = $prevlog->{'logid'};
 
                     if (
                         (
-                            (
-                                $prevlog->{'mestype'} eq
-                                $sow->{'MESTYPE_INFOSP'}
-                            )
-                            || ( $prevlog->{'mestype'} eq $sow->{'MESTYPE_TSAY'}
-                            )
+                               ( $prevlog->{'mestype'} eq $sow->{'MESTYPE_INFOSP'} )
+                            || ( $prevlog->{'mestype'} eq $sow->{'MESTYPE_TSAY'} )
                         )
                         && ( $vil->isepilogue() == 0 )
                       )

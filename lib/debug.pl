@@ -71,8 +71,8 @@ sub writeaplog {
 
     my ( $pkg, $fname, $line ) = caller;
 
-# ファイルロックできていない時は die する
-#	die "[$type] $mes [from $pkg $fname line $line]" if ($sow->{'lock'}->{'lock'} ne 'lock');
+    # ファイルロックできていない時は die する
+    #	die "[$type] $mes [from $pkg $fname line $line]" if ($sow->{'lock'}->{'lock'} ne 'lock');
 
     # ファイルロックできていない時は return する
     #	return if ($sow->{'lock'}->{'lock'} ne 'lock');
@@ -148,7 +148,7 @@ sub FileRotation {
     my $size = ( -s $datafile );
     if ( $size >= $sow->{'cfg'}->{'MAXSIZE_APLOG'} ) {
         for ( $i = $sow->{'cfg'}->{'MAXNO_APLOG'} ; $i > 0 ; $i-- ) {
-            my $fileid     = '.' . ( $i - 1 );
+            my $fileid = '.' . ( $i - 1 );
             my $fileidnext = ".$i";
             $fileid = '' if ( $i == 1 );
             rename( "$datafile$fileid", "$datafile$fileidnext" )
@@ -265,8 +265,7 @@ _HTML_
         $reqvals->{'pwd'} = '';
         $reqvals->{'vid'} = '';
         my $urlsow = &SWBase::GetLinkValues( $sow, $reqvals );
-        print
-"<a href=\"$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}?$urlsow\">戻る</a>\n";
+        print "<a href=\"$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}?$urlsow\">戻る</a>\n";
     }
 }
 

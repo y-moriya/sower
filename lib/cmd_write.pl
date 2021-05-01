@@ -38,8 +38,7 @@ sub CmdWrite {
     if ( $checknosay > 0 ) {
         my $writepl = &SWBase::GetCurrentPl( $sow, $vil );
         &SWWrite::ExecuteCmdWrite( $sow, $vil, $writepl );
-        $sow->{'debug'}->writeaplog( $sow->{'APLOG_POSTED'},
-            "WriteSay. [uid=$sow->{'uid'}, vid=$vil->{'vid'}]" );
+        $sow->{'debug'}->writeaplog( $sow->{'APLOG_POSTED'}, "WriteSay. [uid=$sow->{'uid'}, vid=$vil->{'vid'}]" );
     }
     $vil->closevil();
 
@@ -59,7 +58,7 @@ sub CmdWrite {
     }
     else {
         my $reqvals = &SWBase::GetRequestValues($sow);
-        my $link    = &SWBase::GetLinkValues( $sow, $reqvals );
+        my $link = &SWBase::GetLinkValues( $sow, $reqvals );
         $link = "$cfg->{'URL_SW'}/$cfg->{'FILE_SOW'}?$link#newsay";
 
         $sow->{'http'}->{'location'} = "$link";
@@ -78,19 +77,18 @@ sub CheckWriteSafety {
 
     return 1
       if ( ( $query->{'admin'} ne '' )
-        && ( $sow->{'uid'} eq $sow->{'cfg'}->{'USERID_ADMIN'} ) ); # 管理人発言なら問題ない
+        && ( $sow->{'uid'} eq $sow->{'cfg'}->{'USERID_ADMIN'} ) );    # 管理人発言なら問題ない
     return 1
       if ( ( $query->{'maker'} ne '' )
-        && ( $sow->{'uid'} eq $vil->{'makeruid'} ) );    # 村建て人発言なら問題ない
-    return 1 if ( $query->{'guest'} ne '' );             # 傍観者発言なら問題ない
+        && ( $sow->{'uid'} eq $vil->{'makeruid'} ) );                 # 村建て人発言なら問題ない
+    return 1 if ( $query->{'guest'} ne '' );                          # 傍観者発言なら問題ない
 
     my ( $mestype, $saytype ) = &SWWrite::GetMesType( $sow, $vil, $curpl );
     return 1
-      if ( &SWBase::CheckWriteSafetyRole( $sow, $vil ) == 0 )
-      ;                                                  # 秘密会話のできない役職なら問題ない
-    return 1 if ( $mestype != $sow->{'MESTYPE_QUE'} );   # 通常発言ではないなら問題ない
-    return 1 if ( $vil->isepilogue() > 0 );              # エピなら問題ない
-    return 1 if ( $query->{'safety'} eq 'on' );          # 確認のチェックが付いているなら問題ない
+      if ( &SWBase::CheckWriteSafetyRole( $sow, $vil ) == 0 );    # 秘密会話のできない役職なら問題ない
+    return 1 if ( $mestype != $sow->{'MESTYPE_QUE'} );    # 通常発言ではないなら問題ない
+    return 1 if ( $vil->isepilogue() > 0 );               # エピなら問題ない
+    return 1 if ( $query->{'safety'} eq 'on' );           # 確認のチェックが付いているなら問題ない
 
     return 0;
 }

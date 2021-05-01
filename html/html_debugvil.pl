@@ -9,8 +9,7 @@ sub OutHTMLDebugVillage {
     my $query   = $sow->{'query'};
     my $errfrom = "[uid=$sow->{'uid'}, cmd=$query->{'cmd'}]";
 
-    $sow->{'debug'}
-      ->raise( $sow->{'APLOG_NOTICE'}, "管理人権限が必要です。", "no permition.$errfrom" )
+    $sow->{'debug'}->raise( $sow->{'APLOG_NOTICE'}, "管理人権限が必要です。", "no permition.$errfrom" )
       if ( $sow->{'uid'} ne $sow->{'cfg'}->{'USERID_ADMIN'} );
 
     # 村データの読み込み
@@ -22,13 +21,13 @@ sub OutHTMLDebugVillage {
     require "$cfg->{'DIR_HTML'}/html.pl";
     my $urlsow = "$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}";
 
-    $sow->{'html'} = SWHtml->new($sow);                 # HTMLモードの初期化
-    my $net = $sow->{'html'}->{'net'};                  # Null End Tag
-    $sow->{'http'}->outheader();                        # HTTPヘッダの出力
+    $sow->{'html'} = SWHtml->new($sow);    # HTMLモードの初期化
+    my $net = $sow->{'html'}->{'net'};                            # Null End Tag
+    $sow->{'http'}->outheader();                                  # HTTPヘッダの出力
     $sow->{'html'}->outheader("$vil->{'vid'}村のデータ");    # HTMLヘッダの出力
     $sow->{'html'}->outcontentheader();
 
-    &SWHtmlPC::OutHTMLLogin($sow);                      # ログイン欄の出力
+    &SWHtmlPC::OutHTMLLogin($sow);                                # ログイン欄の出力
 
     print <<"_HTML_";
 <h2>$vil->{'vid'}村のデータ</h2>

@@ -9,17 +9,16 @@ sub OutHTMLPlayerFormMb {
     my $query = $sow->{'query'};
     my $curpl = $sow->{'curpl'};
 
-    $sow->{'html'} = SWHtml->new($sow);           # HTMLモードの初期化
+    $sow->{'html'} = SWHtml->new($sow);    # HTMLモードの初期化
     my $outhttp = $sow->{'http'}->outheader();    # HTTPヘッダの出力
     return if ( $outhttp == 0 );                  # ヘッダ出力のみ
-    $sow->{'html'}->outheader("$sow->{'query'}->{'vid'} $vil->{'vname'}")
-      ;                                           # HTMLヘッダの出力
+    $sow->{'html'}->outheader("$sow->{'query'}->{'vid'} $vil->{'vname'}");    # HTMLヘッダの出力
 
-    my $net    = $sow->{'html'}->{'net'};         # Null End Tag
+    my $net    = $sow->{'html'}->{'net'};                                     # Null End Tag
     my $option = $sow->{'html'}->{'option'};
 
     my $reqvals = &SWBase::GetRequestValues($sow);
-    my $link    = &SWBase::GetLinkValues( $sow, $reqvals );
+    my $link = &SWBase::GetLinkValues( $sow, $reqvals );
     $link = "$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}?$link";
 
     print <<"_HTML_";
@@ -74,10 +73,10 @@ _HTML_
     if ( $sow->{'uid'} eq $sow->{'cfg'}->{'USERID_ADMIN'} ) {
         &OutHTMLVilMakerMb( $sow, $vil, 'admin' );
 
- # 開始、編集とキックボタンは後回し。
- #&OutHTMLUpdateSessionButtonPC($sow, $vil);
- #&OutHTMLKickFormPC($sow, $vil) if ($vil->{'turn'} == 0);
- #&OutHTMLScrapVilButtonPC($sow, $vil) if ($vil->{'turn'} < $vil->{'epilogue'});
+        # 開始、編集とキックボタンは後回し。
+        #&OutHTMLUpdateSessionButtonPC($sow, $vil);
+        #&OutHTMLKickFormPC($sow, $vil) if ($vil->{'turn'} == 0);
+        #&OutHTMLScrapVilButtonPC($sow, $vil) if ($vil->{'turn'} < $vil->{'epilogue'});
     }
     if ( $vil->{'guestmenu'} == 0 ) {
         &OutHTMLGuestMb( $sow, $vil );
@@ -155,7 +154,7 @@ sub OutHTMLVoteMb {
 
     # 属性値の取得
     my $reqvals = &SWBase::GetRequestValues($sow);
-    my $hidden  = &SWBase::GetHiddenValues( $sow, $reqvals, '' );
+    my $hidden = &SWBase::GetHiddenValues( $sow, $reqvals, '' );
 
     print <<"_HTML_";
 <form action="$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}" method="$cfg->{'METHOD_FORM_MB'}">
@@ -209,8 +208,7 @@ _HTML_
             $selected = " $sow->{'html'}->{'selected'}";
             $selstar  = ' *';
         }
-        print
-"<option value=\"$_->{'pno'}\"$selected>$_->{'chrname'}$selstar$option\n";
+        print "<option value=\"$_->{'pno'}\"$selected>$_->{'chrname'}$selstar$option\n";
     }
     print "</select>";
 
@@ -231,8 +229,7 @@ _HTML_
                 $selected = " $sow->{'html'}->{'selected'}";
                 $selstar  = ' *';
             }
-            print
-"<option value=\"$_->{'pno'}\"$selected>$_->{'chrname'}$selstar$option\n";
+            print "<option value=\"$_->{'pno'}\"$selected>$_->{'chrname'}$selstar$option\n";
         }
         print "</select>";
     }
@@ -312,12 +309,10 @@ _HTML_
     {    # 生きている／墓下独り言有効
         if ( ( $vil->isepilogue() == 0 ) || ( $cfg->{'ENABLED_TSAY_EP'} > 0 ) )
         {    # エピではない／エピ独り言有効
-            if ( ( $vil->{'turn'} != 0 ) || ( $cfg->{'ENABLED_TSAY_PRO'} > 0 ) )
-            {
+            if ( ( $vil->{'turn'} != 0 ) || ( $cfg->{'ENABLED_TSAY_PRO'} > 0 ) ) {
                 my $unit =
                   $sow->{'basictrs'}->{'SAYTEXT'}
-                  ->{ $sow->{'cfg'}->{'COUNTS_SAY'}->{ $vil->{'saycnttype'} }
-                      ->{'COUNT_TYPE'} }->{'UNIT_SAY'};
+                  ->{ $sow->{'cfg'}->{'COUNTS_SAY'}->{ $vil->{'saycnttype'} }->{'COUNT_TYPE'} }->{'UNIT_SAY'};
                 my $checked = '';
                 $checked = " $sow->{'html'}->{'checked'}"
                   if ( ( $query->{'think'} ne '' )
@@ -331,13 +326,11 @@ _HTML_
     my $checked = '';
     $checked = " $sow->{'html'}->{'checked'}"
       if ( ( $query->{'monospace'} ne '' ) && ( $query->{'guest'} eq '' ) );
-    print
-"<input type=\"checkbox\" name=\"monospace\" value=\"on\"$checked$net>等幅\n";
+    print "<input type=\"checkbox\" name=\"monospace\" value=\"on\"$checked$net>等幅\n";
     my $checked = '';
     $checked = " $sow->{'html'}->{'checked'}"
       if ( ( $query->{'loud'} ne '' ) && ( $query->{'guest'} eq '' ) );
-    print
-      "<input type=\"checkbox\" name=\"loud\" value=\"on\"$checked$net>大声\n";
+    print "<input type=\"checkbox\" name=\"loud\" value=\"on\"$checked$net>大声\n";
 
     print <<"_HTML_";
 </form>
@@ -420,19 +413,17 @@ _HTML_
         $checked = " $sow->{'html'}->{'checked'}"
           if ( ( $query->{'think'} ne '' ) && ( $query->{'guest'} ne '' ) );
         print
-"<input type=\"checkbox\" name=\"think\" value=\"on\"$checked$net>$sow->{'textrs'}->{'CAPTION_TSAY_MB'}\n";
+          "<input type=\"checkbox\" name=\"think\" value=\"on\"$checked$net>$sow->{'textrs'}->{'CAPTION_TSAY_MB'}\n";
     }
 
     my $checked = '';
     $checked = " $sow->{'html'}->{'checked'}"
       if ( ( $query->{'monospace'} ne '' ) && ( $query->{'guest'} ne '' ) );
-    print
-"<input type=\"checkbox\" name=\"monospace\" value=\"on\"$checked$net>等幅\n";
+    print "<input type=\"checkbox\" name=\"monospace\" value=\"on\"$checked$net>等幅\n";
     my $checked = '';
     $checked = " $sow->{'html'}->{'checked'}"
       if ( ( $query->{'loud'} ne '' ) && ( $query->{'guest'} ne '' ) );
-    print
-      "<input type=\"checkbox\" name=\"loud\" value=\"on\"$checked$net>大声\n";
+    print "<input type=\"checkbox\" name=\"loud\" value=\"on\"$checked$net>大声\n";
 
     # 傍観者発言にもパスワードが必要にする
     if ( $vil->{'entrylimit'} eq 'password' ) {
@@ -467,7 +458,7 @@ sub OutHTMLRoleMb {
     $selrole = $curpl->{'selrole'};
 
     my $reqvals = &SWBase::GetRequestValues($sow);
-    my $link    = &SWBase::GetLinkValues( $sow, $reqvals );
+    my $link = &SWBase::GetLinkValues( $sow, $reqvals );
     $link = "$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}?$link";
 
     print <<"_HTML_";
@@ -490,8 +481,7 @@ _HTML_
             # 聖痕者処理
             my $stigma_subid = $sow->{'textrs'}->{'STIGMA_SUBID'};
             if ( $curpl->{'rolesubid'} >= 0 ) {
-                $mes =~
-s/_ROLESUBID_/$stigma_subid->[$sow->{'curpl'}->{'rolesubid'}]/g;
+                $mes =~ s/_ROLESUBID_/$stigma_subid->[$sow->{'curpl'}->{'rolesubid'}]/g;
             }
             else {
                 $mes =~ s/_ROLESUBID_//g;
@@ -523,15 +513,13 @@ _HTML_
 
             # 囁き/共鳴/念話
             my $reqvals = &SWBase::GetRequestValues($sow);
-            my $hidden  = &SWBase::GetHiddenValues( $sow, $reqvals, '' );
+            my $hidden = &SWBase::GetHiddenValues( $sow, $reqvals, '' );
 
             my $unit =
               $sow->{'basictrs'}->{'SAYTEXT'}
-              ->{ $sow->{'cfg'}->{'COUNTS_SAY'}->{ $vil->{'saycnttype'} }
-                  ->{'COUNT_TYPE'} }->{'UNIT_SAY'};
-            my $saycnt = $cfg->{'COUNTS_SAY'}->{ $vil->{'saycnttype'} };
-            my $saycnttext =
-              " あと$curpl->{$sow->{'SAYCOUNTID'}->[$curpl->{'role'}]}$unit";
+              ->{ $sow->{'cfg'}->{'COUNTS_SAY'}->{ $vil->{'saycnttype'} }->{'COUNT_TYPE'} }->{'UNIT_SAY'};
+            my $saycnt     = $cfg->{'COUNTS_SAY'}->{ $vil->{'saycnttype'} };
+            my $saycnttext = " あと$curpl->{$sow->{'SAYCOUNTID'}->[$curpl->{'role'}]}$unit";
 
             my $buttonlabel = $sow->{'textrs'}->{'BUTTONLABEL_MB'};
             my $caption_rolesay =
@@ -558,8 +546,7 @@ _HTML_
             my $checked = '';
             $checked = " $sow->{'html'}->{'checked'}"
               if ( $query->{'monospace'} ne '' );
-            print
-"<input type=\"checkbox\" name=\"monospace\" value=\"on\"$checked$net>等幅\n";
+            print "<input type=\"checkbox\" name=\"monospace\" value=\"on\"$checked$net>等幅\n";
 
             print "</form>\n\n";
         }
@@ -570,8 +557,7 @@ _HTML_
             # 聖痕者処理
             my $stigma_subid = $sow->{'textrs'}->{'STIGMA_SUBID'};
             if ( $curpl->{'rolesubid'} >= 0 ) {
-                $mes =~
-s/_ROLESUBID_/$stigma_subid->[$sow->{'curpl'}->{'rolesubid'}]/g;
+                $mes =~ s/_ROLESUBID_/$stigma_subid->[$sow->{'curpl'}->{'rolesubid'}]/g;
             }
             else {
                 $mes =~ s/_ROLESUBID_//g;
@@ -620,8 +606,7 @@ _HTML_
     foreach (@$pllist) {
         next if ( $_->{'uid'} eq $sow->{'uid'} );    # 自分自身は除外
         next
-          if ( ( $_->{'live'} ne 'live' ) && ( $vil->isepilogue() == 0 ) )
-          ;                                          # 死者は除外
+          if ( ( $_->{'live'} ne 'live' ) && ( $vil->isepilogue() == 0 ) );    # 死者は除外
 
         my $chrname = $_->getchrname();
         print "<option value=\"$_->{'pno'}\">$chrname$option\n";
@@ -651,17 +636,15 @@ _HTML_
     {
         my $restaddpt     = $sow->{'textrs'}->{'ACTIONS_RESTADDPT'};
         my $actions_addpt = $sow->{'textrs'}->{'ACTIONS_ADDPT'};
-        $restaddpt     =~ s/_POINT_/$curpl->{'actaddpt'}/g;
+        $restaddpt =~ s/_POINT_/$curpl->{'actaddpt'}/g;
         $actions_addpt =~ s/_REST_/$restaddpt/g;
         print "<option value=\"-1\">$actions_addpt$option\n";
     }
 
     my $unitaction =
-      $sow->{'basictrs'}->{'SAYTEXT'}
-      ->{ $sow->{'cfg'}->{'COUNTS_SAY'}->{ $vil->{'saycnttype'} }
-          ->{'COUNT_TYPE'} }->{'UNIT_ACTION'};
-    my $freeactform =
-      '<input type="text" name="actiontext" value=""$net><br$net>';
+      $sow->{'basictrs'}->{'SAYTEXT'}->{ $sow->{'cfg'}->{'COUNTS_SAY'}->{ $vil->{'saycnttype'} }->{'COUNT_TYPE'} }
+      ->{'UNIT_ACTION'};
+    my $freeactform = '<input type="text" name="actiontext" value=""$net><br$net>';
     $freeactform = '' if ( $vil->{'nofreeact'} > 0 );
     print <<"_HTML_";
 </select><br$net>
@@ -685,7 +668,7 @@ sub OutHTMLCommitFormMb {
     my $net = $sow->{'html'}->{'net'};
 
     my $reqvals = &SWBase::GetRequestValues($sow);
-    my $hidden  = &SWBase::GetHiddenValues( $sow, $reqvals, '' );
+    my $hidden = &SWBase::GetHiddenValues( $sow, $reqvals, '' );
 
     my $nosay = '';
     if ( $sow->{'curpl'}->{'saidcount'} > 0 ) {
@@ -736,8 +719,7 @@ sub OutHTMLExpressionFormMb {
     my ( $sow, $vil ) = @_;
     my $net = $sow->{'html'}->{'net'};
 
-    my $expression = $sow->{'charsets'}->{'csid'}->{ $sow->{'curpl'}->{'csid'} }
-      ->{'EXPRESSION'};
+    my $expression = $sow->{'charsets'}->{'csid'}->{ $sow->{'curpl'}->{'csid'} }->{'EXPRESSION'};
     if ( @$expression > 0 ) {
         print <<"_HTML_";
 表\情：<select name="expression">
@@ -747,8 +729,7 @@ _HTML_
         for ( $i = 0 ; $i < @$expression ; $i++ ) {
             my $selected = '';
             $selected = " $sow->{'html'}->{'selected'}" if ( $i == 0 );
-            print
-"<option value=\"$i\"$selected>$expression->[$i]$sow->{'html'}->{'option'}\n";
+            print "<option value=\"$i\"$selected>$expression->[$i]$sow->{'html'}->{'option'}\n";
         }
         print "</select><br$net>\n\n";
     }
@@ -763,7 +744,7 @@ sub OutHTMLExitVilButtonMb {
     my $net = $sow->{'html'}->{'net'};
 
     my $reqvals = &SWBase::GetRequestValues($sow);
-    my $hidden  = &SWBase::GetHiddenValues( $sow, $reqvals, '' );
+    my $hidden = &SWBase::GetHiddenValues( $sow, $reqvals, '' );
     if (   ( defined( $sow->{'curpl'} ) )
         && ( $sow->{'curpl'}->{'uid'} eq $cfg->{'USERID_NPC'} ) )
     {

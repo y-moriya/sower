@@ -22,7 +22,7 @@ sub CmdExit {
     }
     else {
         my $reqvals = &SWBase::GetRequestValues($sow);
-        my $link    = &SWBase::GetLinkValues( $sow, $reqvals );
+        my $link = &SWBase::GetLinkValues( $sow, $reqvals );
         $link = "$cfg->{'URL_SW'}/$cfg->{'FILE_SOW'}?$link#newsay";
 
         $sow->{'http'}->{'location'} = "$link";
@@ -49,15 +49,21 @@ sub CmdKick {
     &SWBase::LoadVilRS( $sow, $vil );
     my ( $q_csid, $q_cid ) = split( '/', $query->{'csid_cid'} );
 
-    $sow->{'debug'}->raise( $sow->{'APLOG_NOTICE'},
-        'キャラクターが見つかりません。', "user not found.[$sow->{'uid'}]" )
-      if ( !defined($delpl) );
-    $sow->{'debug'}->raise( $sow->{'APLOG_CAUTION'},
-        'ダミーキャラは村を出る事ができません。', "npc cannot exit.[$sow->{'uid'}]" )
-      if ( $delpl->{'uid'} eq $sow->{'cfg'}->{'USERID_NPC'} );
-    $sow->{'debug'}->raise( $sow->{'APLOG_CAUTION'},
-        '村が開始してから村を出る事はできません。', "already started.[$sow->{'uid'}]" )
-      if ( $vil->{'turn'} != 0 );
+    $sow->{'debug'}->raise(
+        $sow->{'APLOG_NOTICE'},
+        'キャラクターが見つかりません。',
+        "user not found.[$sow->{'uid'}]"
+    ) if ( !defined($delpl) );
+    $sow->{'debug'}->raise(
+        $sow->{'APLOG_CAUTION'},
+        'ダミーキャラは村を出る事ができません。',
+        "npc cannot exit.[$sow->{'uid'}]"
+    ) if ( $delpl->{'uid'} eq $sow->{'cfg'}->{'USERID_NPC'} );
+    $sow->{'debug'}->raise(
+        $sow->{'APLOG_CAUTION'},
+        '村が開始してから村を出る事はできません。',
+        "already started.[$sow->{'uid'}]"
+    ) if ( $vil->{'turn'} != 0 );
 
     # 村抜け処理
     require "$sow->{'cfg'}->{'DIR_LIB'}/log.pl";
@@ -86,7 +92,7 @@ sub CmdKick {
     }
     else {
         my $reqvals = &SWBase::GetRequestValues($sow);
-        my $link    = &SWBase::GetLinkValues( $sow, $reqvals );
+        my $link = &SWBase::GetLinkValues( $sow, $reqvals );
         $link = "$cfg->{'URL_SW'}/$cfg->{'FILE_SOW'}?$link#newsay";
 
         $sow->{'http'}->{'location'} = "$link";
@@ -115,15 +121,21 @@ sub SetDataCmdExit {
     my ( $q_csid, $q_cid ) = split( '/', $query->{'csid_cid'} );
 
     my $curpl = $sow->{'curpl'};
-    $sow->{'debug'}->raise( $sow->{'APLOG_NOTICE'},
-        'あなたはこの村へ参加していません。', "user not found.[$sow->{'uid'}]" )
-      if ( !defined($curpl) );
-    $sow->{'debug'}->raise( $sow->{'APLOG_CAUTION'},
-        'ダミーキャラは村を出る事ができません。', "npc cannot exit.[$sow->{'uid'}]" )
-      if ( $sow->{'uid'} eq $sow->{'cfg'}->{'USERID_NPC'} );
-    $sow->{'debug'}->raise( $sow->{'APLOG_CAUTION'},
-        '村が開始してから村を出る事はできません。', "already started.[$sow->{'uid'}]" )
-      if ( $vil->{'turn'} != 0 );
+    $sow->{'debug'}->raise(
+        $sow->{'APLOG_NOTICE'},
+        'あなたはこの村へ参加していません。',
+        "user not found.[$sow->{'uid'}]"
+    ) if ( !defined($curpl) );
+    $sow->{'debug'}->raise(
+        $sow->{'APLOG_CAUTION'},
+        'ダミーキャラは村を出る事ができません。',
+        "npc cannot exit.[$sow->{'uid'}]"
+    ) if ( $sow->{'uid'} eq $sow->{'cfg'}->{'USERID_NPC'} );
+    $sow->{'debug'}->raise(
+        $sow->{'APLOG_CAUTION'},
+        '村が開始してから村を出る事はできません。',
+        "already started.[$sow->{'uid'}]"
+    ) if ( $vil->{'turn'} != 0 );
 
     # 村抜け処理
     require "$sow->{'cfg'}->{'DIR_LIB'}/log.pl";

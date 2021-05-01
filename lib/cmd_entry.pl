@@ -31,7 +31,7 @@ sub CmdEntry {
     }
     else {
         my $reqvals = &SWBase::GetRequestValues($sow);
-        my $link    = &SWBase::GetLinkValues( $sow, $reqvals );
+        my $link = &SWBase::GetLinkValues( $sow, $reqvals );
         $link = "$cfg->{'URL_SW'}/$cfg->{'FILE_SOW'}?$link#newsay";
 
         $sow->{'http'}->{'location'} = "$link";
@@ -58,8 +58,11 @@ sub SetDataCmdEntry {
 
     # プレイヤー参加済みチェック
     if ( defined( $sow->{'curpl'} ) ) {
-        $debug->raise( $sow->{'APLOG_NOTICE'},
-            'あなたは既にこの村へ参加しています。', "user found.[$sow->{'uid'}]" );
+        $debug->raise(
+            $sow->{'APLOG_NOTICE'},
+            'あなたは既にこの村へ参加しています。',
+            "user found.[$sow->{'uid'}]"
+        );
     }
 
     my $user = SWUser->new($sow);
@@ -68,14 +71,18 @@ sub SetDataCmdEntry {
     if ( $cfg->{'ENABLED_MULTIENTRY'} == 0 ) {
         my $entriedvils = $user->getentriedvils();
         foreach (@$entriedvils) {
-            $debug->rraise( $sow->{'APLOG_NOTICE'},
+            $debug->rraise(
+                $sow->{'APLOG_NOTICE'},
                 'あなたは既に他の村へ参加しています。',
-                "entriedvil found.[$sow->{'uid'}, $_->{'vid'}]" )
-              if ( ( $_->{'vid'} > 0 ) && ( $_->{'playing'} > 0 ) );
+                "entriedvil found.[$sow->{'uid'}, $_->{'vid'}]"
+            ) if ( ( $_->{'vid'} > 0 ) && ( $_->{'playing'} > 0 ) );
         }
     }
-    $debug->rraise( $sow->{'APLOG_NOTICE'},
-        'あなたはペナルティ中のため現在参加できません。', "cannot entry.[$sow->{'uid'}]" )
+    $debug->rraise(
+        $sow->{'APLOG_NOTICE'},
+        'あなたはペナルティ中のため現在参加できません。',
+        "cannot entry.[$sow->{'uid'}]"
+      )
       if ( ( $user->{'ptype'} > $sow->{'PTYPE_PROBATION'} )
         && ( $user->{'penaltydt'} >= $sow->{'time'} ) );
     $user->closeuser();
@@ -92,15 +99,11 @@ sub SetDataCmdEntry {
     foreach (@$pllist) {
         next if ( $_->{'csid'} ne $q_csid );
         my $chrname = $sow->{'charsets'}->getchrname( $q_csid, $q_cid );
-        $debug->raise(
-            $sow->{'APLOG_NOTICE'},
-            "$chrname は既に参加しています。",
-            'cid found.'
-        ) if ( $_->{'cid'} eq $q_cid );
+        $debug->raise( $sow->{'APLOG_NOTICE'}, "$chrname は既に参加しています。", 'cid found.' )
+          if ( $_->{'cid'} eq $q_cid );
     }
 
-    $debug->raise( $sow->{'APLOG_NOTICE'},
-        '参加パスワードが違います。', "invalid entrypwd." )
+    $debug->raise( $sow->{'APLOG_NOTICE'}, '参加パスワードが違います。', "invalid entrypwd." )
       if ( ( $vil->{'entrylimit'} eq 'password' )
         && ( $query->{'entrypwd'} ne $vil->{'entrypwd'} ) );
 
@@ -128,7 +131,7 @@ sub SetDataCmdEntry {
     $monospace = 1 if ( $query->{'monospace'} ne '' );
     my $loud = 0;
     $loud = 1 if ( $query->{'loud'} ne '' );
-    my $mes   = &SWString::GetTrimString( $sow, $vil, $query->{'mes'} );
+    my $mes = &SWString::GetTrimString( $sow, $vil, $query->{'mes'} );
     my %entry = (
         pl         => $plsingle,
         mes        => &SWLog::CvtRandomText( $sow, $vil, $mes ),
@@ -142,16 +145,15 @@ sub SetDataCmdEntry {
     $vil->writevil();
 
     # ユーザーデータの更新
-    $user->writeentriedvil( $sow->{'uid'}, $vil->{'vid'},
-        $plsingle->getchrname(), 1 );
+    $user->writeentriedvil( $sow->{'uid'}, $vil->{'vid'}, $plsingle->getchrname(), 1 );
 
     # ログ出力
     $debug->writeaplog( $sow->{'APLOG_POSTED'}, "Entry. [$sow->{'uid'}]" );
 
     # 村開始チェック（人狼審問型）
     $pllist = $vil->getpllist;
-    if ( ( $vil->{'starttype'} eq 'juna' ) && ( @$pllist >= $vil->{'vplcnt'} ) )
-    {
+    if ( ( $vil->{'starttype'} eq 'juna' ) && ( @$pllist >= $vil->{'vplcnt'} ) ) {
+
         # 村開始
         require "$sow->{'cfg'}->{'DIR_LIB'}/commit.pl";
         &SWCommit::StartSession( $sow, $vil, 1 );

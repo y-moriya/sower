@@ -16,20 +16,20 @@ sub OutHTMLPreviewPC {
     $srcmes =~ s/(<br( \/)?>)*$//ig;
 
     my $trimedlog = &SWString::GetTrimString( $sow, $vil, $srcmes );
-    my $len       = length($trimedlog);
+    my $len = length($trimedlog);
     $log->{'log'} = substr( $srcmes, 0, $len );
     my $deletedmes = substr( $srcmes, $len );
     $log->{'log'} .= "<span class=\"infotext\">$deletedmes</span>"
       if ( $deletedmes ne '' );
 
-    $sow->{'html'} = SWHtml->new($sow);           # HTMLモードの初期化
+    $sow->{'html'} = SWHtml->new($sow);    # HTMLモードの初期化
     my $net     = $sow->{'html'}->{'net'};        # Null End Tag
     my $outhttp = $sow->{'http'}->outheader();    # HTTPヘッダの出力
     return if ( $outhttp == 0 );                  # ヘッダ出力のみ
-    $sow->{'html'}->outheader('発言のプレビュー');        # HTMLヘッダの出力
+    $sow->{'html'}->outheader('発言のプレビュー');    # HTMLヘッダの出力
     $sow->{'html'}->outcontentheader();
 
-    &SWHtmlPC::OutHTMLLogin($sow);                # ログイン欄の出力
+    &SWHtmlPC::OutHTMLLogin($sow);                            # ログイン欄の出力
 
     my $titleupdate = &SWHtmlPC::GetTitleNextUpdate( $sow, $vil );
     print <<"_HTML_";
@@ -63,23 +63,20 @@ _HTML_
         rowover => 1,
     );
     $log->{'log'} = &SWLog::ReplacePreviewAnchor( $sow, $vil, $log );
-    &SWHtmlVlogSinglePC::OutHTMLSingleLogPC( $sow, $vil, $log, -1, 0, \%anchor,
-        1 );
+    &SWHtmlVlogSinglePC::OutHTMLSingleLogPC( $sow, $vil, $log, -1, 0, \%anchor, 1 );
 
     # 属性値生成
     $query->{'mes'} =~ s/<br( \/)?>/&#13\;/ig;
     my @reqkeys = (
-        'csid_cid', 'role',      'mes',        'think',
-        'wolf',     'maker',     'admin',      'sympathy',
-        'werebat',  'monospace', 'expression', 'guest',
-        'loud'
+        'csid_cid', 'role',      'mes',        'think', 'wolf', 'maker', 'admin', 'sympathy',
+        'werebat',  'monospace', 'expression', 'guest', 'loud'
     );
     push( @reqkeys, 'entrypwd' ) if ( $vil->{'entrylimit'} eq 'password' );
     my $reqvals = &SWBase::GetRequestValues( $sow, \@reqkeys );
-    my $hidden  = &SWBase::GetHiddenValues( $sow, $reqvals, '  ' );
+    my $hidden = &SWBase::GetHiddenValues( $sow, $reqvals, '  ' );
 
     # 行数の取得
-    my @lineslog      = split( '<br>', $srcmes );
+    my @lineslog = split( '<br>', $srcmes );
     my $lineslogcount = @lineslog;
 
     # 文字数の取得
@@ -94,9 +91,8 @@ _HTML_
     }
     elsif ( $countsrc > $saycnt->{'MAX_MESCNT'} ) {
         my $unitcaution =
-          $sow->{'basictrs'}->{'SAYTEXT'}
-          ->{ $sow->{'cfg'}->{'COUNTS_SAY'}->{ $vil->{'saycnttype'} }
-              ->{'COUNT_TYPE'} }->{'UNIT_CAUTION'};
+          $sow->{'basictrs'}->{'SAYTEXT'}->{ $sow->{'cfg'}->{'COUNTS_SAY'}->{ $vil->{'saycnttype'} }->{'COUNT_TYPE'} }
+          ->{'UNIT_CAUTION'};
         print
 "<p class=\"cautiontext\">文字が多すぎます（$countsrc$unitcaution）。$countmes$unitcaution以内に収めないと正しく書き込まれません。</p>\n";
     }
@@ -105,16 +101,14 @@ _HTML_
     my $point = &SWBase::GetSayPoint( $sow, $vil, $trimedlog );
     my ( $mestype, $saytype ) = &SWWrite::GetMesType( $sow, $vil, $curpl );
     my $unitsay =
-      $sow->{'basictrs'}->{'SAYTEXT'}
-      ->{ $sow->{'cfg'}->{'COUNTS_SAY'}->{ $vil->{'saycnttype'} }
-          ->{'COUNT_TYPE'} }->{'UNIT_SAY'};
+      $sow->{'basictrs'}->{'SAYTEXT'}->{ $sow->{'cfg'}->{'COUNTS_SAY'}->{ $vil->{'saycnttype'} }->{'COUNT_TYPE'} }
+      ->{'UNIT_SAY'};
     my $pointtext = '';
     if (   ( $saycnt->{'COUNT_TYPE'} ne 'count' )
         && ( $sow->{'query'}->{'cmd'} ne 'entrypr' )
         && ( defined( $sow->{'curpl'}->{$saytype} ) ) )
     {
-        $pointtext =
-          "（$point$unitsay消費 / 現在$sow->{'curpl'}->{$saytype}$unitsay）";
+        $pointtext = "（$point$unitsay消費 / 現在$sow->{'curpl'}->{$saytype}$unitsay）";
     }
 
     # 発言ボタンの表示

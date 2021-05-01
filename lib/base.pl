@@ -55,15 +55,15 @@ sub GetCookieFilter {
     my $cookie = $sow->{'cookie'};
     my $i;
 
-    my $pnofilters  = &GetCookieValueStr( $sow, 'pnofilter' );
-    my @pnofilter   = split( /,/, $pnofilters . ',' );
+    my $pnofilters = &GetCookieValueStr( $sow, 'pnofilter' );
+    my @pnofilter = split( /,/, $pnofilters . ',' );
     my $livetypeses = &GetCookieValueStr( $sow, 'livetypes' );
-    my @livetypes   = split( /,/, $livetypeses . ',' );
+    my @livetypes = split( /,/, $livetypeses . ',' );
     for ( $i = 0 ; $i < 4 ; $i++ ) {
         $livetypes[$i] = 0 if ( !defined( $livetypes[$i] ) );
     }
     my $typefilters = &GetCookieValueStr( $sow, 'typefilter' );
-    my @typefilter  = split( /,/, $typefilters . ',' );
+    my @typefilter = split( /,/, $typefilters . ',' );
     for ( $i = 0 ; $i < 4 ; $i++ ) {
         $typefilter[$i] = 0 if ( !defined( $typefilter[$i] ) );
     }
@@ -126,12 +126,11 @@ sub CheckUA {
     }
 
     # uaˆø””FŽ¯
-    my @ualist =
-      ( 'ihtml', 'hdml', 'au', 'voda', 'vodax', 'xhtml', 'html401', 'rss' );
+    my @ualist = ( 'ihtml', 'hdml', 'au', 'voda', 'vodax', 'xhtml', 'html401', 'rss' );
     foreach (@ualist) {
         $ua = $_ if ( $sow->{'query'}->{'ua'} eq $_ );
     }
-    $ua = 'ihtml'                       if ( $sow->{'query'}->{'ua'} eq 'mb' );
+    $ua = 'ihtml' if ( $sow->{'query'}->{'ua'} eq 'mb' );
     $ua = $sow->{'cfg'}->{'DEFAULT_UA'} if ( $ua eq '' );
 
     my $outmode = 'pc';
@@ -245,8 +244,7 @@ sub GetHiddenValues {
     foreach (@keys) {
         next if ( !defined( $reqvals->{$_} ) );
         next if ( $reqvals->{$_} eq '' );
-        $hidden .=
-"\n$tab<input type=\"hidden\" name=\"$_\" value=\"$reqvals->{$_}\"$net>";
+        $hidden .= "\n$tab<input type=\"hidden\" name=\"$_\" value=\"$reqvals->{$_}\"$net>";
     }
     return $hidden;
 }
@@ -277,8 +275,8 @@ sub GetLinkValues {
 
     my @keys = keys(%$reqvals);
     foreach (@keys) {
-        next                if ( !defined( $reqvals->{$_} ) );
-        next                if ( $reqvals->{$_} eq '' );
+        next if ( !defined( $reqvals->{$_} ) );
+        next if ( $reqvals->{$_} eq '' );
         $linkvalues .= $amp if ( $linkvalues ne '' );
         my $key = $_;
         $key = $shortquery{$_}
@@ -307,14 +305,10 @@ sub GetRequestValues {
         @basereqkeys = ( 'cmd', 'vid', 'row' );
     }
     elsif ( defined( $query->{'vid'} ) ) {
-        @basereqkeys = (
-            'ua',  'uid',  'pwd',  'order', 'row', 'css',
-            'vid', 'turn', 'mode', 'pno',   'mbsayimg'
-        );
+        @basereqkeys = ( 'ua', 'uid', 'pwd', 'order', 'row', 'css', 'vid', 'turn', 'mode', 'pno', 'mbsayimg' );
     }
     else {
-        @basereqkeys =
-          ( 'ua', 'uid', 'pwd', 'order', 'row', 'css', 'mbsayimg' );
+        @basereqkeys = ( 'ua', 'uid', 'pwd', 'order', 'row', 'css', 'mbsayimg' );
     }
     push( @$reqkeys, @basereqkeys );
 
@@ -440,9 +434,8 @@ sub GetSayCountText {
     my ( $sow, $vil ) = @_;
     my $saycnt = $sow->{'cfg'}->{'COUNTS_SAY'}->{ $vil->{'saycnttype'} };
     my $unit =
-      $sow->{'basictrs'}->{'SAYTEXT'}
-      ->{ $sow->{'cfg'}->{'COUNTS_SAY'}->{ $vil->{'saycnttype'} }
-          ->{'COUNT_TYPE'} }->{'UNIT_SAY'};
+      $sow->{'basictrs'}->{'SAYTEXT'}->{ $sow->{'cfg'}->{'COUNTS_SAY'}->{ $vil->{'saycnttype'} }->{'COUNT_TYPE'} }
+      ->{'UNIT_SAY'};
     my $curpl = $sow->{'curpl'};
 
     if ( $vil->checkentried() < 0 ) {
@@ -579,14 +572,14 @@ sub GetOperaVersion {
 sub CheckWriteSafetyRole {
     my ( $sow, $vil ) = @_;
 
-    my $curpl       = &SWBase::GetCurrentPl( $sow, $vil );
+    my $curpl = &SWBase::GetCurrentPl( $sow, $vil );
     my $enablecheck = 0;
-    $enablecheck = 1 if ( $curpl->iswolf() > 0 );              # l˜T/Žô˜T/’q˜T
+    $enablecheck = 1 if ( $curpl->iswolf() > 0 );    # l˜T/Žô˜T/’q˜T
     $enablecheck = 1
       if ( $curpl->{'role'} eq $sow->{'ROLEID_CPOSSESS'} );    # ‚b‘‹¶l
-    $enablecheck = 1 if ( $curpl->{'role'} eq $sow->{'ROLEID_SYMPATHY'} ); # ‹¤–ÂŽÒ
+    $enablecheck = 1 if ( $curpl->{'role'} eq $sow->{'ROLEID_SYMPATHY'} );    # ‹¤–ÂŽÒ
     $enablecheck = 1
-      if ( $curpl->{'role'} eq $sow->{'ROLEID_WEREBAT'} );    # ƒRƒEƒ‚ƒŠlŠÔ
+      if ( $curpl->{'role'} eq $sow->{'ROLEID_WEREBAT'} );                    # ƒRƒEƒ‚ƒŠlŠÔ
 
     return $enablecheck;
 }
@@ -638,8 +631,7 @@ sub ChangeSelRole {
     $changemes =~ s/_SELROLE_/$selrolename/g;
     $logfile->writeinfo( '', $sow->{'MESTYPE_INFOSP'}, $changemes );
 
-    $sow->{'debug'}->writeaplog( $sow->{'APLOG_POSTED'},
-        "Change selected role. [$curpl->{'uid'}]" );
+    $sow->{'debug'}->writeaplog( $sow->{'APLOG_POSTED'}, "Change selected role. [$curpl->{'uid'}]" );
 }
 
 #----------------------------------------
@@ -658,8 +650,7 @@ sub ExitVillage {
     $exitmes =~ s/_NAME_/$chrname/g;
     $logfile->writeinfo( '', $sow->{'MESTYPE_INFONOM'}, $exitmes );
 
-    $sow->{'debug'}
-      ->writeaplog( $sow->{'APLOG_POSTED'}, "Exit. [$exitpl->{'uid'}]" );
+    $sow->{'debug'}->writeaplog( $sow->{'APLOG_POSTED'}, "Exit. [$exitpl->{'uid'}]" );
 }
 
 1;

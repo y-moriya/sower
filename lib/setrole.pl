@@ -82,18 +82,17 @@ sub SetRole {
             if ( !defined( $_->{'role'} ) ) {
 
                 # $_が未定義（ありえないはず）
-                $sow->{'debug'}->writeaplog( $sow->{'APLOG_WARNING'},
-                    'invalid pl. [setrole.]' );
+                $sow->{'debug'}->writeaplog( $sow->{'APLOG_WARNING'}, 'invalid pl. [setrole.]' );
             }
             $_->{'role'}      = $i;
             $_->{'rolesubid'} = -1;
         }
     }
 
-# 割り当て一覧表示（テスト用）
-#	foreach (@$pllist) {
-#		print "[$_->{'uid'}] $rolename->[$_->{'selrole'}] → $rolename->[$_->{'role'}]\n";
-#	}
+    # 割り当て一覧表示（テスト用）
+    #	foreach (@$pllist) {
+    #		print "[$_->{'uid'}] $rolename->[$_->{'selrole'}] → $rolename->[$_->{'role'}]\n";
+    #	}
 
     # 共有者処理
     &SetFreeMasonHistory( $sow, $vil, $sow->{'ROLEID_FM'} );
@@ -474,7 +473,7 @@ sub SetFreeMasonHistory {
     my ( $sow, $vil, $roleid ) = @_;
     my $textrs = $sow->{'textrs'};
 
-    my $fm     = &GetPlRole( $sow, $vil, $roleid );
+    my $fm = &GetPlRole( $sow, $vil, $roleid );
     my $namefm = $textrs->{'ROLENAME'}->[$roleid];
     my $fmplsrc;
     foreach $fmplsrc (@$fm) {

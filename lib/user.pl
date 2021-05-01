@@ -29,11 +29,8 @@ sub GetFNameUser {
 # ユーザーデータラベル
 #----------------------------------------
 sub GetUserDataLabel {
-    my @datalabel = (
-        'uid',          'pwd',       'handlename',  'url',
-        'introduction', 'parmalink', 'entriedvils', 'penaltydt',
-        'ptype',        'plevel',
-    );
+    my @datalabel = ( 'uid', 'pwd', 'handlename', 'url', 'introduction', 'parmalink', 'entriedvils', 'penaltydt',
+        'ptype', 'plevel', );
     return @datalabel;
 }
 
@@ -104,8 +101,7 @@ sub writeuser {
     print $fh join( "<>", @datalabel ) . "<>\n";
     print $fh join( "<>", map { $self->{$_} } @datalabel ) . "<>\n";
 
-    $sow->{'debug'}
-      ->writeaplog( $sow->{'APLOG_POSTED'}, "Edit User. [$self->{'uid'}]" );
+    $sow->{'debug'}->writeaplog( $sow->{'APLOG_POSTED'}, "Edit User. [$self->{'uid'}]" );
 
     foreach (@strdata) {
         $self->{$_} = ''
@@ -130,8 +126,8 @@ sub LoginSW {
     my $sow = $self->{'sow'};
 
     my $src = $sow->{'cookie'};    # クッキーからユーザーIDを取得
-    $src = $sow->{'query'} if ( $sow->{'outmode'} eq 'mb' );   # 携帯モードの時は引数から取得
-    $src = $sow->{'query'} if ( $chklogin == 0 );              # ログイン処理の時は引数から取得
+    $src = $sow->{'query'} if ( $sow->{'outmode'} eq 'mb' );    # 携帯モードの時は引数から取得
+    $src = $sow->{'query'} if ( $chklogin == 0 );               # ログイン処理の時は引数から取得
     if ( !defined( $src->{'uid'} ) ) {
         $src->{'uid'} = '';
         $src->{'pwd'} = '';
@@ -197,8 +193,8 @@ sub LoginTypeKey {
 
     if ( $src->{'sig'} eq '' ) {
         if ( $chklogin == 0 ) {
-            $sow->{'debug'}->raise( $sow->{'APLOG_NOTICE'},
-                "認証データがありません。", "typekey sig not found." );
+            $sow->{'debug'}
+              ->raise( $sow->{'APLOG_NOTICE'}, "認証データがありません。", "typekey sig not found." );
         }
         else {
             $self->{'logined'} = -1;
@@ -209,9 +205,11 @@ sub LoginTypeKey {
     my $typekey = new Authen::TypeKey;
     $typekey->token( $sow->{'cfg'}->{'TOKEN_TYPEKEY'} );
     my $result = $typekey->verify($src);
-    $sow->{'debug'}->raise( $sow->{'APLOG_NOTICE'},
-        "ユーザIDかパスワードが間違っています。。", $typekey->errstr() )
-      if ( $result ne '' );
+    $sow->{'debug'}->raise(
+        $sow->{'APLOG_NOTICE'},
+        "ユーザIDかパスワードが間違っています。。",
+        $typekey->errstr()
+    ) if ( $result ne '' );
     $self->{'uid'}  = $src->{'name'};
     $self->{'nick'} = $src->{'nick'};
 
@@ -284,8 +282,11 @@ sub match {
     }
     else {
         $pwmatch = 0;
-        $sow->{'debug'}->raise( $sow->{'APLOG_NOTICE'},
-            "ユーザーIDかパスワードが間違っています。", "no match pass.[$self->{'uid'}]" );
+        $sow->{'debug'}->raise(
+            $sow->{'APLOG_NOTICE'},
+            "ユーザーIDかパスワードが間違っています。",
+            "no match pass.[$self->{'uid'}]"
+        );
     }
     $self->closeuser();
 
@@ -349,7 +350,7 @@ sub createuser {
 
     my $filename = $self->GetFNameUser();
 
-    my $fh   = \*USER;
+    my $fh = \*USER;
     my $file = SWFile->new( $self->{'sow'}, 'user', $fh, $filename, $self );
     $file->openfile( '>', 'ユーザーデータ', "[uid=$self->{'uid'}]", );
 
@@ -359,8 +360,7 @@ sub createuser {
     print $fh join( "<>", @datalabel ) . "<>\n";
     print $fh join( "<>", map { $self->{$_} } @datalabel ) . "<>\n";
 
-    $sow->{'debug'}
-      ->writeaplog( $sow->{'APLOG_POSTED'}, "Add User. [$self->{'uid'}]" );
+    $sow->{'debug'}->writeaplog( $sow->{'APLOG_POSTED'}, "Add User. [$self->{'uid'}]" );
 
     return;
 }
@@ -383,7 +383,7 @@ sub getentriedvils {
 
     my @entriedvils;
     my @label = ( 'vid', 'chrname', 'playing' );
-    my @data  = split( '/', "$self->{'entriedvils'}/" );
+    my @data = split( '/', "$self->{'entriedvils'}/" );
 
     foreach (@data) {
         my %entriedvil;
@@ -461,7 +461,7 @@ sub addsdpenalty {
     my $sow  = $self->{'sow'};
 
     $self->{'penaltydt'} = $sow->{'time'} if ( $self->{'penaltydt'} == 0 );
-    $self->{'plevel'}    = $sow->{'cfg'}->{'DAY_INITPENALTY'}
+    $self->{'plevel'} = $sow->{'cfg'}->{'DAY_INITPENALTY'}
       if ( $self->{'plevel'} == 0 );
     $self->{'penaltydt'} =
       $self->{'penaltydt'} + $self->{'plevel'} * 60 * 60 * 24;
@@ -484,7 +484,7 @@ sub updatepenalty {
         # 保護観察期間満了
         $self->{'ptype'}     = $sow->{'PTYPE_NONE'};
         $self->{'penaltydt'} = 0;
-        $self->{'plevel'}    = $sow->{'cfg'}->{'DAY_INITPENALTY'};   # 罰則レベルの初期化
+        $self->{'plevel'}    = $sow->{'cfg'}->{'DAY_INITPENALTY'};    # 罰則レベルの初期化
     }
     else {
         $self->{'ptype'} = $sow->{'PTYPE_PROBATION'};

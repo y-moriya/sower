@@ -24,11 +24,10 @@ sub new {
     my $fnamememoindex     = $self->getfnamememoindex();
     my @memoindexdatalabel = $self->getmemoindexdatalabel();
     $self->{'file'} = SWHashList->new(
-        $sow,                                                 $fnamememoindex,
-        \*MEMOINDEX,                                          'memoindex',
-        \@memoindexdatalabel,                                 'メモインデックスデータ',
-        "[vid=$self->{'vil'}->{'vid'}/turn=$self->{'turn'}]", $mode,
-        $self->{'version'},
+        $sow, $fnamememoindex, \*MEMOINDEX, 'memoindex', \@memoindexdatalabel,
+        'メモインデックスデータ',
+        "[vid=$self->{'vil'}->{'vid'}/turn=$self->{'turn'}]",
+        $mode, $self->{'version'},
     );
     $self->{'file'}->read() if ( $mode == 0 );
 
@@ -74,8 +73,7 @@ sub getfnamememoindex {
             $self->{'sow'}->{'cfg'}->{'DIR_VIL'},
             $self->{'vil'}->{'vid'},
             $self->{'vil'}->{'vid'},
-            $self->{'turn'},
-            $self->{'sow'}->{'cfg'}->{'FILE_MEMOINDEX'},
+            $self->{'turn'}, $self->{'sow'}->{'cfg'}->{'FILE_MEMOINDEX'},
         );
     }
     return $datafile;

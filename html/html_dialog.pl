@@ -55,16 +55,15 @@ sub OutHTMLDialog {
         );
     }
 
-    $sow->{'debug'}
-      ->raise( $sow->{'APLOG_CAUTION'}, "未定義の行動です。", "invalid cmd." )
+    $sow->{'debug'}->raise( $sow->{'APLOG_CAUTION'}, "未定義の行動です。", "invalid cmd." )
       if ( $dialog{'cmd'} eq 'none' );
 
     require "$sow->{'cfg'}->{'DIR_HTML'}/html.pl";
-    $sow->{'html'} = SWHtml->new($sow);    # HTMLモードの初期化
-    $sow->{'http'}->outheader();           # HTTPヘッダの出力
-    $sow->{'html'}->outheader('村の情報');     # HTMLヘッダの出力
+    $sow->{'html'} = SWHtml->new($sow);           # HTMLモードの初期化
+    $sow->{'http'}->outheader();                  # HTTPヘッダの出力
+    $sow->{'html'}->outheader('村の情報');    # HTMLヘッダの出力
     $sow->{'html'}->outcontentheader();
-    my $net = $sow->{'html'}->{'net'};     # Null End Tag
+    my $net = $sow->{'html'}->{'net'};            # Null End Tag
 
     # ログインボタン表示
     &SWHtmlPC::OutHTMLLogin($sow) if ( $sow->{'outmode'} ne 'mb' );
@@ -79,10 +78,9 @@ sub OutHTMLDialog {
         &SWHtmlPC::OutHTMLTurnNavi( $sow, $vil );
     }
 
-    my @reqkeys =
-      ( 'csid_cid', 'role', 'mes', 'think', 'wolf', 'maker', 'admin' );
+    my @reqkeys = ( 'csid_cid', 'role', 'mes', 'think', 'wolf', 'maker', 'admin' );
     my $reqvals = &SWBase::GetRequestValues( $sow, \@reqkeys );
-    my $hidden  = &SWBase::GetHiddenValues( $sow, $reqvals, '' );
+    my $hidden = &SWBase::GetHiddenValues( $sow, $reqvals, '' );
 
     if ( $sow->{'outmode'} eq 'mb' ) {
         print <<"_HTML_";

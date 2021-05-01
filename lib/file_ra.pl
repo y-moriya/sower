@@ -8,10 +8,7 @@ package SWBoaRandomAccess;
 # コンストラクタ
 #----------------------------------------
 sub new {
-    my (
-        $class,     $sow,     $filename, $filehandle, $fileid,
-        $datalabel, $mesname, $mesop,    $mode,       $version
-    ) = @_;
+    my ( $class, $sow, $filename, $filehandle, $fileid, $datalabel, $mesname, $mesop, $mode, $version ) = @_;
     my $self = {
         sow       => $sow,
         datalabel => $datalabel,
@@ -23,8 +20,7 @@ sub new {
     my $modeid = '+<';
     $modeid = '>' if ( $mode > 0 );
 
-    my $file =
-      SWFile->new( $self->{'sow'}, $fileid, $filehandle, $filename, $self, );
+    my $file = SWFile->new( $self->{'sow'}, $fileid, $filehandle, $filename, $self, );
     $file->openfile( $modeid, $mesname, $mesop, );
     $self->{'file'} = $file;
 
@@ -123,8 +119,7 @@ sub update {
     seek( $fh, $data->{'pos'}, 0 );
 
     # 書き込み
-    print $fh join( "<>", map { $data->{$_} } @{ $self->{'datalabel'} } )
-      . "<>\n";
+    print $fh join( "<>", map { $data->{$_} } @{ $self->{'datalabel'} } ) . "<>\n";
 
     # 次の書き込み位置を保存
     $self->{'prevpos'} = $data->{'pos'};

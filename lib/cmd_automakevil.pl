@@ -32,9 +32,8 @@ sub CmdATMakeVil {
         $hours = $cfg->{'AUTO_MAKEVILS'}->{$_}->{'hours'};
         if ($atvindexsingle) {
             $vindexsingle = $vindex->getvindex( $atvindexsingle->{'vid'} );
-            if (
-                $vindexsingle->{'vstatus'} < $sow->{ $cfg->{'AUTOMV_TIMING'} } )
-            {
+            if ( $vindexsingle->{'vstatus'} < $sow->{ $cfg->{'AUTOMV_TIMING'} } ) {
+
                 # 何もしない
             }
             else {
@@ -47,12 +46,10 @@ sub CmdATMakeVil {
 
                     # 村作成時値チェック
                     require "$cfg->{'DIR_LIB'}/vld_automakevil.pl";
-                    &SWValidityAutoMakeVil::CheckValidityAutoMakeVil( $sow,
-                        $cfg->{'AUTO_MAKEVILS'}->{$_} );
+                    &SWValidityAutoMakeVil::CheckValidityAutoMakeVil( $sow, $cfg->{'AUTO_MAKEVILS'}->{$_} );
 
                     # 村作成処理
-                    my $vil = &SetDataCmdATMakeVil( $sow,
-                        $cfg->{'AUTO_MAKEVILS'}->{$_} );
+                    my $vil = &SetDataCmdATMakeVil( $sow, $cfg->{'AUTO_MAKEVILS'}->{$_} );
                 }
             }
         }
@@ -64,8 +61,7 @@ sub CmdATMakeVil {
 
                 # 村作成時値チェック
                 require "$cfg->{'DIR_LIB'}/vld_automakevil.pl";
-                &SWValidityAutoMakeVil::CheckValidityAutoMakeVil( $sow,
-                    $cfg->{'AUTO_MAKEVILS'}->{$_} );
+                &SWValidityAutoMakeVil::CheckValidityAutoMakeVil( $sow, $cfg->{'AUTO_MAKEVILS'}->{$_} );
 
                 # 村作成処理
                 my $vil =
@@ -121,8 +117,7 @@ sub SetDataCmdATMakeVil {
         $score->close();
     }
 
-    $sow->{'debug'}
-      ->writeaplog( $sow->{'APLOG_POSTED'}, "Make Vil. [uid=$sow->{'uid'}]" );
+    $sow->{'debug'}->writeaplog( $sow->{'APLOG_POSTED'}, "Make Vil. [uid=$sow->{'uid'}]" );
 
     return;
 }

@@ -31,8 +31,7 @@ sub openmw {
     my $filename = "$self->{'sow'}->{'cfg'}->{'FILE_SOWGROBAL'}";
 
     # ファイルを開く
-    my $file =
-      SWFile->new( $self->{'sow'}, 'sowgrobal', $fh, $filename, $self );
+    my $file = SWFile->new( $self->{'sow'}, 'sowgrobal', $fh, $filename, $self );
     if ( !( -e $filename ) ) {
         $file->openfile( '>', '村一覧', '' );    # 新規作成
     }
