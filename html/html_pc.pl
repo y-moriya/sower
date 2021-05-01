@@ -601,6 +601,14 @@ _HTML_
                   . "mode=$modes->[$i]\">$modename->[$i]</a>\n";
             }
         }
+        if ( $query->{'pno'} >= 0 ) {
+            if ( $query->{'ghost'} == 1 ) {
+                print "úﬂ\n";
+            }
+            else {
+                print "<a href=\"$sow->{'cfg'}->{'FILE_SOW'}?$linkvalues$postturn$amp" . "ghost=1\">úﬂ</a>\n";
+            }
+        }
         print "</p>\n\n";
     }
     return;

@@ -871,17 +871,61 @@ sub CheckLogPermition {
     # プロローグで使えると何か支障あるのかな？
     if ( defined( $query->{'pno'} ) ) {
 
-        #if (($sow->{'turn'} > 0) && (defined($query->{'pno'}))) {
         my $targetpl = $self->{'vil'}->getplbypno( $query->{'pno'} );
         if ( ( $query->{'pno'} >= 0 ) && ( defined( $targetpl->{'uid'} ) ) ) {
-            $logpermit = 0 if ( $log->{'uid'} ne $targetpl->{'uid'} );
-            $logpermit = 0 if ( $log->{'date'} < $targetpl->{'entrieddt'} );
-            $logpermit = 0
-              if ( $log->{'mestype'} == $sow->{'MESTYPE_MAKER'} );    # 村建て人発言
-            $logpermit = 0
-              if ( $log->{'mestype'} == $sow->{'MESTYPE_ADMIN'} );    # 管理人発言
-            $logpermit = 0
-              if ( $log->{'mestype'} == $sow->{'MESTYPE_GUEST'} );    # 傍観者発言
+            if ( $query->{'ghost'} == 1 ) {
+                $logpermit = 0;
+                $logpermit = 1
+                  if ( $log->{'mestype'} == $sow->{'MESTYPE_INFONOM'} );    # インフォ（通常）
+                $logpermit = 1
+                  if ( ( $log->{'mestype'} == $sow->{'MESTYPE_SAY'} )
+                    && ( $log->{'logsubid'} ne $sow->{'LOGSUBID_BOOKMARK'} ) );    # 通常発言
+                $logpermit = 1 if ( $log->{'mestype'} == $sow->{'MESTYPE_MAKER'} );    # 村建て人発言
+                $logpermit = 1 if ( $log->{'mestype'} == $sow->{'MESTYPE_ADMIN'} );    # 管理人発言
+                $logpermit = 1 if ( $log->{'mestype'} == $sow->{'MESTYPE_GUEST'} );    # 傍観者発言
+
+                $logpermit = 1
+                  if ( ( $log->{'uid'} eq $targetpl->{'uid'} )
+                    && ( $log->{'mestype'} != $sow->{'MESTYPE_WSAY'} )
+                    && ( $log->{'mestype'} != $sow->{'MESTYPE_SPSAY'} )
+                    && ( $log->{'mestype'} != $sow->{'MESTYPE_BSAY'} ) );              # 自分の発言
+
+                if (   ( $targetpl->{'live'} eq 'live' )
+                    || ( $sow->{'cfg'}->{'ENABLED_PERMIT_DEAD'} > 0 ) )
+                {
+                    # ささやき
+                    $logpermit = 1
+                      if ( ( ( $targetpl->iswolf() > 0 ) || ( $targetpl->{'role'} == $sow->{'ROLEID_CPOSSESS'} ) )
+                        && ( $log->{'mestype'} == $sow->{'MESTYPE_WSAY'} )
+                        && ( $query->{'mode'} ne 'human' ) );
+
+                    # 共鳴
+                    $logpermit = 1
+                      if ( ( $targetpl->{'role'} == $sow->{'ROLEID_SYMPATHY'} )
+                        && ( $log->{'mestype'} == $sow->{'MESTYPE_SPSAY'} )
+                        && ( $query->{'mode'} ne 'human' ) );
+
+                    # 念話
+                    $logpermit = 1
+                      if ( ( $targetpl->{'role'} == $sow->{'ROLEID_WEREBAT'} )
+                        && ( $log->{'mestype'} == $sow->{'MESTYPE_BSAY'} )
+                        && ( $query->{'mode'} ne 'human' ) );
+                }
+                if ( $targetpl->{'live'} ne 'live' ) {
+                    $logpermit = 1
+                      if ( $log->{'mestype'} == $sow->{'MESTYPE_GSAY'} );    # うめき
+                    $logpermit = 1
+                      if ( ( $self->{'vil'}->{'showall'} > 0 )
+                        && ( $log->{'mestype'} >= $sow->{'MESTYPE_WSAY'} ) );    # 墓下公開
+                }
+            }
+            else {
+                $logpermit = 0 if ( $log->{'uid'} ne $targetpl->{'uid'} );
+                $logpermit = 0 if ( $log->{'date'} < $targetpl->{'entrieddt'} );
+                $logpermit = 0 if ( $log->{'mestype'} == $sow->{'MESTYPE_MAKER'} );    # 村建て人発言
+                $logpermit = 0 if ( $log->{'mestype'} == $sow->{'MESTYPE_ADMIN'} );    # 管理人発言
+                $logpermit = 0 if ( $log->{'mestype'} == $sow->{'MESTYPE_GUEST'} );    # 傍観者発言
+            }
         }
         else {
             if ( $query->{'pno'} == '-2' ) {
