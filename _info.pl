@@ -4,12 +4,12 @@ package SWAdminInfo;
 # 管理人からのお知らせ
 #----------------------------------------
 sub OutHTMLAdminInfo {
-	my $sow = shift;
-	my $cfg   = $sow->{'cfg'};
-	my $net = $sow->{'html'}->{'net'}; # Null End Tag
-	my $atr_id = $sow->{'html'}->{'atr_id'};
+    my $sow    = shift;
+    my $cfg    = $sow->{'cfg'};
+    my $net    = $sow->{'html'}->{'net'};      # Null End Tag
+    my $atr_id = $sow->{'html'}->{'atr_id'};
 
-	print <<"_HTML_";
+    print <<"_HTML_";
 <h2>管理人からのお知らせ</h2>
 <p>
 2020/08/06
@@ -23,15 +23,15 @@ _HTML_
 # はじめに
 #----------------------------------------
 sub OutHTMLAbout {
-	my ($sow, $reqvals) = @_;
-	my $cfg   = $sow->{'cfg'};
-	my $net = $sow->{'html'}->{'net'}; # Null End Tag
-	my $atr_id = $sow->{'html'}->{'atr_id'};
-	my $urlsow = "$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}";
-	$reqvals->{'cmd'} = 'about';
-	my $linkvalue = &SWBase::GetLinkValues($sow, $reqvals);
+    my ( $sow, $reqvals ) = @_;
+    my $cfg    = $sow->{'cfg'};
+    my $net    = $sow->{'html'}->{'net'};                      # Null End Tag
+    my $atr_id = $sow->{'html'}->{'atr_id'};
+    my $urlsow = "$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}";
+    $reqvals->{'cmd'} = 'about';
+    my $linkvalue = &SWBase::GetLinkValues( $sow, $reqvals );
 
-	print <<"_HTML_";
+    print <<"_HTML_";
 <h2>はじめに</h2>
 <p class="paragraph">
 リア充向けの人狼サーバをつくりました。<br$net>
@@ -94,23 +94,23 @@ _HTML_
 # 遊び方と仕様FAQ
 #----------------------------------------
 sub OutHTMLHowto {
-	my ($sow, $reqvals) = @_;
-	my $cfg   = $sow->{'cfg'};
-	my $net = $sow->{'html'}->{'net'}; # Null End Tag
-	my $atr_id = $sow->{'html'}->{'atr_id'};
-	my $urlsow = "$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}";
-	$reqvals->{'cmd'} = 'howto';
-	my $linkvalue = &SWBase::GetLinkValues($sow, $reqvals);
-	$reqvals->{'cmd'} = 'operate';
-	my $linkoperate = &SWBase::GetLinkValues($sow, $reqvals);
-	$reqvals->{'cmd'} = 'spec';
-	my $linkspec = &SWBase::GetLinkValues($sow, $reqvals);
-	$reqvals->{'cmd'} = 'rolematrix';
-	my $linkrolematrix = &SWBase::GetLinkValues($sow, $reqvals);
-	$reqvals->{'cmd'} = 'rolelist';
-	my $linkrolelist = &SWBase::GetLinkValues($sow, $reqvals);
+    my ( $sow, $reqvals ) = @_;
+    my $cfg    = $sow->{'cfg'};
+    my $net    = $sow->{'html'}->{'net'};                      # Null End Tag
+    my $atr_id = $sow->{'html'}->{'atr_id'};
+    my $urlsow = "$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}";
+    $reqvals->{'cmd'} = 'howto';
+    my $linkvalue = &SWBase::GetLinkValues( $sow, $reqvals );
+    $reqvals->{'cmd'} = 'operate';
+    my $linkoperate = &SWBase::GetLinkValues( $sow, $reqvals );
+    $reqvals->{'cmd'} = 'spec';
+    my $linkspec = &SWBase::GetLinkValues( $sow, $reqvals );
+    $reqvals->{'cmd'} = 'rolematrix';
+    my $linkrolematrix = &SWBase::GetLinkValues( $sow, $reqvals );
+    $reqvals->{'cmd'} = 'rolelist';
+    my $linkrolelist = &SWBase::GetLinkValues( $sow, $reqvals );
 
-	print <<"_HTML_";
+    print <<"_HTML_";
 <h2>遊び方</h2>
 <p class="paragraph">
 初めての方は、まず<a href="$urlsow?$linkvalue">遊び方</a>、<a href="$urlsow?$linkoperate">操作方法</a>、<a href="#prohibit">禁止行為</a>をよく読んでから参加しましょう。<br$net>

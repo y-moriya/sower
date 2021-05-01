@@ -8,87 +8,68 @@ package SWSnakeMemo;
 # コンストラクタ
 #----------------------------------------
 sub new {
-	my ($class, $sow, $vil, $turn, $mode) = @_;
-	require "$sow->{'cfg'}->{'DIR_LIB'}/file_ra.pl";
+    my ( $class, $sow, $vil, $turn, $mode ) = @_;
+    require "$sow->{'cfg'}->{'DIR_LIB'}/file_ra.pl";
 
-	my $self = {
-		sow      => $sow,
-		vil      => $vil,
-		turn     => $turn,
-		version  => ' 1.0',
-		startpos => 0,
-	};
-	bless($self, $class);
+    my $self = {
+        sow      => $sow,
+        vil      => $vil,
+        turn     => $turn,
+        version  => ' 1.0',
+        startpos => 0,
+    };
+    bless( $self, $class );
 
-	# メモファイルの新規作成／開く
-	my $filename = $self->getfnamememo();
-	my @datalabel = $self->getmemodatalabel();
-	$self->{'file'} = SWBoaRandomAccess->new(
-		$sow,
-		$filename,
-		\*MEMO,
-		'memo',
-		\@datalabel,
-		'メモデータ',
-		"[vid=$self->{'vil'}->{'vid'}/turn=$self->{'turn'}]",
-		$mode,
-		$self->{'version'},
-	);
+    # メモファイルの新規作成／開く
+    my $filename  = $self->getfnamememo();
+    my @datalabel = $self->getmemodatalabel();
+    $self->{'file'} =
+      SWBoaRandomAccess->new( $sow, $filename, \*MEMO, 'memo', \@datalabel,
+        'メモデータ', "[vid=$self->{'vil'}->{'vid'}/turn=$self->{'turn'}]",
+        $mode,   $self->{'version'}, );
 
-	return $self;
+    return $self;
 }
 
 #----------------------------------------
 # メモデータファイル名の取得
 #----------------------------------------
 sub getfnamememo {
-	my $self = shift;
-	my $datafile;
-	if ($self->{'vil'}->{'dir'} == 0) {
-		$datafile = sprintf(
-			"%s/%04d_%02d%s",
-			$self->{'sow'}->{'cfg'}->{'DIR_VIL'},
-			$self->{'vil'}->{'vid'},
-			$self->{'turn'},
-			$self->{'sow'}->{'cfg'}->{'FILE_MEMO'},
-		);
-	} else {
-		$datafile = sprintf(
-			"%s/%04d/%04d_%02d%s",
-			$self->{'sow'}->{'cfg'}->{'DIR_VIL'},
-			$self->{'vil'}->{'vid'},
-			$self->{'vil'}->{'vid'},
-			$self->{'turn'},
-			$self->{'sow'}->{'cfg'}->{'FILE_MEMO'},
-		);
-	}
-	return $datafile;
+    my $self = shift;
+    my $datafile;
+    if ( $self->{'vil'}->{'dir'} == 0 ) {
+        $datafile = sprintf( "%s/%04d_%02d%s",
+            $self->{'sow'}->{'cfg'}->{'DIR_VIL'},
+            $self->{'vil'}->{'vid'},
+            $self->{'turn'}, $self->{'sow'}->{'cfg'}->{'FILE_MEMO'},
+        );
+    }
+    else {
+        $datafile = sprintf(
+            "%s/%04d/%04d_%02d%s",
+            $self->{'sow'}->{'cfg'}->{'DIR_VIL'}, $self->{'vil'}->{'vid'},
+            $self->{'vil'}->{'vid'},              $self->{'turn'},
+            $self->{'sow'}->{'cfg'}->{'FILE_MEMO'},
+        );
+    }
+    return $datafile;
 }
 
 #----------------------------------------
 # メモデータラベル
 #----------------------------------------
 sub getmemodatalabel {
-	my $self = shift;
-	my @datalabel;
+    my $self = shift;
+    my @datalabel;
 
-	# Version 1.0
-	@datalabel = (
-		'logid',
-		'mestype',
-		'uid',
-		'cid',
-		'csid',
-		'chrname',
-		'date',
-		'log',
-		'monospace',
-		'remoteaddr',
-		'fowardedfor',
-		'agent',
-	);
+    # Version 1.0
+    @datalabel = (
+        'logid',     'mestype',    'uid',         'cid',
+        'csid',      'chrname',    'date',        'log',
+        'monospace', 'remoteaddr', 'fowardedfor', 'agent',
+    );
 
-	return @datalabel;		
+    return @datalabel;
 }
 
 1;

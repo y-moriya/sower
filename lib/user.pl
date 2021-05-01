@@ -8,230 +8,253 @@ package SWUser;
 # コンストラクタ
 #----------------------------------------
 sub new {
-	my ($class, $sow) = @_;
-	my $self = {
-		sow => $sow,
-	};
+    my ( $class, $sow ) = @_;
+    my $self = { sow => $sow, };
 
-	return bless($self, $class);
+    return bless( $self, $class );
 }
 
 #----------------------------------------
 # ユーザーデータファイル名の取得
 #----------------------------------------
 sub GetFNameUser {
-	my $self = shift;
+    my $self = shift;
 
-	my $encodename = &SWBase::EncodeURL($self->{'uid'});
-	my $filename = "$self->{'sow'}->{'cfg'}->{'DIR_USER'}/$encodename.cgi";
-	return $filename;
+    my $encodename = &SWBase::EncodeURL( $self->{'uid'} );
+    my $filename   = "$self->{'sow'}->{'cfg'}->{'DIR_USER'}/$encodename.cgi";
+    return $filename;
 }
 
 #----------------------------------------
 # ユーザーデータラベル
 #----------------------------------------
 sub GetUserDataLabel {
-	my @datalabel = (
-		'uid',
-		'pwd',
-		'handlename',
-		'url',
-		'introduction',
-		'parmalink',
-		'entriedvils',
-		'penaltydt',
-		'ptype',
-		'plevel',
-	);
-	return @datalabel;
+    my @datalabel = (
+        'uid',          'pwd',       'handlename',  'url',
+        'introduction', 'parmalink', 'entriedvils', 'penaltydt',
+        'ptype',        'plevel',
+    );
+    return @datalabel;
 }
 
 #----------------------------------------
 # ユーザーデータファイルを開く
 #----------------------------------------
 sub openuser {
-	my ($self, $chklogin) = @_;
+    my ( $self, $chklogin ) = @_;
 
-	my $filename = $self->GetFNameUser();
-	my $fh = \*USER;
-	if ($chklogin == 0) {
-		# 後で新規作成するためエラーを出さない
-		$self->{'uid'} = '';
-		$self->{'pwd'} = '';
-		return -1 if !(-e $filename); # ファイルがない
-	}
+    my $filename = $self->GetFNameUser();
+    my $fh       = \*USER;
+    if ( $chklogin == 0 ) {
 
-	# ユーザーデータを開く
-	my $file = SWFile->new($self->{'sow'}, 'user', $fh, $filename, $self);
-	$file->openfile(
-		'+<',
-		'ユーザーデータ',
-		"[uid=$self->{'uid'}]",
-	);
-	$self->{'file'} = $file;
+        # 後で新規作成するためエラーを出さない
+        $self->{'uid'} = '';
+        $self->{'pwd'} = '';
+        return -1 if !( -e $filename );    # ファイルがない
+    }
 
-	seek($fh, 0, 0);
-	my @data = <$fh>;
+    # ユーザーデータを開く
+    my $file = SWFile->new( $self->{'sow'}, 'user', $fh, $filename, $self );
+    $file->openfile( '+<', 'ユーザーデータ', "[uid=$self->{'uid'}]", );
+    $self->{'file'} = $file;
 
-	my $datalabel = shift(@data);
-	my @datalabel = split(/<>/, $datalabel);
-	@datalabel = $self->GetUserDataLabel() if ($datalabel[0] eq '');
-	@$self{@datalabel} = split(/<>/, $data[0]);
+    seek( $fh, 0, 0 );
+    my @data = <$fh>;
 
-	# 移行用コード
-	my @strdata = ('url', 'introduction', 'handlename');
-	foreach (@strdata) {
-		$self->{$_} = '' if ((!defined($self->{$_})) || ($self->{$_} eq '0'));
-	}
-	my @labelnew = $self->GetUserDataLabel();
-	foreach (@labelnew) {
-		$self->{$_} = 0 if (!defined($self->{$_}));
-	}
-	foreach (@strdata) {
-		$self->{$_} = '' if ($self->{$_} eq $self->{'sow'}->{'DATATEXT_NONE'});
-	}
+    my $datalabel = shift(@data);
+    my @datalabel = split( /<>/, $datalabel );
+    @datalabel = $self->GetUserDataLabel() if ( $datalabel[0] eq '' );
+    @$self{@datalabel} = split( /<>/, $data[0] );
 
-	return 0;
+    # 移行用コード
+    my @strdata = ( 'url', 'introduction', 'handlename' );
+    foreach (@strdata) {
+        $self->{$_} = ''
+          if ( ( !defined( $self->{$_} ) ) || ( $self->{$_} eq '0' ) );
+    }
+    my @labelnew = $self->GetUserDataLabel();
+    foreach (@labelnew) {
+        $self->{$_} = 0 if ( !defined( $self->{$_} ) );
+    }
+    foreach (@strdata) {
+        $self->{$_} = ''
+          if ( $self->{$_} eq $self->{'sow'}->{'DATATEXT_NONE'} );
+    }
+
+    return 0;
 }
 
 #----------------------------------------
 # ユーザーデータ書き込み
 #----------------------------------------
 sub writeuser {
-	my $self = shift;
-	my $sow = $self->{'sow'};
-	my $fh = $self->{'file'}->{'filehandle'};
+    my $self = shift;
+    my $sow  = $self->{'sow'};
+    my $fh   = $self->{'file'}->{'filehandle'};
 
-	my @strdata = ('url', 'introduction', 'handlename');
-	foreach (@strdata) {
-		$self->{$_} = $self->{'sow'}->{'DATATEXT_NONE'} if ($self->{$_} eq '');
-	}
+    my @strdata = ( 'url', 'introduction', 'handlename' );
+    foreach (@strdata) {
+        $self->{$_} = $self->{'sow'}->{'DATATEXT_NONE'}
+          if ( $self->{$_} eq '' );
+    }
 
-	truncate($fh, 0);
-	seek($fh, 0, 0);
-	my @datalabel = $self->GetUserDataLabel();
-	print $fh join("<>", @datalabel). "<>\n";
-	print $fh join("<>", map{$self->{$_}}@datalabel). "<>\n";
+    truncate( $fh, 0 );
+    seek( $fh, 0, 0 );
+    my @datalabel = $self->GetUserDataLabel();
+    print $fh join( "<>", @datalabel ) . "<>\n";
+    print $fh join( "<>", map { $self->{$_} } @datalabel ) . "<>\n";
 
-	$sow->{'debug'}->writeaplog($sow->{'APLOG_POSTED'}, "Edit User. [$self->{'uid'}]");
+    $sow->{'debug'}
+      ->writeaplog( $sow->{'APLOG_POSTED'}, "Edit User. [$self->{'uid'}]" );
 
-	foreach (@strdata) {
-		$self->{$_} = '' if ($self->{$_} eq $self->{'sow'}->{'DATATEXT_NONE'});
-	}
+    foreach (@strdata) {
+        $self->{$_} = ''
+          if ( $self->{$_} eq $self->{'sow'}->{'DATATEXT_NONE'} );
+    }
 }
 
 #----------------------------------------
 # ユーザーデータファイルを閉じる
 #----------------------------------------
 sub closeuser {
-	my $self = shift;
-	$self->{'file'}->closefile() if (defined($self->{'file'}));
-	return;
+    my $self = shift;
+    $self->{'file'}->closefile() if ( defined( $self->{'file'} ) );
+    return;
 }
 
 #----------------------------------------
 # 通常認証
 #----------------------------------------
 sub LoginSW {
-	my ($self, $chklogin) = @_;
-	my $sow = $self->{'sow'};
+    my ( $self, $chklogin ) = @_;
+    my $sow = $self->{'sow'};
 
-	my $src = $sow->{'cookie'}; # クッキーからユーザーIDを取得
-	$src = $sow->{'query'} if ($sow->{'outmode'} eq 'mb'); # 携帯モードの時は引数から取得
-	$src = $sow->{'query'} if ($chklogin == 0); # ログイン処理の時は引数から取得
-	if (!defined($src->{'uid'})) {
-		$src->{'uid'} = '';
-		$src->{'pwd'} = '';
-	}
-	$src->{'uid'} =~ s/^ *//;
-	$src->{'uid'} =~ s/ *$//;
+    my $src = $sow->{'cookie'};    # クッキーからユーザーIDを取得
+    $src = $sow->{'query'} if ( $sow->{'outmode'} eq 'mb' );   # 携帯モードの時は引数から取得
+    $src = $sow->{'query'} if ( $chklogin == 0 );              # ログイン処理の時は引数から取得
+    if ( !defined( $src->{'uid'} ) ) {
+        $src->{'uid'} = '';
+        $src->{'pwd'} = '';
+    }
+    $src->{'uid'} =~ s/^ *//;
+    $src->{'uid'} =~ s/ *$//;
 
-	my $lengthuid = length($src->{'uid'});
-	$sow->{'debug'}->raise($sow->{'APLOG_NOTICE'}, "ユーザIDは $sow->{'cfg'}->{'MAXSIZE_USERID'} バイト以内で入力して下さい（$lengthuid バイト）。", "uid too long.") if ($lengthuid > $sow->{'cfg'}->{'MAXSIZE_USERID'});
-	$sow->{'debug'}->raise($sow->{'APLOG_NOTICE'}, "ユーザIDは $sow->{'cfg'}->{'MINSIZE_USERID'} バイト以上で入力して下さい（$lengthuid バイト）。", "uid too short.") if (($lengthuid < $sow->{'cfg'}->{'MINSIZE_USERID'}) && ($lengthuid != 0));
+    my $lengthuid = length( $src->{'uid'} );
+    $sow->{'debug'}->raise(
+        $sow->{'APLOG_NOTICE'},
+"ユーザIDは $sow->{'cfg'}->{'MAXSIZE_USERID'} バイト以内で入力して下さい（$lengthuid バイト）。",
+        "uid too long."
+    ) if ( $lengthuid > $sow->{'cfg'}->{'MAXSIZE_USERID'} );
+    $sow->{'debug'}->raise(
+        $sow->{'APLOG_NOTICE'},
+"ユーザIDは $sow->{'cfg'}->{'MINSIZE_USERID'} バイト以上で入力して下さい（$lengthuid バイト）。",
+        "uid too short."
+      )
+      if ( ( $lengthuid < $sow->{'cfg'}->{'MINSIZE_USERID'} )
+        && ( $lengthuid != 0 ) );
 
-	my $lengthpwd = length($src->{'pwd'});
-	$sow->{'debug'}->raise($sow->{'APLOG_NOTICE'}, "パスワードは $sow->{'cfg'}->{'MAXSIZE_PASSWD'} バイト以内で入力して下さい（$lengthpwd バイト）。", "pwd too long.") if ($lengthpwd > $sow->{'cfg'}->{'MAXSIZE_PASSWD'});
-	$sow->{'debug'}->raise($sow->{'APLOG_NOTICE'}, "パスワードは $sow->{'cfg'}->{'MINSIZE_PASSWD'} バイト以上で入力して下さい（$lengthpwd バイト）。", "pwd too short.") if (($lengthpwd < $sow->{'cfg'}->{'MINSIZE_PASSWD'}) && ($lengthuid > 0));
+    my $lengthpwd = length( $src->{'pwd'} );
+    $sow->{'debug'}->raise(
+        $sow->{'APLOG_NOTICE'},
+"パスワードは $sow->{'cfg'}->{'MAXSIZE_PASSWD'} バイト以内で入力して下さい（$lengthpwd バイト）。",
+        "pwd too long."
+    ) if ( $lengthpwd > $sow->{'cfg'}->{'MAXSIZE_PASSWD'} );
+    $sow->{'debug'}->raise(
+        $sow->{'APLOG_NOTICE'},
+"パスワードは $sow->{'cfg'}->{'MINSIZE_PASSWD'} バイト以上で入力して下さい（$lengthpwd バイト）。",
+        "pwd too short."
+      )
+      if ( ( $lengthpwd < $sow->{'cfg'}->{'MINSIZE_PASSWD'} )
+        && ( $lengthuid > 0 ) );
 
-	$self->{'uid'}  = $src->{'uid'};
-	$self->{'qpwd'} = $src->{'pwd'};
-	$self->{'logined'} = $self->match($chklogin);
+    $self->{'uid'}     = $src->{'uid'};
+    $self->{'qpwd'}    = $src->{'pwd'};
+    $self->{'logined'} = $self->match($chklogin);
 
-	return;
+    return;
 }
 
 #----------------------------------------
 # TypeKey認証
 #----------------------------------------
 sub LoginTypeKey {
-	my ($self, $chklogin) = @_;
-	my $sow = $self->{'sow'};
+    my ( $self, $chklogin ) = @_;
+    my $sow = $self->{'sow'};
 
-	# TypeKey認証
-	eval 'use Authen::TypeKey;';
-	$sow->{'debug'}->raise($sow->{'APLOG_WARNING'}, "Authen::TypeKeyモジュールが見つかりません。", "Authen::TypeKey not found.") if ($@ ne '');
-	my $src = $sow->{'cookie'};
-	$src = $sow->{'query'} if ($chklogin == 0);
-	if (!defined($src->{'sig'})) {
-		$src->{'uid'} = '';
-		$src->{'sig'} = '';
-	}
+    # TypeKey認証
+    eval 'use Authen::TypeKey;';
+    $sow->{'debug'}->raise(
+        $sow->{'APLOG_WARNING'},
+        "Authen::TypeKeyモジュールが見つかりません。",
+        "Authen::TypeKey not found."
+    ) if ( $@ ne '' );
+    my $src = $sow->{'cookie'};
+    $src = $sow->{'query'} if ( $chklogin == 0 );
+    if ( !defined( $src->{'sig'} ) ) {
+        $src->{'uid'} = '';
+        $src->{'sig'} = '';
+    }
 
-	if ($src->{'sig'} eq '') {
-		if ($chklogin == 0) {
-			$sow->{'debug'}->raise($sow->{'APLOG_NOTICE'}, "認証データがありません。", "typekey sig not found.");
-		} else {
-			$self->{'logined'} = -1;
-			return;
-		}
-	}
+    if ( $src->{'sig'} eq '' ) {
+        if ( $chklogin == 0 ) {
+            $sow->{'debug'}->raise( $sow->{'APLOG_NOTICE'},
+                "認証データがありません。", "typekey sig not found." );
+        }
+        else {
+            $self->{'logined'} = -1;
+            return;
+        }
+    }
 
-	my $typekey = new Authen::TypeKey;
-	$typekey->token($sow->{'cfg'}->{'TOKEN_TYPEKEY'});
-	my $result = $typekey->verify($src);
-	$sow->{'debug'}->raise($sow->{'APLOG_NOTICE'}, "ユーザIDかパスワードが間違っています。。", $typekey->errstr()) if ($result ne '');
-	$self->{'uid'}  = $src->{'name'};
-	$self->{'nick'} = $src->{'nick'};
+    my $typekey = new Authen::TypeKey;
+    $typekey->token( $sow->{'cfg'}->{'TOKEN_TYPEKEY'} );
+    my $result = $typekey->verify($src);
+    $sow->{'debug'}->raise( $sow->{'APLOG_NOTICE'},
+        "ユーザIDかパスワードが間違っています。。", $typekey->errstr() )
+      if ( $result ne '' );
+    $self->{'uid'}  = $src->{'name'};
+    $self->{'nick'} = $src->{'nick'};
 
-	$self->{'logined'} = 1;
-	return;
+    $self->{'logined'} = 1;
+    return;
 }
 
 #----------------------------------------
 # ログイン情報の取得
 #----------------------------------------
 sub logined {
-	my $self = shift;
+    my $self = shift;
 
-	if (!defined($self->{'logined'})) {
-		if ($self->{'sow'}->{'cfg'}->{'ENABLED_TYPEKEY'} > 0) {
-			$self->LoginTypeKey(1);
-		} else {
-			$self->LoginSW(1);
-		}
-		if ($self->{'logined'} > 0) {
-			$self->openuser(1);
-			$self->updatepenalty(); # ペナルティの更新
-			$self->writeuser();
-			$self->closeuser();
-		}
-	}
-	return $self->{'logined'};
+    if ( !defined( $self->{'logined'} ) ) {
+        if ( $self->{'sow'}->{'cfg'}->{'ENABLED_TYPEKEY'} > 0 ) {
+            $self->LoginTypeKey(1);
+        }
+        else {
+            $self->LoginSW(1);
+        }
+        if ( $self->{'logined'} > 0 ) {
+            $self->openuser(1);
+            $self->updatepenalty();    # ペナルティの更新
+            $self->writeuser();
+            $self->closeuser();
+        }
+    }
+    return $self->{'logined'};
 }
 
 #----------------------------------------
 # ログイン情報の取得
 #----------------------------------------
 sub login {
-	my $self = shift;
+    my $self = shift;
 
-	if ($self->{'sow'}->{'cfg'}->{'ENABLED_TYPEKEY'} > 0) {
-		$self->LoginTypeKey(0);
-	} else {
-		$self->LoginSW(0);
-	}
-	return $self->{'logined'};
+    if ( $self->{'sow'}->{'cfg'}->{'ENABLED_TYPEKEY'} > 0 ) {
+        $self->LoginTypeKey(0);
+    }
+    else {
+        $self->LoginSW(0);
+    }
+    return $self->{'logined'};
 }
 
 #----------------------------------------
@@ -244,277 +267,286 @@ sub login {
 #  1：照合成功
 #----------------------------------------
 sub match {
-	my ($self, $chklogin) = @_;
-	my $sow = $self->{'sow'};
+    my ( $self, $chklogin ) = @_;
+    my $sow = $self->{'sow'};
 
-	return -1 if ($self->{'uid'} eq '');
-	return -1 if ($self->{'qpwd'} eq '');
+    return -1 if ( $self->{'uid'} eq '' );
+    return -1 if ( $self->{'qpwd'} eq '' );
 
-	$self->openuser($chklogin);
+    $self->openuser($chklogin);
 
-	my $pwmatch = 0;
-	if ($self->{'pwd'} eq '') {
-		$pwmatch = -1;
-	} elsif ($self->{'pwd'} eq crypt($self->{'qpwd'}, $self->{'pwd'})) {
-		$pwmatch = 1;
-	} else {
-		$pwmatch = 0;
-		$sow->{'debug'}->raise($sow->{'APLOG_NOTICE'}, "ユーザーIDかパスワードが間違っています。", "no match pass.[$self->{'uid'}]");
-	}
-	$self->closeuser();
+    my $pwmatch = 0;
+    if ( $self->{'pwd'} eq '' ) {
+        $pwmatch = -1;
+    }
+    elsif ( $self->{'pwd'} eq crypt( $self->{'qpwd'}, $self->{'pwd'} ) ) {
+        $pwmatch = 1;
+    }
+    else {
+        $pwmatch = 0;
+        $sow->{'debug'}->raise( $sow->{'APLOG_NOTICE'},
+            "ユーザーIDかパスワードが間違っています。", "no match pass.[$self->{'uid'}]" );
+    }
+    $self->closeuser();
 
-	return $pwmatch;
+    return $pwmatch;
 }
 
 #----------------------------------------
 # クッキーデータのセット
 #----------------------------------------
 sub setcookie {
-	my ($self, $setcookie) = @_;
-	my $sow = $self->{'sow'};
-	my $query = $sow->{'query'};
-	if ($sow->{'cfg'}->{'ENABLED_TYPEKEY'} > 0) {
-		my $nick = $query->{'nick'};
-		&SWBase::JcodeConvert($sow, \$nick, 'sjis', 'utf8');
-		$setcookie->{'name'} = $query->{'name'};
-		$setcookie->{'nick'} = $nick;
-		$setcookie->{'sig'}  = $query->{'sig'};
-	} else {
-		$setcookie->{'uid'} = $query->{'uid'};
-		$setcookie->{'pwd'} = $query->{'pwd'};
-	}
+    my ( $self, $setcookie ) = @_;
+    my $sow   = $self->{'sow'};
+    my $query = $sow->{'query'};
+    if ( $sow->{'cfg'}->{'ENABLED_TYPEKEY'} > 0 ) {
+        my $nick = $query->{'nick'};
+        &SWBase::JcodeConvert( $sow, \$nick, 'sjis', 'utf8' );
+        $setcookie->{'name'} = $query->{'name'};
+        $setcookie->{'nick'} = $nick;
+        $setcookie->{'sig'}  = $query->{'sig'};
+    }
+    else {
+        $setcookie->{'uid'} = $query->{'uid'};
+        $setcookie->{'pwd'} = $query->{'pwd'};
+    }
 
-	return;
+    return;
 }
 
 #----------------------------------------
 # クッキーデータのリセット
 #----------------------------------------
 sub resetcookie {
-	my ($self, $setcookie) = @_;
+    my ( $self, $setcookie ) = @_;
 
-	my $query = $self->{'sow'}->{'query'};
-	if ($self->{'sow'}->{'cfg'}->{'ENABLED_TYPEKEY'} > 0) {
-		$setcookie->{'name'} = '';
-		$setcookie->{'nick'} = '';
-		$setcookie->{'sig'}  = '';
-	} else {
-		$setcookie->{'uid'} = '';
-		$setcookie->{'pwd'} = '';
-	}
+    my $query = $self->{'sow'}->{'query'};
+    if ( $self->{'sow'}->{'cfg'}->{'ENABLED_TYPEKEY'} > 0 ) {
+        $setcookie->{'name'} = '';
+        $setcookie->{'nick'} = '';
+        $setcookie->{'sig'}  = '';
+    }
+    else {
+        $setcookie->{'uid'} = '';
+        $setcookie->{'pwd'} = '';
+    }
 
-	return;
+    return;
 }
 
 #----------------------------------------
 # ユーザーデータ追加
 #----------------------------------------
 sub createuser {
-	my ($self, $uid, $qpwd) = @_;
-	my $sow = $self->{'sow'};
-	$self->{'uid'}  = $uid;
-	$self->{'qpwd'} = $qpwd;
+    my ( $self, $uid, $qpwd ) = @_;
+    my $sow = $self->{'sow'};
+    $self->{'uid'}  = $uid;
+    $self->{'qpwd'} = $qpwd;
 
-	$self->{'handlename'} = '';
-	$self->{'url'} = '';
-	$self->{'introduction'} = '';
+    $self->{'handlename'}   = '';
+    $self->{'url'}          = '';
+    $self->{'introduction'} = '';
 
-	my $filename = $self->GetFNameUser();
+    my $filename = $self->GetFNameUser();
 
-	my $fh = \*USER;
-	my $file = SWFile->new($self->{'sow'}, 'user', $fh, $filename, $self);
-	$file->openfile(
-		'>',
-		'ユーザーデータ',
-		"[uid=$self->{'uid'}]",
-	);
+    my $fh   = \*USER;
+    my $file = SWFile->new( $self->{'sow'}, 'user', $fh, $filename, $self );
+    $file->openfile( '>', 'ユーザーデータ', "[uid=$self->{'uid'}]", );
 
-	my @datalabel = $self->GetUserDataLabel();
-	$self->{'pwd'} = &GetCrypt($self->{'qpwd'});
+    my @datalabel = $self->GetUserDataLabel();
+    $self->{'pwd'} = &GetCrypt( $self->{'qpwd'} );
 
-	print $fh join("<>", @datalabel). "<>\n";
-	print $fh join("<>", map{$self->{$_}}@datalabel). "<>\n";
+    print $fh join( "<>", @datalabel ) . "<>\n";
+    print $fh join( "<>", map { $self->{$_} } @datalabel ) . "<>\n";
 
-	$sow->{'debug'}->writeaplog($sow->{'APLOG_POSTED'}, "Add User. [$self->{'uid'}]");
+    $sow->{'debug'}
+      ->writeaplog( $sow->{'APLOG_POSTED'}, "Add User. [$self->{'uid'}]" );
 
-	return;
+    return;
 }
 
 #----------------------------------------
 # ユーザーデータファイルの更新日時を得る
 #----------------------------------------
 sub getupdatedt {
-	my $self = shift;
-	my $filename = $self->GetFNameUser();
+    my $self     = shift;
+    my $filename = $self->GetFNameUser();
 
-	return (stat($filename))[9];
+    return ( stat($filename) )[9];
 }
 
 #----------------------------------------
 # 参加中の村データの取得
 #----------------------------------------
 sub getentriedvils {
-	my $self = shift;
+    my $self = shift;
 
-	my @entriedvils;
-	my @label = ('vid', 'chrname', 'playing');
-	my @data = split('/', "$self->{'entriedvils'}/");
+    my @entriedvils;
+    my @label = ( 'vid', 'chrname', 'playing' );
+    my @data  = split( '/', "$self->{'entriedvils'}/" );
 
-	foreach (@data) {
-		my %entriedvil;
-		@entriedvil{@label} = split(':', "$_:");
-		next if (!defined($entriedvil{'vid'}));
-		push(@entriedvils, \%entriedvil) if ($entriedvil{'vid'} > 0);
-	}
+    foreach (@data) {
+        my %entriedvil;
+        @entriedvil{@label} = split( ':', "$_:" );
+        next if ( !defined( $entriedvil{'vid'} ) );
+        push( @entriedvils, \%entriedvil ) if ( $entriedvil{'vid'} > 0 );
+    }
 
-	return \@entriedvils;
+    return \@entriedvils;
 }
 
 #----------------------------------------
 # 指定した参加中の村データを追加／更新
 #----------------------------------------
 sub setentriedvil {
-	my ($self, $entriedvil) = @_;
+    my ( $self, $entriedvil ) = @_;
 
-	my $entriedvils = $self->getentriedvils();
-	my $set = 0;
-	my $i;
-	for ($i = 0; $i < @$entriedvils; $i++) {
-		next if ($entriedvils->[$i]->{'vid'} != $entriedvil->{'vid'});
-		$entriedvils->[$i] = $entriedvil;
-		$set++;
-	}
-	if ($set == 0) {
-		push(@$entriedvils, $entriedvil);
-	}
+    my $entriedvils = $self->getentriedvils();
+    my $set         = 0;
+    my $i;
+    for ( $i = 0 ; $i < @$entriedvils ; $i++ ) {
+        next if ( $entriedvils->[$i]->{'vid'} != $entriedvil->{'vid'} );
+        $entriedvils->[$i] = $entriedvil;
+        $set++;
+    }
+    if ( $set == 0 ) {
+        push( @$entriedvils, $entriedvil );
+    }
 
-	$self->updateentriedvil($entriedvils);
+    $self->updateentriedvil($entriedvils);
 }
 
 #----------------------------------------
 # 参加中の村データを更新
 #----------------------------------------
 sub updateentriedvil {
-	my ($self, $entriedvils) = @_;
+    my ( $self, $entriedvils ) = @_;
 
-	my @label = ('vid', 'chrname', 'playing');
-	my ($entriedvil, @data);
-	foreach $entriedvil (@$entriedvils) {
-		next if ($entriedvil->{'vid'} == 0);
-		next if ($entriedvil->{'playing'} < 0);
-		push(@data, join(':', map{$entriedvil->{$_}}@label));
-	}
-	push(@data, '0:0') if (@data == 0); # ダミー
-	$self->{'entriedvils'} = join('/', @data);
+    my @label = ( 'vid', 'chrname', 'playing' );
+    my ( $entriedvil, @data );
+    foreach $entriedvil (@$entriedvils) {
+        next if ( $entriedvil->{'vid'} == 0 );
+        next if ( $entriedvil->{'playing'} < 0 );
+        push( @data, join( ':', map { $entriedvil->{$_} } @label ) );
+    }
+    push( @data, '0:0' ) if ( @data == 0 );    # ダミー
+    $self->{'entriedvils'} = join( '/', @data );
 }
 
 #----------------------------------------
 # 参加中の村データを更新（データセットから書き込みまで）
 #----------------------------------------
 sub writeentriedvil {
-	my ($self, $uid, $vid, $chrname, $playing, $nowrite) = @_;
+    my ( $self, $uid, $vid, $chrname, $playing, $nowrite ) = @_;
 
-	my %entriedvil = (
-		vid     => $vid,
-		chrname => $chrname,
-		playing => $playing,
-	);
-	$self->{'uid'} = $uid;
-	$self->openuser(1);
-	$self->setentriedvil(\%entriedvil);
-	if ((!defined($nowrite)) || ($nowrite == 0)) {
-		$self->writeuser();
-		$self->closeuser()
-	}
+    my %entriedvil = (
+        vid     => $vid,
+        chrname => $chrname,
+        playing => $playing,
+    );
+    $self->{'uid'} = $uid;
+    $self->openuser(1);
+    $self->setentriedvil( \%entriedvil );
+    if ( ( !defined($nowrite) ) || ( $nowrite == 0 ) ) {
+        $self->writeuser();
+        $self->closeuser();
+    }
 }
 
 #----------------------------------------
 # 突然死ペナルティの追加
 #----------------------------------------
 sub addsdpenalty {
-	my $self = shift;
-	my $sow = $self->{'sow'};
+    my $self = shift;
+    my $sow  = $self->{'sow'};
 
-	$self->{'penaltydt'} = $sow->{'time'} if ($self->{'penaltydt'} == 0);
-	$self->{'plevel'} = $sow->{'cfg'}->{'DAY_INITPENALTY'} if ($self->{'plevel'} == 0);
-	$self->{'penaltydt'} = $self->{'penaltydt'} + $self->{'plevel'} * 60 * 60 * 24;
-	$self->{'plevel'} = $self->{'plevel'} * 2;
-	$self->{'ptype'} = $sow->{'PTYPE_NOENTRY'} if ($self->{'ptype'} < $sow->{'PTYPE_NOENTRY'});
+    $self->{'penaltydt'} = $sow->{'time'} if ( $self->{'penaltydt'} == 0 );
+    $self->{'plevel'}    = $sow->{'cfg'}->{'DAY_INITPENALTY'}
+      if ( $self->{'plevel'} == 0 );
+    $self->{'penaltydt'} =
+      $self->{'penaltydt'} + $self->{'plevel'} * 60 * 60 * 24;
+    $self->{'plevel'} = $self->{'plevel'} * 2;
+    $self->{'ptype'}  = $sow->{'PTYPE_NOENTRY'}
+      if ( $self->{'ptype'} < $sow->{'PTYPE_NOENTRY'} );
 }
 
 #----------------------------------------
 # ペナルティのチェック
 #----------------------------------------
 sub updatepenalty {
-	my $self = shift;
-	my $sow = $self->{'sow'};
+    my $self = shift;
+    my $sow  = $self->{'sow'};
 
-	return if ($self->{'ptype'} == $sow->{'PTYPE_NONE'}); # ペナルティなし
-	return if ($self->{'penaltydt'} >= $sow->{'time'}); # ペナルティ期間中
-	if ($self->{'ptype'} == $sow->{'PTYPE_PROBATION'}) {
-		# 保護観察期間満了
-		$self->{'ptype'} = $sow->{'PTYPE_NONE'};
-		$self->{'penaltydt'} = 0;
-		$self->{'plevel'} = $sow->{'cfg'}->{'DAY_INITPENALTY'}; # 罰則レベルの初期化
-	} else {
-		$self->{'ptype'} = $sow->{'PTYPE_PROBATION'};
-		$self->{'penaltydt'} = $sow->{'time'} + $self->{'plevel'} * 60 * 60 * 24;
-	}
+    return if ( $self->{'ptype'} == $sow->{'PTYPE_NONE'} );    # ペナルティなし
+    return if ( $self->{'penaltydt'} >= $sow->{'time'} );      # ペナルティ期間中
+    if ( $self->{'ptype'} == $sow->{'PTYPE_PROBATION'} ) {
+
+        # 保護観察期間満了
+        $self->{'ptype'}     = $sow->{'PTYPE_NONE'};
+        $self->{'penaltydt'} = 0;
+        $self->{'plevel'}    = $sow->{'cfg'}->{'DAY_INITPENALTY'};   # 罰則レベルの初期化
+    }
+    else {
+        $self->{'ptype'} = $sow->{'PTYPE_PROBATION'};
+        $self->{'penaltydt'} =
+          $sow->{'time'} + $self->{'plevel'} * 60 * 60 * 24;
+    }
 }
 
 #----------------------------------------
 # 暗号文の取得（MD5/DES）
 #----------------------------------------
 sub GetCrypt {
-	my $salt = &GetSalt();
+    my $salt = &GetSalt();
 
-	my $crypted = crypt($_[0], '$1$' . $salt . '$'); # MD5
-	$crypted = crypt($_[0], $salt) if (substr($crypted, 0, 3) ne '$1$'); # 標準（たいていDES）
+    my $crypted = crypt( $_[0], '$1$' . $salt . '$' );    # MD5
+    $crypted = crypt( $_[0], $salt )
+      if ( substr( $crypted, 0, 3 ) ne '$1$' );           # 標準（たいていDES）
 
-	return $crypted;
+    return $crypted;
 }
 
 #----------------------------------------
 # SALT の取得
 #----------------------------------------
 sub GetSalt {
-	my @CHARSET_BASE64 = ('.', '/', '0'..'9', 'A'..'Z', 'a'..'z');
-	my $salt;
+    my @CHARSET_BASE64 = ( '.', '/', '0' .. '9', 'A' .. 'Z', 'a' .. 'z' );
+    my $salt;
 
-	for ($i = 0; $i < 8; $i++) {
-		$salt .= $CHARSET_BASE64[rand(@CHARSET_BASE64)];
-	}
-	return $salt;
+    for ( $i = 0 ; $i < 8 ; $i++ ) {
+        $salt .= $CHARSET_BASE64[ rand(@CHARSET_BASE64) ];
+    }
+    return $salt;
 }
 
 #----------------------------------------
 # ハンドルネームの取得
 #----------------------------------------
 sub GetHandle {
-	my $sow = $_[0];
+    my $sow = $_[0];
 
-	my $user = SWUser->new($sow);
-	$user->{'uid'} = $sow->{'uid'};
-	return if ($sow->{'uid'} eq '');
-	$user->openuser(1);
-	$user->closeuser();
-	my $handle = $user->{'uid'};
-	$handle = $user->{'handlename'} if ($user->{'handlename'} ne '');
-	return $handle
+    my $user = SWUser->new($sow);
+    $user->{'uid'} = $sow->{'uid'};
+    return if ( $sow->{'uid'} eq '' );
+    $user->openuser(1);
+    $user->closeuser();
+    my $handle = $user->{'uid'};
+    $handle = $user->{'handlename'} if ( $user->{'handlename'} ne '' );
+    return $handle;
 }
 
 #----------------------------------------
 # 固定リンク表示フラグの取得
 #----------------------------------------
 sub GetShowParmalinkFlag {
-	my $sow = $_[0];
+    my $sow = $_[0];
 
-	my $user = SWUser->new($sow);
-	$user->{'uid'} = $sow->{'uid'};
-	return if ($sow->{'uid'} eq '');
-	$user->openuser(1);
-	$user->closeuser();
-	return $user->{'parmalink'};
+    my $user = SWUser->new($sow);
+    $user->{'uid'} = $sow->{'uid'};
+    return if ( $sow->{'uid'} eq '' );
+    $user->openuser(1);
+    $user->closeuser();
+    return $user->{'parmalink'};
 }
 
 1;

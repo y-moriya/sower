@@ -4,22 +4,22 @@ package SWHtmlEditPenalty;
 # ペナルティ編集画面のHTML出力
 #----------------------------------------
 sub OutHTMLEditPenalty {
-	my $sow = shift;
-	my $cfg   = $sow->{'cfg'};
-	my $query = $sow->{'query'};
-	my $net   = $sow->{'html'}->{'net'}; # Null End Tag
+    my $sow   = shift;
+    my $cfg   = $sow->{'cfg'};
+    my $query = $sow->{'query'};
+    my $net   = $sow->{'html'}->{'net'};    # Null End Tag
 
-	&SWHtmlPC::OutHTMLLogin($sow); # ログイン欄の出力
+    &SWHtmlPC::OutHTMLLogin($sow);          # ログイン欄の出力
 
-	my $reqvals = &SWBase::GetRequestValues($sow);
-	$reqvals->{'cmd'} = 'editpenalty';
-	my $hidden = &SWBase::GetHiddenValues($sow, $reqvals, '  ');
+    my $reqvals = &SWBase::GetRequestValues($sow);
+    $reqvals->{'cmd'} = 'editpenalty';
+    my $hidden = &SWBase::GetHiddenValues( $sow, $reqvals, '  ' );
 
-	if ($query->{'cmd'} eq 'editpenalty') {
-		print "<p class=\"info\">\nペナルティの設定・解除を行いました。\n</p>\n\n";
-	}
+    if ( $query->{'cmd'} eq 'editpenalty' ) {
+        print "<p class=\"info\">\nペナルティの設定・解除を行いました。\n</p>\n\n";
+    }
 
-	print <<"_HTML_";
+    print <<"_HTML_";
 <h2>ペナルティの設定・解除</h2>
 
 <form action="$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}" method="$cfg->{'METHOD_FORM'}">
@@ -36,9 +36,9 @@ sub OutHTMLEditPenalty {
 
 _HTML_
 
-	&SWHtmlPC::OutHTMLReturnPC($sow); # トップページへ戻る
+    &SWHtmlPC::OutHTMLReturnPC($sow);    # トップページへ戻る
 
-	return;
+    return;
 }
 
 1;

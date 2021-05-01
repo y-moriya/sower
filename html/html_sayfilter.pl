@@ -4,33 +4,34 @@ package SWHtmlSayFilter;
 # 発言フィルタの表示
 #----------------------------------------
 sub OutHTMLSayFilter {
-	my ($sow, $vil) = @_;
-	my $cfg = $sow->{'cfg'};
-	my $net    = $sow->{'html'}->{'net'};
-	my $atr_id = $sow->{'html'}->{'atr_id'};
-	my $pllist = $vil->getpllist();
+    my ( $sow, $vil ) = @_;
+    my $cfg    = $sow->{'cfg'};
+    my $net    = $sow->{'html'}->{'net'};
+    my $atr_id = $sow->{'html'}->{'atr_id'};
+    my $pllist = $vil->getpllist();
 
-	my $i;
+    my $i;
 
-	my $style_inline = ' style="display: inline;"';
-	my $class_sayfilter = 'sayfilter';
-	my $style_button_mvfilterleft = $style_inline;
-	my $style_button_mvfilterbottom = '';
-	my $style_button_fixfilter = '';
-	my $style_button_unfixfilter = '';
-	if ($sow->{'filter'}->{'layoutfilter'} eq '1') {
-		$class_sayfilter = 'sayfilterleft';
-		$style_button_mvfilterleft = '';
-		$style_button_mvfilterbottom = $style_inline;
+    my $style_inline                = ' style="display: inline;"';
+    my $class_sayfilter             = 'sayfilter';
+    my $style_button_mvfilterleft   = $style_inline;
+    my $style_button_mvfilterbottom = '';
+    my $style_button_fixfilter      = '';
+    my $style_button_unfixfilter    = '';
+    if ( $sow->{'filter'}->{'layoutfilter'} eq '1' ) {
+        $class_sayfilter             = 'sayfilterleft';
+        $style_button_mvfilterleft   = '';
+        $style_button_mvfilterbottom = $style_inline;
 
-		if ($sow->{'filter'}->{'fixfilter'} eq '1') {
-			$style_button_unfixfilter = $style_inline;
-		} else {
-			$style_button_fixfilter = $style_inline;
-		}
-	}
+        if ( $sow->{'filter'}->{'fixfilter'} eq '1' ) {
+            $style_button_unfixfilter = $style_inline;
+        }
+        else {
+            $style_button_fixfilter = $style_inline;
+        }
+    }
 
-	print <<"_HTML_";
+    print <<"_HTML_";
 <div id="sayfilter" class="$class_sayfilter">
 <div id="insayfilter" class="insayfilter">
 
@@ -45,66 +46,65 @@ sub OutHTMLSayFilter {
 
 _HTML_
 
-	&OutHTMLSayFilterPlayers($sow, $vil, 'live');
-	&OutHTMLSayFilterPlayers($sow, $vil, 'victim');
-	&OutHTMLSayFilterPlayers($sow, $vil, 'executed');
-	&OutHTMLSayFilterPlayers($sow, $vil, 'suddendead');
+    &OutHTMLSayFilterPlayers( $sow, $vil, 'live' );
+    &OutHTMLSayFilterPlayers( $sow, $vil, 'victim' );
+    &OutHTMLSayFilterPlayers( $sow, $vil, 'executed' );
+    &OutHTMLSayFilterPlayers( $sow, $vil, 'suddendead' );
 
-	print "</div>\n\n";
+    print "</div>\n\n";
 
-	print "<div class=\"paragraph\">\n";
+    print "<div class=\"paragraph\">\n";
 
-	my $display = '';
-	my $enable = 'enable';
-	if ($sow->{'filter'}->{'mestypes'} eq '1') {
-		$display = ' style="display: none;"';
-		$enable = 'disenable';
-	}
+    my $display = '';
+    my $enable  = 'enable';
+    if ( $sow->{'filter'}->{'mestypes'} eq '1' ) {
+        $display = ' style="display: none;"';
+        $enable  = 'disenable';
+    }
 
-	print "<h4 id=\"mestypefiltercaption\" ";
-	print "class=\"sayfilter_caption_$enable\" ";
-	print "title=\"発言種別欄の" . '表示／非表示" ';
-	print "onclick=\"changeFilterMesType();\" ";
-	print ">発言種別";
-	print "</h4>\n";
+    print "<h4 id=\"mestypefiltercaption\" ";
+    print "class=\"sayfilter_caption_$enable\" ";
+    print "title=\"発言種別欄の" . '表示／非表示" ';
+    print "onclick=\"changeFilterMesType();\" ";
+    print ">発言種別";
+    print "</h4>\n";
 
-	print <<"_HTML_";
+    print <<"_HTML_";
 <div id="mestypefilter" class="sayfilter_content"$display>
 _HTML_
 
-	my @logmestype = (0, 1, 2, 3, 4);
-	my @logmestypetext = (
-		'通常発言',
-		'独り言',
-		'囁き/共鳴/念話',
-		'死者のうめき',
-		'傍観者発言',
-	);
-	for ($i = 0; $i < @logmestype; $i++) {
-		my $enable = 'enable';
-		$enable = 'disenable' if ($sow->{'filter'}->{'typefilter'}->[$i] eq '1');
-		print "  <div id=\"typefilter_$logmestype[$i]\"";
-		print " class=\"sayfilter_content_$enable\"";
-		print " onclick=\"changeFilterByCheckBoxMesType('$logmestype[$i]');\"";
-#		print " onkeypress=\"changeFilterByCheckBoxMesType('$logmestype[$i]');\"";
-		print "><div class=\"sayfilter_incontent\">";
-		print "<input id=\"checktypefilter_$logmestype[$i]\"";
-		print " $atr_id=\"checktypefilter_$logmestype[$i]\"" if ($atr_id ne 'id');
-		print " style=\"display: none;\"";
-		print " type=\"checkbox\"";
-		print " $sow->{'html'}->{'checked'}" if ($sow->{'filter'}->{'typefilter'}->[$i] ne '1');
-		print "$net>$logmestypetext[$i]";
-		print "</div></div>\n";
-	}
+    my @logmestype = ( 0, 1, 2, 3, 4 );
+    my @logmestypetext =
+      ( '通常発言', '独り言', '囁き/共鳴/念話', '死者のうめき', '傍観者発言', );
+    for ( $i = 0 ; $i < @logmestype ; $i++ ) {
+        my $enable = 'enable';
+        $enable = 'disenable'
+          if ( $sow->{'filter'}->{'typefilter'}->[$i] eq '1' );
+        print "  <div id=\"typefilter_$logmestype[$i]\"";
+        print " class=\"sayfilter_content_$enable\"";
+        print " onclick=\"changeFilterByCheckBoxMesType('$logmestype[$i]');\"";
 
-	$display = '';
-	$enable = 'enable';
-	if ($sow->{'filter'}->{'lumpfilter'} eq '1') {
-		$display = ' style="display: none;"';
-		$enable = 'disenable';
-	}
+   #		print " onkeypress=\"changeFilterByCheckBoxMesType('$logmestype[$i]');\"";
+        print "><div class=\"sayfilter_incontent\">";
+        print "<input id=\"checktypefilter_$logmestype[$i]\"";
+        print " $atr_id=\"checktypefilter_$logmestype[$i]\""
+          if ( $atr_id ne 'id' );
+        print " style=\"display: none;\"";
+        print " type=\"checkbox\"";
+        print " $sow->{'html'}->{'checked'}"
+          if ( $sow->{'filter'}->{'typefilter'}->[$i] ne '1' );
+        print "$net>$logmestypetext[$i]";
+        print "</div></div>\n";
+    }
 
-	print <<"_HTML_";
+    $display = '';
+    $enable  = 'enable';
+    if ( $sow->{'filter'}->{'lumpfilter'} eq '1' ) {
+        $display = ' style="display: none;"';
+        $enable  = 'disenable';
+    }
+
+    print <<"_HTML_";
 </div>
 </div>
 
@@ -122,123 +122,167 @@ _HTML_
 
 _HTML_
 
-	print <<"_HTML_";
+    print <<"_HTML_";
 <script type="text/javascript" for="window" event="onscroll">
 	window.onScroll = eventFixFilter();
 </script>
 
 _HTML_
 
-	return;
+    return;
 }
 
 #----------------------------------------
 # 発言フィルタの人物欄の表示
 #----------------------------------------
 sub OutHTMLSayFilterPlayers {
-	my ($sow, $vil, $livetype) = @_;
-	my $net    = $sow->{'html'}->{'net'};
-	my $atr_id = $sow->{'html'}->{'atr_id'};
-	my $pllist = $vil->getpllist();
-	my @filterlist;
-	foreach (@$pllist) {
-		push(@filterlist, $_) if ($_->{'live'} eq $livetype);
-		if($livetype eq 'victim'){
-			push(@filterlist, $_) if (($_->{'live'} eq 'cursed') || ($_->{'live'} eq 'rcursed') || ($_->{'live'} eq 'suicide'));
-		}
-	}
+    my ( $sow, $vil, $livetype ) = @_;
+    my $net    = $sow->{'html'}->{'net'};
+    my $atr_id = $sow->{'html'}->{'atr_id'};
+    my $pllist = $vil->getpllist();
+    my @filterlist;
+    foreach (@$pllist) {
+        push( @filterlist, $_ ) if ( $_->{'live'} eq $livetype );
+        if ( $livetype eq 'victim' ) {
+            push( @filterlist, $_ )
+              if ( ( $_->{'live'} eq 'cursed' )
+                || ( $_->{'live'} eq 'rcursed' )
+                || ( $_->{'live'} eq 'suicide' ) );
+        }
+    }
 
-	my %livetypetext = (
-		'live'       => '生存者',
-		'victim'     => '犠牲者',
-		'executed'   => '処刑者',
-		'suddendead' => '突然死者',
-	);
-	my %livetypeno = (
-		'live'       => 0,
-		'victim'     => 1,
-		'executed'   => 2,
-		'suddendead' => 3,
-	);
-	my $filtercnt = @filterlist;
+    my %livetypetext = (
+        'live'       => '生存者',
+        'victim'     => '犠牲者',
+        'executed'   => '処刑者',
+        'suddendead' => '突然死者',
+    );
+    my %livetypeno = (
+        'live'       => 0,
+        'victim'     => 1,
+        'executed'   => 2,
+        'suddendead' => 3,
+    );
+    my $filtercnt = @filterlist;
 
-	my $enable = 'enable';
-	my $display = '';
-	if ($sow->{'filter'}->{'livetypes'}->[$livetypeno{$livetype}] eq '1') {
-		$enable = 'disenable';
-		$display = ' style="display: none;"';
-	}
-	print "<h4 class=\"sayfilter_caption_$enable\" ";
-	print "id=\"livetypecaption_$livetypeno{$livetype}\" ";
-	print "title=\"$livetypetext{$livetype}欄の" . '表示／非表示" ';
-	print "onclick=\"changeFilterPlList($livetypeno{$livetype});\">";
-	print "$livetypetext{$livetype} ($filtercnt)";
-	print "</h4>\n";
+    my $enable  = 'enable';
+    my $display = '';
+    if ( $sow->{'filter'}->{'livetypes'}->[ $livetypeno{$livetype} ] eq '1' ) {
+        $enable  = 'disenable';
+        $display = ' style="display: none;"';
+    }
+    print "<h4 class=\"sayfilter_caption_$enable\" ";
+    print "id=\"livetypecaption_$livetypeno{$livetype}\" ";
+    print "title=\"$livetypetext{$livetype}欄の" . '表示／非表示" ';
+    print "onclick=\"changeFilterPlList($livetypeno{$livetype});\">";
+    print "$livetypetext{$livetype} ($filtercnt)";
+    print "</h4>\n";
 
-	print "<div id=\"livetype$livetypeno{$livetype}\" class=\"sayfilter_content\"$display>\n" if (@filterlist > 0);
+    print
+"<div id=\"livetype$livetypeno{$livetype}\" class=\"sayfilter_content\"$display>\n"
+      if ( @filterlist > 0 );
 
-	my $i = 0;
-	$display = '';
-	@filterlist = sort {$a->{'deathday'} <=> $b->{'deathday'} or $a->{'pno'} <=> $b->{'pno'}} @filterlist if ($livetype ne 'live');
-	foreach (@filterlist) {
-		my $enable = 'enable';
-		my $checked = " $sow->{'html'}->{'checked'}";
-		if ($sow->{'filter'}->{'pnofilter'}->[$_->{'pno'}] eq '1') {
-			$enable = 'disenable';
-			$checked = '';
-		}
+    my $i = 0;
+    $display    = '';
+    @filterlist = sort {
+        $a->{'deathday'} <=> $b->{'deathday'} or $a->{'pno'} <=> $b->{'pno'}
+    } @filterlist if ( $livetype ne 'live' );
+    foreach (@filterlist) {
+        my $enable  = 'enable';
+        my $checked = " $sow->{'html'}->{'checked'}";
+        if ( $sow->{'filter'}->{'pnofilter'}->[ $_->{'pno'} ] eq '1' ) {
+            $enable  = 'disenable';
+            $checked = '';
+        }
 
-		my $logined = $sow->{'user'}->logined();
-		my $unit = $sow->{'basictrs'}->{'SAYTEXT'}->{$sow->{'cfg'}->{'COUNTS_SAY'}->{$vil->{'saycnttype'}}->{'COUNT_TYPE'}}->{'UNIT_SAY'};
-		my $shortchrname = $sow->{'charsets'}->getshortchrname($_->{'csid'}, $_->{'cid'});
-	    my $showid = "";
-	    $showid = " ($_->{'uid'})" if ($vil->isepilogue() != 0 || ($vil->{'showid'} > 0) || (($logined > 0) && ($sow->{'uid'} eq $sow->{'cfg'}->{'USERID_ADMIN'})));
-		my $rolename = '';
-		$rolename = " [$sow->{'textrs'}->{'ROLENAME'}->[$_->{'role'}]]" if ($_->{'role'} > 0);
-		my $live = 'live';
-		$live = $sow->{'curpl'}->{'live'} if (defined($sow->{'curpl'}->{'live'}));
-	    my $showall = "";
-	    $showall = " $rolename" if ($vil->isepilogue() != 0 || ($vil->{'showall'} > 0 && $live ne 'live') || (($logined > 0) && ($sow->{'uid'} eq $sow->{'cfg'}->{'USERID_ADMIN'})));
-		print "  <div id=\"livetype$livetypeno{$livetype}_$i\"$display>";
-		print "<div id=\"pnofilter_$_->{'pno'}\"";
-		print " class=\"sayfilter_content_$enable\"";
-		print " onclick=\"changeFilterByPlList($_->{'pno'});\"";
-#		print " onkeydown=\"changeFilterByPlList($_->{'pno'});\"";
-		print "><div class=\"sayfilter_incontent\"><input";
-		print " id=\"checkpnofilter_$_->{'pno'}\"";
-		print " $atr_id=\"chkpnofilter_$_->{'pno'}\"" if ($atr_id ne 'id');
-		print " style=\"display: none;\"";
-		print " type=\"checkbox\"";
-		print "$checked$net>$shortchrname$showid$showall";
-		print " ($_->{'deathday'}d)" if ($livetype ne 'live');
-		if (($livetype eq 'live') || ($live ne 'live') || $vil->isepilogue() != 0) {
-			my $restsay = $_->{'say'};
-			$restsay = $_->{'gsay'} if ($_->{'live'} ne 'live');
-			$restsay = $_->{'psay'} if ($vil->{'turn'} == 0);
-			$restsay = $_->{'esay'} if ($vil->isepilogue() != 0);
-			my $restaddpt = "";
-			if (($vil->{'nocandy'} == 0) && (($vil->{'noactmode'} == 0) || ($vil->{'noactmode'} == 2))) {
-				if ($_->{'actaddpt'} > 4) {
-					$small = $_->{'actaddpt'} % $sow->{'cfg'}->{'CANDY_LS'};
-					$large = ( $_->{'actaddpt'} - $small ) / $sow->{'cfg'}->{'CANDY_LS'};
-					$restaddpt = "<img src=\"$sow->{'cfg'}->{'DIR_IMG'}/candy_s.png\" width=\"8\" height=\"8\" alt=\"飴\" title=\"飴\">" x $small;
-					$restaddpt .= "<img src=\"$sow->{'cfg'}->{'DIR_IMG'}/candy_l.png\" width=\"16\" height=\"16\" alt=\"飴（大）\" title=\"飴（大）\">" x $large;
-				} elsif ($_->{'actaddpt'} > 0) {
-					$restaddpt = "<img src=\"$sow->{'cfg'}->{'DIR_IMG'}/candy_s.png\" width=\"8\" height=\"8\" alt=\"飴\" title=\"飴\">" x $_->{'actaddpt'};
-				}
-			}
-			print "<div style=\"text-align: right;\">$_->{'saidcount'}回 残$restsay$unit $restaddpt</div>";
-		}
-		print "</div>";
-		print "</div>";
-		print "</div>\n";
-		$i++;
-	}
+        my $logined = $sow->{'user'}->logined();
+        my $unit =
+          $sow->{'basictrs'}->{'SAYTEXT'}
+          ->{ $sow->{'cfg'}->{'COUNTS_SAY'}->{ $vil->{'saycnttype'} }
+              ->{'COUNT_TYPE'} }->{'UNIT_SAY'};
+        my $shortchrname =
+          $sow->{'charsets'}->getshortchrname( $_->{'csid'}, $_->{'cid'} );
+        my $showid = "";
+        $showid = " ($_->{'uid'})"
+          if (
+               $vil->isepilogue() != 0
+            || ( $vil->{'showid'} > 0 )
+            || (   ( $logined > 0 )
+                && ( $sow->{'uid'} eq $sow->{'cfg'}->{'USERID_ADMIN'} ) )
+          );
+        my $rolename = '';
+        $rolename = " [$sow->{'textrs'}->{'ROLENAME'}->[$_->{'role'}]]"
+          if ( $_->{'role'} > 0 );
+        my $live = 'live';
+        $live = $sow->{'curpl'}->{'live'}
+          if ( defined( $sow->{'curpl'}->{'live'} ) );
+        my $showall = "";
+        $showall = " $rolename"
+          if (
+               $vil->isepilogue() != 0
+            || ( $vil->{'showall'} > 0 && $live ne 'live' )
+            || (   ( $logined > 0 )
+                && ( $sow->{'uid'} eq $sow->{'cfg'}->{'USERID_ADMIN'} ) )
+          );
+        print "  <div id=\"livetype$livetypeno{$livetype}_$i\"$display>";
+        print "<div id=\"pnofilter_$_->{'pno'}\"";
+        print " class=\"sayfilter_content_$enable\"";
+        print " onclick=\"changeFilterByPlList($_->{'pno'});\"";
 
-	print "</div>\n" if (@filterlist > 0);
-	print "\n";
+        #		print " onkeydown=\"changeFilterByPlList($_->{'pno'});\"";
+        print "><div class=\"sayfilter_incontent\"><input";
+        print " id=\"checkpnofilter_$_->{'pno'}\"";
+        print " $atr_id=\"chkpnofilter_$_->{'pno'}\"" if ( $atr_id ne 'id' );
+        print " style=\"display: none;\"";
+        print " type=\"checkbox\"";
+        print "$checked$net>$shortchrname$showid$showall";
+        print " ($_->{'deathday'}d)" if ( $livetype ne 'live' );
 
-	return;
+        if (   ( $livetype eq 'live' )
+            || ( $live ne 'live' )
+            || $vil->isepilogue() != 0 )
+        {
+            my $restsay = $_->{'say'};
+            $restsay = $_->{'gsay'} if ( $_->{'live'} ne 'live' );
+            $restsay = $_->{'psay'} if ( $vil->{'turn'} == 0 );
+            $restsay = $_->{'esay'} if ( $vil->isepilogue() != 0 );
+            my $restaddpt = "";
+            if (
+                ( $vil->{'nocandy'} == 0 )
+                && (   ( $vil->{'noactmode'} == 0 )
+                    || ( $vil->{'noactmode'} == 2 ) )
+              )
+            {
+                if ( $_->{'actaddpt'} > 4 ) {
+                    $small = $_->{'actaddpt'} % $sow->{'cfg'}->{'CANDY_LS'};
+                    $large = ( $_->{'actaddpt'} - $small ) /
+                      $sow->{'cfg'}->{'CANDY_LS'};
+                    $restaddpt =
+"<img src=\"$sow->{'cfg'}->{'DIR_IMG'}/candy_s.png\" width=\"8\" height=\"8\" alt=\"飴\" title=\"飴\">"
+                      x $small;
+                    $restaddpt .=
+"<img src=\"$sow->{'cfg'}->{'DIR_IMG'}/candy_l.png\" width=\"16\" height=\"16\" alt=\"飴（大）\" title=\"飴（大）\">"
+                      x $large;
+                }
+                elsif ( $_->{'actaddpt'} > 0 ) {
+                    $restaddpt =
+"<img src=\"$sow->{'cfg'}->{'DIR_IMG'}/candy_s.png\" width=\"8\" height=\"8\" alt=\"飴\" title=\"飴\">"
+                      x $_->{'actaddpt'};
+                }
+            }
+            print
+"<div style=\"text-align: right;\">$_->{'saidcount'}回 残$restsay$unit $restaddpt</div>";
+        }
+        print "</div>";
+        print "</div>";
+        print "</div>\n";
+        $i++;
+    }
+
+    print "</div>\n" if ( @filterlist > 0 );
+    print "\n";
+
+    return;
 }
 
 1;

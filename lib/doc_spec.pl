@@ -8,25 +8,25 @@ package SWDocSpec;
 # コンストラクタ
 #----------------------------------------
 sub new {
-	my ($class, $sow) = @_;
-	my $self = {
-		sow   => $sow,
-		title => "他の人狼クローンとの違い（仕様FAQ）", # タイトル
-	};
+    my ( $class, $sow ) = @_;
+    my $self = {
+        sow   => $sow,
+        title => "他の人狼クローンとの違い（仕様FAQ）",    # タイトル
+    };
 
-	return bless($self, $class);
+    return bless( $self, $class );
 }
 
 #----------------------------------------
 # 仕様FAQの表示
 #----------------------------------------
 sub outhtml {
-	my $self = shift;
-	my $sow = $self->{'sow'};
-	my $net = $sow->{'html'}->{'net'}; # Null End Tag
-	my $atr_id = $sow->{'html'}->{'atr_id'};
+    my $self   = shift;
+    my $sow    = $self->{'sow'};
+    my $net    = $sow->{'html'}->{'net'};      # Null End Tag
+    my $atr_id = $sow->{'html'}->{'atr_id'};
 
-	print <<"_HTML_";
+    print <<"_HTML_";
 <h2>他の人狼クローンとの違い（仕様FAQ）</h2>
 <p class="paragraph">
 ※ここでは人狼クローンによって名前の異なる役職について、以下のように表\記します。

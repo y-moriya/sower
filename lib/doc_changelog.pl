@@ -8,13 +8,13 @@ package SWDocChangeLog;
 # コンストラクタ
 #----------------------------------------
 sub new {
-	my ($class, $sow) = @_;
-	my $self = {
-		sow   => $sow,
-		title => "更新情報", # タイトル
-	};
+    my ( $class, $sow ) = @_;
+    my $self = {
+        sow   => $sow,
+        title => "更新情報",    # タイトル
+    };
 
-	return bless($self, $class);
+    return bless( $self, $class );
 }
 
 #----------------------------------------
@@ -34,14 +34,13 @@ sub new {
 #
 #----------------------------------------
 
-
 sub outhtmlnew {
-	my $self = shift;
-	my $sow = $self->{'sow'};
-	my $net = $sow->{'html'}->{'net'}; # Null End Tag
-	my $atr_id = $sow->{'html'}->{'atr_id'};
+    my $self   = shift;
+    my $sow    = $self->{'sow'};
+    my $net    = $sow->{'html'}->{'net'};      # Null End Tag
+    my $atr_id = $sow->{'html'}->{'atr_id'};
 
-	print <<"_HTML_";
+    print <<"_HTML_";
 <h3>Sower Version 1.1.5 (2020/08/06)</h3>
 <ul>
   <li>Viewport の設定を追加</li>
@@ -54,19 +53,19 @@ _HTML_
 # 更新情報の表示
 #----------------------------------------
 sub outhtml {
-	my $self = shift;
-	my $sow = $self->{'sow'};
-	my $net = $sow->{'html'}->{'net'}; # Null End Tag
-	my $atr_id = $sow->{'html'}->{'atr_id'};
+    my $self   = shift;
+    my $sow    = $self->{'sow'};
+    my $net    = $sow->{'html'}->{'net'};      # Null End Tag
+    my $atr_id = $sow->{'html'}->{'atr_id'};
 
-	print <<"_HTML_";
+    print <<"_HTML_";
 <h2><a $atr_id="changelog">更新情報</a></h2>
 
 _HTML_
 
-	$self->outhtmlnew();
+    $self->outhtmlnew();
 
-	print <<"_HTML_";
+    print <<"_HTML_";
 <hr class="invisible_hr"$net>
 <h3>Sower Version 1.1.4 (2019/05/23-25)</h3>
 <ul>
@@ -608,7 +607,7 @@ _HTML_
 
 _HTML_
 
-	return;
+    return;
 }
 
 1;

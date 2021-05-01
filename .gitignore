@@ -13,7 +13,8 @@ data/vil/*
 !data/vil
 !data/vil/.gitkeep
 
-img/*
+doc/img/*
+!doc/img/.gitkeep
 !img/.gitkeep
 .todo
 _config_local.pl

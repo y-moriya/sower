@@ -4,22 +4,22 @@ package SWHtmlRestVIndex;
 # 村一覧再構築画面のHTML出力
 #----------------------------------------
 sub OutHTMLRestVIndex {
-	my $sow = shift;
-	my $cfg   = $sow->{'cfg'};
-	my $query = $sow->{'query'};
-	my $net   = $sow->{'html'}->{'net'}; # Null End Tag
+    my $sow   = shift;
+    my $cfg   = $sow->{'cfg'};
+    my $query = $sow->{'query'};
+    my $net   = $sow->{'html'}->{'net'};    # Null End Tag
 
-	&SWHtmlPC::OutHTMLLogin($sow); # ログイン欄の出力
+    &SWHtmlPC::OutHTMLLogin($sow);          # ログイン欄の出力
 
-	my $reqvals = &SWBase::GetRequestValues($sow);
-	$reqvals->{'cmd'} = 'restvi';
-	my $hidden = &SWBase::GetHiddenValues($sow, $reqvals, '  ');
+    my $reqvals = &SWBase::GetRequestValues($sow);
+    $reqvals->{'cmd'} = 'restvi';
+    my $hidden = &SWBase::GetHiddenValues( $sow, $reqvals, '  ' );
 
-	if ($query->{'cmd'} eq 'restvi') {
-		print "<p class=\"info\">\n村一覧ファイルを再構\築しました。\n</p>\n\n";
-	}
+    if ( $query->{'cmd'} eq 'restvi' ) {
+        print "<p class=\"info\">\n村一覧ファイルを再構\築しました。\n</p>\n\n";
+    }
 
-	print <<"_HTML_";
+    print <<"_HTML_";
 <h2>村一覧の再構\築</h2>
 
 <form action="$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}" method="$cfg->{'METHOD_FORM'}">
@@ -40,9 +40,9 @@ sub OutHTMLRestVIndex {
 
 _HTML_
 
-	&SWHtmlPC::OutHTMLReturnPC($sow); # トップページへ戻る
+    &SWHtmlPC::OutHTMLReturnPC($sow);    # トップページへ戻る
 
-	return;
+    return;
 }
 
 1;

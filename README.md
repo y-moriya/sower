@@ -6,9 +6,7 @@ http://real.gunjobiyori.com/sow.cgi
 
 ## Build setup
 
-1. docker build -t sower .
-2. docker run --name sower --mount type=bind,src="$PWD",dst=/usr/lib/cgi-bin/sower -p 8080:80 -d sower
-3. open http://localhost:8080/cgi-bin/sower/sow.cgi
+please using devcontainer.
 
 # Original Readme
 

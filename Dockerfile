@@ -1,7 +1,10 @@
 FROM  perl:5-slim
 SHELL ["/bin/bash", "-c"]
 RUN apt-get -y update
-RUN apt-get -y install apache2 vim git
+RUN apt-get -y install apache2 vim git cpanminus locales-all
+RUN cpanm -L extlib Perl::Critic
+RUN chmod 755 sow.cgi
+COPY 001-sower.conf /etc/apache2/site-enabled/
 
 ENV APACHE_RUN_USER www-data
 ENV APACHE_RUN_GROUP www-data
@@ -12,10 +15,6 @@ ENV APACHE_LOCK_DIR /var/lock/apache2
 
 RUN a2enmod cgi
 RUN echo "ScriptSock /var/run/cgid.sock" >> /etc/apache2/httpd.conf
-
-RUN mkdir -p /var/www/html/data/img
-COPY ./doc /var/www/html/data
-COPY ./img /var/www/html/data/img
 
 EXPOSE 80
 CMD ["apachectl", "-D", "FOREGROUND"]

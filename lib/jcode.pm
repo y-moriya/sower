@@ -3,51 +3,52 @@
 #
 
 package Jcode;
-use 5.005; # fair ?
+use 5.005;    # fair ?
 use Carp;
 use strict;
 use vars qw($RCSID $VERSION $DEBUG);
 
 $RCSID = q$Id: Jcode.pm,v 2.7 2008/05/10 18:15:19 dankogai Exp dankogai $;
-$VERSION = do { my @r = (q$Revision: 2.7 $ =~ /\d+/g); sprintf "%d."."%02d" x $#r, @r };
+$VERSION = do { my @r = ( q$Revision: 2.7 $ =~ /\d+/g ); sprintf "%d." . "%02d" x $#r, @r };
 $DEBUG = 0;
 
 # we no longer use Exporter
 use vars qw($USE_ENCODE);
-$USE_ENCODE = ($] >= 5.008001);
+$USE_ENCODE = ( $] >= 5.008001 );
 
 use Exporter;
 use vars qw(@ISA @EXPORT @EXPORT_OK %EXPORT_TAGS);
 @ISA         = qw(Exporter);
 @EXPORT      = qw(jcode getcode);
 @EXPORT_OK   = qw($RCSID $VERSION $DEBUG);
-%EXPORT_TAGS = ( all       => [ @EXPORT, @EXPORT_OK ] );
+%EXPORT_TAGS = ( all => [ @EXPORT, @EXPORT_OK ] );
 
-use overload 
-    q("") => sub { $_[0]->euc },
-    q(==) => sub { overload::StrVal($_[0]) eq overload::StrVal($_[1]) },
-    q(.=) => sub { $_[0]->append( $_[1] ) },
-    fallback => 1,
-    ;
+use overload
+  q("")    => sub { $_[0]->euc },
+  q(==)    => sub { overload::StrVal( $_[0] ) eq overload::StrVal( $_[1] ) },
+  q(.=)    => sub { $_[0]->append( $_[1] ) },
+  fallback => 1,
+  ;
 
-if ($USE_ENCODE){
+if ($USE_ENCODE) {
     $DEBUG and warn "Using Encode";
-    my $data = join("", <DATA>);
+    my $data = join( "", <DATA> );
     eval $data;
     $@ and die $@;
-}else{
+}
+else {
     $DEBUG and warn "Not Using Encode";
     require Jcode::_Classic;
     use vars qw/@ISA/;
     unshift @ISA, qw/Jcode::_Classic/;
-    for my $sub (qw/jcode getcode convert load_module/){
-	no strict 'refs';
-	*{$sub} = \&{'Jcode::_Classic::' . $sub };
+    for my $sub (qw/jcode getcode convert load_module/) {
+        no strict 'refs';
+        *{$sub} = \&{ 'Jcode::_Classic::' . $sub };
     }
-    for my $enc (qw/sjis jis ucs2 utf8/){
-	no strict 'refs';
-	*{"euc_" . $enc} = \&{"Jcode::_Classic::" . "euc_" . $enc};
-	*{$enc . "_euc"} = \&{"Jcode::_Classic::" . $enc . "_euc"};
+    for my $enc (qw/sjis jis ucs2 utf8/) {
+        no strict 'refs';
+        *{ "euc_" . $enc } = \&{ "Jcode::_Classic::" . "euc_" . $enc };
+        *{ $enc . "_euc" } = \&{ "Jcode::_Classic::" . $enc . "_euc" };
     }
 }
 

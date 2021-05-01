@@ -4,24 +4,26 @@ package SWHtmlDeleteVil;
 # 村データ削除画面のHTML出力
 #----------------------------------------
 sub OutHTMLDeleteVil {
-	my $sow = shift;
-	my $cfg   = $sow->{'cfg'};
-	my $query = $sow->{'query'};
-	my $net   = $sow->{'html'}->{'net'}; # Null End Tag
+    my $sow   = shift;
+    my $cfg   = $sow->{'cfg'};
+    my $query = $sow->{'query'};
+    my $net   = $sow->{'html'}->{'net'};    # Null End Tag
 
-	&SWHtmlPC::OutHTMLLogin($sow); # ログイン欄の出力
+    &SWHtmlPC::OutHTMLLogin($sow);          # ログイン欄の出力
 
-	my $reqvals = &SWBase::GetRequestValues($sow);
-	$reqvals->{'cmd'} = 'deletevil';
-	my $hidden = &SWBase::GetHiddenValues($sow, $reqvals, '  ');
+    my $reqvals = &SWBase::GetRequestValues($sow);
+    $reqvals->{'cmd'} = 'deletevil';
+    my $hidden = &SWBase::GetHiddenValues( $sow, $reqvals, '  ' );
 
-	if ($query->{'vidstart'} > 0) {
-		my $vidtext = "$query->{'vidstart'}村";
-		$vidtext .= "～$query->{'vidend'}村" if ($query->{'vidstart'} != $query->{'vidend'});
-		print "<p class=\"info\">\n$vidtextの村データを削除しました。\n</p>\n\n";
-	}
+    if ( $query->{'vidstart'} > 0 ) {
+        my $vidtext = "$query->{'vidstart'}村";
+        $vidtext .= "～$query->{'vidend'}村"
+          if ( $query->{'vidstart'} != $query->{'vidend'} );
+        print
+          "<p class=\"info\">\n$vidtextの村データを削除しました。\n</p>\n\n";
+    }
 
-	print <<"_HTML_";
+    print <<"_HTML_";
 <h2>村データの削除</h2>
 
 <form action="$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}" method="$cfg->{'METHOD_FORM'}">
@@ -34,9 +36,9 @@ sub OutHTMLDeleteVil {
 
 _HTML_
 
-	&SWHtmlPC::OutHTMLReturnPC($sow); # トップページへ戻る
+    &SWHtmlPC::OutHTMLReturnPC($sow);    # トップページへ戻る
 
-	return;
+    return;
 }
 
 1;

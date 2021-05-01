@@ -4,22 +4,22 @@ package SWHtmlRestPlayingVil;
 # 参加中の村一覧クリア画面のHTML出力
 #----------------------------------------
 sub OutHTMLRestPlayingVil {
-	my $sow = shift;
-	my $cfg   = $sow->{'cfg'};
-	my $query = $sow->{'query'};
-	my $net   = $sow->{'html'}->{'net'}; # Null End Tag
+    my $sow   = shift;
+    my $cfg   = $sow->{'cfg'};
+    my $query = $sow->{'query'};
+    my $net   = $sow->{'html'}->{'net'};    # Null End Tag
 
-	&SWHtmlPC::OutHTMLLogin($sow); # ログイン欄の出力
+    &SWHtmlPC::OutHTMLLogin($sow);          # ログイン欄の出力
 
-	my $reqvals = &SWBase::GetRequestValues($sow);
-	$reqvals->{'cmd'} = 'restpvil';
-	my $hidden = &SWBase::GetHiddenValues($sow, $reqvals, '  ');
+    my $reqvals = &SWBase::GetRequestValues($sow);
+    $reqvals->{'cmd'} = 'restpvil';
+    my $hidden = &SWBase::GetHiddenValues( $sow, $reqvals, '  ' );
 
-	if ($query->{'cmd'} eq 'restpvil') {
-		print "<p class=\"info\">\n参加中の村一覧をクリアしました。\n</p>\n\n";
-	}
+    if ( $query->{'cmd'} eq 'restpvil' ) {
+        print "<p class=\"info\">\n参加中の村一覧をクリアしました。\n</p>\n\n";
+    }
 
-	print <<"_HTML_";
+    print <<"_HTML_";
 <h2>参加中の村一覧のクリア</h2>
 
 <form action="$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}" method="$cfg->{'METHOD_FORM'}">
@@ -44,9 +44,9 @@ sub OutHTMLRestPlayingVil {
 
 _HTML_
 
-	&SWHtmlPC::OutHTMLReturnPC($sow); # トップページへ戻る
+    &SWHtmlPC::OutHTMLReturnPC($sow);    # トップページへ戻る
 
-	return;
+    return;
 }
 
 1;
