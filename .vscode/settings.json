@@ -1,4 +1,10 @@
 {
+    "[javascript]": {
+        "editor.formatOnSave": true,
+    },
+    "[css]": {
+        "editor.formatOnSave": true,
+    },
     "[perl]": {
         "editor.formatOnSave": true,
         "editor.tabSize": 4,

@@ -1,5 +1,4 @@
 @charset "Shift_JIS";
-
 * {
   font-size: 100%;
   line-height: 130%;
@@ -87,6 +86,7 @@ address {
 /* BODY FRAME --------------------*/
 
 /* 外枠トップ ----------*/
+
 .outframetop {
   margin: 0px auto 0px auto;
   padding: 0px;
@@ -94,6 +94,7 @@ address {
 }
 
 /* 内枠トップ ----------*/
+
 .contentframetop {
   margin: 0px;
   padding: 0px;
@@ -102,29 +103,34 @@ address {
 }
 
 /* 外枠 ----------*/
+
 .outframe {
   margin: 0px auto 0px auto;
   padding: 0px;
-
   width: 600px;
 }
 
 /* フィルタを左に配置した時の外枠 ----------*/
+
 .outframe_navimode {
   margin: 0px auto 0px auto;
   padding: 0px;
-
   text-align: right;
   width: 632px;
-} .ajax {
-    position: absolute;
-    width: 452px;
-} .drag {
-    position: absolute;
-    width: 452px;
+}
+
+.ajax {
+  position: absolute;
+  width: 452px;
+}
+
+.drag {
+  position: absolute;
+  width: 452px;
 }
 
 /* 内枠 ----------*/
+
 .contentframe {
   margin: 0px;
   padding: 0px;
@@ -133,6 +139,7 @@ address {
 }
 
 /* フィルタを左に配置した時の内枠 ----------*/
+
 .contentframe_navileft {
   margin: 0px;
   padding: 0px;
@@ -142,6 +149,7 @@ address {
 }
 
 /* 内枠の中身（タイトル画像は含まない） ----------*/
+
 .inframe {
   margin: 0px 0px 0px 0px;
   padding: 0px 16px 0px 16px;
@@ -150,6 +158,7 @@ address {
 /* SAY FILTER --------------------*/
 
 /* フィルタ（下配置時）----------*/
+
 .sayfilter {
   margin: 0px auto 0px auto;
   padding: 0px;
@@ -160,6 +169,7 @@ address {
 }
 
 /* フィルタ（左配置時）----------*/
+
 .sayfilterleft {
   margin: 0px;
   padding: 0px;
@@ -167,11 +177,11 @@ address {
   font-size: smaller;
   border: none;
   width: 128px;
-
   float: left;
 }
 
 /* フィルタの中身 ----------*/
+
 .insayfilter {
   margin: 0px;
   padding: 8px;
@@ -180,6 +190,7 @@ address {
 }
 
 /* フィルタの見出し ----------*/
+
 .sayfilter_heading {
   margin: 0px 0px 16px 0px;
   padding: 2px 8px 2px 8px;
@@ -189,12 +200,14 @@ address {
 }
 
 /* フィルタ固定・配置ボタン ----------*/
+
 .sayfilter_button {
   float: right;
   display: none;
 }
 
 /* フィルタ小見出し（広げた時）----------*/
+
 .sayfilter_caption_enable {
   margin: 0px;
   padding: 1px 2px 1px 2px;
@@ -205,6 +218,7 @@ address {
 }
 
 /* フィルタ小見出し（畳んだ時）----------*/
+
 .sayfilter_caption_disenable {
   margin: 0px;
   padding: 1px 2px 1px 2px;
@@ -215,6 +229,7 @@ address {
 }
 
 /* フィルタ選択欄枠----------*/
+
 .sayfilter_content {
   margin: 0px;
   text-align: left;
@@ -223,23 +238,27 @@ address {
 }
 
 /* フィルタ選択欄（有効時）----------*/
+
 .sayfilter_content_enable {
   color: #000;
   width: 100%;
 }
 
 /* フィルタ選択欄（無効時）----------*/
+
 .sayfilter_content_disenable {
   color: #aaa;
   width: 100%;
 }
 
 /* フィルタ選択欄内部枠 ----------*/
+
 .sayfilter_incontent {
   padding: 1px 2px 1px 2px;
 }
 
 /* フィルタ一括操作用ボタン ----------*/
+
 .sayfilter_button_lump {
   border: ridge #444;
   width: 100%;
@@ -248,41 +267,48 @@ address {
 /* BLOCK --------------------*/
 
 /* 段落全般 ----------*/
+
 .paragraph {
   margin: 0px 0px 16px 0px;
 }
 
 /* ログイン欄 ----------*/
+
 .login {
   margin: 0px 0px 8px 0px;
   text-align: right;
 }
 
 /* 日付リンク ----------*/
+
 .turnnavi {
   margin: 0px 0px 16px 0px;
   padding: 0px 0px 0px 16px;
 }
 
 /* ページリンク ----------*/
+
 .pagenavi {
   margin: 0px 32px 16px 32px;
   padding: 0px 0px 0px 16px;
 }
 
 /* 非ログイン時注意表示 ----------*/
+
 .infonologin {
   margin: 0px 0px 16px 0px;
   padding: 0px 0px 0px 16px;
 }
 
 /* 全表示リンク ----------*/
+
 .row_all {
   margin: 0px 0px 16px 0px;
   padding: 0px;
 }
 
 /* 表示行数・表示順序変更フォーム ----------*/
+
 .viewform {
   margin: 0px 0px 16px 0px;
   padding: 0px;
@@ -292,6 +318,7 @@ address {
 /* IMAGE AND TEXT LAYOUT --------------------*/
 
 /* 発言のキャラ画像 ----------*/
+
 .mes_chrimg {
   padding: 4px;
   text-align: center;
@@ -299,15 +326,19 @@ address {
 }
 
 /* 発言の文章部分 ----------*/
+
 .mes_text {
   padding: 4px;
   vertical-align: top;
-}.mes_text_loud {
-    font-weight: bold;
-    font-size: 120%;
+}
+
+.mes_text_loud {
+  font-weight: bold;
+  font-size: 120%;
 }
 
 /* 発言の文章部分（等幅）----------*/
+
 .mes_text_monospace {
   padding: 4px;
   vertical-align: top;
@@ -315,6 +346,7 @@ address {
 }
 
 /* 水平線（通常は非表示）----------*/
+
 .invisible_hr {
   display: none;
 }
@@ -322,6 +354,7 @@ address {
 /* SAY --------------------*/
 
 /* システム表示 ----------*/
+
 .info {
   margin: 0px 0px 16px 0px;
   padding: 8px;
@@ -329,30 +362,34 @@ address {
 }
 
 /* もっと読む ----------*/
+
 .readmore {
-    margin: 0.5em 0;
-    padding: 0.5em 1em;
-    color: #cca;
-    border: 1px solid #cca;
-	text-align: center;
+  margin: 0.5em 0;
+  padding: 0.5em 1em;
+  color: #cca;
+  border: 1px solid #cca;
+  text-align: center;
 }
 
 /* 新着取得 ----------*/
+
 .newinfo {
-    margin: 0.5em 0;
-    padding: 0.5em 1em;
-    color: #cca;
-    border: 1px solid #cca;
-	text-align: center;
+  margin: 0.5em 0;
+  padding: 0.5em 1em;
+  color: #cca;
+  border: 1px solid #cca;
+  text-align: center;
 }
 
 /* 新着取得時刻 ----------*/
+
 .new_date {
   font-size: 90%;
   text-align: right;
 }
 
 /* システム表示（不可視） ----------*/
+
 .infosp {
   margin: 0px 0px 16px 0px;
   padding: 8px;
@@ -360,6 +397,7 @@ address {
 }
 
 /* 警告・注意表示 ----------*/
+
 .caution {
   margin: 0px 0px 16px 0px;
   padding: 8px;
@@ -367,16 +405,19 @@ address {
 }
 
 /* やんわり注意表示 ----------*/
+
 .infotext {
   color: #444;
 }
 
 /* 警告・注意する部分（インライン） ----------*/
+
 .cautiontext {
   font-weight: bold;
 }
 
 /* 発言者名 ----------*/
+
 .mesname {
   margin: 0px;
   padding: 4px;
@@ -386,6 +427,7 @@ address {
 }
 
 /* 削除済み発言 ----------*/
+
 .mes_del {
   margin: 0px 0px 16px 0px;
   padding: 4px;
@@ -393,6 +435,7 @@ address {
 }
 
 /* 未確定発言 ----------*/
+
 .mes_que {
   margin: 0px 0px 16px 0px;
   padding: 4px;
@@ -400,6 +443,7 @@ address {
 }
 
 /* 通常発言 ----------*/
+
 .mes_nom {
   margin: 0px 0px 16px 0px;
   padding: 4px;
@@ -407,6 +451,7 @@ address {
 }
 
 /* 独り言 ----------*/
+
 .mes_think {
   margin: 0px 0px 16px 0px;
   padding: 4px;
@@ -414,6 +459,7 @@ address {
 }
 
 /* 囁き ----------*/
+
 .mes_wolf {
   margin: 0px 0px 16px 0px;
   padding: 4px;
@@ -421,6 +467,7 @@ address {
 }
 
 /* 死者のうめき ----------*/
+
 .mes_grave {
   margin: 0px 0px 16px 0px;
   padding: 4px;
@@ -428,6 +475,7 @@ address {
 }
 
 /* 村建て人発言 ----------*/
+
 .mes_maker {
   margin: 0px 0px 16px 0px;
   padding: 4px;
@@ -435,6 +483,7 @@ address {
 }
 
 /* 管理人発言 ----------*/
+
 .mes_admin {
   margin: 0px 0px 16px 0px;
   padding: 4px;
@@ -442,6 +491,7 @@ address {
 }
 
 /* 共鳴 ----------*/
+
 .mes_sympa {
   margin: 0px 0px 16px 0px;
   padding: 4px;
@@ -449,6 +499,7 @@ address {
 }
 
 /* 念話 ----------*/
+
 .mes_bat {
   margin: 0px 0px 16px 0px;
   padding: 4px;
@@ -456,6 +507,7 @@ address {
 }
 
 /* 傍観者発言 ----------*/
+
 .mes_guest {
   margin: 0px 0px 16px 0px;
   padding: 4px;
@@ -463,6 +515,7 @@ address {
 }
 
 /* メモ ----------*/
+
 .memo {
   margin: 0px 0px 16px 0px;
   padding: 4px;
@@ -471,33 +524,40 @@ address {
 }
 
 /* メモの左側 ----------*/
+
 .memoleft {
   border-style: none dashed solid none;
   border-width: 0px 1px 1px 0px;
   border-color: #000;
-  border-collapse: collapse; /* CSS2? */
+  border-collapse: collapse;
+  /* CSS2? */
   width: 30%;
 }
 
 /* メモの右側 ----------*/
+
 .memoright {
   border-style: none none solid none;
   border-width: 0px 0px 1px 0px;
   border-color: #000;
-  border-collapse: collapse; /* CSS2? */
+  border-collapse: collapse;
+  /* CSS2? */
   width: 65%;
 }
 
 /* 発言の日付 ----------*/
+
 .mes_date {
   font-size: 90%;
   text-align: right;
 }
 
 /* 発言のアンカー -------*/
+
 span.mes_number {
   color: #00f;
 }
+
 span.mes_number:hover {
   color: #0ff;
   cursor: pointer;
@@ -505,6 +565,7 @@ span.mes_number:hover {
 }
 
 /* アクション ----------*/
+
 .action_nom {
   margin: 0px 0px 16px 0px;
   padding: 4px;
@@ -512,22 +573,24 @@ span.mes_number:hover {
 }
 
 /* しおり ----------*/
+
 .action_bm {
   margin: 0px 0px 16px 0px;
   padding: 4px;
   border: 1px solid #000;
-
   font-weight: bold;
 }
 
 /* FORM PLAYER --------------------*/
 
 /* 発言入力欄の外枠 ----------*/
+
 .formpl_frame {
   margin: 0px 0px 12px 0px;
 }
 
 /* 発言入力欄（共通） ----------*/
+
 .formpl_common {
   margin: 0px 0px 4px 0px;
   padding: 4px;
@@ -535,6 +598,7 @@ span.mes_number:hover {
 }
 
 /* 発言入力欄のキャラ画像 ----------*/
+
 .formpl_chrimg {
   padding: 4px;
   text-align: center;
@@ -542,22 +606,26 @@ span.mes_number:hover {
 }
 
 /* 発言入力欄の項目 ----------*/
+
 .formpl_content {
   padding: 4px;
 }
 
 /* アクション入力欄 ----------*/
+
 .formpl_action {
   padding: 4px;
-/*  font-size: 100%; */
+  /*  font-size: 100%; */
 }
 
 /* アクション自由入力欄 ----------*/
+
 .formpl_actiontext {
   width: 80%;
 }
 
 /* 能力者欄（おまかせ）----------*/
+
 .formpl_undef {
   margin: 0px 0px 4px 0px;
   padding: 4px;
@@ -565,6 +633,7 @@ span.mes_number:hover {
 }
 
 /* 能力者欄（ランダム）----------*/
+
 .formpl_random {
   margin: 0px 0px 4px 0px;
   padding: 4px;
@@ -572,6 +641,7 @@ span.mes_number:hover {
 }
 
 /* 能力者欄（村人）----------*/
+
 .formpl_vil {
   margin: 0px 0px 4px 0px;
   padding: 4px;
@@ -579,6 +649,7 @@ span.mes_number:hover {
 }
 
 /* 能力者欄（人狼）----------*/
+
 .formpl_wolf {
   margin: 0px 0px 4px 0px;
   padding: 4px;
@@ -586,6 +657,7 @@ span.mes_number:hover {
 }
 
 /* 能力者欄（占い師）----------*/
+
 .formpl_seer {
   margin: 0px 0px 4px 0px;
   padding: 4px;
@@ -593,6 +665,7 @@ span.mes_number:hover {
 }
 
 /* 能力者欄（霊能者）----------*/
+
 .formpl_medium {
   margin: 0px 0px 4px 0px;
   padding: 4px;
@@ -600,6 +673,7 @@ span.mes_number:hover {
 }
 
 /* 能力者欄（狂人）----------*/
+
 .formpl_possess {
   margin: 0px 0px 4px 0px;
   padding: 4px;
@@ -607,6 +681,7 @@ span.mes_number:hover {
 }
 
 /* 能力者欄（狩人）----------*/
+
 .formpl_guard {
   margin: 0px 0px 4px 0px;
   padding: 4px;
@@ -614,6 +689,7 @@ span.mes_number:hover {
 }
 
 /* 能力者欄（共有者）----------*/
+
 .formpl_fm {
   margin: 0px 0px 4px 0px;
   padding: 4px;
@@ -621,6 +697,7 @@ span.mes_number:hover {
 }
 
 /* 能力者欄（ハムスター人間）----------*/
+
 .formpl_hamster {
   margin: 0px 0px 4px 0px;
   padding: 4px;
@@ -628,6 +705,7 @@ span.mes_number:hover {
 }
 
 /* 能力者欄（Ｃ国狂人）----------*/
+
 .formpl_cpossess {
   margin: 0px 0px 4px 0px;
   padding: 4px;
@@ -635,6 +713,7 @@ span.mes_number:hover {
 }
 
 /* 能力者欄（聖痕者）----------*/
+
 .formpl_stigma {
   margin: 0px 0px 4px 0px;
   padding: 4px;
@@ -642,6 +721,7 @@ span.mes_number:hover {
 }
 
 /* 能力者欄（狂信者）----------*/
+
 .formpl_fanatic {
   margin: 0px 0px 4px 0px;
   padding: 4px;
@@ -649,6 +729,7 @@ span.mes_number:hover {
 }
 
 /* 能力者欄（共鳴者）----------*/
+
 .formpl_sympathy {
   margin: 0px 0px 4px 0px;
   padding: 4px;
@@ -656,6 +737,7 @@ span.mes_number:hover {
 }
 
 /* 能力者欄（コウモリ人間）----------*/
+
 .formpl_werebat {
   margin: 0px 0px 4px 0px;
   padding: 4px;
@@ -663,6 +745,7 @@ span.mes_number:hover {
 }
 
 /* 能力者欄（呪狼）----------*/
+
 .formpl_cwolf {
   margin: 0px 0px 4px 0px;
   padding: 4px;
@@ -670,6 +753,7 @@ span.mes_number:hover {
 }
 
 /* 能力者欄（智狼）----------*/
+
 .formpl_intwolf {
   margin: 0px 0px 4px 0px;
   padding: 4px;
@@ -677,6 +761,7 @@ span.mes_number:hover {
 }
 
 /* 能力者欄（ピクシー）----------*/
+
 .formpl_trickster {
   margin: 0px 0px 4px 0px;
   padding: 4px;
@@ -684,6 +769,7 @@ span.mes_number:hover {
 }
 
 /* 村開始・更新欄 ----------*/
+
 .formpl_gm {
   margin: 0px 0px 4px 0px;
   padding: 4px;
@@ -691,21 +777,25 @@ span.mes_number:hover {
 }
 
 /* 村開始・更新ボタン ----------*/
+
 .commitbutton {
   text-align: center;
 }
 
 /* 発言撤回欄 ----------*/
+
 .saycancelframe {
   text-align: center;
 }
 
 /* 発言撤回ボタン ----------*/
+
 .saycancelbutton {
   font-size: smaller;
 }
 
 /* 「戻る」リンク ----------*/
+
 .return {
   margin: 0px;
   padding: 0px 0px 8px 0px;
@@ -713,6 +803,7 @@ span.mes_number:hover {
 }
 
 /* 誤爆防止チェック欄 ----------*/
+
 .previewsafety {
   margin: 0px 0px 8px 0px;
 }
@@ -720,14 +811,17 @@ span.mes_number:hover {
 /* OTHERS --------------------*/
 
 /* 村一覧 ----------*/
+
 .vindex {
   margin: 0px 0px 16px 0px;
   border: 1px solid #000;
-  border-collapse: collapse; /* CSS2? */
-/*  width: 100%; */
+  border-collapse: collapse;
+  /* CSS2? */
+  /*  width: 100%; */
 }
 
 /* 村作成画面 ----------*/
+
 .form_vmake {
   margin: 0px 0px 16px 0px;
   padding: 4px;
@@ -735,11 +829,13 @@ span.mes_number:hover {
 }
 
 /* 村作成・編集ボタン ----------*/
+
 .exevmake {
   text-align: center;
 }
 
 /* 段組（ラベル） ----------*/
+
 .multicolumn_label {
   display: block;
   float: left;
@@ -749,12 +845,14 @@ span.mes_number:hover {
 }
 
 /* 段組（左配置） ----------*/
+
 .multicolumn_left {
   display: block;
   float: left;
 }
 
 /* 段組（右配置） ----------*/
+
 .multicolumn_right {
   display: block;
   float: left;
@@ -762,6 +860,7 @@ span.mes_number:hover {
 }
 
 /* 段組（役職入力欄） ----------*/
+
 .multicolumn_role {
   display: block;
   float: left;
@@ -770,33 +869,43 @@ span.mes_number:hover {
 }
 
 /* 段組（改行） ----------*/
+
 .multicolumn_clear {
   clear: left;
 }
 
 /* 回り込み禁止 ----------*/
+
 .clearboth {
   clear: both;
 }
 
-/* ポップアップ ----------*/ .message_filter {
-	background: #fff;
+/* ポップアップ ----------*/
+
+.message_filter {
+  background: #fff;
 }
 
-/* ドラッグ用ハンドラ ----------*/ .handler {
-	background: #355;
-	height: 15px;
+/* ドラッグ用ハンドラ ----------*/
+
+.handler {
+  background: #355;
+  height: 15px;
 }
 
-/* ポップアップクロージャ ----------*/ .close {
-	color: #e50;
-	font-weight: bold;
-	font-size: 120%;
-	cursor: pointer;
-	float: right;
+/* ポップアップクロージャ ----------*/
+
+.close {
+  color: #e50;
+  font-weight: bold;
+  font-size: 120%;
+  cursor: pointer;
+  float: right;
 }
 
-/* アンカーコピー時ポップアップ -----------*/ .popup {
+/* アンカーコピー時ポップアップ -----------*/
+
+.popup {
   position: fixed;
   bottom: 0px;
   left: 0px;
@@ -810,6 +919,7 @@ span.mes_number:hover {
   opacity: 0;
   transition: 0.5s;
 }
+
 .popup.js_active {
   transform: translateY(0%);
   opacity: 1;

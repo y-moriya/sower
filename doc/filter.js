@@ -35,11 +35,11 @@ function changeFilterByCheckBoxMesType(mestype) {
 	typefilter[mestype] = 1 - typefilter[mestype];
 	if (typefilter[mestype] == 0) {
 		display = 'block';
-		enable  = 'enable';
+		enable = 'enable';
 		checked = true;
 	} else {
 		display = 'none';
-		enable  = 'disenable';
+		enable = 'disenable';
 		checked = false;
 	}
 
@@ -91,11 +91,11 @@ function changeFilterByPno(pno) {
 
 	if (pnofilter[pno] == 0) {
 		display = 'block';
-		enable  = 'enable';
+		enable = 'enable';
 		checked = true;
 	} else {
 		display = 'none';
-		enable  = 'disenable';
+		enable = 'disenable';
 		checked = false;
 	}
 
@@ -279,7 +279,7 @@ function unfixFilter() {
 	if (obj) obj.style.display = 'none';
 
 	var obj = getDocumentObject('insayfilter');
-	if (obj) obj.style.height   = 'auto';
+	if (obj) obj.style.height = 'auto';
 	fixedfilter = 0;
 	writeCookieFilter();
 }
@@ -441,12 +441,12 @@ function changeSayDisplay(key, data, display) {
 //発言フィルタを画面左上に固定（IE用）
 function fixFilterLeftIE() {
 	var objSayFilter = getDocumentObject('sayfilter');
-	var objOutFrame  = getDocumentObject('outframe');
+	var objOutFrame = getDocumentObject('outframe');
 	if (!objSayFilter) return;
 	if (!objOutFrame) return;
 
 	if (navigator.appName.indexOf('Microsoft Internet Explorer') < 0) return;
-	objSayFilter.style.top  = document.body.scrollTop;
+	objSayFilter.style.top = document.body.scrollTop;
 	objSayFilter.style.left = objOutFrame.offsetLeft;
 }
 
@@ -456,7 +456,7 @@ function moveFilterTopZeroIE() {
 	if (!objSayFilter) return;
 
 	if (navigator.appName.indexOf('Microsoft Internet Explorer') < 0) return;
-	objSayFilter.style.top  = 0;
+	objSayFilter.style.top = 0;
 }
 
 //---------------------------------------------
@@ -466,7 +466,7 @@ function moveFilterTopZeroIE() {
 //ドキュメントオブジェクトの取得
 function getDocumentObject(id) {
 	var obj;
-	if(document.getElementById) {
+	if (document.getElementById) {
 		obj = document.getElementById(id)
 	} else if (document.all) {
 		obj = document.all(id)
@@ -492,7 +492,7 @@ function writeCookieFilter() {
 	const expires = '; expires=' + expiresdate;
 
 	document.cookie = 'modified=' + 'js' + expires;
-	document.cookie = 'fixedfilter=' + fixedfilter  + expires;
+	document.cookie = 'fixedfilter=' + fixedfilter + expires;
 	document.cookie = 'layoutfilter=' + layoutfilter + expires;
 	document.cookie = 'mestypes=' + mestypes + expires;
 	document.cookie = 'lumpfilter=' + lumpfilter + expires;
@@ -501,7 +501,7 @@ function writeCookieFilter() {
 	document.cookie = 'livetypes=' + livetypes.join(',') + expires;
 }
 
-$(document).ready(function(){
+$(document).ready(function () {
 	$(window).resize(eventResize);
 	initFilter();
 });

@@ -22,7 +22,8 @@
 		"ms-azuretools.vscode-docker",
 		"eamodio.gitlens",
 		"coenraads.bracket-pair-colorizer",
-		"lacroixdavid1.vscode-format-context-menu"
+		"lacroixdavid1.vscode-format-context-menu",
+		"esbenp.prettier-vscode"
 	],
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.

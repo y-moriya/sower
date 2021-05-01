@@ -1,9 +1,11 @@
-@charset "Shift_JIS"; * {
+@charset "Shift_JIS";
+* {
     font-size: 100%;
     line-height: 140%;
 }
 
 /* GROBAL --------------------*/
+
 body {
     font-size: 100%;
     text-align: center;
@@ -121,13 +123,18 @@ address {
 }
 
 /* BODY FRAME --------------------*/
-/* 外枠トップ ----------*/ .outframetop {
+
+/* 外枠トップ ----------*/
+
+.outframetop {
     margin: 0px auto 0px auto;
     padding: 0px;
     width: 750px;
 }
 
-/* 内枠トップ ----------*/ .contentframetop {
+/* 内枠トップ ----------*/
+
+.contentframetop {
     margin: 0px;
     padding: 0px;
     width: 750px;
@@ -138,26 +145,36 @@ address {
     background: #000;
 }
 
-/* 外枠 ----------*/ .outframe {
+/* 外枠 ----------*/
+
+.outframe {
     margin: 0 auto 0 auto;
     padding: 0;
     width: 600px;
 }
 
-/* フィルタを左に配置した時の外枠 ----------*/ .outframe_navimode {
+/* フィルタを左に配置した時の外枠 ----------*/
+
+.outframe_navimode {
     margin: 0 auto 0 auto;
     padding: 0;
     text-align: right;
     width: 750px;
-} .ajax {
-    position: absolute;
-    width: 570px;
-} .drag {
+}
+
+.ajax {
     position: absolute;
     width: 570px;
 }
 
-/* 内枠 ----------*/ .contentframe {
+.drag {
+    position: absolute;
+    width: 570px;
+}
+
+/* 内枠 ----------*/
+
+.contentframe {
     margin: 0;
     padding: 0;
     width: 600px;
@@ -168,7 +185,9 @@ address {
     background: #000;
 }
 
-/* フィルタを左に配置した時の内枠 ----------*/ .contentframe_navileft {
+/* フィルタを左に配置した時の内枠 ----------*/
+
+.contentframe_navileft {
     margin: 0;
     padding: 0;
     width: 600px;
@@ -180,13 +199,18 @@ address {
     background: #000;
 }
 
-/* 内枠の中身（タイトル画像は含まない） ----------*/ .inframe {
+/* 内枠の中身（タイトル画像は含まない） ----------*/
+
+.inframe {
     margin: 0 0 0 0;
     padding: 0 16px 0 16px;
 }
 
 /* SAY FILTER --------------------*/
-/* フィルタ（下配置時）----------*/ .sayfilter {
+
+/* フィルタ（下配置時）----------*/
+
+.sayfilter {
     margin: 1em auto 1em auto;
     padding: 0;
     text-align: center;
@@ -195,7 +219,9 @@ address {
     width: 250px;
 }
 
-/* フィルタ（左配置時）----------*/ .sayfilterleft {
+/* フィルタ（左配置時）----------*/
+
+.sayfilterleft {
     margin: 0;
     padding: 0;
     text-align: left;
@@ -204,14 +230,18 @@ address {
     width: 150px;
 }
 
-/* フィルタの中身 ----------*/ .insayfilter {
+/* フィルタの中身 ----------*/
+
+.insayfilter {
     margin: 0;
     padding: 8px;
     text-align: left;
     overflow: auto;
 }
 
-/* フィルタの見出し ----------*/ .sayfilter_heading {
+/* フィルタの見出し ----------*/
+
+.sayfilter_heading {
     margin: 0 0 1em 0;
     padding: 2px 8px 2px 8px;
     font-weight: bold;
@@ -219,12 +249,16 @@ address {
     background: #332;
 }
 
-/* フィルタ固定・配置ボタン ----------*/ .sayfilter_button {
+/* フィルタ固定・配置ボタン ----------*/
+
+.sayfilter_button {
     float: right;
     display: none;
 }
 
-/* フィルタ小見出し（広げた時）----------*/ .sayfilter_caption_enable {
+/* フィルタ小見出し（広げた時）----------*/
+
+.sayfilter_caption_enable {
     margin: 0;
     margin-top: 1em;
     padding: 2px 2px 1px 2px;
@@ -237,7 +271,9 @@ address {
     border-right: 1px solid #210;
 }
 
-/* フィルタ小見出し（畳んだ時）----------*/ .sayfilter_caption_disenable {
+/* フィルタ小見出し（畳んだ時）----------*/
+
+.sayfilter_caption_disenable {
     margin: 0;
     margin-top: 1em;
     padding: 1px 2px 1px 2px;
@@ -250,14 +286,19 @@ address {
     border-right: 1px solid #220;
 }
 
-/* フィルタ選択欄枠----------*/ .sayfilter_content {
+/* フィルタ選択欄枠----------*/
+
+.sayfilter_content {
     margin: 0;
     text-align: left;
     font-weight: normal;
 }
 
-/* フィルタ選択欄（有効時）----------*/ .sayfilter_content_enable {
-    border-collapse: collapse; /* CSS2? */
+/* フィルタ選択欄（有効時）----------*/
+
+.sayfilter_content_enable {
+    border-collapse: collapse;
+    /* CSS2? */
     color: #440;
     background: #ab7;
     border-top: 1px solid #cd9;
@@ -266,8 +307,11 @@ address {
     border-right: 1px solid #895;
 }
 
-/* フィルタ選択欄（無効時）----------*/ .sayfilter_content_disenable {
-    border-collapse: collapse; /* CSS2? */
+/* フィルタ選択欄（無効時）----------*/
+
+.sayfilter_content_disenable {
+    border-collapse: collapse;
+    /* CSS2? */
     color: #bb9;
     background: #664;
     border-top: 1px solid #886;
@@ -276,65 +320,90 @@ address {
     border-bottom: 1px solid #442;
 }
 
-/* フィルタ選択欄内部枠 ----------*/ .sayfilter_incontent {
+/* フィルタ選択欄内部枠 ----------*/
+
+.sayfilter_incontent {
     padding: 1px 2px 1px 2px;
 }
 
-/* フィルタ一括操作用ボタン ----------*/ .sayfilter_button_lump {
+/* フィルタ一括操作用ボタン ----------*/
+
+.sayfilter_button_lump {
     width: 100%;
 }
 
 /* BLOCK --------------------*/
-/* 段落全般 ----------*/ .paragraph {
+
+/* 段落全般 ----------*/
+
+.paragraph {
     margin: 0 0 1em 0;
 }
 
-/* ログイン欄 ----------*/ .login {
+/* ログイン欄 ----------*/
+
+.login {
     margin: 0 0 1em 0;
     text-align: right;
 }
 
-/* 日付リンク ----------*/ .turnnavi {
+/* 日付リンク ----------*/
+
+.turnnavi {
     margin: 0 0 1em 0;
     padding: 0 0 0 16px;
     color: #ffe;
     font-weight: bold;
 }
 
-/* ページリンク ----------*/ .pagenavi {
+/* ページリンク ----------*/
+
+.pagenavi {
     margin: 0 32px 1em 32px;
     padding: 0 0 0 16px;
     color: #ffe;
     font-weight: bold;
 }
 
-/* 非ログイン時注意表示 ----------*/ .infonologin {
+/* 非ログイン時注意表示 ----------*/
+
+.infonologin {
     margin: 0 0 1em 0;
     padding: 0 0 0 16px;
     color: #ffe;
 }
 
-/* 全表示リンク ----------*/ .row_all {
+/* 全表示リンク ----------*/
+
+.row_all {
     margin: 0 0 1em 0;
     padding: 0;
     font-weight: bold;
 }
 
-/* 表示行数・表示順序変更フォーム ----------*/ .viewform {
+/* 表示行数・表示順序変更フォーム ----------*/
+
+.viewform {
     margin: 0 0 1em 0;
     padding: 0;
     text-align: right;
 }
 
 /* IMAGE AND TEXT LAYOUT --------------------*/
+
 /* SAY --------------------*/
-/* 発言のキャラ画像 ----------*/ .mes_chrimg {
+
+/* 発言のキャラ画像 ----------*/
+
+.mes_chrimg {
     padding: 0;
     text-align: center;
     vertical-align: middle;
 }
 
-/* 発言者名 ----------*/ .mesname {
+/* 発言者名 ----------*/
+
+.mesname {
     margin: 0;
     padding: 0;
     font-weight: bold;
@@ -344,154 +413,253 @@ address {
     width: auto;
     height: 35px;
     color: #997;
-} .mesname a {
+}
+
+.mesname a {
     color: #cca;
-} .mesname a:hover {
+}
+
+.mesname a:hover {
     text-decoration: none;
 }
 
-/* 吹きだし発言の文章部分 ----------*/ .mes_text, .mes_text_monospace, .mes_text_loud {
+/* 吹きだし発言の文章部分 ----------*/
+
+.mes_text, .mes_text_monospace, .mes_text_loud {
     vertical-align: top;
     width: auto;
     margin: 0;
     padding: 0px 10px 15px 10px;
-} .mes_text_monospace {
+}
+
+.mes_text_monospace {
     font-family: monospace;
-} .mes_text_loud {
+}
+
+.mes_text_loud {
     font-weight: bold;
     font-size: 120%;
 }
 
-/* 吹きだし ----------*/ .mes_nom, .mes_wolf, .mes_think, .mes_del, .mes_que, .mes_grave, .mes_sympa, .mes_bat, .mes_guest {
+/* 吹きだし ----------*/
+
+.mes_nom, .mes_wolf, .mes_think, .mes_del, .mes_que, .mes_grave, .mes_sympa, .mes_bat, .mes_guest {
     margin: 0 0 1em 0;
     padding: 0px;
-    border: 1px solid black; /* for bug the IE ? */
-} .mes_nom .mesname {
-    background: #000 url( "img/remcss/remmestw.jpg" ) 0% 100% no-repeat;
-} .mes_wolf .mesname {
-    background: #000 url( "img/remcss/remmestr.jpg" ) 0% 100% no-repeat;
-} .mes_think .mesname {
-    background: #000 url( "img/remcss/remmestg.jpg" ) 0% 100% no-repeat;
-} .mes_del .mesname {
-    background: #000 url( "img/remcss/remmestg.jpg" ) 0% 100% no-repeat;
-} .mes_que .mesname {
-    background: #000 url( "img/remcss/remmestg.jpg" ) 0% 100% no-repeat;
-} .mes_grave .mesname {
-    background: #000 url( "img/remcss/remmestb.jpg" ) 0% 100% no-repeat;
-} .mes_sympa .mesname {
-    background: #000 url( "img/remcss/remmestm.jpg" ) 0% 100% no-repeat;
-} .mes_bat .mesname {
-    background: #000 url( "img/remcss/remmesty.jpg" ) 0% 100% no-repeat;
-} .mes_guest .mesname {
-    background: #000 url( "img/remcss/remmestw.jpg" ) 0% 100% no-repeat;
-} .mes_nom .mes_text, .mes_nom .mes_text_monospace, .mes_nom .mes_text_loud {
-    background: #ffffff url("img/remcss/remmesbw.jpg") 0% 100% no-repeat;
-    color: #331;
-} .mes_wolf .mes_text, .mes_wolf .mes_text_monospace, .mes_wolf .mes_text_loud {
-    background: #703120 url("img/remcss/remmesbr.jpg") 0% 100% no-repeat;
-    color: #cc6;
-} .mes_think .mes_text, .mes_think .mes_text_monospace, .mes_think .mes_text_loud {
-    background: #414141 url("img/remcss/remmesbg.jpg") 0% 100% no-repeat;
-    color: #cca;
-} .mes_del .mes_text, .mes_del .mes_text_monospace, .mes_del .mes_text_loud {
-    background: #414141 url("img/remcss/remmesbg.jpg") 0% 100% no-repeat;
-    color: #cca;
-} .mes_que .mes_text, .mes_que .mes_text_monospace, .mes_que .mes_text_loud {
-    background: #414141 url("img/remcss/remmesbg.jpg") 0% 100% no-repeat;
-    color: #cca;
-} .mes_grave .mes_text, .mes_grave .mes_text_monospace, .mes_grave .mes_text_loud {
-    background: #1F3040 url("img/remcss/remmesbb.jpg") 0% 100% no-repeat;
-    color: #cca;
-} .mes_sympa .mes_text, .mes_sympa .mes_text_monospace, .mes_sympa .mes_text_loud {
-    background: #205030 url("img/remcss/remmesbm.jpg") 0% 100% no-repeat;
-    color: #cca;
-} .mes_bat .mes_text, .mes_bat .mes_text_monospace, .mes_bat .mes_text_loud {
-    background: #414219 url("img/remcss/remmesby.jpg") 0% 100% no-repeat;
-    color: #cca;
-} .mes_guest .mes_text, .mes_guest .mes_text_monospace, .mes_guest .mes_text_loud {
-    background: #ffffff url("img/remcss/remmesbw.jpg") 0% 100% no-repeat;
-    color: #331;
-} .mes_nom .mes_text_loud {
-    color: #900;
-} .mes_guest .mes_text_loud {
-    color: #900;
-} .mes_nom {
-    background: #000 url( "img/remcss/remmeslw.jpg" ) 123px 33px no-repeat;
-} .mes_wolf {
-    background: #000 url( "img/remcss/remmeslr.jpg" ) 123px 33px no-repeat;
-} .mes_think {
-    background: #000 url( "img/remcss/remmeslg.jpg" ) 123px 33px no-repeat;
-} .mes_del {
-    background: #000 url( "img/remcss/remmeslg2.jpg" ) 123px 33px no-repeat;
-} .mes_que {
-    background: #000 url( "img/remcss/remmeslg2.jpg" ) 123px 33px no-repeat;
-} .mes_grave {
-    background: #000 url( "img/remcss/remmeslb.jpg" ) 123px 33px no-repeat;
-} .mes_sympa {
-    background: #000 url( "img/remcss/remmeslm.jpg" ) 123px 33px no-repeat;
-} .mes_bat {
-    background: #000 url( "img/remcss/remmesly.jpg" ) 123px 33px no-repeat;
-} .mes_guest {
-    background: #000 url( "img/remcss/remmeslw.jpg" ) 123px 33px no-repeat;
+    border: 1px solid black;
+    /* for bug the IE ? */
 }
 
-/* 水平線（通常は非表示）----------*/ .invisible_hr {
+.mes_nom .mesname {
+    background: #000 url("img/remcss/remmestw.jpg") 0% 100% no-repeat;
+}
+
+.mes_wolf .mesname {
+    background: #000 url("img/remcss/remmestr.jpg") 0% 100% no-repeat;
+}
+
+.mes_think .mesname {
+    background: #000 url("img/remcss/remmestg.jpg") 0% 100% no-repeat;
+}
+
+.mes_del .mesname {
+    background: #000 url("img/remcss/remmestg.jpg") 0% 100% no-repeat;
+}
+
+.mes_que .mesname {
+    background: #000 url("img/remcss/remmestg.jpg") 0% 100% no-repeat;
+}
+
+.mes_grave .mesname {
+    background: #000 url("img/remcss/remmestb.jpg") 0% 100% no-repeat;
+}
+
+.mes_sympa .mesname {
+    background: #000 url("img/remcss/remmestm.jpg") 0% 100% no-repeat;
+}
+
+.mes_bat .mesname {
+    background: #000 url("img/remcss/remmesty.jpg") 0% 100% no-repeat;
+}
+
+.mes_guest .mesname {
+    background: #000 url("img/remcss/remmestw.jpg") 0% 100% no-repeat;
+}
+
+.mes_nom .mes_text, .mes_nom .mes_text_monospace, .mes_nom .mes_text_loud {
+    background: #ffffff url("img/remcss/remmesbw.jpg") 0% 100% no-repeat;
+    color: #331;
+}
+
+.mes_wolf .mes_text, .mes_wolf .mes_text_monospace, .mes_wolf .mes_text_loud {
+    background: #703120 url("img/remcss/remmesbr.jpg") 0% 100% no-repeat;
+    color: #cc6;
+}
+
+.mes_think .mes_text, .mes_think .mes_text_monospace, .mes_think .mes_text_loud {
+    background: #414141 url("img/remcss/remmesbg.jpg") 0% 100% no-repeat;
+    color: #cca;
+}
+
+.mes_del .mes_text, .mes_del .mes_text_monospace, .mes_del .mes_text_loud {
+    background: #414141 url("img/remcss/remmesbg.jpg") 0% 100% no-repeat;
+    color: #cca;
+}
+
+.mes_que .mes_text, .mes_que .mes_text_monospace, .mes_que .mes_text_loud {
+    background: #414141 url("img/remcss/remmesbg.jpg") 0% 100% no-repeat;
+    color: #cca;
+}
+
+.mes_grave .mes_text, .mes_grave .mes_text_monospace, .mes_grave .mes_text_loud {
+    background: #1F3040 url("img/remcss/remmesbb.jpg") 0% 100% no-repeat;
+    color: #cca;
+}
+
+.mes_sympa .mes_text, .mes_sympa .mes_text_monospace, .mes_sympa .mes_text_loud {
+    background: #205030 url("img/remcss/remmesbm.jpg") 0% 100% no-repeat;
+    color: #cca;
+}
+
+.mes_bat .mes_text, .mes_bat .mes_text_monospace, .mes_bat .mes_text_loud {
+    background: #414219 url("img/remcss/remmesby.jpg") 0% 100% no-repeat;
+    color: #cca;
+}
+
+.mes_guest .mes_text, .mes_guest .mes_text_monospace, .mes_guest .mes_text_loud {
+    background: #ffffff url("img/remcss/remmesbw.jpg") 0% 100% no-repeat;
+    color: #331;
+}
+
+.mes_nom .mes_text_loud {
+    color: #900;
+}
+
+.mes_guest .mes_text_loud {
+    color: #900;
+}
+
+.mes_nom {
+    background: #000 url("img/remcss/remmeslw.jpg") 123px 33px no-repeat;
+}
+
+.mes_wolf {
+    background: #000 url("img/remcss/remmeslr.jpg") 123px 33px no-repeat;
+}
+
+.mes_think {
+    background: #000 url("img/remcss/remmeslg.jpg") 123px 33px no-repeat;
+}
+
+.mes_del {
+    background: #000 url("img/remcss/remmeslg2.jpg") 123px 33px no-repeat;
+}
+
+.mes_que {
+    background: #000 url("img/remcss/remmeslg2.jpg") 123px 33px no-repeat;
+}
+
+.mes_grave {
+    background: #000 url("img/remcss/remmeslb.jpg") 123px 33px no-repeat;
+}
+
+.mes_sympa {
+    background: #000 url("img/remcss/remmeslm.jpg") 123px 33px no-repeat;
+}
+
+.mes_bat {
+    background: #000 url("img/remcss/remmesly.jpg") 123px 33px no-repeat;
+}
+
+.mes_guest {
+    background: #000 url("img/remcss/remmeslw.jpg") 123px 33px no-repeat;
+}
+
+/* 水平線（通常は非表示）----------*/
+
+.invisible_hr {
     display: none;
 }
 
-/* システム発言の文章部分 ----------*/ .mes_maker .mesname, .mes_admin .mesname {
+/* システム発言の文章部分 ----------*/
+
+.mes_maker .mesname, .mes_admin .mesname {
     height: 12px;
-} .mes_maker .mes_text, .mes_maker .mes_text_monospace, .mes_admin .mes_text, .mes_admin .mes_text_monospace, .mes_maker .mes_text_loud, .mes_admin .mes_text_loud {
+}
+
+.mes_maker .mes_text, .mes_maker .mes_text_monospace, .mes_admin .mes_text, .mes_admin .mes_text_monospace, .mes_maker .mes_text_loud, .mes_admin .mes_text_loud {
     vertical-align: top;
     width: auto;
     margin: 0;
     padding: 0;
-} .mes_maker .mes_text_monospace, .mes_admin .mes_text_monospace {
+}
+
+.mes_maker .mes_text_monospace, .mes_admin .mes_text_monospace {
     font-family: monospace;
-} .mes_maker .mes_text_loud, .mes_admin .mes_text_loud {
+}
+
+.mes_maker .mes_text_loud, .mes_admin .mes_text_loud {
     font-weight: bold;
     font-size: 120%;
 }
 
 /* システム表示 ----------*/
+
 /* 村建て人発言 ----------*/
-/* 管理人発言 ----------*/ .info, .mes_maker, .mes_admin {
+
+/* 管理人発言 ----------*/
+
+.info, .mes_maker, .mes_admin {
     margin: 1.5em 0;
     padding: 0.5em 1em;
     color: #cca;
     border: 1px solid #cca;
-} .info a:hover {
+}
+
+.info a:hover {
     text-decoration: none;
     color: #cca;
 }
 
-/* システム表示（不可視） ----------*/ .infosp {
+/* システム表示（不可視） ----------*/
+
+.infosp {
     margin: 1.5em 0;
     padding: 4px 8px 4px 8px;
     color: #664;
     border: 1px solid #664;
-} .infosp a:hover {
+}
+
+.infosp a:hover {
     text-decoration: none;
     color: #664;
 }
 
-/* 警告・注意表示 ----------*/ .caution {
+/* 警告・注意表示 ----------*/
+
+.caution {
     margin: 0 0 1em 0;
     padding: 8px;
     color: #bb9;
     border: 1px solid #997;
 }
 
-/* やんわり注意表示 ----------*/ .infotext {
+/* やんわり注意表示 ----------*/
+
+.infotext {
     color: #ffe;
 }
 
-/* 警告・注意する部分（インライン） ----------*/ .cautiontext {
+/* 警告・注意する部分（インライン） ----------*/
+
+.cautiontext {
     font-weight: bold;
     color: #c40;
 }
 
-/* メモ ----------*/ .memo {
+/* メモ ----------*/
+
+.memo {
     margin: 0 0 1em 0;
     padding: 4px;
     width: 100%;
@@ -500,103 +668,149 @@ address {
     border: 1px solid #664;
 }
 
-/* メモの左側 ----------*/ .memoleft {
+/* メモの左側 ----------*/
+
+.memoleft {
     border-style: none dotted solid none;
     border-width: 0 1px 1px 0;
     border-color: #664;
-    border-collapse: collapse; /* CSS2? */
+    border-collapse: collapse;
+    /* CSS2? */
     width: 30%;
 }
 
-/* メモの右側 ----------*/ .memoright {
+/* メモの右側 ----------*/
+
+.memoright {
     border-style: none none solid none;
     border-width: 0 0 1px 0;
     border-color: #664;
-    border-collapse: collapse; /* CSS2? */
+    border-collapse: collapse;
+    /* CSS2? */
     width: 65%;
 }
 
-/* 発言の日付 ----------*/ .mes_date {
+/* 発言の日付 ----------*/
+
+.mes_date {
     font-size: 90%;
     text-align: right;
     margin-top: 3px;
     color: #997;
 }
 
-/* 発言のアンカー ----------*/ span.mes_number {
+/* 発言のアンカー ----------*/
+
+span.mes_number {
     color: #b90;
-} span.mes_number:hover {
+}
+
+span.mes_number:hover {
     color: #fe8;
     cursor: pointer;
     text-decoration: underline;
 }
 
-/* アクション ----------*/ .action_nom {
+/* アクション ----------*/
+
+.action_nom {
     margin: 0 0 1em 0;
     padding: 4px;
     color: #cca;
     border: 1px solid #cca;
-} .action_nom a:hover {
+}
+
+.action_nom a:hover {
     text-decoration: none;
     color: #cca;
 }
 
-/* しおり ----------*/ .action_bm {
+/* しおり ----------*/
+
+.action_bm {
     margin: 0 0 1em 0;
     padding: 4px 8px 4px 8px;
     font-weight: bold;
     color: #221;
     background: #ddc;
-} .action_bm a:hover {
-    text-decoration: none;
-    color: #221;
-} .action_type {
 }
 
+.action_bm a:hover {
+    text-decoration: none;
+    color: #221;
+}
+
+.action_type {}
+
 /* FORM PLAYER --------------------*/
-/* 発言入力欄の外枠 ----------*/ .formpl_frame {
+
+/* 発言入力欄の外枠 ----------*/
+
+.formpl_frame {
     margin: 0 0 1em 0;
 }
 
-/* 発言入力欄のキャラ画像 ----------*/ .formpl_chrimg {
+/* 発言入力欄のキャラ画像 ----------*/
+
+.formpl_chrimg {
     margin: 0;
     padding: 0;
     text-align: center;
     vertical-align: middle;
 }
 
-/* 発言入力欄の項目 ----------*/ .formpl_content {
+/* 発言入力欄の項目 ----------*/
+
+.formpl_content {
     padding: 4px;
 }
 
-/* アクション入力欄 ----------*/ .formpl_action {
+/* アクション入力欄 ----------*/
+
+.formpl_action {
     padding: 4px;
     /*  font-size: 100%; */
 }
 
-/* アクション自由入力欄 ----------*/ .formpl_actiontext {
+/* アクション自由入力欄 ----------*/
+
+.formpl_actiontext {
     width: 80%;
 }
 
 /* 発言入力欄（共通） ----------*/
+
 /* 能力者欄（おまかせ）----------*/
+
 /* 能力者欄（ランダム）----------*/
-/* 能力者欄（村人）----------*/ .formpl_common, .formpl_undef, .formpl_random, .formpl_vil {
+
+/* 能力者欄（村人）----------*/
+
+.formpl_common, .formpl_undef, .formpl_random, .formpl_vil {
     margin: 0 0 14px 0;
     padding: 4px;
     color: #221;
     background: #ddc;
     border: 2px dotted #886;
-} .formpl_common a {
+}
+
+.formpl_common a {
     color: #840;
 }
 
 /* 能力者欄（占い師）----------*/
+
 /* 能力者欄（霊能者）----------*/
+
 /* 能力者欄（狩人）----------*/
+
 /* 能力者欄（共有者）----------*/
+
 /* 能力者欄（聖痕者）----------*/
-/* 能力者欄（共鳴者）----------*/ .formpl_seer, .formpl_medium, .formpl_guard, .formpl_fm, .formpl_stigma, .formpl_sympathy {
+
+/* 能力者欄（共鳴者）----------*/
+
+.formpl_seer, .formpl_medium, .formpl_guard, .formpl_fm, .formpl_stigma, .formpl_sympathy {
     margin: 0 0 14px 0;
     padding: 4px;
     color: #cca;
@@ -605,11 +819,18 @@ address {
 }
 
 /* 能力者欄（人狼）----------*/
+
 /* 能力者欄（狂人）----------*/
+
 /* 能力者欄（Ｃ国狂人）----------*/
+
 /* 能力者欄（狂信者）----------*/
+
 /* 能力者欄（呪狼）----------*/
-/* 能力者欄（智狼）----------*/ .formpl_wolf, .formpl_possess, .formpl_cpossess, .formpl_fanatic, .formpl_cwolf, .formpl_intwolf {
+
+/* 能力者欄（智狼）----------*/
+
+.formpl_wolf, .formpl_possess, .formpl_cpossess, .formpl_fanatic, .formpl_cwolf, .formpl_intwolf {
     margin: 0 0 14px 0;
     padding: 4px;
     color: #cca;
@@ -618,8 +839,12 @@ address {
 }
 
 /* 能力者欄（ハムスター人間）----------*/
+
 /* 能力者欄（コウモリ人間）----------*/
-/* 能力者欄（悪戯妖精）----------*/ .formpl_hamster, .formpl_werebat, .formpl_trickster {
+
+/* 能力者欄（悪戯妖精）----------*/
+
+.formpl_hamster, .formpl_werebat, .formpl_trickster {
     margin: 0 0 14px 0;
     padding: 4px;
     color: #ddb;
@@ -627,7 +852,9 @@ address {
     border: 2px dotted #886;
 }
 
-/* 村開始・更新欄 ----------*/ .formpl_gm {
+/* 村開始・更新欄 ----------*/
+
+.formpl_gm {
     margin: 0 0 4px 0;
     padding: 4px;
     color: #221;
@@ -635,25 +862,35 @@ address {
     background: #ddc;
 }
 
-/* 村開始・更新ボタン ----------*/ .commitbutton {
+/* 村開始・更新ボタン ----------*/
+
+.commitbutton {
     text-align: center;
 }
 
-/* 発言撤回欄 ----------*/ .saycancelframe {
+/* 発言撤回欄 ----------*/
+
+.saycancelframe {
     text-align: center;
 }
 
-/* 発言撤回ボタン ----------*/ .saycancelbutton {
+/* 発言撤回ボタン ----------*/
+
+.saycancelbutton {
     font-size: smaller;
 }
 
-/* 「戻る」リンク ----------*/ .return {
+/* 「戻る」リンク ----------*/
+
+.return {
     margin: 0;
     padding: 0 0 8px 0;
     text-align: right;
 }
 
-/* 誤爆防止チェック欄 ----------*/ .previewsafety {
+/* 誤爆防止チェック欄 ----------*/
+
+.previewsafety {
     margin: 0 0 1em 0;
     padding: 4px;
     color: #664;
@@ -662,13 +899,19 @@ address {
 }
 
 /* OTHERS --------------------*/
-/* 村一覧 ----------*/ .vindex {
+
+/* 村一覧 ----------*/
+
+.vindex {
     margin: 0 0 1em 0;
     border: 1px solid #ccc;
-    border-collapse: collapse; /* CSS2? */
+    border-collapse: collapse;
+    /* CSS2? */
 }
 
-/* 村作成画面 ----------*/ .form_vmake {
+/* 村作成画面 ----------*/
+
+.form_vmake {
     margin: 0 0 1em 0;
     padding: 4px;
     color: #664;
@@ -676,11 +919,15 @@ address {
     border: 1px solid #664;
 }
 
-/* 村作成・編集ボタン ----------*/ .exevmake {
+/* 村作成・編集ボタン ----------*/
+
+.exevmake {
     text-align: center;
 }
 
-/* 段組（ラベル） ----------*/ .multicolumn_label {
+/* 段組（ラベル） ----------*/
+
+.multicolumn_label {
     display: block;
     float: left;
     width: 20%;
@@ -688,86 +935,114 @@ address {
     padding-right: 16px;
 }
 
-/* 段組（注釈） ----------*/ .multicolumn_notes {
+/* 段組（注釈） ----------*/
+
+.multicolumn_notes {
     display: block;
     padding: 1px 0px 0px 0px;
     margin: 0px 0px 0px 3px;
 }
 
-/* 段組（左配置） ----------*/ .multicolumn_left {
+/* 段組（左配置） ----------*/
+
+.multicolumn_left {
     display: block;
     float: left;
 }
 
-/* 段組（右配置） ----------*/ .multicolumn_right {
+/* 段組（右配置） ----------*/
+
+.multicolumn_right {
     display: block;
     float: left;
     width: 70%;
 }
 
-/* 段組（役職入力欄） ----------*/ .multicolumn_role {
+/* 段組（役職入力欄） ----------*/
+
+.multicolumn_role {
     display: block;
     float: left;
     width: 20%;
     padding-right: 16px;
 }
 
-/* 段組（改行） ----------*/ .multicolumn_clear {
+/* 段組（改行） ----------*/
+
+.multicolumn_clear {
     clear: left;
 }
 
-/* 回り込み禁止 ----------*/ .clearboth {
+/* 回り込み禁止 ----------*/
+
+.clearboth {
     margin: 0;
     padding: 0;
     clear: both;
 }
 
-/* 個別フィルタ ----------*/ .cidfilter {
+/* 個別フィルタ ----------*/
+
+.cidfilter {
     margin: 0px 0px 10px 0px;
     padding: 0px 0px 0px 16px;
 }
 
-/* ポップアップ ----------*/ .message_filter {
-	background: #000;
+/* ポップアップ ----------*/
+
+.message_filter {
+    background: #000;
 }
 
-/* ドラッグ用ハンドラ ----------*/ .handler {
-	background: #355;
-	height: 15px;
+/* ドラッグ用ハンドラ ----------*/
+
+.handler {
+    background: #355;
+    height: 15px;
 }
 
-/* ポップアップクロージャ ----------*/ .close {
-	color: #e50;
-	font-weight: bold;
-	font-size: 120%;
-	margin: 5px 5px 5px 5px;
-	cursor: pointer;
+/* ポップアップクロージャ ----------*/
+
+.close {
+    color: #e50;
+    font-weight: bold;
+    font-size: 120%;
+    margin: 5px 5px 5px 5px;
+    cursor: pointer;
 }
 
-/* もっと読む ----------*/ .readmore {
+/* もっと読む ----------*/
+
+.readmore {
     margin: 1.5em 0;
     padding: 0.5em 1em;
     color: #cca;
     border: 1px solid #cca;
-	text-align: center;
+    text-align: center;
 }
 
-/* 新着取得 ----------*/ .newinfo {
+/* 新着取得 ----------*/
+
+.newinfo {
     margin: 1.5em 0;
     padding: 0.5em 1em;
     color: #cca;
     border: 1px solid #cca;
-	text-align: center;
+    text-align: center;
 }
 
-/* 新着取得時刻 ----------*/ .new_date {
+/* 新着取得時刻 ----------*/
+
+.new_date {
     font-size: 90%;
     float: right;
     margin-top: 3px;
     color: #997;
 }
 
-/* アンカーコピー時ポップアップ -----------*/ .popup {
+/* アンカーコピー時ポップアップ -----------*/
+
+.popup {
     position: fixed;
     bottom: 0px;
     left: 0px;
@@ -781,6 +1056,7 @@ address {
     opacity: 0;
     transition: 0.5s;
 }
+
 .popup.js_active {
     transform: translateY(0%);
     opacity: 1;
