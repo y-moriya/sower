@@ -50,7 +50,7 @@ sub GetLocalBaseDirConfig {
         # サーバによっては、この箇所の変更が必要
         # ディレクトリを指定する場合、最後の“/”は必要ありません。
         #BASEDIR_CGI => '.',
-        BASEDIR_DOC => '../',
+        BASEDIR_DOC => '../doc',
 
         #BASEDIR_DAT => './data',
     );
