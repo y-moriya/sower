@@ -6,7 +6,9 @@ http://real.gunjobiyori.com/sow.cgi
 
 ## Build setup
 
-please using devcontainer.
+Please using devcontainer.
+
+After start container, runs: http://localhost/sower/sow.cgi
 
 # Original Readme
 
