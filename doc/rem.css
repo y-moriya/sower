@@ -124,13 +124,13 @@ address {
 /* 外枠トップ ----------*/ .outframetop {
     margin: 0px auto 0px auto;
     padding: 0px;
-    width: 600px;
+    width: 750px;
 }
 
 /* 内枠トップ ----------*/ .contentframetop {
     margin: 0px;
     padding: 0px;
-    width: 600px;
+    width: 750px;
     text-align: left;
     border: 1em solid #110;
     border-left: 0;
@@ -550,6 +550,7 @@ address {
 } .action_bm a:hover {
     text-decoration: none;
     color: #221;
+} .action_type {
 }
 
 /* FORM PLAYER --------------------*/

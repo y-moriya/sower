@@ -3,6 +3,7 @@ data/*
 data/log/*
 !data/log
 !data/log/.gitkeep
+data/record/*
 !data/record
 !data/record/.gitkeep
 data/user/*

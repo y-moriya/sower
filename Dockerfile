@@ -1,4 +1,4 @@
-FROM  perl:5.14
+FROM  perl:5-slim
 SHELL ["/bin/bash", "-c"]
 RUN apt-get -y update
 RUN apt-get -y install apache2 vim git
