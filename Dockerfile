@@ -1,6 +1,11 @@
 FROM  perl:5-slim
 SHELL ["/bin/bash", "-c"]
-RUN apt-get -y update && apt-get -y install apache2 vim git perltidy
+RUN apt-get -y update && apt-get -y install \
+        apache2 \
+        curl \
+        vim \
+        git \
+        perltidy
 
 ENV APACHE_RUN_USER www-data
 ENV APACHE_RUN_GROUP www-data

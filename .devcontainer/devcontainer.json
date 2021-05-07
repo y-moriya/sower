@@ -2,7 +2,7 @@
 // https://github.com/microsoft/vscode-dev-containers/tree/v0.166.1/containers/docker-existing-dockerfile
 {
 	"name": "Existing Dockerfile",
-
+	
 	// Sets the run context to one level up instead of the .devcontainer folder.
 	"context": "..",
 
@@ -11,7 +11,7 @@
 
 	// Set *default* container specific settings.json values on container create.
 	"settings": { 
-		"terminal.integrated.shell.linux": null,
+		"terminal.integrated.defaultProfile.linux": null,
 		"editor.tabSize": 4
 	},
 
@@ -30,7 +30,7 @@
 	// "forwardPorts": [80, 8080],
 
 	// Uncomment the next line to run commands after the container is created - for example installing curl.
-	// "postCreateCommand": "apt-get update && apt-get install -y curl",
+	"postCreateCommand": "chmod +x ./.devcontainer/postCreateCommand.sh && ./.devcontainer/postCreateCommand.sh",
 
 	// Uncomment when using a ptrace-based debugger like C++, Go, and Rust
 	"runArgs": [ "--name=sower_dev_container" ],
