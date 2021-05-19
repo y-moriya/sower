@@ -18,7 +18,7 @@ https://github.com/y-moriya/sower/blob/master/docs/readme.txt
 
 # License
 
-Copyright (c) 2006-2007, AS/asbntby, 2011-2019 euro
+Copyright (c) 2006-2007, AS/asbntby, 2011-2021 euro
 
 All rights reserved.
 
