@@ -50,7 +50,14 @@ _HTML_
     $reqvals->{'cmd'} = '';
     $reqvals->{'vid'} = '';
 
-    my $vilist  = $vindex->getvilist();
+    my $vilist;
+    if ( $vmode eq 'oldlog' ) {
+        $vilist = $vindex->getvilist();
+    }
+    else {
+        $vilist = $vindex->getactivevilist();
+    }
+
     my $vicount = 0;
     my $virow   = -1;
     foreach (@$vilist) {

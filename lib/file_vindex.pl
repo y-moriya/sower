@@ -113,6 +113,19 @@ sub getvilist {
 }
 
 #----------------------------------------
+# 現在募集中／進行中／エピローグ中の村データの配列を取得
+#----------------------------------------
+sub getactivevilist {
+    my $self   = shift;
+    my @result = grep {
+        $_->{'vstatus'} != $self->{'sow'}->{'VSTATUSID_END'}
+          && ( $_->{'vstatus'} != $self->{'sow'}->{'VSTATUSID_SCRAPEND'} )
+    } @{ $self->{'vilist'} };
+
+    return \@result;
+}
+
+#----------------------------------------
 # 現在募集中／進行中／エピローグ中の村の数を取得
 #----------------------------------------
 sub getactivevcnt {
