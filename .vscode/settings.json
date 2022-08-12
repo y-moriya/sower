@@ -6,7 +6,7 @@
         "editor.formatOnSave": true,
     },
     "[perl]": {
-        "editor.formatOnSave": true,
+        "editor.formatOnSave": false,
         "editor.tabSize": 4,
     },
     "perltidy.executable": "perltidy",

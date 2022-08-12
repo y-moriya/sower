@@ -350,7 +350,7 @@ sub createuser {
 
     my $filename = $self->GetFNameUser();
 
-    my $fh = \*USER;
+    my $fh   = \*USER;
     my $file = SWFile->new( $self->{'sow'}, 'user', $fh, $filename, $self );
     $file->openfile( '>', 'ユーザーデータ', "[uid=$self->{'uid'}]", );
 
@@ -383,12 +383,12 @@ sub getentriedvils {
 
     my @entriedvils;
     my @label = ( 'vid', 'chrname', 'playing' );
-    my @data = split( '/', "$self->{'entriedvils'}/" );
+    my @data  = split( '/', "$self->{'entriedvils'}/" );
 
     foreach (@data) {
         my %entriedvil;
         @entriedvil{@label} = split( ':', "$_:" );
-        next if ( !defined( $entriedvil{'vid'} ) );
+        next                               if ( !defined( $entriedvil{'vid'} ) );
         push( @entriedvils, \%entriedvil ) if ( $entriedvil{'vid'} > 0 );
     }
 
