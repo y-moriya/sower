@@ -1,7 +1,7 @@
 package SWHtmlProfile;
 
 #----------------------------------------
-# ãƒ¦ãƒ¼ã‚¶ãƒ¼æƒ…å ±ã®HTMLå‡ºåŠ›
+# ƒ†[ƒU[î•ñ‚ÌHTMLo—Í
 #----------------------------------------
 sub OutHTMLProfile {
     my ( $sow, $recordlist, $totalrecord, $camps, $roles ) = @_;
@@ -19,59 +19,59 @@ sub OutHTMLProfile {
     my $nospaceprof = $query->{'prof'};
     $nospaceprof =~ s/^ *//;
     $nospaceprof =~ s/ *$//;
-    $sow->{'debug'}->raise( $sow->{'APLOG_CAUTION'}, "ãƒ¦ãƒ¼ã‚¶ãƒ¼IDã‚’æŒ‡å®šã—ã¦ä¸‹ã•ã„ã€‚", "no prof." )
+    $sow->{'debug'}->raise( $sow->{'APLOG_CAUTION'}, "ƒ†[ƒU[ID‚ğw’è‚µ‚Ä‰º‚³‚¢B", "no prof." )
       if ( length($nospaceprof) == 0 );
 
-    # ãƒ†ã‚­ã‚¹ãƒˆãƒªã‚½ãƒ¼ã‚¹ã®èª­è¾¼
+    # ƒeƒLƒXƒgƒŠƒ\[ƒX‚Ì“Ç
     my %vil = ( trsid => $sow->{'cfg'}->{'DEFAULT_TEXTRS'}, );
     &SWBase::LoadTextRS( $sow, \%vil );
 
-    # HTMLã®å‡ºåŠ›
-    $sow->{'html'} = SWHtml->new($sow);    # HTMLãƒ¢ãƒ¼ãƒ‰ã®åˆæœŸåŒ–
+    # HTML‚Ìo—Í
+    $sow->{'html'} = SWHtml->new($sow);    # HTMLƒ‚[ƒh‚Ì‰Šú‰»
     my $net = $sow->{'html'}->{'net'};     # Null End Tag
-    $sow->{'http'}->outheader();                                                 # HTTPãƒ˜ãƒƒãƒ€ã®å‡ºåŠ›
-    $sow->{'html'}->outheader("$query->{'prof'}ã•ã‚“ã®ãƒ¦ãƒ¼ã‚¶ãƒ¼æƒ…å ±");    # HTMLãƒ˜ãƒƒãƒ€ã®å‡ºåŠ›
+    $sow->{'http'}->outheader();                                                 # HTTPƒwƒbƒ_‚Ìo—Í
+    $sow->{'html'}->outheader("$query->{'prof'}‚³‚ñ‚Ìƒ†[ƒU[î•ñ");    # HTMLƒwƒbƒ_‚Ìo—Í
     $sow->{'html'}->outcontentheader();
 
-    &SWHtmlPC::OutHTMLLogin($sow);                                               # ãƒ­ã‚°ã‚¤ãƒ³æ¬„ã®å‡ºåŠ›
+    &SWHtmlPC::OutHTMLLogin($sow);                                               # ƒƒOƒCƒ“—“‚Ìo—Í
 
     my $reqvals = &SWBase::GetRequestValues($sow);
     $reqvals->{'cmd'} = 'editprofform';
     my $linkvalue = &SWBase::GetLinkValues( $sow, $reqvals );
     my $linkedit  = '';
-    $linkedit = " <a href=\"$urlsow?$linkvalue\">ç·¨é›†</a>"
+    $linkedit = " <a href=\"$urlsow?$linkvalue\">•ÒW</a>"
       if ( $sow->{'uid'} eq $query->{'prof'} );
 
-    my $handlename = 'æœªç™»éŒ²';
+    my $handlename = '–¢“o˜^';
     $handlename = $user->{'handlename'} if ( $user->{'handlename'} ne '' );
 
-    my $url = 'æœªç™»éŒ²';
+    my $url = '–¢“o˜^';
     $url = $user->{'url'} if ( $user->{'url'} ne '' );
     $url = "<a href=\"$user->{'url'}\">$user->{'url'}</a>"
       if ( ( index( $user->{'url'}, 'http://' ) == 0 )
         || ( index( $user->{'url'}, 'https://' ) == 0 ) );
 
-    my $introduction = 'ãªã—';
+    my $introduction = '‚È‚µ';
     $introduction = $user->{'introduction'}
       if ( $user->{'introduction'} ne '' );
 
-    my $parmalink = 'éè¡¨\ç¤º';
-    $parmalink = 'è¡¨\ç¤º' if ( $user->{'parmalink'} == 1 );
+    my $parmalink = '”ñ•\\¦';
+    $parmalink = '•\\¦' if ( $user->{'parmalink'} == 1 );
 
     print <<"_HTML_";
-<h2>$query->{'prof'}ã•ã‚“ã®æƒ…å ±$linkedit</h2>
+<h2>$query->{'prof'}‚³‚ñ‚Ìî•ñ$linkedit</h2>
 
 <p class="paragraph">
-  <span class="multicolumn_label">ãƒ¦ãƒ¼ã‚¶ãƒ¼IDï¼š</span><span class="multicolumn_left">$query->{'prof'}</span>
+  <span class="multicolumn_label">ƒ†[ƒU[IDF</span><span class="multicolumn_left">$query->{'prof'}</span>
   <br class="multicolumn_clear"$net>
 
-  <span class="multicolumn_label">ãƒãƒ³ãƒ‰ãƒ«åï¼š</span><span class="multicolumn_left">$handlename</span>
+  <span class="multicolumn_label">ƒnƒ“ƒhƒ‹–¼F</span><span class="multicolumn_left">$handlename</span>
   <br class="multicolumn_clear"$net>
 
-  <span class="multicolumn_label">URLï¼š</span><span class="multicolumn_left">$url</span>
+  <span class="multicolumn_label">URLF</span><span class="multicolumn_left">$url</span>
   <br class="multicolumn_clear"$net>
 
-  <span class="multicolumn_label">å›ºå®šãƒªãƒ³ã‚¯ï¼š</span><span class="multicolumn_left">$parmalink</span>
+  <span class="multicolumn_label">ŒÅ’èƒŠƒ“ƒNF</span><span class="multicolumn_left">$parmalink</span>
   <br class="multicolumn_clear"$net>
 
 _HTML_
@@ -80,31 +80,31 @@ _HTML_
         my $penaltydt =
           int( ( $user->{'penaltydt'} - $sow->{'time'} ) / 60 / 60 / 24 + 0.5 );
         my @penalty = (
-            "ãªã—",
-            "ãªã—ï¼ˆä¿è­·è¦³å¯ŸæœŸé–“ä¸­ï¼šã‚ã¨ç´„$penaltydtæ—¥ï¼‰",
-            "å‚åŠ åœæ­¢ä¸­ï¼ˆã‚ã¨ç´„$penaltydtæ—¥ï¼‰",
-            "IDåœæ­¢ä¸­ï¼ˆã‚ã¨ç´„$penaltydtæ—¥ï¼‰",
+            "‚È‚µ",
+            "‚È‚µi•ÛŒìŠÏ@ŠúŠÔ’†F‚ ‚Æ–ñ$penaltydt“új",
+            "Q‰Á’â~’†i‚ ‚Æ–ñ$penaltydt“új",
+            "ID’â~’†i‚ ‚Æ–ñ$penaltydt“új",
         );
         print <<"_HTML_";
-  <span class="multicolumn_label">ãƒšãƒŠãƒ«ãƒ†ã‚£ï¼š</span><span class="multicolumn_left">$penalty[$user->{'ptype'}]</span>
+  <span class="multicolumn_label">ƒyƒiƒ‹ƒeƒBF</span><span class="multicolumn_left">$penalty[$user->{'ptype'}]</span>
   <br class="multicolumn_clear"$net>
 </p>
 _HTML_
     }
 
-    # ç·åˆæˆ¦ç¸¾
+    # ‘‡íÑ
     if ( -w $sow->{'cfg'}->{'DIR_RECORD'} ) {
         my ( $average, $liveaverage, $livedays ) = &SetRecordText($totalrecord);
         print <<"_HTML_";
 
 <p class="paragraph">
-  <span class="multicolumn_label">æˆ¦ç¸¾ï¼š</span>
-  <span class="multicolumn_left">$totalrecord->{'win'}å‹ $totalrecord->{'lose'}æ•— (å‹ç‡ $average%) ç”Ÿå­˜ç‡ $liveaverage%, å¯¿å‘½ $livedaysæ—¥</span>
+  <span class="multicolumn_label">íÑF</span>
+  <span class="multicolumn_left">$totalrecord->{'win'}Ÿ $totalrecord->{'lose'}”s (Ÿ—¦ $average%) ¶‘¶—¦ $liveaverage%, õ–½ $livedays“ú</span>
   <br class="multicolumn_clear"$net>
 </p>
 
 <p class="paragraph">
-â€»æˆ¦ç¸¾ã«å»ƒæ‘ã—ãŸæ‘ã€ãŠã‚ˆã³çªç„¶æ­»ã—ãŸæ‘ã¯å«ã¾ã‚Œã¾ã›ã‚“ã€‚
+¦íÑ‚É”p‘º‚µ‚½‘ºA‚¨‚æ‚Ñ“Ë‘R€‚µ‚½‘º‚ÍŠÜ‚Ü‚ê‚Ü‚¹‚ñB
 </p>
 
 _HTML_
@@ -124,7 +124,7 @@ _HTML_
         print <<"_HTML_";
 <hr class="invisible_hr"$net>
 
-<h3>å‚åŠ ä¸­ã®æ‘ï¼ˆä»–ã®äººã«ã¯è¦‹ãˆã¾ã›ã‚“ï¼‰</h3>
+<h3>Q‰Á’†‚Ì‘ºi‘¼‚Ìl‚É‚ÍŒ©‚¦‚Ü‚¹‚ñj</h3>
 <ul class="paragraph">
 _HTML_
 
@@ -135,10 +135,10 @@ _HTML_
             my $vil = SWFileVil->new( $sow, $_->{'vid'} );
             $vil->readvil();
             my $linkvalue = &SWBase::GetLinkValues( $sow, $reqvals );
-            print "<li><a href=\"$urlsow?$linkvalue#newsay\">$_->{'vid'}æ‘ $vil->{'vname'}</a> $_->{'chrname'}</li>\n";
+            print "<li><a href=\"$urlsow?$linkvalue#newsay\">$_->{'vid'}‘º $vil->{'vname'}</a> $_->{'chrname'}</li>\n";
             $vil->closevil();
         }
-        print "<li>ç¾åœ¨å‚åŠ ä¸­ã®æ‘ã¯ã‚ã‚Šã¾ã›ã‚“ã€‚</li>\n" if ( @$entriedvils == 0 );
+        print "<li>Œ»İQ‰Á’†‚Ì‘º‚Í‚ ‚è‚Ü‚¹‚ñB</li>\n" if ( @$entriedvils == 0 );
 
         print <<"_HTML_";
 </ul>
@@ -149,7 +149,7 @@ _HTML_
     print <<"_HTML_";
 <hr class="invisible_hr"$net>
 
-<h3>è‡ªå·±ç´¹ä»‹</h3>
+<h3>©ŒÈĞ‰î</h3>
 <p class="paragraph">
 $introduction
 </p>
@@ -157,7 +157,7 @@ $introduction
 
 _HTML_
 
-    # è©³ç´°æˆ¦ç¸¾ã¸ã®ãƒªãƒ³ã‚¯
+    # Ú×íÑ‚Ö‚ÌƒŠƒ“ƒN
     if ( ( @$recordlist > 0 ) && ( $query->{'rowall'} eq '' ) ) {
         $reqvals->{'vid'}    = '';
         $reqvals->{'prof'}   = $query->{'prof'};
@@ -165,37 +165,37 @@ _HTML_
         my $linkvalue = &SWBase::GetLinkValues( $sow, $reqvals );
         print <<"_HTML_";
 <p class="paragraph">
-<a href="$urlsow?$linkvalue">è©³ç´°æˆ¦ç¸¾ã‚’è¡¨\ç¤º</a>
+<a href="$urlsow?$linkvalue">Ú×íÑ‚ğ•\\¦</a>
 </p>
 <hr class="invisible_hr"$net>
 
 _HTML_
     }
 
-    # è©³ç´°æˆ¦ç¸¾
+    # Ú×íÑ
     if ( ( @$recordlist > 0 ) && ( $query->{'rowall'} ne '' ) ) {
 
-        # é™£å–¶åˆ¥
-        &OutHTMLRecordSingle( $sow, $camps, 'é™£å–¶', $sow->{'textrs'}->{'CAPTION_WINNER'} );
+        # w‰c•Ê
+        &OutHTMLRecordSingle( $sow, $camps, 'w‰c', $sow->{'textrs'}->{'CAPTION_WINNER'} );
 
-        # å½¹è·åˆ¥
-        &OutHTMLRecordSingle( $sow, $roles, 'å½¹è·', $sow->{'textrs'}->{'ROLENAME'} );
+        # –ğE•Ê
+        &OutHTMLRecordSingle( $sow, $roles, '–ğE', $sow->{'textrs'}->{'ROLENAME'} );
 
         print <<"_HTML_";
-<h3>å‚åŠ æ‘ä¸€è¦§</h3>
+<h3>Q‰Á‘ºˆê——</h3>
 <div class="paragraph">
 <ul>
 _HTML_
 
-        my @winstr   = ( 'å»ƒæ‘', 'å¼•åˆ†', 'å‹åˆ©', 'æ•—åŒ—' );
+        my @winstr   = ( '”p‘º', 'ˆø•ª', 'Ÿ—˜', '”s–k' );
         my $rolename = $sow->{'textrs'}->{'ROLENAME'};
         my %livetext = (
-            live       => 'æ—¥é–“ã‚’ç”Ÿãå»¶ã³ãŸã€‚',
-            executed   => 'æ—¥ç›®ã«å‡¦åˆ‘ã•ã‚ŒãŸã€‚',
-            victim     => 'æ—¥ç›®ã«è¥²æ’ƒã•ã‚ŒãŸã€‚',
-            cursed     => 'æ—¥ç›®ã«å‘ªæ®ºã•ã‚ŒãŸã€‚',
-            suicide    => 'æ—¥ç›®ã«å¾Œè¿½ã„ã—ãŸã€‚',
-            suddendead => 'æ—¥ç›®ã«çªç„¶æ­»ã—ãŸã€‚',
+            live       => '“úŠÔ‚ğ¶‚«‰„‚Ñ‚½B',
+            executed   => '“ú–Ú‚ÉˆŒY‚³‚ê‚½B',
+            victim     => '“ú–Ú‚ÉPŒ‚‚³‚ê‚½B',
+            cursed     => '“ú–Ú‚ÉôE‚³‚ê‚½B',
+            suicide    => '“ú–Ú‚ÉŒã’Ç‚¢‚µ‚½B',
+            suddendead => '“ú–Ú‚É“Ë‘R€‚µ‚½B',
         );
 
         my @list = sort { $a->{'vid'} <=> $b->{'vid'} } @$recordlist;
@@ -206,9 +206,9 @@ _HTML_
             $liveday++ if ( $_->{'live'} ne 'live' );
             my $rolenametext = "($rolename->[$_->{'role'}])";
             $rolenametext = '' if ( $_->{'role'} < 0 );
-            print "<li><a href=\"$urlsow?$linkvalue#newsay\">$_->{'vid'} $_->{'vname'}</a><br$net>ã€"
+            print "<li><a href=\"$urlsow?$linkvalue#newsay\">$_->{'vid'} $_->{'vname'}</a><br$net>y"
               . $winstr[ $_->{'win'} + 1 ]
-              . "ã€‘ $_->{'chrname'}$rolenametextã€$liveday$livetext{$_->{'live'}}</li>\n";
+              . "z $_->{'chrname'}$rolenametextA$liveday$livetext{$_->{'live'}}</li>\n";
         }
 
         print <<"_HTML_";
@@ -216,7 +216,7 @@ _HTML_
 </div>
 <hr class="invisible_hr"$net>
 
-<h3>é‹å‘½ã®çµ†ãƒªã‚¹ãƒˆ</h3>
+<h3>‰^–½‚ÌãJƒŠƒXƒg</h3>
 
 <div class="paragraph">
 <ul>
@@ -237,25 +237,25 @@ _HTML_
                 my $linkvalue = &SWBase::GetLinkValues( $sow, $reqvals );
                 push( @bondtext, "$chrname(<a href=\"$urlsow?$linkvalue\">$uid</a>)" );
             }
-            my $bondtext = join( 'ã€', @bondtext );
+            my $bondtext = join( 'A', @bondtext );
             $reqvals->{'prof'} = '';
             $reqvals->{'vid'}  = $_->{'vid'};
             my $linkvalue = &SWBase::GetLinkValues( $sow, $reqvals );
             print
-"<li><a href=\"$urlsow?$linkvalue#newsay\">$_->{'vid'}æ‘</a>ï¼š$bondtext ã¨é‹å‘½ã®çµ†ã‚’çµã‚“ã§ã„ãŸã€‚</li>\n";
+"<li><a href=\"$urlsow?$linkvalue#newsay\">$_->{'vid'}‘º</a>F$bondtext ‚Æ‰^–½‚ÌãJ‚ğŒ‹‚ñ‚Å‚¢‚½B</li>\n";
             $bondcount++;
         }
-        print "<li>é‹å‘½ã®çµ†ã‚’çµã‚“ã ç›¸æ‰‹ã¯ã¾ã ã„ã¾ã›ã‚“ã€‚</li>\n" if ( $bondcount == 0 );
+        print "<li>‰^–½‚ÌãJ‚ğŒ‹‚ñ‚¾‘Šè‚Í‚Ü‚¾‚¢‚Ü‚¹‚ñB</li>\n" if ( $bondcount == 0 );
 
-        my @winmark = ( 'ï¼', 'â–³', 'â—‹', 'Ã—' );
+        my @winmark = ( '|', '¢', '›', '~' );
         print <<"_HTML_";
 </ul>
 </div>
 <hr class="invisible_hr"$net>
 
-<h3>åŒæ‘è€…ä¸€è¦§</h3>
+<h3>“¯‘ºÒˆê——</h3>
 <p class="paragraph">
-â€»$winmark[2]ï¼šå‹ã¡ã€$winmark[3]ï¼šè² ã‘ã€$winmark[1]ï¼šå¼•ãåˆ†ã‘ã€$winmark[0]ï¼šãã®ä»–ï¼ˆå»ƒæ‘ã¾ãŸã¯çªç„¶æ­»ï¼‰
+¦$winmark[2]FŸ‚¿A$winmark[3]F•‰‚¯A$winmark[1]Fˆø‚«•ª‚¯A$winmark[0]F‚»‚Ì‘¼i”p‘º‚Ü‚½‚Í“Ë‘R€j
 </p>
 
 <div class="paragraph">
@@ -265,7 +265,7 @@ _HTML_
         $reqvals->{'vid'} = '';
         my %vs;
         foreach (@list) {
-            print "<li>$_->{'vid'}æ‘ï¼š";
+            print "<li>$_->{'vid'}‘ºF";
             my @otherpl    = split( '/', $_->{'otherpl'} );
             my $suddendead = 0;
             $suddendead = 1 if ( $_->{'live'} eq 'suddendead' );
@@ -295,8 +295,8 @@ _HTML_
                 my $linkvalue = &SWBase::GetLinkValues( $sow, $reqvals );
                 $vs{$encodeduid}->{'url'} = "$urlsow?$linkvalue";
                 my $marksingle = $winmark[ $win + 1 ];
-                $marksingle = 'ï¼' if ( $suddendead > 0 );
-                print "$marksingle<a href=\"$vs{$encodeduid}->{'url'}\">$uid</a>ã€";
+                $marksingle = '|' if ( $suddendead > 0 );
+                print "$marksingle<a href=\"$vs{$encodeduid}->{'url'}\">$uid</a>A";
             }
             print "</li>\n";
         }
@@ -306,9 +306,9 @@ _HTML_
 </div>
 <hr class="invisible_hr"$net>
 
-<h3>åŒæ‘è€…å¯¾æˆ¦æˆ¦ç¸¾ï¼ˆ$sow->{'cfg'}->{'MIN_VSRECORDTOTAL'}æˆ¦ä»¥ä¸Šï¼‰</h3>
+<h3>“¯‘ºÒ‘ÎííÑi$sow->{'cfg'}->{'MIN_VSRECORDTOTAL'}íˆÈãj</h3>
 <p class="paragraph">
-â€»å‹æ•—é›†è¨ˆã«å»ƒæ‘ã—ãŸæ‘ã€ãŠã‚ˆã³çªç„¶æ­»ã—ãŸæ‘ã¯å«ã¾ã‚Œã¾ã›ã‚“ã€‚
+¦Ÿ”sWŒv‚É”p‘º‚µ‚½‘ºA‚¨‚æ‚Ñ“Ë‘R€‚µ‚½‘º‚ÍŠÜ‚Ü‚ê‚Ü‚¹‚ñB
 </p>
 
 <div class="paragraph">
@@ -327,10 +327,10 @@ _HTML_
             next
               if ( $vs{$_}->{'total'} < $sow->{'cfg'}->{'MIN_VSRECORDTOTAL'} );
             print
-"<li>vs. <a href=\"$vs{$_}->{'url'}\">$vs{$_}->{'uid'}</a> $vs{$_}->{'total'}æˆ¦ $vs{$_}->{'win'}å‹ $vs{$_}->{'lose'}æ•— $vs{$_}->{'draw'}åˆ†</li>\n";
+"<li>vs. <a href=\"$vs{$_}->{'url'}\">$vs{$_}->{'uid'}</a> $vs{$_}->{'total'}í $vs{$_}->{'win'}Ÿ $vs{$_}->{'lose'}”s $vs{$_}->{'draw'}•ª</li>\n";
             $vscount++;
         }
-        print "<li>$sow->{'cfg'}->{'MIN_VSRECORDTOTAL'}æˆ¦ä»¥ä¸ŠåŒæ‘ã—ãŸäººã¯ã¾ã ã„ã¾ã›ã‚“ã€‚</li>\n"
+        print "<li>$sow->{'cfg'}->{'MIN_VSRECORDTOTAL'}íˆÈã“¯‘º‚µ‚½l‚Í‚Ü‚¾‚¢‚Ü‚¹‚ñB</li>\n"
           if ( $vscount == 0 );
 
         print <<"_HTML_";
@@ -341,17 +341,17 @@ _HTML_
 _HTML_
     }
 
-    &SWHtmlPC::OutHTMLReturnPC($sow);    # ãƒˆãƒƒãƒ—ãƒšãƒ¼ã‚¸ã¸æˆ»ã‚‹
+    &SWHtmlPC::OutHTMLReturnPC($sow);    # ƒgƒbƒvƒy[ƒW‚Ö–ß‚é
 
     $sow->{'html'}->outcontentfooter('');
-    $sow->{'html'}->outfooter();         # HTMLãƒ•ãƒƒã‚¿ã®å‡ºåŠ›
+    $sow->{'html'}->outfooter();         # HTMLƒtƒbƒ^‚Ìo—Í
     $sow->{'http'}->outfooter();
 
     return;
 }
 
 #----------------------------------------
-# å‹ç‡ã‚„ç”Ÿå­˜ç‡ã®æ•´å½¢
+# Ÿ—¦‚â¶‘¶—¦‚Ì®Œ`
 #----------------------------------------
 sub SetRecordText {
     my $data = shift;
@@ -369,23 +369,23 @@ sub SetRecordText {
 }
 
 #----------------------------------------
-# æˆ¦ç¸¾è¡¨ç¤ºï¼ˆé™£å–¶åˆ¥ï¼å½¹è·åˆ¥ï¼‰
+# íÑ•\¦iw‰c•Ê^–ğE•Êj
 #----------------------------------------
 sub OutHTMLRecordSingle {
     my ( $sow, $data, $title, $caption ) = @_;
     my $net = $sow->{'html'}->{'net'};    # Null End Tag
 
     print <<"_HTML_";
-<h3>$titleåˆ¥æˆ¦ç¸¾</h3>
+<h3>$title•ÊíÑ</h3>
 
 <table border="1" class="vindex">
 <thead>
 <tr>
   <th scope="col">$title</th>
-  <th scope="col">å‹æ•—</th>
-  <th scope="col">å‹ç‡</th>
-  <th scope="col">ç”Ÿå­˜ç‡</th>
-  <th scope="col">å¯¿å‘½</th>
+  <th scope="col">Ÿ”s</th>
+  <th scope="col">Ÿ—¦</th>
+  <th scope="col">¶‘¶—¦</th>
+  <th scope="col">õ–½</th>
 </tr>
 </thead>
 
@@ -399,11 +399,11 @@ _HTML_
               &SetRecordText( $data->[$i] );
             print <<"_HTML_";
 <tr>
-  <td>$caption->[$i]å´</td>
-  <td>$data->[$i]->{'win'}å‹ $data->[$i]->{'lose'}æ•—</td>
+  <td>$caption->[$i]‘¤</td>
+  <td>$data->[$i]->{'win'}Ÿ $data->[$i]->{'lose'}”s</td>
   <td>$average%</td>
   <td>$liveaverage%</td>
-  <td>$livedaysæ—¥</td>
+  <td>$livedays“ú</td>
 </tr>
 
 _HTML_
@@ -411,8 +411,8 @@ _HTML_
         else {
             print <<"_HTML_";
 <tr>
-  <td>$caption->[$i]å´</td>
-  <td colspan="4">ãªã—</td>
+  <td>$caption->[$i]‘¤</td>
+  <td colspan="4">‚È‚µ</td>
 </tr>
 
 _HTML_
