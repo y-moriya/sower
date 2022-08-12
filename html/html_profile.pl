@@ -38,7 +38,7 @@ sub OutHTMLProfile {
     my $reqvals = &SWBase::GetRequestValues($sow);
     $reqvals->{'cmd'} = 'editprofform';
     my $linkvalue = &SWBase::GetLinkValues( $sow, $reqvals );
-    my $linkedit = '';
+    my $linkedit  = '';
     $linkedit = " <a href=\"$urlsow?$linkvalue\">編集</a>"
       if ( $sow->{'uid'} eq $query->{'prof'} );
 
