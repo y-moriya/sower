@@ -459,7 +459,7 @@ sub GetConfig {
     );
 
     my @rating_order = ( 'default', 'r15', 'r18', 'gro', 'view' );
-    my %rating = (
+    my %rating       = (
         ORDER   => \@rating_order,
         default => \%ratingnormal,
         r15     => \%rating15,
