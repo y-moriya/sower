@@ -37,9 +37,6 @@ sub SetDataCmdChangePwd {
     my $matchpw = $user->login();
     if ( $matchpw > 0 ) {
 
-        $sow->{'debug'}->writeaplog( $sow->{'APLOG_OTHERS'},
-            "SetDataCmdChangePwd newpwd: $query->{'newpwd'}, confirm: $query->{'confirm'}" );
-
         if ( $query->{'newpwd'} ne $query->{'confirm'} ) {
             $sow->{'debug'}->raise(
                 $sow->{'APLOG_NOTICE'},
