@@ -546,25 +546,25 @@ sub GetConfig {
         MAXSIZE_PASSWD => 256,    # パスワードの最大バイト数
         MINSIZE_PASSWD => 8,      # パスワードの最小バイト数
 
-        MINSIZE_MES      => 4,    # 発言の最小バイト数
-        MAXSIZE_ACTION   => 60,   # アクションの最大バイト数
-        MINSIZE_ACTION   => 4,    # アクションの最大バイト数
-        MAXSIZE_MEMOCNT  => 300,  # メモの最大バイト数
-        MINSIZE_MEMOCNT  => 4,    # メモの最小バイト数
-        MAXSIZE_MEMOLINE => 15,   # メモの最大行数
+        MINSIZE_MES      => 4,      # 発言の最小バイト数
+        MAXSIZE_ACTION   => 60,     # アクションの最大バイト数
+        MINSIZE_ACTION   => 4,      # アクションの最大バイト数
+        MAXSIZE_MEMOCNT  => 300,    # メモの最大バイト数
+        MINSIZE_MEMOCNT  => 4,      # メモの最小バイト数
+        MAXSIZE_MEMOLINE => 15,     # メモの最大行数
 
-        MAXSIZE_VNAME    => 32,   # 村の名前の最大バイト数
-        MINSIZE_VNAME    => 6,    # 村の名前の最小バイト数
-        MAXSIZE_VCOMMENT => 600,  # 村の説明の最大バイト数
-        MINSIZE_VCOMMENT => 16,   # 村の説明の最小バイト数
-        MAXSIZE_VPLCNT   => 25,   # 定員の最大数
-        MINSIZE_VPLCNT   => 4,    # 定員の最小数
+        MAXSIZE_VNAME    => 32,     # 村の名前の最大バイト数
+        MINSIZE_VNAME    => 6,      # 村の名前の最小バイト数
+        MAXSIZE_VCOMMENT => 600,    # 村の説明の最大バイト数
+        MINSIZE_VCOMMENT => 16,     # 村の説明の最小バイト数
+        MAXSIZE_VPLCNT   => 25,     # 定員の最大数
+        MINSIZE_VPLCNT   => 4,      # 定員の最小数
 
-        MAXSIZE_HANDLENAME => 64,     # ハンドル名の最大バイト数
-        MAXSIZE_URL        => 128,    # URLの最大バイト数
-        MAXSIZE_INTRO      => 600,    # 自己紹介の最大バイト数
+        MAXSIZE_HANDLENAME => 64,   # ハンドル名の最大バイト数
+        MAXSIZE_URL        => 128,  # URLの最大バイト数
+        MAXSIZE_INTRO      => 600,  # 自己紹介の最大バイト数
 
-        MAXCOUNT_STIGMA => 5,         # 聖痕者の最大数
+        MAXCOUNT_STIGMA => 5,       # 聖痕者の最大数
 
         #----------------------------------------
         # オプション機能

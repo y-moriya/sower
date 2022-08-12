@@ -28,7 +28,7 @@ sub OutHTMLProfile {
 
     # HTMLの出力
     $sow->{'html'} = SWHtml->new($sow);    # HTMLモードの初期化
-    my $net = $sow->{'html'}->{'net'};                                           # Null End Tag
+    my $net = $sow->{'html'}->{'net'};     # Null End Tag
     $sow->{'http'}->outheader();                                                 # HTTPヘッダの出力
     $sow->{'html'}->outheader("$query->{'prof'}さんのユーザー情報");    # HTMLヘッダの出力
     $sow->{'html'}->outcontentheader();
