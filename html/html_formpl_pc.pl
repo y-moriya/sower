@@ -54,7 +54,7 @@ sub OutHTMLPlayerFormPC {
       if ( ( $curpl->iswhisper() == 0 ) || ( $query->{'mode'} ne 'human' ) );
     &OutHTMLRoleFormPC( $sow, $vil )
       if ( $curpl->iswhisper() > 0 && $vil->{'emulated'} < 1 );
-    &OutHTMLExitButtonPC( $sow, $vil ) if ( $vil->{'turn'} == 0 );
+    &OutHTMLExitButtonPC( $sow, $vil )    if ( $vil->{'turn'} == 0 );
     &OutHTMLSelRoleButtonPC( $sow, $vil ) if ( $vil->{'turn'} == 0 );
 
     # 村建て人フォーム／管理人フォーム／傍観者フォーム表示
@@ -152,7 +152,7 @@ _HTML_
     # 名前とID
     my $reqvals = &SWBase::GetRequestValues($sow);
     $reqvals->{'prof'} = $sow->{'uid'};
-    my $link = &SWBase::GetLinkValues( $sow, $reqvals );
+    my $link    = &SWBase::GetLinkValues( $sow, $reqvals );
     my $uidtext = $sow->{'uid'};
     $uidtext =~ s/ /&nbsp\;/g;
     $uidtext = "<a href=\"$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}?$link\">$uidtext</a>";
@@ -298,7 +298,7 @@ sub OutHTMLActionFormPC {
     my $pllist  = $vil->getpllist();
 
     my $reqvals = &SWBase::GetRequestValues($sow);
-    my $hidden = &SWBase::GetHiddenValues( $sow, $reqvals, '      ' );
+    my $hidden  = &SWBase::GetHiddenValues( $sow, $reqvals, '      ' );
 
     my $chrname = $curpl->getchrname();
     print <<"_HTML_";
@@ -346,7 +346,7 @@ _HTML_
     {
         my $restaddpt     = $sow->{'textrs'}->{'ACTIONS_RESTADDPT'};
         my $actions_addpt = $sow->{'textrs'}->{'ACTIONS_ADDPT'};
-        $restaddpt =~ s/_POINT_/$curpl->{'actaddpt'}/g;
+        $restaddpt     =~ s/_POINT_/$curpl->{'actaddpt'}/g;
         $actions_addpt =~ s/_REST_/$restaddpt/g;
         print "        <option value=\"-1\">$actions_addpt$sow->{'html'}->{'option'}\n";
     }
@@ -621,7 +621,7 @@ sub OutHTMLUpdateSessionButtonPC {
     }
 
     my $reqvals = &SWBase::GetRequestValues($sow);
-    my $hidden = &SWBase::GetHiddenValues( $sow, $reqvals, '    ' );
+    my $hidden  = &SWBase::GetHiddenValues( $sow, $reqvals, '    ' );
 
     print <<"_HTML_";
 <div class="formpl_gm">
@@ -661,7 +661,7 @@ sub OutHTMLScrapVilButtonPC {
     my $net = $sow->{'html'}->{'net'};
 
     my $reqvals = &SWBase::GetRequestValues($sow);
-    my $hidden = &SWBase::GetHiddenValues( $sow, $reqvals, '    ' );
+    my $hidden  = &SWBase::GetHiddenValues( $sow, $reqvals, '    ' );
 
     print <<"_HTML_";
 <div class="formpl_gm">
@@ -687,7 +687,7 @@ sub OutHTMLCommitFormPC {
     my $net = $sow->{'html'}->{'net'};
 
     my $reqvals = &SWBase::GetRequestValues($sow);
-    my $hidden = &SWBase::GetHiddenValues( $sow, $reqvals, '    ' );
+    my $hidden  = &SWBase::GetHiddenValues( $sow, $reqvals, '    ' );
 
     my $disabled = '';
     my $nosay    = '';
@@ -823,7 +823,7 @@ sub OutHTMLVotePC {
 
     # 属性値の取得
     my $reqvals = &SWBase::GetRequestValues($sow);
-    my $hidden = &SWBase::GetHiddenValues( $sow, $reqvals, '      ' );
+    my $hidden  = &SWBase::GetHiddenValues( $sow, $reqvals, '      ' );
 
     print <<"_HTML_";
     <form action="$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}" method="$cfg->{'METHOD_FORM'}">
@@ -1247,12 +1247,12 @@ sub OutHTMLKickFormPC {
 
     # 属性値の取得
     my $reqvals = &SWBase::GetRequestValues($sow);
-    my $hidden = &SWBase::GetHiddenValues( $sow, $reqvals, '      ' );
+    my $hidden  = &SWBase::GetHiddenValues( $sow, $reqvals, '      ' );
 
     print <<"_HTML_";
 <form action="$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}" method="$sow->{'cfg'}->{'METHOD_FORM'}">
   <input type="hidden" name="cmd" value="kick"$net>$hidden
-  <label for="cid">キック：</label>
+  <label for="cid">キック?????</label>
   <select id="cid" name="cid">
 _HTML_
 

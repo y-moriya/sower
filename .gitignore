@@ -18,3 +18,4 @@ doc/img/*
 !img/.gitkeep
 .todo
 _config_local.pl
+config_remote.pl

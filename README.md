@@ -6,11 +6,11 @@ http://real.gunjobiyori.com/sow.cgi
 
 ## Build setup
 
-Please using devcontainer.
+Use devcontainer.
 
 Rename _config_local.default.pl to _config_local.pl 
 
-After start container, runs: http://localhost/sower/sow.cgi
+After start container, open: http://localhost/sower/sow.cgi
 
 # Original Readme
 
