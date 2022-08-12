@@ -316,6 +316,19 @@ sub setcookie {
 }
 
 #----------------------------------------
+# クッキーデータのセット(パスワード変更用)
+#----------------------------------------
+sub setnewcookie {
+    my ( $self, $setcookie ) = @_;
+    my $sow   = $self->{'sow'};
+    my $query = $sow->{'query'};
+    $setcookie->{'uid'} = $query->{'uid'};
+    $setcookie->{'pwd'} = $query->{'newpwd'};
+
+    return;
+}
+
+#----------------------------------------
 # クッキーデータのリセット
 #----------------------------------------
 sub resetcookie {

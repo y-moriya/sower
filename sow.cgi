@@ -112,6 +112,15 @@ sub TaskBranch {
 		} 
 		require "$dirlib/cmd_logout.pl";
 		&SWCmdLogout::CmdLogout($sow);
+	} elsif ($cmd eq 'changepwd') {
+		# パスワード変更
+		if ($ENV{'REQUEST_METHOD'} ne 'POST') {
+			$sow->{'debug'}->raise($sow->{'APLOG_CAUTION'}, "不正なリクエストです。","invalid request method.");
+			return;
+		} 
+		require "$dirlib/cmd_changepwd.pl";
+		&SWCmdChangePwd::CmdChangePwd($sow);
+
 	} elsif ($noregist > 0) {
 		# ID未登録
 		require "$dirhtml/html_noready.pl";

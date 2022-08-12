@@ -545,6 +545,10 @@ sub GetConfig {
         MINSIZE_USERID => 2,      # ユーザIDの最小バイト数
         MAXSIZE_PASSWD => 256,    # パスワードの最大バイト数
         MINSIZE_PASSWD => 8,      # パスワードの最小バイト数
+        NEW_MAXSIZE_PASSWD =>
+          256,    # 新しいパスワードの最大バイト数（パスワード変更時のみ適用）
+        NEW_MINSIZE_PASSWD =>
+          8,      # 新しいパスワードの最小バイト数（パスワード変更時のみ適用）
 
         MINSIZE_MES      => 4,      # 発言の最小バイト数
         MAXSIZE_ACTION   => 60,     # アクションの最大バイト数

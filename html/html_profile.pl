@@ -146,6 +146,26 @@ _HTML_
 
     }
 
+    if ( $sow->{'uid'} eq $query->{'prof'} ) {
+    print <<"_HTML_";
+<hr class="invisible_hr"$net>
+
+<h3>パスワード変更</h3>
+<form action="$urlsow" method="$sow->{'cfg'}->{'METHOD_FORM'}">
+<p>
+  <input type="hidden" name="cmd" value="changepwd"$net>
+  <input type="hidden" name="uid" value="$sow->{'uid'}"$net>
+  <label>現在のパスワード: <input type="password" size="20" name="pwd" value=""$net></label><br>
+  <label>新しいパスワード: <input type="password" size="20" name="newpwd" value=""$net></label><br>
+  <label>確認用パスワード: <input type="password" size="20" name="confirm" value=""$net></label>
+  <input type="submit" value="確認"$disabled$net>
+</p>
+</form>
+<hr class="invisible_hr"$net>
+
+_HTML_
+    }
+    
     print <<"_HTML_";
 <hr class="invisible_hr"$net>
 
