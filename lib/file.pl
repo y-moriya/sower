@@ -47,7 +47,7 @@ sub openfile {
       || $sow->{'debug'}
       ->raise( $sow->{'APLOG_WARNING'}, "$mesname $mesexemode1", "$self->{'fileid'} $mesexemode2 $mesop" );
 
-    $sow->{'debug'}->writeaplog( $sow->{'APLOG_OTHERS'}, "opened. [$self->{'fileid'}]" );
+    $sow->{'debug'}->writeaplog( $sow->{'APLOG_OTHERS'}, "opened. [$self->{'fileid'}] $mesname $mesop" );
 
     $self->{'open'}                       = 'open';
     $self->{'size'}                       = -s $self->{'filename'};

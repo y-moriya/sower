@@ -1252,7 +1252,7 @@ sub OutHTMLKickFormPC {
     print <<"_HTML_";
 <form action="$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}" method="$sow->{'cfg'}->{'METHOD_FORM'}">
   <input type="hidden" name="cmd" value="kick"$net>$hidden
-  <label for="cid">キック?????</label>
+  <label for="cid">キック：</label>
   <select id="cid" name="cid">
 _HTML_
 
