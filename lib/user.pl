@@ -1,11 +1,11 @@
 package SWUser;
 
 #----------------------------------------
-# ãƒ¦ãƒ¼ã‚¶ãƒ¼ãƒ•ã‚¡ã‚¤ãƒ«åˆ¶å¾¡
+# ƒ†[ƒU[ƒtƒ@ƒCƒ‹§Œä
 #----------------------------------------
 
 #----------------------------------------
-# ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+# ƒRƒ“ƒXƒgƒ‰ƒNƒ^
 #----------------------------------------
 sub new {
     my ( $class, $sow ) = @_;
@@ -15,7 +15,7 @@ sub new {
 }
 
 #----------------------------------------
-# ãƒ¦ãƒ¼ã‚¶ãƒ¼ãƒ‡ãƒ¼ã‚¿ãƒ•ã‚¡ã‚¤ãƒ«åã®å–å¾—
+# ƒ†[ƒU[ƒf[ƒ^ƒtƒ@ƒCƒ‹–¼‚Ìæ“¾
 #----------------------------------------
 sub GetFNameUser {
     my $self = shift;
@@ -26,7 +26,7 @@ sub GetFNameUser {
 }
 
 #----------------------------------------
-# ãƒ¦ãƒ¼ã‚¶ãƒ¼ãƒ‡ãƒ¼ã‚¿ãƒ©ãƒ™ãƒ«
+# ƒ†[ƒU[ƒf[ƒ^ƒ‰ƒxƒ‹
 #----------------------------------------
 sub GetUserDataLabel {
     my @datalabel = ( 'uid', 'pwd', 'handlename', 'url', 'introduction', 'parmalink', 'entriedvils', 'penaltydt',
@@ -35,7 +35,7 @@ sub GetUserDataLabel {
 }
 
 #----------------------------------------
-# ãƒ¦ãƒ¼ã‚¶ãƒ¼ãƒ‡ãƒ¼ã‚¿ãƒ•ã‚¡ã‚¤ãƒ«ã‚’é–‹ã
+# ƒ†[ƒU[ƒf[ƒ^ƒtƒ@ƒCƒ‹‚ğŠJ‚­
 #----------------------------------------
 sub openuser {
     my ( $self, $chklogin ) = @_;
@@ -44,15 +44,15 @@ sub openuser {
     my $fh       = \*USER;
     if ( $chklogin == 0 ) {
 
-        # å¾Œã§æ–°è¦ä½œæˆã™ã‚‹ãŸã‚ã‚¨ãƒ©ãƒ¼ã‚’å‡ºã•ãªã„
+        # Œã‚ÅV‹Kì¬‚·‚é‚½‚ßƒGƒ‰[‚ğo‚³‚È‚¢
         $self->{'uid'} = '';
         $self->{'pwd'} = '';
-        return -1 if !( -e $filename );    # ãƒ•ã‚¡ã‚¤ãƒ«ãŒãªã„
+        return -1 if !( -e $filename );    # ƒtƒ@ƒCƒ‹‚ª‚È‚¢
     }
 
-    # ãƒ¦ãƒ¼ã‚¶ãƒ¼ãƒ‡ãƒ¼ã‚¿ã‚’é–‹ã
+    # ƒ†[ƒU[ƒf[ƒ^‚ğŠJ‚­
     my $file = SWFile->new( $self->{'sow'}, 'user', $fh, $filename, $self );
-    $file->openfile( '+<', 'ãƒ¦ãƒ¼ã‚¶ãƒ¼ãƒ‡ãƒ¼ã‚¿', "[uid=$self->{'uid'}]", );
+    $file->openfile( '+<', 'ƒ†[ƒU[ƒf[ƒ^', "[uid=$self->{'uid'}]", );
     $self->{'file'} = $file;
 
     seek( $fh, 0, 0 );
@@ -63,7 +63,7 @@ sub openuser {
     @datalabel = $self->GetUserDataLabel() if ( $datalabel[0] eq '' );
     @$self{@datalabel} = split( /<>/, $data[0] );
 
-    # ç§»è¡Œç”¨ã‚³ãƒ¼ãƒ‰
+    # ˆÚs—pƒR[ƒh
     my @strdata = ( 'url', 'introduction', 'handlename' );
     foreach (@strdata) {
         $self->{$_} = ''
@@ -82,7 +82,7 @@ sub openuser {
 }
 
 #----------------------------------------
-# ãƒ¦ãƒ¼ã‚¶ãƒ¼ãƒ‡ãƒ¼ã‚¿æ›¸ãè¾¼ã¿
+# ƒ†[ƒU[ƒf[ƒ^‘‚«‚İ
 #----------------------------------------
 sub writeuser {
     my $self = shift;
@@ -110,7 +110,7 @@ sub writeuser {
 }
 
 #----------------------------------------
-# ãƒ¦ãƒ¼ã‚¶ãƒ¼ãƒ‡ãƒ¼ã‚¿ãƒ•ã‚¡ã‚¤ãƒ«ã‚’é–‰ã˜ã‚‹
+# ƒ†[ƒU[ƒf[ƒ^ƒtƒ@ƒCƒ‹‚ğ•Â‚¶‚é
 #----------------------------------------
 sub closeuser {
     my $self = shift;
@@ -119,15 +119,15 @@ sub closeuser {
 }
 
 #----------------------------------------
-# é€šå¸¸èªè¨¼
+# ’Êí”FØ
 #----------------------------------------
 sub LoginSW {
     my ( $self, $chklogin ) = @_;
     my $sow = $self->{'sow'};
 
-    my $src = $sow->{'cookie'};    # ã‚¯ãƒƒã‚­ãƒ¼ã‹ã‚‰ãƒ¦ãƒ¼ã‚¶ãƒ¼IDã‚’å–å¾—
-    $src = $sow->{'query'} if ( $sow->{'outmode'} eq 'mb' );    # æºå¸¯ãƒ¢ãƒ¼ãƒ‰ã®æ™‚ã¯å¼•æ•°ã‹ã‚‰å–å¾—
-    $src = $sow->{'query'} if ( $chklogin == 0 );               # ãƒ­ã‚°ã‚¤ãƒ³å‡¦ç†ã®æ™‚ã¯å¼•æ•°ã‹ã‚‰å–å¾—
+    my $src = $sow->{'cookie'};    # ƒNƒbƒL[‚©‚çƒ†[ƒU[ID‚ğæ“¾
+    $src = $sow->{'query'} if ( $sow->{'outmode'} eq 'mb' );    # Œg‘Ñƒ‚[ƒh‚Ì‚Íˆø”‚©‚çæ“¾
+    $src = $sow->{'query'} if ( $chklogin == 0 );               # ƒƒOƒCƒ“ˆ—‚Ì‚Íˆø”‚©‚çæ“¾
     if ( !defined( $src->{'uid'} ) ) {
         $src->{'uid'} = '';
         $src->{'pwd'} = '';
@@ -138,12 +138,12 @@ sub LoginSW {
     my $lengthuid = length( $src->{'uid'} );
     $sow->{'debug'}->raise(
         $sow->{'APLOG_NOTICE'},
-"ãƒ¦ãƒ¼ã‚¶IDã¯ $sow->{'cfg'}->{'MAXSIZE_USERID'} ãƒã‚¤ãƒˆä»¥å†…ã§å…¥åŠ›ã—ã¦ä¸‹ã•ã„ï¼ˆ$lengthuid ãƒã‚¤ãƒˆï¼‰ã€‚",
+"ƒ†[ƒUID‚Í $sow->{'cfg'}->{'MAXSIZE_USERID'} ƒoƒCƒgˆÈ“à‚Å“ü—Í‚µ‚Ä‰º‚³‚¢i$lengthuid ƒoƒCƒgjB",
         "uid too long."
     ) if ( $lengthuid > $sow->{'cfg'}->{'MAXSIZE_USERID'} );
     $sow->{'debug'}->raise(
         $sow->{'APLOG_NOTICE'},
-"ãƒ¦ãƒ¼ã‚¶IDã¯ $sow->{'cfg'}->{'MINSIZE_USERID'} ãƒã‚¤ãƒˆä»¥ä¸Šã§å…¥åŠ›ã—ã¦ä¸‹ã•ã„ï¼ˆ$lengthuid ãƒã‚¤ãƒˆï¼‰ã€‚",
+"ƒ†[ƒUID‚Í $sow->{'cfg'}->{'MINSIZE_USERID'} ƒoƒCƒgˆÈã‚Å“ü—Í‚µ‚Ä‰º‚³‚¢i$lengthuid ƒoƒCƒgjB",
         "uid too short."
       )
       if ( ( $lengthuid < $sow->{'cfg'}->{'MINSIZE_USERID'} )
@@ -152,12 +152,12 @@ sub LoginSW {
     my $lengthpwd = length( $src->{'pwd'} );
     $sow->{'debug'}->raise(
         $sow->{'APLOG_NOTICE'},
-"ãƒ‘ã‚¹ãƒ¯ãƒ¼ãƒ‰ã¯ $sow->{'cfg'}->{'MAXSIZE_PASSWD'} ãƒã‚¤ãƒˆä»¥å†…ã§å…¥åŠ›ã—ã¦ä¸‹ã•ã„ï¼ˆ$lengthpwd ãƒã‚¤ãƒˆï¼‰ã€‚",
+"ƒpƒXƒ[ƒh‚Í $sow->{'cfg'}->{'MAXSIZE_PASSWD'} ƒoƒCƒgˆÈ“à‚Å“ü—Í‚µ‚Ä‰º‚³‚¢i$lengthpwd ƒoƒCƒgjB",
         "pwd too long."
     ) if ( $lengthpwd > $sow->{'cfg'}->{'MAXSIZE_PASSWD'} );
     $sow->{'debug'}->raise(
         $sow->{'APLOG_NOTICE'},
-"ãƒ‘ã‚¹ãƒ¯ãƒ¼ãƒ‰ã¯ $sow->{'cfg'}->{'MINSIZE_PASSWD'} ãƒã‚¤ãƒˆä»¥ä¸Šã§å…¥åŠ›ã—ã¦ä¸‹ã•ã„ï¼ˆ$lengthpwd ãƒã‚¤ãƒˆï¼‰ã€‚",
+"ƒpƒXƒ[ƒh‚Í $sow->{'cfg'}->{'MINSIZE_PASSWD'} ƒoƒCƒgˆÈã‚Å“ü—Í‚µ‚Ä‰º‚³‚¢i$lengthpwd ƒoƒCƒgjB",
         "pwd too short."
       )
       if ( ( $lengthpwd < $sow->{'cfg'}->{'MINSIZE_PASSWD'} )
@@ -171,17 +171,17 @@ sub LoginSW {
 }
 
 #----------------------------------------
-# TypeKeyèªè¨¼
+# TypeKey”FØ
 #----------------------------------------
 sub LoginTypeKey {
     my ( $self, $chklogin ) = @_;
     my $sow = $self->{'sow'};
 
-    # TypeKeyèªè¨¼
+    # TypeKey”FØ
     eval 'use Authen::TypeKey;';
     $sow->{'debug'}->raise(
         $sow->{'APLOG_WARNING'},
-        "Authen::TypeKeyãƒ¢ã‚¸ãƒ¥ãƒ¼ãƒ«ãŒè¦‹ã¤ã‹ã‚Šã¾ã›ã‚“ã€‚",
+        "Authen::TypeKeyƒ‚ƒWƒ…[ƒ‹‚ªŒ©‚Â‚©‚è‚Ü‚¹‚ñB",
         "Authen::TypeKey not found."
     ) if ( $@ ne '' );
     my $src = $sow->{'cookie'};
@@ -194,7 +194,7 @@ sub LoginTypeKey {
     if ( $src->{'sig'} eq '' ) {
         if ( $chklogin == 0 ) {
             $sow->{'debug'}
-              ->raise( $sow->{'APLOG_NOTICE'}, "èªè¨¼ãƒ‡ãƒ¼ã‚¿ãŒã‚ã‚Šã¾ã›ã‚“ã€‚", "typekey sig not found." );
+              ->raise( $sow->{'APLOG_NOTICE'}, "”FØƒf[ƒ^‚ª‚ ‚è‚Ü‚¹‚ñB", "typekey sig not found." );
         }
         else {
             $self->{'logined'} = -1;
@@ -207,7 +207,7 @@ sub LoginTypeKey {
     my $result = $typekey->verify($src);
     $sow->{'debug'}->raise(
         $sow->{'APLOG_NOTICE'},
-        "ãƒ¦ãƒ¼ã‚¶IDã‹ãƒ‘ã‚¹ãƒ¯ãƒ¼ãƒ‰ãŒé–“é•ã£ã¦ã„ã¾ã™ã€‚ã€‚",
+        "ƒ†[ƒUID‚©ƒpƒXƒ[ƒh‚ªŠÔˆá‚Á‚Ä‚¢‚Ü‚·BB",
         $typekey->errstr()
     ) if ( $result ne '' );
     $self->{'uid'}  = $src->{'name'};
@@ -218,7 +218,7 @@ sub LoginTypeKey {
 }
 
 #----------------------------------------
-# ãƒ­ã‚°ã‚¤ãƒ³æƒ…å ±ã®å–å¾—
+# ƒƒOƒCƒ“î•ñ‚Ìæ“¾
 #----------------------------------------
 sub logined {
     my $self = shift;
@@ -232,7 +232,7 @@ sub logined {
         }
         if ( $self->{'logined'} > 0 ) {
             $self->openuser(1);
-            $self->updatepenalty();    # ãƒšãƒŠãƒ«ãƒ†ã‚£ã®æ›´æ–°
+            $self->updatepenalty();    # ƒyƒiƒ‹ƒeƒB‚ÌXV
             $self->writeuser();
             $self->closeuser();
         }
@@ -241,7 +241,7 @@ sub logined {
 }
 
 #----------------------------------------
-# ãƒ­ã‚°ã‚¤ãƒ³æƒ…å ±ã®å–å¾—
+# ƒƒOƒCƒ“î•ñ‚Ìæ“¾
 #----------------------------------------
 sub login {
     my $self = shift;
@@ -256,13 +256,13 @@ sub login {
 }
 
 #----------------------------------------
-# ãƒ‘ã‚¹ãƒ¯ãƒ¼ãƒ‰ç…§åˆ
-# [è¿”ã—å€¤]
-# -1ï¼šå¼•æ•°ã®uidãŒå€¤ãªã—/å¼•æ•°ã®pwdãŒå€¤ãªã—
-#     /ãƒ¦ãƒ¼ã‚¶ãƒ¼ãƒ‡ãƒ¼ã‚¿ã®pwdãŒå€¤ãªã—
-#   ã€€/ãƒ¦ãƒ¼ã‚¶ãƒ¼ãƒ‡ãƒ¼ã‚¿ãªã—ï¼ˆ$chklogin=0ã®æ™‚ï¼‰
-#  0ï¼šãƒ‘ã‚¹ãƒ¯ãƒ¼ãƒ‰ãŒé•ã†
-#  1ï¼šç…§åˆæˆåŠŸ
+# ƒpƒXƒ[ƒhÆ‡
+# [•Ô‚µ’l]
+# -1Fˆø”‚Ìuid‚ª’l‚È‚µ/ˆø”‚Ìpwd‚ª’l‚È‚µ
+#     /ƒ†[ƒU[ƒf[ƒ^‚Ìpwd‚ª’l‚È‚µ
+#   @/ƒ†[ƒU[ƒf[ƒ^‚È‚µi$chklogin=0‚Ìj
+#  0FƒpƒXƒ[ƒh‚ªˆá‚¤
+#  1FÆ‡¬Œ÷
 #----------------------------------------
 sub match {
     my ( $self, $chklogin ) = @_;
@@ -284,7 +284,7 @@ sub match {
         $pwmatch = 0;
         $sow->{'debug'}->raise(
             $sow->{'APLOG_NOTICE'},
-            "ãƒ¦ãƒ¼ã‚¶ãƒ¼IDã‹ãƒ‘ã‚¹ãƒ¯ãƒ¼ãƒ‰ãŒé–“é•ã£ã¦ã„ã¾ã™ã€‚",
+            "ƒ†[ƒU[ID‚©ƒpƒXƒ[ƒh‚ªŠÔˆá‚Á‚Ä‚¢‚Ü‚·B",
             "no match pass.[$self->{'uid'}]"
         );
     }
@@ -294,7 +294,7 @@ sub match {
 }
 
 #----------------------------------------
-# ã‚¯ãƒƒã‚­ãƒ¼ãƒ‡ãƒ¼ã‚¿ã®ã‚»ãƒƒãƒˆ
+# ƒNƒbƒL[ƒf[ƒ^‚ÌƒZƒbƒg
 #----------------------------------------
 sub setcookie {
     my ( $self, $setcookie ) = @_;
@@ -316,7 +316,20 @@ sub setcookie {
 }
 
 #----------------------------------------
-# ã‚¯ãƒƒã‚­ãƒ¼ãƒ‡ãƒ¼ã‚¿ã®ãƒªã‚»ãƒƒãƒˆ
+# ƒNƒbƒL[ƒf[ƒ^‚ÌƒZƒbƒg(ƒpƒXƒ[ƒh•ÏX—p)
+#----------------------------------------
+sub setnewcookie {
+    my ( $self, $setcookie ) = @_;
+    my $sow   = $self->{'sow'};
+    my $query = $sow->{'query'};
+    $setcookie->{'uid'} = $query->{'uid'};
+    $setcookie->{'pwd'} = $query->{'newpwd'};
+
+    return;
+}
+
+#----------------------------------------
+# ƒNƒbƒL[ƒf[ƒ^‚ÌƒŠƒZƒbƒg
 #----------------------------------------
 sub resetcookie {
     my ( $self, $setcookie ) = @_;
@@ -336,7 +349,7 @@ sub resetcookie {
 }
 
 #----------------------------------------
-# ãƒ¦ãƒ¼ã‚¶ãƒ¼ãƒ‡ãƒ¼ã‚¿è¿½åŠ 
+# ƒ†[ƒU[ƒf[ƒ^’Ç‰Á
 #----------------------------------------
 sub createuser {
     my ( $self, $uid, $qpwd ) = @_;
@@ -352,7 +365,7 @@ sub createuser {
 
     my $fh   = \*USER;
     my $file = SWFile->new( $self->{'sow'}, 'user', $fh, $filename, $self );
-    $file->openfile( '>', 'ãƒ¦ãƒ¼ã‚¶ãƒ¼ãƒ‡ãƒ¼ã‚¿', "[uid=$self->{'uid'}]", );
+    $file->openfile( '>', 'ƒ†[ƒU[ƒf[ƒ^', "[uid=$self->{'uid'}]", );
 
     my @datalabel = $self->GetUserDataLabel();
     $self->{'pwd'} = &GetCrypt( $self->{'qpwd'} );
@@ -366,7 +379,7 @@ sub createuser {
 }
 
 #----------------------------------------
-# ãƒ¦ãƒ¼ã‚¶ãƒ¼ãƒ‡ãƒ¼ã‚¿ãƒ•ã‚¡ã‚¤ãƒ«ã®æ›´æ–°æ—¥æ™‚ã‚’å¾—ã‚‹
+# ƒ†[ƒU[ƒf[ƒ^ƒtƒ@ƒCƒ‹‚ÌXV“ú‚ğ“¾‚é
 #----------------------------------------
 sub getupdatedt {
     my $self     = shift;
@@ -376,7 +389,7 @@ sub getupdatedt {
 }
 
 #----------------------------------------
-# å‚åŠ ä¸­ã®æ‘ãƒ‡ãƒ¼ã‚¿ã®å–å¾—
+# Q‰Á’†‚Ì‘ºƒf[ƒ^‚Ìæ“¾
 #----------------------------------------
 sub getentriedvils {
     my $self = shift;
@@ -396,7 +409,7 @@ sub getentriedvils {
 }
 
 #----------------------------------------
-# æŒ‡å®šã—ãŸå‚åŠ ä¸­ã®æ‘ãƒ‡ãƒ¼ã‚¿ã‚’è¿½åŠ ï¼æ›´æ–°
+# w’è‚µ‚½Q‰Á’†‚Ì‘ºƒf[ƒ^‚ğ’Ç‰Á^XV
 #----------------------------------------
 sub setentriedvil {
     my ( $self, $entriedvil ) = @_;
@@ -417,7 +430,7 @@ sub setentriedvil {
 }
 
 #----------------------------------------
-# å‚åŠ ä¸­ã®æ‘ãƒ‡ãƒ¼ã‚¿ã‚’æ›´æ–°
+# Q‰Á’†‚Ì‘ºƒf[ƒ^‚ğXV
 #----------------------------------------
 sub updateentriedvil {
     my ( $self, $entriedvils ) = @_;
@@ -429,12 +442,12 @@ sub updateentriedvil {
         next if ( $entriedvil->{'playing'} < 0 );
         push( @data, join( ':', map { $entriedvil->{$_} } @label ) );
     }
-    push( @data, '0:0' ) if ( @data == 0 );    # ãƒ€ãƒŸãƒ¼
+    push( @data, '0:0' ) if ( @data == 0 );    # ƒ_ƒ~[
     $self->{'entriedvils'} = join( '/', @data );
 }
 
 #----------------------------------------
-# å‚åŠ ä¸­ã®æ‘ãƒ‡ãƒ¼ã‚¿ã‚’æ›´æ–°ï¼ˆãƒ‡ãƒ¼ã‚¿ã‚»ãƒƒãƒˆã‹ã‚‰æ›¸ãè¾¼ã¿ã¾ã§ï¼‰
+# Q‰Á’†‚Ì‘ºƒf[ƒ^‚ğXViƒf[ƒ^ƒZƒbƒg‚©‚ç‘‚«‚İ‚Ü‚Åj
 #----------------------------------------
 sub writeentriedvil {
     my ( $self, $uid, $vid, $chrname, $playing, $nowrite ) = @_;
@@ -454,7 +467,7 @@ sub writeentriedvil {
 }
 
 #----------------------------------------
-# çªç„¶æ­»ãƒšãƒŠãƒ«ãƒ†ã‚£ã®è¿½åŠ 
+# “Ë‘R€ƒyƒiƒ‹ƒeƒB‚Ì’Ç‰Á
 #----------------------------------------
 sub addsdpenalty {
     my $self = shift;
@@ -471,20 +484,20 @@ sub addsdpenalty {
 }
 
 #----------------------------------------
-# ãƒšãƒŠãƒ«ãƒ†ã‚£ã®ãƒã‚§ãƒƒã‚¯
+# ƒyƒiƒ‹ƒeƒB‚Ìƒ`ƒFƒbƒN
 #----------------------------------------
 sub updatepenalty {
     my $self = shift;
     my $sow  = $self->{'sow'};
 
-    return if ( $self->{'ptype'} == $sow->{'PTYPE_NONE'} );    # ãƒšãƒŠãƒ«ãƒ†ã‚£ãªã—
-    return if ( $self->{'penaltydt'} >= $sow->{'time'} );      # ãƒšãƒŠãƒ«ãƒ†ã‚£æœŸé–“ä¸­
+    return if ( $self->{'ptype'} == $sow->{'PTYPE_NONE'} );    # ƒyƒiƒ‹ƒeƒB‚È‚µ
+    return if ( $self->{'penaltydt'} >= $sow->{'time'} );      # ƒyƒiƒ‹ƒeƒBŠúŠÔ’†
     if ( $self->{'ptype'} == $sow->{'PTYPE_PROBATION'} ) {
 
-        # ä¿è­·è¦³å¯ŸæœŸé–“æº€äº†
+        # •ÛŒìŠÏ@ŠúŠÔ–—¹
         $self->{'ptype'}     = $sow->{'PTYPE_NONE'};
         $self->{'penaltydt'} = 0;
-        $self->{'plevel'}    = $sow->{'cfg'}->{'DAY_INITPENALTY'};    # ç½°å‰‡ãƒ¬ãƒ™ãƒ«ã®åˆæœŸåŒ–
+        $self->{'plevel'}    = $sow->{'cfg'}->{'DAY_INITPENALTY'};    # ”±‘¥ƒŒƒxƒ‹‚Ì‰Šú‰»
     }
     else {
         $self->{'ptype'} = $sow->{'PTYPE_PROBATION'};
@@ -494,20 +507,20 @@ sub updatepenalty {
 }
 
 #----------------------------------------
-# æš—å·æ–‡ã®å–å¾—ï¼ˆMD5/DESï¼‰
+# ˆÃ†•¶‚Ìæ“¾iMD5/DESj
 #----------------------------------------
 sub GetCrypt {
     my $salt = &GetSalt();
 
     my $crypted = crypt( $_[0], '$1$' . $salt . '$' );    # MD5
     $crypted = crypt( $_[0], $salt )
-      if ( substr( $crypted, 0, 3 ) ne '$1$' );           # æ¨™æº–ï¼ˆãŸã„ã¦ã„DESï¼‰
+      if ( substr( $crypted, 0, 3 ) ne '$1$' );           # •W€i‚½‚¢‚Ä‚¢DESj
 
     return $crypted;
 }
 
 #----------------------------------------
-# SALT ã®å–å¾—
+# SALT ‚Ìæ“¾
 #----------------------------------------
 sub GetSalt {
     my @CHARSET_BASE64 = ( '.', '/', '0' .. '9', 'A' .. 'Z', 'a' .. 'z' );
@@ -520,7 +533,7 @@ sub GetSalt {
 }
 
 #----------------------------------------
-# ãƒãƒ³ãƒ‰ãƒ«ãƒãƒ¼ãƒ ã®å–å¾—
+# ƒnƒ“ƒhƒ‹ƒl[ƒ€‚Ìæ“¾
 #----------------------------------------
 sub GetHandle {
     my $sow = $_[0];
@@ -536,7 +549,7 @@ sub GetHandle {
 }
 
 #----------------------------------------
-# å›ºå®šãƒªãƒ³ã‚¯è¡¨ç¤ºãƒ•ãƒ©ã‚°ã®å–å¾—
+# ŒÅ’èƒŠƒ“ƒN•\¦ƒtƒ‰ƒO‚Ìæ“¾
 #----------------------------------------
 sub GetShowParmalinkFlag {
     my $sow = $_[0];

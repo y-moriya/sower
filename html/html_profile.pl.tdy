@@ -29,11 +29,11 @@ sub OutHTMLProfile {
     # HTMLの出力
     $sow->{'html'} = SWHtml->new($sow);    # HTMLモードの初期化
     my $net = $sow->{'html'}->{'net'};     # Null End Tag
-    $sow->{'http'}->outheader();                                                 # HTTPヘッダの出力
+    $sow->{'http'}->outheader();                                        # HTTPヘッダの出力
     $sow->{'html'}->outheader("$query->{'prof'}さんのユーザー情報");    # HTMLヘッダの出力
     $sow->{'html'}->outcontentheader();
 
-    &SWHtmlPC::OutHTMLLogin($sow);                                               # ログイン欄の出力
+    &SWHtmlPC::OutHTMLLogin($sow);                                      # ログイン欄の出力
 
     my $reqvals = &SWBase::GetRequestValues($sow);
     $reqvals->{'cmd'} = 'editprofform';
@@ -80,10 +80,8 @@ _HTML_
         my $penaltydt =
           int( ( $user->{'penaltydt'} - $sow->{'time'} ) / 60 / 60 / 24 + 0.5 );
         my @penalty = (
-            "なし",
-            "なし（保護観察期間中：あと約$penaltydt日）",
-            "参加停止中（あと約$penaltydt日）",
-            "ID停止中（あと約$penaltydt日）",
+            "なし",                             "なし（保護観察期間中：あと約$penaltydt日）",
+            "参加停止中（あと約$penaltydt日）", "ID停止中（あと約$penaltydt日）",
         );
         print <<"_HTML_";
   <span class="multicolumn_label">ペナルティ：</span><span class="multicolumn_left">$penalty[$user->{'ptype'}]</span>
@@ -147,7 +145,8 @@ _HTML_
     }
 
     if ( $sow->{'uid'} eq $query->{'prof'} ) {
-    print <<"_HTML_";
+
+        print <<"_HTML_";
 <hr class="invisible_hr"$net>
 
 <h3>パスワード変更</h3>
@@ -164,8 +163,8 @@ _HTML_
 <hr class="invisible_hr"$net>
 
 _HTML_
+
     }
-    
     print <<"_HTML_";
 <hr class="invisible_hr"$net>
 
@@ -262,7 +261,7 @@ _HTML_
             $reqvals->{'vid'}  = $_->{'vid'};
             my $linkvalue = &SWBase::GetLinkValues( $sow, $reqvals );
             print
-"<li><a href=\"$urlsow?$linkvalue#newsay\">$_->{'vid'}村</a>：$bondtext と運命の絆を結んでいた。</li>\n";
+              "<li><a href=\"$urlsow?$linkvalue#newsay\">$_->{'vid'}村</a>：$bondtext と運命の絆を結んでいた。</li>\n";
             $bondcount++;
         }
         print "<li>運命の絆を結んだ相手はまだいません。</li>\n" if ( $bondcount == 0 );
