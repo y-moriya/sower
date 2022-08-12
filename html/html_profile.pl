@@ -202,7 +202,7 @@ _HTML_
         foreach (@list) {
             $reqvals->{'vid'} = $_->{'vid'};
             my $linkvalue = &SWBase::GetLinkValues( $sow, $reqvals );
-            my $liveday = $_->{'liveday'};
+            my $liveday   = $_->{'liveday'};
             $liveday++ if ( $_->{'live'} ne 'live' );
             my $rolenametext = "($rolename->[$_->{'role'}])";
             $rolenametext = '' if ( $_->{'role'} < 0 );
@@ -266,7 +266,7 @@ _HTML_
         my %vs;
         foreach (@list) {
             print "<li>$_->{'vid'}村：";
-            my @otherpl = split( '/', $_->{'otherpl'} );
+            my @otherpl    = split( '/', $_->{'otherpl'} );
             my $suddendead = 0;
             $suddendead = 1 if ( $_->{'live'} eq 'suddendead' );
             foreach (@otherpl) {
