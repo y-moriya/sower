@@ -41,9 +41,9 @@ sub outhtmlnew {
     my $atr_id = $sow->{'html'}->{'atr_id'};
 
     print <<"_HTML_";
-<h3>Sower Version 1.1.5 (2020/08/06)</h3>
+<h3>Sower Version 1.2.0 (2022/08/23)</h3>
 <ul>
-  <li>Viewport の設定を追加</li>
+  <li>パスワード変更機能\を追加</li>
 </ul>
 _HTML_
 
@@ -66,6 +66,11 @@ _HTML_
     $self->outhtmlnew();
 
     print <<"_HTML_";
+<hr class="invisible_hr"$net>
+<h3>Sower Version 1.1.5 (2020/08/06)</h3>
+<ul>
+  <li>Viewport の設定を追加</li>
+</ul>
 <hr class="invisible_hr"$net>
 <h3>Sower Version 1.1.4 (2019/05/23-25)</h3>
 <ul>

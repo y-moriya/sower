@@ -353,7 +353,7 @@ sub InitConst {
         COPY_AUTHOR => '‚ä[‚ë',
         URL_AUTHOR  => 'https://github.com/y-moriya/sower/',
         SITE_AUTHOR => 'github/sower',
-        VERSION_SW  => 'sower ver. 1.1.5',
+        VERSION_SW  => 'sower ver. 1.2.0',
 
         QUERY_INVALID    => \%queryinvalid,
         QUERY_SHORT2FULL => \%query_short2full,
