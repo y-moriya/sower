@@ -481,12 +481,12 @@ sub GetConfig {
         URL_SW  => 'http://***/sow',    # 設置するURL（最後の“/”は必要ありません）
         DESC_SW => '人狼BBS似のウェブ版人狼クローン。',
         ENABLED_MENU => 1,                                  # 1:トップページのメニューを表示する
-        URL_HOME     => 'http://www.gunjobiyori.com/',      # ホームページ
+        URL_HOME     => 'https://www.gunjobiyori.com/',      # ホームページ
         NAME_HOME    => '群青日和(blog)',
         NAME_TOP     => 'TOP',
-        URL_BBS_PC   => 'http://www.twitter.com/euro_s',    # サポート掲示板のURL
+        URL_BBS_PC   => 'https://www.twitter.com/euro_s',    # サポート掲示板のURL
         NAME_BBS_PC  => '@euro_s',                          # サポート掲示板の名前
-        URL_BBS_MB   => 'http://www.twitter.com/euro_s',    # サポート掲示板のURL（携帯向け）
+        URL_BBS_MB   => 'https://www.twitter.com/euro_s',    # サポート掲示板のURL（携帯向け）
         NAME_BBS_MB  => '@euro_s',                          # サポート掲示板の名前（携帯向け）
 
         MAX_VILLAGES  => 5,      # 最大同時稼働村数

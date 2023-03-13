@@ -34,7 +34,7 @@ sub OutHTMLVlogPC {
     my $titleupdate = &SWHtmlPC::GetTitleNextUpdate( $sow, $vil );
     my $linkrss = " <a href=\"$link$amp" . "cmd=rss\">RSS</a>";
     my $twitter =
-"<p class=\"return\"><a href=\"http://twitter.com/share\" class=\"twitter-share-button\" data-count=\"horizontal\" data-via=\"webwolves\" data-lang=\"ja\">Tweet</a><script type=\"text/javascript\" src=\"http://platform.twitter.com/widgets.js\"></script></p>";
+"<p class=\"return\"><a href=\"https://twitter.com/share\" class=\"twitter-share-button\" data-count=\"horizontal\" data-via=\"webwolves\" data-lang=\"ja\">Tweet</a><script type=\"text/javascript\" src=\"https://platform.twitter.com/widgets.js\"></script></p>";
     $linkrss = '' if ( $cfg->{'ENABLED_RSS'} == 0 );
     $twitter = '' if ( $vil->{'turn'} > 0 );
     print "<h2><a href=\"$titlelink\">$query->{'vid'} $vil->{'vname'}</a>";
