@@ -1,44 +1,28 @@
-// For format details, see https://aka.ms/devcontainer.json. For config options, see the README at:
-// https://github.com/microsoft/vscode-dev-containers/tree/v0.166.1/containers/docker-existing-dockerfile
 {
-	"name": "Existing Dockerfile",
-	
-	// Sets the run context to one level up instead of the .devcontainer folder.
-	"context": "..",
-
-	// Update the 'dockerFile' property if you aren't using the standard 'Dockerfile' filename.
-	"dockerFile": "../Dockerfile",
-
-	// Set *default* container specific settings.json values on container create.
-	"settings": { 
-		"terminal.integrated.defaultProfile.linux": null,
-		"editor.tabSize": 4
-	},
-
-	// Add the IDs of extensions you want installed when the container is created.
-	"extensions": [
-		"sfodje.perltidy",
-		"ms-ceintl.vscode-language-pack-ja",
-		"ms-azuretools.vscode-docker",
-		"eamodio.gitlens",
-		"lacroixdavid1.vscode-format-context-menu",
-		"esbenp.prettier-vscode"
-	],
-
-	// Use 'forwardPorts' to make a list of ports inside the container available locally.
-	// "forwardPorts": [80, 8080],
-
-	// Uncomment the next line to run commands after the container is created - for example installing curl.
-	"postCreateCommand": "chmod +x ./.devcontainer/postCreateCommand.sh && ./.devcontainer/postCreateCommand.sh",
-
-	// Uncomment when using a ptrace-based debugger like C++, Go, and Rust
-	"runArgs": [ "--name=sower_dev_container" ],
-
-	// Uncomment to use the Docker CLI from inside the container. See https://aka.ms/vscode-remote/samples/docker-from-docker.
-	"mounts": [ "source=${localWorkspaceFolder}/doc,target=/var/www/html/doc,type=bind" ],
-
-	// Uncomment to connect as a non-root user if you've added one. See https://aka.ms/vscode-remote/containers/non-root.
-	// "remoteUser": "vscode"
-
-	"postStartCommand": "apachectl start"
+  "name": "Sower Dockerfile",
+  "context": "..",
+  "dockerFile": "../Dockerfile",
+  "forwardPorts": [80],
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "terminal.integrated.defaultProfile.linux": null,
+        "editor.tabSize": 4
+      },
+      "extensions": [
+        "sfodje.perltidy",
+        "ms-ceintl.vscode-language-pack-ja",
+        "ms-azuretools.vscode-docker",
+        "eamodio.gitlens",
+        "lacroixdavid1.vscode-format-context-menu",
+        "esbenp.prettier-vscode"
+      ]
+    }
+  },
+  "postCreateCommand": "chmod +x ./.devcontainer/postCreateCommand.sh && ./.devcontainer/postCreateCommand.sh",
+  "runArgs": ["--name=sower_dev_container"],
+  "mounts": [
+    "source=${localWorkspaceFolder}/doc,target=/var/www/html/doc,type=bind"
+  ],
+  "postStartCommand": "apachectl start"
 }

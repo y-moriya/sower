@@ -1,22 +1,23 @@
 # Sower
+
 ## 人狼物語 リア充版 / The Stories of Werewolves Enjoy Real-life
 
-http://real.gunjobiyori.com/sow.cgi
+<http://real.gunjobiyori.com/sow.cgi>
 ここで動いてるやつです。
 
 ## Build setup
 
 Use devcontainer.
 
-Rename _config_local.default.pl to _config_local.pl 
+Rename \_config_local.default.pl to \_config_local.pl
 
-After start container, open: http://localhost/sower/sow.cgi
+After start container, open: <http://localhost/sower/sow.cgi>
 
-# Original Readme
+## Original Readme
 
-https://github.com/y-moriya/sower/blob/master/docs/readme.txt
+<https://github.com/y-moriya/sower/blob/master/docs/readme.txt>
 
-# License
+## License
 
 Copyright (c) 2006-2007, AS/asbntby, 2011-2021 euro
 
@@ -26,14 +27,14 @@ Redistribution and use in source and binary forms, with or
 without modification, are permitted provided that the
 following conditions are met:
 
-  1. Redistributions of source code must retain the above
-     copyright notice, this list of conditions and the
-     following disclaimer.
+1. Redistributions of source code must retain the above
+   copyright notice, this list of conditions and the
+   following disclaimer.
 
-  2. Redistributions in binary form must reproduce the above
-     copyright notice, this list of conditions and the
-     following disclaimer in the documentation and/or other
-     materials provided with the distribution.
+2. Redistributions in binary form must reproduce the above
+   copyright notice, this list of conditions and the
+   following disclaimer in the documentation and/or other
+   materials provided with the distribution.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND
 CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
