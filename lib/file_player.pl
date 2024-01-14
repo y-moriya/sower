@@ -135,14 +135,14 @@ sub chargesaycount {
     my $self   = shift;
     my $saycnt = $self->{'sow'}->{'cfg'}->{'COUNTS_SAY'}->{ $self->{'vil'}->{'saycnttype'} };
 
-    $self->{'say'}   += $saycnt->{'MAX_SAY'};
-    $self->{'tsay'}  += $saycnt->{'MAX_TSAY'};
-    $self->{'wsay'}  += $saycnt->{'MAX_WSAY'};
-    $self->{'spsay'} += $saycnt->{'MAX_SPSAY'};
-    $self->{'bsay'}  += $saycnt->{'MAX_BSAY'};
-    $self->{'gsay'}  += $saycnt->{'MAX_GSAY'};
-    $self->{'psay'}  += $saycnt->{'MAX_SAY'};    # プロローグのチャージ量は進行中と同じにしてみた
-    $self->{'esay'}  += $saycnt->{'MAX_ESAY'};
+    $self->{'say'}      += $saycnt->{'MAX_SAY'};
+    $self->{'tsay'}     += $saycnt->{'MAX_TSAY'};
+    $self->{'wsay'}     += $saycnt->{'MAX_WSAY'};
+    $self->{'spsay'}    += $saycnt->{'MAX_SPSAY'};
+    $self->{'bsay'}     += $saycnt->{'MAX_BSAY'};
+    $self->{'gsay'}     += $saycnt->{'MAX_GSAY'};
+    $self->{'psay'}     += $saycnt->{'MAX_SAY'};       # プロローグのチャージ量は進行中と同じにしてみた
+    $self->{'esay'}     += $saycnt->{'MAX_ESAY'};
     $self->{'say_act'}  += $saycnt->{'MAX_SAY_ACT'};
     $self->{'actaddpt'} += $saycnt->{'MAX_ADDSAY'};
 
@@ -170,36 +170,36 @@ sub gettargetlist {
     my $vil = $self->{'vil'};
     my @targetlist;
 
-    my @bonds = split( '/', $self->{'bonds'} . '/' );
     my $livepllist = $vil->getlivepllist();
     my $livepl;
     foreach $livepl (@$livepllist) {
-        next if ( $livepl->{'uid'} eq $self->{'uid'} );    # 自分自身は除外
-        next
-          if ( ( $self->{'role'} == $sow->{'ROLEID_TRICKSTER'} )
-            && ( $livepl->{'uid'} eq $sow->{'cfg'}->{'USERID_NPC'} ) )
-          ;    # ピクシーの対象にはダミーキャラを含まない
-        next
-          if ( ( defined($targetpno) ) && ( $livepl->{'pno'} == $targetpno ) );   # 第一対象と同じ場合は除外
 
-        if ( ( $cmd eq 'vote' ) || ( $self->iswolf() > 0 ) ) {
-
-            # 投票先か襲撃先の場合
-            my $bond = 0;
-            my $bondpno;
-            foreach $bondpno (@bonds) {
-                $bond = 1 if ( $livepl->{'pno'} == $bondpno );
-            }
-
-            #			next if ($bond > 0); # 運命の絆で結ばれている相手でも除外しない
+        # キューピッドの能力行使以外は自分自身は除外
+        if ( $cmd eq 'vote' ) {
+            next if ( $livepl->{'uid'} eq $self->{'uid'} );
+        }
+        else {
+            next if ( ( $livepl->{'uid'} eq $self->{'uid'} ) && ( $self->{'role'} != $sow->{'ROLEID_CUPID'} ) );
         }
 
+        # ピクシー／キューピッドの対象にはダミーキャラを含まない
+        next
+          if ( ( ( $self->{'role'} == $sow->{'ROLEID_TRICKSTER'} ) || ( $self->{'role'} == $sow->{'ROLEID_CUPID'} ) )
+            && ( $livepl->{'uid'} eq $sow->{'cfg'}->{'USERID_NPC'} ) );
+
+        # 第一対象と同じ場合は除外
+        next
+          if ( ( defined($targetpno) ) && ( $livepl->{'pno'} == $targetpno ) );
+
         if ( ( $self->iswolf() > 0 ) && ( $cmd ne 'vote' ) ) {
-            next if ( $livepl->iswolf() > 0 );    # 人狼/呪狼/智狼は襲撃対象から除外
+
+            # 人狼/呪狼/智狼は襲撃対象から除外
+            next if ( $livepl->iswolf() > 0 );
+
+            # １日目の襲撃対象はダミーキャラのみ
             next
               if ( ( $vil->{'turn'} == 1 )
-                && ( $livepl->{'uid'} ne $sow->{'cfg'}->{'USERID_NPC'} ) )
-              ;                                   # １日目の襲撃対象はダミーキャラのみ
+                && ( $livepl->{'uid'} ne $sow->{'cfg'}->{'USERID_NPC'} ) );
         }
 
         my %target = (
@@ -259,7 +259,7 @@ sub addbond {
     my ( $self, $target ) = @_;
 
     my $isbond = 0;
-    my @bonds = split( '/', $self->{'bonds'} . '/' );
+    my @bonds  = split( '/', $self->{'bonds'} . '/' );
     foreach (@bonds) {
         $isbond = 1 if ( $_ == $target );
     }
@@ -268,6 +268,25 @@ sub addbond {
     if ( $isbond == 0 ) {
         $self->{'bonds'} .= '/' if ( $self->{'bonds'} ne '' );
         $self->{'bonds'} .= $target;
+    }
+}
+
+#----------------------------------------
+# 恋人を追加する
+#----------------------------------------
+sub addlovers {
+    my ( $self, $target ) = @_;
+
+    my $islover = 0;
+    my @lovers  = split( '/', $self->{'lovers'} . '/' );
+    foreach (@lovers) {
+        $islover = 1 if ( $_ == $target );
+    }
+
+    # 絆を追加
+    if ( $islover == 0 ) {
+        $self->{'lovers'} .= '/' if ( $self->{'lovers'} ne '' );
+        $self->{'lovers'} .= $target;
     }
 }
 
@@ -340,6 +359,24 @@ sub ishamster {
 }
 
 #----------------------------------------
+# 恋人かどうかを調べる
+#----------------------------------------
+sub islovers {
+    my $self = shift;
+    $sow = $self->{'sow'};
+
+    my $result = 0;
+
+    # キューピッドは恋人陣営だが、恋人ではない
+    # $result = 1 if ( $self->{'role'} == $sow->{'ROLEID_CUPID'} );
+
+    # キューピッドによる絆を持つ場合は恋人
+    $result = 1 if ( $self->{'lovers'} ne '' );
+
+    return $result;
+}
+
+#----------------------------------------
 # 勝敗の取得
 #----------------------------------------
 sub iswin {
@@ -347,10 +384,18 @@ sub iswin {
     $sow = $self->{'sow'};
     $vil = $self->{'vil'};
 
-    my $win = 2;    # 負け
+    # 負け
+    my $win = 2;
+
+    # 勝ち 恋人ではない場合、元の役職の勝利判定を行う
     $win = 1
-      if ( $vil->{'winner'} == $sow->{'ROLECAMP'}[ $self->{'role'} ] );    # 勝ち
-    $win = 0 if ( $vil->{'winner'} == 0 );                                 # 引き分け
+      if ( ( $self->islovers() == 0 ) && ( $vil->{'winner'} == $sow->{'ROLECAMP'}[ $self->{'role'} ] ) );
+
+    # 恋人勝利 恋人の場合、恋人勝利判定を行う
+    $win = 1 if ( ( $self->islovers() > 0 ) && ( $vil->{'winner'} == 5 ) );
+
+    # 引き分け
+    $win = 0 if ( $vil->{'winner'} == 0 );
 
     return $win;
 }

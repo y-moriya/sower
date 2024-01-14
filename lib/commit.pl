@@ -19,7 +19,7 @@ sub StartSession {
 
     # ログ・メモデータファイルの作成
     require "$sow->{'cfg'}->{'DIR_LIB'}/file_memo.pl";
-    my $logfile = SWBoa->new( $sow, $vil, $vil->{'turn'}, 1 );
+    my $logfile  = SWBoa->new( $sow, $vil, $vil->{'turn'}, 1 );
     my $memofile = SWSnake->new( $sow, $vil, $vil->{'turn'}, 1 );
 
     # 役職配分を取得
@@ -199,8 +199,11 @@ sub UpdateSession {
             # 能力対象ランダム指定時処理
             &SetRandomTarget( $sow, $vil, $logfile );
 
-            # ピクシー／キューピッド処理
+            # ピクシー処理
             &SetBondsTarget( $sow, $vil, $logfile ) if ( $vil->{'turn'} == 2 );
+
+            # キューピッド処理
+            &SetLoversTarget( $sow, $vil, $logfile ) if ( $vil->{'turn'} == 2 );
 
             # 処刑投票
             my $executepl;
@@ -243,7 +246,7 @@ sub UpdateSession {
             }
 
             # 勝利判定
-            my ( $humen, $wolves ) = &GetCountHumenWolves( $sow, $vil );
+            my ( $humen, $wolves, $lovers ) = &GetCountHumenWolves( $sow, $vil );
             if ( $wolves == 0 ) {
 
                 # 村人側勝利
@@ -262,6 +265,13 @@ sub UpdateSession {
                         $winner += 2;
                         last;
                     }
+                }
+            }
+
+            # 恋人勝利判定
+            if ( $winner != 0 ) {
+                if ( $lovers > 0 ) {
+                    $winner = 5;
                 }
             }
         }
@@ -433,7 +443,9 @@ sub SetRandomTarget {
                 # ランダム対象
                 my $chrname = $srcpl->getchrname();
                 my $srctargetpno;
-                if ( $srcpl->{'role'} == $sow->{'ROLEID_TRICKSTER'} ) {
+                if (   ( $srcpl->{'role'} == $sow->{'ROLEID_TRICKSTER'} )
+                    || ( $srcpl->{'role'} == $sow->{'ROLEID_CUPID'} ) )
+                {
                     $srctargetpno = $srcpl->{'target2'}
                       if ( ( $srcpl->{'target2'} >= 0 )
                         && ( $srcpl->{'live'} eq 'live' ) );
@@ -441,8 +453,12 @@ sub SetRandomTarget {
                 &SetRandomTargetSingle( $sow, $vil, $srcpl, 'target', $logfile, $srctargetpno );
             }
 
-            if (   ( $srcpl->{'role'} == $sow->{'ROLEID_TRICKSTER'} )
-                && ( $srcpl->{'target2'} == $sow->{'TARGETID_RANDOM'} ) )
+            if (
+                (
+                    ( $srcpl->{'role'} == $sow->{'ROLEID_TRICKSTER'} ) || ( $srcpl->{'role'} == $sow->{'ROLEID_CUPID'} )
+                )
+                && ( $srcpl->{'target2'} == $sow->{'TARGETID_RANDOM'} )
+              )
             {
                 &SetRandomTargetSingle( $sow, $vil, $srcpl, 'target2', $logfile, $srcpl->{'target'} );
             }
@@ -494,7 +510,7 @@ sub SetRandomTargetSingle {
 }
 
 #----------------------------------------
-# ピクシー／キューピッド処理
+# ピクシー処理
 #----------------------------------------
 sub SetBondsTarget {
     my ( $sow, $vil, $logfile ) = @_;
@@ -548,6 +564,65 @@ sub SetBondsTarget {
         $result_trickster =~ s/_TARGET1_/$targetname/g;
         $result_trickster =~ s/_TARGET2_/$target2name/g;
         $logfile->writeinfo( $plsingle->{'uid'}, $sow->{'MESTYPE_INFOSP'}, $result_trickster );
+    }
+}
+
+#----------------------------------------
+# キューピッド処理
+#----------------------------------------
+sub SetLoversTarget {
+    my ( $sow, $vil, $logfile ) = @_;
+    my $abirole = $sow->{'textrs'}->{'ABI_ROLE'};
+
+    my $livepllist = $vil->getlivepllist();
+    foreach $plsingle (@$livepllist) {
+        next if $plsingle->{'role'} != $sow->{'ROLEID_CUPID'};
+
+        my $chrname = $plsingle->getchrname();
+
+        # 絆の追加
+        my $targetpl  = $vil->getplbypno( $plsingle->{'target'} );
+        my $target2pl = $vil->getplbypno( $plsingle->{'target2'} );
+
+        if ( $targetpl->{'live'} ne 'live' ) {
+
+            # 設定対象１が突然死している時
+            my $srctargetpno;
+            $srctargetpno = $plsingle->{'target2'}
+              if ( ( $plsingle->{'target2'} >= 0 )
+                && ( $target2pl->{'live'} eq 'live' ) );
+            $targetpl = &SetRandomTargetSingle( $sow, $vil, $plsingle, 'target', $logfile, $srctargetpno );
+        }
+
+        if ( $target2pl->{'live'} ne 'live' ) {
+
+            # 設定対象２が突然死している時
+            $target2pl = &SetRandomTargetSingle( $sow, $vil, $plsingle, 'target2', $logfile, $plsingle->{'target'} );
+        }
+
+        if ( ( $plsingle->{'target'} < 0 ) || ( $plsingle->{'target2'} < 0 ) ) {
+
+            # 対象候補が存在しない
+            my $ability =
+              $sow->{'textrs'}->{'ABI_ROLE'}->[ $plsingle->{'role'} ];
+            my $canceltarget = $sow->{'textrs'}->{'CANCELTARGET'};
+            $canceltarget =~ s/_NAME_/$chrname/g;
+            $canceltarget =~ s/_ABILITY_/$ability/g;
+            $logfile->writeinfo( $plsingle->{'uid'}, $sow->{'MESTYPE_INFOSP'}, $canceltarget );
+            return;
+        }
+
+        $targetpl->addlovers( $plsingle->{'target2'} );
+        $target2pl->addlovers( $plsingle->{'target'} );
+
+        my $result_cupid = $sow->{'textrs'}->{'EXECUTECUPID'};
+        my $targetname   = $targetpl->getchrname();
+        my $target2name  = $target2pl->getchrname();
+        $result_cupid =~ s/_NAME_/$chrname/g;
+        $result_cupid =~ s/_TARGET1_/$targetname/g;
+        $result_cupid =~ s/_TARGET2_/$target2name/g;
+        $plsingle->{'history'} .= $result_cupid;
+        $logfile->writeinfo( $plsingle->{'uid'}, $sow->{'MESTYPE_INFOSP'}, $result_cupid );
     }
 }
 
@@ -747,7 +822,8 @@ sub Execution {
 sub Suicide {
     my ( $sow, $vil, $deadpl, $logfile ) = @_;
 
-    my @bonds = split( '/', $deadpl->{'bonds'} . '/' );
+    my @bonds   = split( '/', $deadpl->{'bonds'} . '/' );
+    my @lovers  = split( '/', $deadpl->{'lovers'} . '/' );
     my $chrname = $deadpl->getchrname();
     foreach (@bonds) {
         my $targetpl = $vil->getplbypno($_);
@@ -758,6 +834,23 @@ sub Suicide {
             $user->writeentriedvil( $targetpl->{'uid'}, $vil->{'vid'}, $targetpl->getchrname(), 0 );
 
             my $suicidetext = $sow->{'textrs'}->{'SUICIDEBONDS'};
+            my $targetname  = $targetpl->getchrname();
+            $suicidetext =~ s/_TARGET_/$chrname/g;
+            $suicidetext =~ s/_NAME_/$targetname/g;
+            $logfile->writeinfo( '', $sow->{'MESTYPE_INFONOM'}, $suicidetext );
+            &Suicide( $sow, $vil, $targetpl, $logfile );    # 後追い連鎖
+        }
+    }
+
+    foreach (@lovers) {
+        my $targetpl = $vil->getplbypno($_);
+        if ( $targetpl->{'live'} eq 'live' ) {
+            $targetpl->{'live'}     = 'suicide';
+            $targetpl->{'deathday'} = $vil->{'turn'};
+            my $user = SWUser->new($sow);
+            $user->writeentriedvil( $targetpl->{'uid'}, $vil->{'vid'}, $targetpl->getchrname(), 0 );
+
+            my $suicidetext = $sow->{'textrs'}->{'SUICIDELOVERS'};
             my $targetname  = $targetpl->getchrname();
             $suicidetext =~ s/_TARGET_/$chrname/g;
             $suicidetext =~ s/_NAME_/$targetname/g;
@@ -841,7 +934,7 @@ sub SelectKill {
     # 襲撃先集計
     my $killtext = '';
     foreach (@$livepllist) {
-        next if ( $_->iswolf() == 0 );    # 人狼/呪狼/智狼以外は除外
+        next if ( $_->iswolf() == 0 );     # 人狼/呪狼/智狼以外は除外
         $sow->{'debug'}->writeaplog( $sow->{'APLOG_OTHERS'}, "KillTarget: $_->{'uid'}($_->{'pno'})=$_->{'target'}" );
         next if ( $_->{'target'} < 0 );    # おまかせは除外
 
@@ -1015,7 +1108,7 @@ sub Kill {
     else {
         # 死亡者表示
         for ( $i = 0 ; $i < $deadplcnt ; $i++ ) {
-            my $deadtextpl = splice( @$deadpl, int( rand(@$deadpl) ), 1 );
+            my $deadtextpl  = splice( @$deadpl, int( rand(@$deadpl) ), 1 );
             my $deadchrname = $deadtextpl->getchrname();
             $deadtext = $sow->{'textrs'}->{'ANNOUNCE_KILL'}->[1];
             $deadtext =~ s/_TARGET_/$deadchrname/g;
@@ -1038,6 +1131,7 @@ sub GetCountHumenWolves {
     my $wolves     = 0;
     my $cpossesses = 0;
     my $hamsters   = 0;
+    my $lovers     = 0;
     foreach (@$livepllist) {
         if ( $_->iswolf() > 0 ) {
             $wolves++;
@@ -1051,10 +1145,15 @@ sub GetCountHumenWolves {
         else {
             $humen++;
         }
+
+        # 恋人は狼などとは別カウント
+        if ( $_->islovers() > 0 ) {
+            $lovers++;
+        }
     }
     $humen += $cpossesses if ( ( $hamsters > 0 ) && ( $cpossesses > 0 ) );
 
-    return ( $humen, $wolves );
+    return ( $humen, $wolves, $lovers );
 }
 
 #----------------------------------------
@@ -1068,10 +1167,10 @@ sub SetInitVoteTarget {
     my $liveplcnt = @$livepllist;
     $sow->{'debug'}->writeaplog( $sow->{'APLOG_OTHERS'}, "LivePL: @$livepllist" );
     foreach (@$livepllist) {
-        &SetInitVoteTargetSingle( $sow, $vil, $_, 'vote',   $logfile );
-        &SetInitVoteTargetSingle( $sow, $vil, $_, 'target', $logfile );
+        &SetInitVoteTargetSingle( $sow, $vil, $_, 'vote',    $logfile );
+        &SetInitVoteTargetSingle( $sow, $vil, $_, 'target',  $logfile );
         &SetInitVoteTargetSingle( $sow, $vil, $_, 'target2', $logfile, $_->{'target'} )
-          if ( $_->{'role'} == $sow->{'ROLEID_TRICKSTER'} );
+          if ( ( $_->{'role'} == $sow->{'ROLEID_TRICKSTER'} ) || ( $_->{'role'} == $sow->{'ROLEID_CUPID'} ) );
 
         if ( $_->iswolf() > 0 ) {
             if ( $vil->{'turn'} != 1 ) {
@@ -1094,24 +1193,15 @@ sub SetInitVoteTargetSingle {
 
     my $targetlist = $plsingle->gettargetlist( $targetid, $srctargetpno );
 
-    #	my $listtext = "★" . $plsingle->getchrname() . "の初期対象($targetid)候補★<br>";
     if ( @$targetlist > 0 ) {
         $plsingle->{$targetid} =
           $targetlist->[ int( rand(@$targetlist) ) ]->{'pno'};
         $sow->{'debug'}->writeaplog( $sow->{'APLOG_OTHERS'},
             "SetInitVote/Target[$targetid]: $plsingle->{'uid'}($plsingle->{'pno'})=randtarget" );
-
-        #		foreach(@$targetlist) {
-        #			$listtext .= "$_->{'chrname'}<br>";
-        #		}
-        #		my $targetname = $vil->getplbypno($plsingle->{$targetid})->getchrname();
-        #		$listtext .= "<br>決定先：$targetname";
     }
     else {
         #		$listtext .= '対象がありません。';
     }
-
-    #	$logfile->writeinfo($plsingle->{'uid'}, $sow->{'MESTYPE_INFOSP'}, $listtext);
 
     return;
 }
@@ -1136,7 +1226,7 @@ sub UpdateTurn {
     my ( $sow, $vil, $commit ) = @_;
 
     $vil->{'turn'} += 1;
-    $vil->{'cntmemo'} = 0;
+    $vil->{'cntmemo'}      = 0;
     $vil->{'nextupdatedt'} = $sow->{'dt'}->getnextupdatedt( $vil, $sow->{'time'}, $vil->{'updinterval'}, $commit );
 
     #	$vil->{'nextchargedt'} = $sow->{'dt'}->getnextupdatedt($vil, $sow->{'time'}, 1, $commit);

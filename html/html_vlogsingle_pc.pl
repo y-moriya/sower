@@ -43,7 +43,7 @@ sub OutHTMLSingleLogActionPC {
     my $atr_id = $sow->{'html'}->{'atr_id'};
 
     my $logpl = &GetLogPL( $sow, $vil, $log );
-    my $date = $sow->{'dt'}->cvtdt( $log->{'date'} );
+    my $date  = $sow->{'dt'}->cvtdt( $log->{'date'} );
     if ( $vil->{'timestamp'} > 0 && ( $vil->isepilogue() == 0 ) ) {
         $date = $sow->{'dt'}->cvtdtsht( $log->{'date'} );
     }
@@ -90,7 +90,7 @@ sub OutHTMLSingleLogSayPC {
 
     # “ú‚ÆƒLƒƒƒ‰ƒNƒ^[–¼
     my $logpl = &GetLogPL( $sow, $vil, $log );
-    my $date = $sow->{'dt'}->cvtdt( $log->{'date'} );
+    my $date  = $sow->{'dt'}->cvtdt( $log->{'date'} );
     if ( $vil->{'timestamp'} > 0 && ( $vil->isepilogue() == 0 ) ) {
         $date = $sow->{'dt'}->cvtdtsht( $log->{'date'} );
     }
@@ -128,11 +128,8 @@ sub OutHTMLSingleLogSayPC {
     }
 
     # ”­Œ¾í•Ê
-    my @logmestypetexts = (
-        '', '', '', 'yíœz', 'yŠÇ—líœz', 'y–¢Šmz', '', 'y“Æz', 'yÔz', 'y•æz',
-        '', '', 'y–Âz', 'y”Oz', ''
-    );
-    my $logmestypetext = '';
+    my @logmestypetexts = ( '', '', '', 'yíœz', 'yŠÇ—líœz', 'y–¢Šmz', '', 'y“Æz', 'yÔz', 'y•æz', '', '', 'y–Âz', 'y”Oz', '' );
+    my $logmestypetext  = '';
     $logmestypetext = " <span class=\"mestype\">$logmestypetexts[$log->{'mestype'}]</span>"
       if ( $logmestypetexts[ $log->{'mestype'} ] ne '' );
 
@@ -186,7 +183,7 @@ _HTML_
     # ”­Œ¾‚Ìíœƒ{ƒ^ƒ“
     if ( $log->{'mestype'} == $sow->{'MESTYPE_QUE'} ) {
         my $reqvals = &SWBase::GetRequestValues($sow);
-        my $hidden = &SWBase::GetHiddenValues( $sow, $reqvals, '      ' );
+        my $hidden  = &SWBase::GetHiddenValues( $sow, $reqvals, '      ' );
         my ( $logmestype, $logsubid, $logcnt ) = &SWLog::GetLogIDArray($log);
 
         print <<"_HTML_";
@@ -244,7 +241,7 @@ sub OutHTMLSingleLogGuestPC {
 
     # “ú‚Æƒ†[ƒU[–¼
     my $logpl = &GetLogPL( $sow, $vil, $log );
-    my $date = $sow->{'dt'}->cvtdt( $log->{'date'} );
+    my $date  = $sow->{'dt'}->cvtdt( $log->{'date'} );
     if ( $vil->{'timestamp'} > 0 && ( $vil->isepilogue() == 0 ) ) {
         $date = $sow->{'dt'}->cvtdtsht( $log->{'date'} );
     }
@@ -475,6 +472,16 @@ _HTML_
             foreach $target (@bonds) {
                 my $targetname = $vil->getplbypno($target)->getchrname();
                 $roletext .= "‰^–½‚ÌãJš$targetname<br$net>";
+            }
+        }
+
+        if ( $_->{'lovers'} ne '' ) {
+            my @lovers = split( '/', $_->{'lovers'} . '/' );
+            $roletext .= "<br$net>" if ( @lovers > 0 );
+            my $target;
+            foreach $target (@lovers) {
+                my $targetname = $vil->getplbypno($target)->getchrname();
+                $roletext .= "ˆ¤‚ÌãJš$targetname<br$net>";
             }
         }
 

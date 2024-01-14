@@ -14,7 +14,9 @@ body {
   text-align: center;
 }
 
-div, p, form {
+div,
+p,
+form {
   margin: 0px;
   padding: 0px;
 }
@@ -582,7 +584,7 @@ address {
   padding: 4px;
   border: 1px dashed #554433;
   color: #000000;
-  background: #97C9B0;
+  background: #97c9b0;
 }
 
 /* 念話 ----------*/
@@ -592,7 +594,7 @@ address {
   padding: 4px;
   border: 1px dashed #554433;
   color: #000000;
-  background: #CBBDE3;
+  background: #cbbde3;
 }
 
 /* 傍観者発言 ----------*/
@@ -911,6 +913,16 @@ span.mes_number:hover {
   border: 1px dashed #554433;
   color: #000000;
   background: #d1d1d1;
+}
+
+/* 能力者欄（恋人陣営）----------*/
+
+.formpl_lovers {
+  margin: 0px 0px 4px 0px;
+  padding: 4px;
+  color: #221;
+  background: #eecccc;
+  border: 1px dashed #ffc;
 }
 
 /* 村開始・更新欄 ----------*/

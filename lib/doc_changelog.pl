@@ -22,7 +22,7 @@ sub new {
 #
 # 以下テンプレ
 #
-#<h3>Version 2.1EU (2007/10/01)</h3>
+#<h3>Sower Version 1.3.0 (2024/01/14)</h3>
 #<ul>
 #  <li></li>
 #</ul>
@@ -41,9 +41,9 @@ sub outhtmlnew {
     my $atr_id = $sow->{'html'}->{'atr_id'};
 
     print <<"_HTML_";
-<h3>Sower Version 1.2.0 (2022/08/23)</h3>
+<h3>Sower Version 1.3.0 (2024/01/14)</h3>
 <ul>
-  <li>パスワード変更機能\を追加</li>
+  <li>恋人陣営の役職キューピッドを追加</li>
 </ul>
 _HTML_
 
@@ -66,6 +66,11 @@ _HTML_
     $self->outhtmlnew();
 
     print <<"_HTML_";
+<hr class="invisible_hr"$net>
+<h3>Sower Version 1.2.0 (2022/08/23)</h3>
+<ul>
+  <li>パスワード変更機能\を追加</li>
+</ul>
 <hr class="invisible_hr"$net>
 <h3>Sower Version 1.1.5 (2020/08/06)</h3>
 <ul>

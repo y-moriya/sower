@@ -39,6 +39,7 @@ $cfg->{'NAME_SW'}‚ÍA‚â‚â•~‹‚Ì‚‚¢ƒQ[ƒ€‚Å‚·B—V‚Ñ•û‚ð‚æ‚­“Ç‚ÝAX‚ÉŠù‚ÉI—¹‚µ‚
   <li><a href="#role">‘º‘¤‚Ì”\\—ÍŽÒi–ðEj</a></li>
   <li><a href="#rolewolf">l˜T‘¤‚Ì”\\—ÍŽÒi–ðEj</a></li>
   <li><a href="#rolehamster">‘æŽO¨—Í‚Ì”\\—ÍŽÒi–ðEj</a></li>
+  <li><a href="#rolehamster">‘æŽl¨—Í‚Ì”\\—ÍŽÒi–ðEj</a></li>
   <li><a href="#start">‘º‚ªŽn‚Ü‚Á‚½‚ç</a></li>
   <li><a href="#die">Ž€–S</a></li>
   <li><a href="#suddendeath">“Ë‘RŽ€</a></li>
@@ -211,6 +212,28 @@ $cfg->{'NAME_SW'}‚É‚ÍAu‘ºlvul˜TvˆÈŠO‚É‚à—lX‚Èu”\\—ÍŽÒv‚ª‚¢‚Ü‚·B”Þ‚ç‚Í
   <tr>
     <td>ƒsƒNƒV[</td>
     <td>lŠÔ‚É‚àl˜T‚É‚à‘®‚³‚È‚¢A‘æŽO¨—Í‚Å‚·Bƒnƒ€ƒXƒ^[lŠÔ‚Æ“¯‚¶w‰c‚É‘®‚µAƒnƒ€ƒXƒ^[lŠÔ“¯—l‚Ì”\\—Íil˜T‚ÉP‚í‚ê‚È‚¢Aè‚í‚ê‚é‚ÆŽ€‚Êj‚ðŽ‚¿‚Ü‚·B<br$net>‰Á‚¦‚ÄAƒsƒNƒV[‚ÍD‚«‚È“ñl‚Ég‰^–½‚ÌãJh‚ðŒ‹‚Ñ‚Â‚¯‚éŽ–‚ª‚Å‚«‚Ü‚·Bg‰^–½‚ÌãJh‚ðŒ‹‚ñ‚¾l‚ÍA•Ð•û‚ªŽ€–S‚·‚é‚ÆŒã‚ð’Ç‚Á‚ÄŽ€–S‚µ‚Ü‚·B<br$net>¦g‰^–½‚ÌãJh‚Í‚Q“ú–ÚŠJŽnŽž‚ÉŒ‹‚Î‚ê‚Ü‚·i‘ÎÛ‘I‘ð‚Í‚P“ú–ÚjB</td>
+  </tr>
+</tbody>
+</table>
+<hr class="invisible_hr"$net>
+
+<h3><a $atr_id="rolehamster">‘æŽl¨—Í‚Ì”\\—ÍŽÒi–ðEj</a></h3>
+<p class="paragraph">
+—ölw‰c‚Å‚·BƒLƒ…[ƒsƒbƒh‚¨‚æ‚ÑƒLƒ…[ƒsƒbƒh‚Ì”\\—Í‚É‚æ‚Á‚Ä—öl‚É‚³‚ê‚½ŽÒ’B‚Í—ölw‰c‚É‚È‚è‚Ü‚·B‘ºl‘¤‚©l˜T‘¤‚ªŸ—˜‚·‚éðŒ‚ð–ž‚½‚µ‚½ŽžA—öl‚ª­‚È‚­‚Æ‚àˆê‘g¶‘¶‚µ‚Ä‚¢‚ê‚Î”Þ‚ç‚ÌŸ—˜‚Æ‚È‚è‚Ü‚·B—öl‚É‚È‚Á‚½ŽÒ‚ÍŒ³‚Ìw‰c‚ðŽ¸‚¤‚½‚ßA—öl‚ª¶‘¶‚µ‚È‚©‚Á‚½ê‡‚Í–ðE‚ÉŠÖ‚í‚ç‚¸”s–k‚µ‚Ü‚·B
+</p>
+
+<table border="1" class="vindex" summary="”\\—ÍŽÒˆê——i‘æŽO¨—Íj">
+<thead>
+  <tr>
+    <th scope="col">”\\—Í</th>
+    <th scope="col">à–¾</th>
+  </tr>
+</thead>
+
+<tbody>
+  <tr>
+    <td>ƒLƒ…[ƒsƒbƒh</td>
+    <td>lŠÔ‚É‚àl˜T‚É‚à‘®‚³‚È‚¢A‘æŽl¨—Í‚Å‚·B<br$net>ƒLƒ…[ƒsƒbƒh‚ÍŽ©•ª‚ðŠÜ‚ÞD‚«‚È“ñl‚Égˆ¤‚ÌãJh‚ðŒ‹‚Ñ‚Â‚¯‚éŽ–‚ª‚Å‚«‚Ü‚·Bgˆ¤‚ÌãJh‚ðŒ‹‚ñ‚¾l‚ÍA—ölw‰c‚É‚È‚èA•Ð•û‚ªŽ€–S‚·‚é‚ÆŒã‚ð’Ç‚Á‚ÄŽ€–S‚µ‚Ü‚·B<br$net>‘º‚ªI—¹‚µ‚½Û‚É—öl‚ª¶‘¶‚µ‚Ä‚¢‚é‚±‚Æ‚ª—ölw‰c‚ÌŸ—˜ðŒ‚Æ‚È‚è‚Ü‚·B<br$net>ƒLƒ…[ƒsƒbƒhŽ©g‚ª—ölo‚È‚¢ê‡AƒLƒ…[ƒsƒbƒh‚Ì¶Ž€‚Í—ölw‰c‚ÌŸ”s‚É‰e‹¿‚µ‚Ü‚¹‚ñB¦gˆ¤‚ÌãJh‚Í‚Q“ú–ÚŠJŽnŽž‚ÉŒ‹‚Î‚ê‚Ü‚·i‘ÎÛ‘I‘ð‚Í‚P“ú–ÚjB</td>
   </tr>
 </tbody>
 </table>

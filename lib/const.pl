@@ -8,17 +8,17 @@ sub InitConst {
     # 引数リスト（NaN/Infチェック用）
     # 数値データは0、文字列は1、改行を許す文字列は2
     my %queryinvalid = (
-        ua   => 1,    # ユーザエージェント
-        css  => 1,    # CSS指定（オプション）
-        uid  => 1,    # ユーザID
-        u    => 1,    # ユーザID（短縮形）
-        pwd  => 1,    # パスワード
-        p    => 1,    # パスワード（短縮形）
-        cmd  => 1,    # 処理内容
-        c    => 1,    # 処理内容（短縮形）
-        move => 1,    # ページ移動方向
-        newpwd => 1,  # 新しいパスワード
-        confirm => 1, # 新しいパスワード（確認用）
+        ua      => 1,    # ユーザエージェント
+        css     => 1,    # CSS指定（オプション）
+        uid     => 1,    # ユーザID
+        u       => 1,    # ユーザID（短縮形）
+        pwd     => 1,    # パスワード
+        p       => 1,    # パスワード（短縮形）
+        cmd     => 1,    # 処理内容
+        c       => 1,    # 処理内容（短縮形）
+        move    => 1,    # ページ移動方向
+        newpwd  => 1,    # 新しいパスワード
+        confirm => 1,    # 新しいパスワード（確認用）
 
         #		mv      => 1, # ページ移動方向（短縮形）
         pageno  => 0,    # ページ番号
@@ -89,6 +89,7 @@ sub InitConst {
         cntcwolf     => 0,    # 呪狼
         cntintwolf   => 0,    # 智狼
         cnttrickster => 0,    # ピクシー
+        cntcupid     => 0,    # キューピッド
 
         cid         => 1,     # キャラクタID
         csid_cid    => 1,     # キャラクタセット/キャラクタID
@@ -322,6 +323,7 @@ sub InitConst {
         'cwolf',       # 呪狼
         'intwolf',     # 智狼
         'trickster',   # ピクシー
+        'cupid',       # キューピッド
     );
 
     # 役職別陣営
@@ -345,6 +347,8 @@ sub InitConst {
         2,             # 呪狼
         2,             # 智狼
         3,             # ピクシー
+
+        5,             # キューピッド
     );
 
     my %sow = (
@@ -418,9 +422,10 @@ sub InitConst {
         ROLEID_CWOLF     => 14,                   # 呪狼
         ROLEID_INTWOLF   => 15,                   # 智狼
         ROLEID_TRICKSTER => 16,                   # ピクシー
+        ROLEID_CUPID     => 17,                   # キューピッド
         ROLEID           => \@roleid,
         ROLECAMP         => \@rolecamp,
-        COUNT_CAMP       => 3,                    # 陣営数
+        COUNT_CAMP       => 5,                    # 陣営数+1
         COUNT_ROLE       => scalar(@roleid),
 
         #		MAXCOUNT_STIGMA  => 5, # 聖痕者の最大数

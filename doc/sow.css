@@ -14,7 +14,9 @@ body {
   text-align: center;
 }
 
-div, p, form {
+div,
+p,
+form {
   margin: 0px;
   padding: 0px;
 }
@@ -36,11 +38,11 @@ a[href]:hover {
   color: #fff;
 }
 
-div.formpl_content>a:link {
+div.formpl_content > a:link {
   color: #00f;
 }
 
-div.formpl_content>a:visited {
+div.formpl_content > a:visited {
   color: #008;
 }
 
@@ -903,6 +905,16 @@ span.mes_number:hover {
   border: 1px solid #ffc;
   color: #fff;
   background: #622;
+}
+
+/* 能力者欄（恋人陣営）----------*/
+
+.formpl_lovers {
+  margin: 0px 0px 4px 0px;
+  padding: 4px;
+  color: #221;
+  background: #ecc;
+  border: 1px solid #ffc;
 }
 
 /* 村開始・更新欄 ----------*/

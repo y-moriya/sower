@@ -46,7 +46,7 @@ sub createvil {
         $filename = &GetFNameVilDirVid( $self->{'sow'}, $self->{'vid'} );
     }
 
-    my $fh = \*VIL;
+    my $fh   = \*VIL;
     my $file = SWFile->new( $self->{'sow'}, 'vil', $fh, $filename, $self );
     $file->openfile( '>', '村データ', "[vid=$self->{'vid'}]", );
     $self->{'file'} = $file;
@@ -118,7 +118,7 @@ sub readvil {
     }
 
     # ファイルを開く
-    my $fh = \*VIL;
+    my $fh   = \*VIL;
     my $file = SWFile->new( $self->{'sow'}, 'vil', $fh, $filename, $self );
     $file->openfile( '+<', '村データ', "[vid=$self->{'vid'}]", );
     $self->{'file'} = $file;
@@ -203,11 +203,7 @@ sub writevil {
         $self->{'vid'}, $ENV{'REMOTE_PORT'}, $$, $sow->{'cfg'}->{'FILE_VIL'},
     );
     open( $fh, ">$tempfname" )
-      || $sow->{'debug'}->raise(
-        $sow->{'APLOG_WARNING'},
-        "村データの書き込みに失敗しました。",
-        "cannot write vil data."
-      );
+      || $sow->{'debug'}->raise( $sow->{'APLOG_WARNING'}, "村データの書き込みに失敗しました。", "cannot write vil data." );
 
     $self->{'entrypwd'} = $self->{'sow'}->{'DATATEXT_NONE'}
       if ( $self->{'entrypwd'} eq '' );
@@ -724,6 +720,7 @@ sub GetVilDataLabel {
         'cntcwolf',        # 呪狼
         'cntintwolf',      # 智狼
         'cnttrickster',    # ピクシー
+        'cntcupid',        # キューピッド
         'modifiedsay',
         'modifiedwsay',
         'modifiedgsay',

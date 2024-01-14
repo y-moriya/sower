@@ -9,16 +9,16 @@ sub OutHTMLPlayerFormMb {
     my $query = $sow->{'query'};
     my $curpl = $sow->{'curpl'};
 
-    $sow->{'html'} = SWHtml->new($sow);    # HTMLモードの初期化
-    my $outhttp = $sow->{'http'}->outheader();    # HTTPヘッダの出力
-    return if ( $outhttp == 0 );                  # ヘッダ出力のみ
+    $sow->{'html'} = SWHtml->new($sow);                                       # HTMLモードの初期化
+    my $outhttp = $sow->{'http'}->outheader();                                # HTTPヘッダの出力
+    return if ( $outhttp == 0 );                                              # ヘッダ出力のみ
     $sow->{'html'}->outheader("$sow->{'query'}->{'vid'} $vil->{'vname'}");    # HTMLヘッダの出力
 
     my $net    = $sow->{'html'}->{'net'};                                     # Null End Tag
     my $option = $sow->{'html'}->{'option'};
 
     my $reqvals = &SWBase::GetRequestValues($sow);
-    my $link = &SWBase::GetLinkValues( $sow, $reqvals );
+    my $link    = &SWBase::GetLinkValues( $sow, $reqvals );
     $link = "$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}?$link";
 
     print <<"_HTML_";
@@ -154,7 +154,7 @@ sub OutHTMLVoteMb {
 
     # 属性値の取得
     my $reqvals = &SWBase::GetRequestValues($sow);
-    my $hidden = &SWBase::GetHiddenValues( $sow, $reqvals, '' );
+    my $hidden  = &SWBase::GetHiddenValues( $sow, $reqvals, '' );
 
     print <<"_HTML_";
 <form action="$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}" method="$cfg->{'METHOD_FORM_MB'}">
@@ -212,7 +212,7 @@ _HTML_
     }
     print "</select>";
 
-    if (   ( $curpl->{'role'} == $sow->{'ROLEID_TRICKSTER'} )
+    if (   ( ( $curpl->{'role'} == $sow->{'ROLEID_TRICKSTER'} ) || ( $curpl->{'role'} == $sow->{'ROLEID_CUPID'} ) )
         && ( $cmd ne 'vote' ) )
     {
         print " と、<br$net>\n";
@@ -258,7 +258,10 @@ sub OutHTMLSayMb {
     my $markbonds = '';
     $markbonds = " ★$sow->{'textrs'}->{'MARK_BONDS'}"
       if ( $curpl->{'bonds'} ne '' );
-    print "■$chrname$markbonds<br$net>\n";
+    my $marklovers = '';
+    $marklovers = " ★$sow->{'textrs'}->{'MARK_LOVERS'}"
+      if ( $curpl->{'lovers'} ne '' );
+    print "■$chrname$markbonds$marklovers<br$net>\n";
 
     my $reqvals    = &SWBase::GetRequestValues($sow);
     my $hidden     = &SWBase::GetHiddenValues( $sow, $reqvals, '' );
@@ -307,8 +310,7 @@ _HTML_
     if (   ( $curpl->{'live'} eq 'live' )
         || ( $cfg->{'ENABLED_TSAY_GRAVE'} > 0 ) )
     {    # 生きている／墓下独り言有効
-        if ( ( $vil->isepilogue() == 0 ) || ( $cfg->{'ENABLED_TSAY_EP'} > 0 ) )
-        {    # エピではない／エピ独り言有効
+        if ( ( $vil->isepilogue() == 0 ) || ( $cfg->{'ENABLED_TSAY_EP'} > 0 ) ) {    # エピではない／エピ独り言有効
             if ( ( $vil->{'turn'} != 0 ) || ( $cfg->{'ENABLED_TSAY_PRO'} > 0 ) ) {
                 my $unit =
                   $sow->{'basictrs'}->{'SAYTEXT'}
@@ -407,8 +409,7 @@ _HTML_
 _HTML_
 
     # 独り言チェックボックス
-    if ( ( $vil->isepilogue() == 0 ) || ( $cfg->{'ENABLED_TSAY_EP'} > 0 ) )
-    {    # エピではない／エピ独り言有効
+    if ( ( $vil->isepilogue() == 0 ) || ( $cfg->{'ENABLED_TSAY_EP'} > 0 ) ) {    # エピではない／エピ独り言有効
         my $checked = '';
         $checked = " $sow->{'html'}->{'checked'}"
           if ( ( $query->{'think'} ne '' ) && ( $query->{'guest'} ne '' ) );
@@ -458,7 +459,7 @@ sub OutHTMLRoleMb {
     $selrole = $curpl->{'selrole'};
 
     my $reqvals = &SWBase::GetRequestValues($sow);
-    my $link = &SWBase::GetLinkValues( $sow, $reqvals );
+    my $link    = &SWBase::GetLinkValues( $sow, $reqvals );
     $link = "$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}?$link";
 
     print <<"_HTML_";
@@ -503,8 +504,12 @@ _HTML_
               if ( ( $curpl->{'role'} == $sow->{'ROLEID_GUARD'} )
                 && ( $vil->{'turn'} == 1 ) );
             $enabled_abi = 0
-              if ( ( $curpl->{'role'} == $sow->{'ROLEID_TRICKSTER'} )
-                && ( $vil->{'turn'} > 1 ) );
+              if (
+                (
+                    ( $curpl->{'role'} == $sow->{'ROLEID_TRICKSTER'} ) || ( $curpl->{'role'} == $sow->{'ROLEID_CUPID'} )
+                )
+                && ( $vil->{'turn'} > 1 )
+              );
             &OutHTMLVoteMb( $sow, $vil, 'skill' ) if ( $enabled_abi > 0 );
         }
 
@@ -513,7 +518,7 @@ _HTML_
 
             # 囁き/共鳴/念話
             my $reqvals = &SWBase::GetRequestValues($sow);
-            my $hidden = &SWBase::GetHiddenValues( $sow, $reqvals, '' );
+            my $hidden  = &SWBase::GetHiddenValues( $sow, $reqvals, '' );
 
             my $unit =
               $sow->{'basictrs'}->{'SAYTEXT'}
@@ -636,7 +641,7 @@ _HTML_
     {
         my $restaddpt     = $sow->{'textrs'}->{'ACTIONS_RESTADDPT'};
         my $actions_addpt = $sow->{'textrs'}->{'ACTIONS_ADDPT'};
-        $restaddpt =~ s/_POINT_/$curpl->{'actaddpt'}/g;
+        $restaddpt     =~ s/_POINT_/$curpl->{'actaddpt'}/g;
         $actions_addpt =~ s/_REST_/$restaddpt/g;
         print "<option value=\"-1\">$actions_addpt$option\n";
     }
@@ -668,7 +673,7 @@ sub OutHTMLCommitFormMb {
     my $net = $sow->{'html'}->{'net'};
 
     my $reqvals = &SWBase::GetRequestValues($sow);
-    my $hidden = &SWBase::GetHiddenValues( $sow, $reqvals, '' );
+    my $hidden  = &SWBase::GetHiddenValues( $sow, $reqvals, '' );
 
     my $nosay = '';
     if ( $sow->{'curpl'}->{'saidcount'} > 0 ) {
@@ -744,7 +749,7 @@ sub OutHTMLExitVilButtonMb {
     my $net = $sow->{'html'}->{'net'};
 
     my $reqvals = &SWBase::GetRequestValues($sow);
-    my $hidden = &SWBase::GetHiddenValues( $sow, $reqvals, '' );
+    my $hidden  = &SWBase::GetHiddenValues( $sow, $reqvals, '' );
     if (   ( defined( $sow->{'curpl'} ) )
         && ( $sow->{'curpl'}->{'uid'} eq $cfg->{'USERID_NPC'} ) )
     {
