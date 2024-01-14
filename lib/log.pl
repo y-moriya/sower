@@ -54,12 +54,12 @@ sub ReplacePreviewAnchor {
     my $mes = $log->{'log'};
     $sow->{'debug'}->writeaplog( $sow->{'APLOG_OTHERS'}, "Target. [$log->{'log'}]" );
     while ( $mes =~
-        /&gt;&gt;[\+\-\*\#\%\=\!g]?(\d{1,$sow->{'MAXWIDTH_TURN'}}:)?[\+\-\*\#\%\=\!g]?\d{1,$sow->{'MAXWIDTH_LOGCOUNT'}}/
+/&gt;&gt;[\+\-\*\#\%\=\!\~g]?(\d{1,$sow->{'MAXWIDTH_TURN'}}:)?[\+\-\*\#\%\=\!\~g]?\d{1,$sow->{'MAXWIDTH_LOGCOUNT'}}/
       )
     {
         my $anchortext = $&;
         my ( $mestypestr, $mestypestr2, $turn, $logno );
-        $anchortext =~ /(&gt;&gt;)([AS]?)([\+\-\*\#\%\=\!g]?)(\d+:)?([\+\-\*\#\%\=\!g]?)(\d+)/;
+        $anchortext =~ /(&gt;&gt;)([AS]?)([\+\-\*\#\%\=\!\~g]?)(\d+:)?([\+\-\*\#\%\=\!\~g]?)(\d+)/;
         my $mestypemark1 = $3;
         my $mestypemark2 = $5;
         $mestypestr = $3;
@@ -115,14 +115,13 @@ sub ReplaceAnchor {
     my $mes   = $say->{'mes'};
     my $saypl = $vil->getpl( $say->{'uid'} );
 
-#	while ($mes =~ /&gt;&gt;[AS]?[\+\-\*\#\%\=\!]?(\d{1,$sow->{'MAXWIDTH_TURN'}}:)?[\+\-\*\#\%\=\!]?\d{1,$sow->{'MAXWIDTH_LOGCOUNT'}}/) {
     while ( $mes =~
-        /&gt;&gt;[\+\-\*\#\%\=\!g]?(\d{1,$sow->{'MAXWIDTH_TURN'}}:)?[\+\-\*\#\%\=\!g]?\d{1,$sow->{'MAXWIDTH_LOGCOUNT'}}/
+/&gt;&gt;[\+\-\*\#\%\=\!\~g]?(\d{1,$sow->{'MAXWIDTH_TURN'}}:)?[\+\-\*\#\%\=\!\~g]?\d{1,$sow->{'MAXWIDTH_LOGCOUNT'}}/
       )
     {
         my $anchortext = $&;
         my ( $mestypestr, $mestypestr2, $turn, $logno );
-        $anchortext =~ /(&gt;&gt;)([AS]?)([\+\-\*\#\%\=\!g]?)(\d+:)?([\+\-\*\#\%\=\!g]?)(\d+)/;
+        $anchortext =~ /(&gt;&gt;)([AS]?)([\+\-\*\#\%\=\!\~g]?)(\d+:)?([\+\-\*\#\%\=\!\~g]?)(\d+)/;
         my $mestypemark1 = $3;
         my $mestypemark2 = $5;
         $mestypestr = $3;

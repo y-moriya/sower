@@ -62,7 +62,7 @@ sub OutHTMLIndex {
         print <<"_HTML_";
 <form action="$urlsow" method="get" class="menu">
 <div>
-  $urlhome<a href="$urlsow?$linkmb">Œg‘Ñ”Å</a>/$supportbbs
+  $urlhome<a href="https://www.amazon.jp/hz/wishlist/ls/1ET0ILYRI88S8?ref_=wl_share">“Š‚°‘K‚Í‚±‚¿‚ç</a>/$supportbbs
   <select name="css">
 _HTML_
 

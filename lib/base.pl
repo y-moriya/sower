@@ -580,6 +580,7 @@ sub CheckWriteSafetyRole {
     $enablecheck = 1 if ( $curpl->{'role'} eq $sow->{'ROLEID_SYMPATHY'} );    # 共鳴者
     $enablecheck = 1
       if ( $curpl->{'role'} eq $sow->{'ROLEID_WEREBAT'} );                    # コウモリ人間
+    $enablecheck = 1 if ( $curpl->islovers() > 0 );                           # 恋人
 
     return $enablecheck;
 }

@@ -289,6 +289,8 @@ sub InitConst {
         P => '=',    # MESTYPE_SPSAY
         B => '!',    # MESTYPE_BSAY
         U => 'g',    # MESTYPE_GUEST
+        C => 'c',    # MESTYPE_CAST
+        L => '~',    # MESTYPE_LSAY
     );
 
     # 役職配分表リスト
@@ -357,7 +359,7 @@ sub InitConst {
         COPY_AUTHOR => 'ゆーろ',
         URL_AUTHOR  => 'https://github.com/y-moriya/sower/',
         SITE_AUTHOR => 'github/sower',
-        VERSION_SW  => 'sower ver. 1.2.0',
+        VERSION_SW  => 'sower ver. 1.3.0',
 
         QUERY_INVALID    => \%queryinvalid,
         QUERY_SHORT2FULL => \%query_short2full,
