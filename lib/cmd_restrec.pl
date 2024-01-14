@@ -72,11 +72,11 @@ sub OutHTMLCmdRestRecord {
     require "$cfg->{'DIR_HTML'}/html.pl";
     require "$cfg->{'DIR_HTML'}/html_restrec.pl";
 
-    $sow->{'html'} = SWHtml->new($sow);    # HTMLモードの初期化
+    $sow->{'html'} = SWHtml->new($sow);           # HTMLモードの初期化
     my $net     = $sow->{'html'}->{'net'};        # Null End Tag
     my $outhttp = $sow->{'http'}->outheader();    # HTTPヘッダの出力
     return if ( $outhttp == 0 );                  # ヘッダ出力のみ
-    $sow->{'html'}->outheader('戦績再構築'); # HTMLヘッダの出力
+    $sow->{'html'}->outheader('戦績再構築');           # HTMLヘッダの出力
     $sow->{'html'}->outcontentheader();
 
     &SWHtmlRestRecord::OutHTMLRestRecord($sow);

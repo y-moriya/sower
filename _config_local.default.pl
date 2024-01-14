@@ -29,7 +29,7 @@ sub GetLocalConfig {
 
         NAME_SW       => '人狼物語',                      # 名前
         URL_SW        => 'http://localhost/sower',    # 設置するURL（最後の“/”は必要ありません）
-        \MAX_VILLAGES => 5,                           # 最大同時稼働村数
+        MAX_VILLAGES  => 5,                           # 最大同時稼働村数
         TIMEOUT_SCRAP => 14,                          # 廃村期限
     );
 

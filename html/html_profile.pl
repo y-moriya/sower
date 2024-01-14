@@ -27,13 +27,13 @@ sub OutHTMLProfile {
     &SWBase::LoadTextRS( $sow, \%vil );
 
     # HTMLの出力
-    $sow->{'html'} = SWHtml->new($sow);    # HTMLモードの初期化
-    my $net = $sow->{'html'}->{'net'};     # Null End Tag
-    $sow->{'http'}->outheader();                                                 # HTTPヘッダの出力
+    $sow->{'html'} = SWHtml->new($sow);                        # HTMLモードの初期化
+    my $net = $sow->{'html'}->{'net'};                         # Null End Tag
+    $sow->{'http'}->outheader();                               # HTTPヘッダの出力
     $sow->{'html'}->outheader("$query->{'prof'}さんのユーザー情報");    # HTMLヘッダの出力
     $sow->{'html'}->outcontentheader();
 
-    &SWHtmlPC::OutHTMLLogin($sow);                                               # ログイン欄の出力
+    &SWHtmlPC::OutHTMLLogin($sow);                             # ログイン欄の出力
 
     my $reqvals = &SWBase::GetRequestValues($sow);
     $reqvals->{'cmd'} = 'editprofform';
@@ -79,12 +79,7 @@ _HTML_
     if (1) {
         my $penaltydt =
           int( ( $user->{'penaltydt'} - $sow->{'time'} ) / 60 / 60 / 24 + 0.5 );
-        my @penalty = (
-            "なし",
-            "なし（保護観察期間中：あと約$penaltydt日）",
-            "参加停止中（あと約$penaltydt日）",
-            "ID停止中（あと約$penaltydt日）",
-        );
+        my @penalty = ( "なし", "なし（保護観察期間中：あと約$penaltydt日）", "参加停止中（あと約$penaltydt日）", "ID停止中（あと約$penaltydt日）", );
         print <<"_HTML_";
   <span class="multicolumn_label">ペナルティ：</span><span class="multicolumn_left">$penalty[$user->{'ptype'}]</span>
   <br class="multicolumn_clear"$net>
@@ -147,7 +142,7 @@ _HTML_
     }
 
     if ( $sow->{'uid'} eq $query->{'prof'} ) {
-    print <<"_HTML_";
+        print <<"_HTML_";
 <hr class="invisible_hr"$net>
 
 <h3>パスワード変更</h3>
@@ -165,7 +160,7 @@ _HTML_
 
 _HTML_
     }
-    
+
     print <<"_HTML_";
 <hr class="invisible_hr"$net>
 
@@ -261,11 +256,45 @@ _HTML_
             $reqvals->{'prof'} = '';
             $reqvals->{'vid'}  = $_->{'vid'};
             my $linkvalue = &SWBase::GetLinkValues( $sow, $reqvals );
-            print
-"<li><a href=\"$urlsow?$linkvalue#newsay\">$_->{'vid'}村</a>：$bondtext と運命の絆を結んでいた。</li>\n";
+            print "<li><a href=\"$urlsow?$linkvalue#newsay\">$_->{'vid'}村</a>：$bondtext と運命の絆を結んでいた。</li>\n";
             $bondcount++;
         }
         print "<li>運命の絆を結んだ相手はまだいません。</li>\n" if ( $bondcount == 0 );
+
+        print <<"_HTML_";
+</ul>
+</div>
+<hr class="invisible_hr"$net>
+
+<h3>愛の絆リスト</h3>
+
+<div class="paragraph">
+<ul>
+_HTML_
+
+        my $bondcount = 0;
+        foreach (@list) {
+            my @lovers = split( '/', $_->{'lovers'} . '/' );
+            next if ( !defined( $lovers[0] ) );
+
+            my @lovertext;
+            $reqvals->{'vid'} = '';
+            foreach (@lovers) {
+                my ( $encodeduid, $chrname ) = split( ':', $_ );
+                my $uid = $encodeduid;
+                $uid =~ s/%([a-fA-F0-9][a-fA-F0-9])/pack("H2", $1)/eg;
+                $reqvals->{'prof'} = $encodeduid;
+                my $linkvalue = &SWBase::GetLinkValues( $sow, $reqvals );
+                push( @lovertext, "$chrname(<a href=\"$urlsow?$linkvalue\">$uid</a>)" );
+            }
+            my $lovertext = join( '、', @lovertext );
+            $reqvals->{'prof'} = '';
+            $reqvals->{'vid'}  = $_->{'vid'};
+            my $linkvalue = &SWBase::GetLinkValues( $sow, $reqvals );
+            print "<li><a href=\"$urlsow?$linkvalue#newsay\">$_->{'vid'}村</a>：$lovertext と愛の絆を結んでいた。</li>\n";
+            $lovercount++;
+        }
+        print "<li>愛の絆を結んだ相手はまだいません。</li>\n" if ( $lovercount == 0 );
 
         my @winmark = ( '－', '△', '○', '×' );
         print <<"_HTML_";
@@ -339,9 +368,9 @@ _HTML_
         my @vskeys  = keys(%vs);
         my @vs      = sort {
                  $vs{$b}->{'total'} <=> $vs{$a}->{'total'}
-              or $vs{$b}->{'win'} <=> $vs{$a}->{'win'}
-              or $vs{$b}->{'draw'} <=> $vs{$a}->{'draw'}
-              or $vs{$b}->{'lose'} <=> $vs{$a}->{'lose'}
+              or $vs{$b}->{'win'}   <=> $vs{$a}->{'win'}
+              or $vs{$b}->{'draw'}  <=> $vs{$a}->{'draw'}
+              or $vs{$b}->{'lose'}  <=> $vs{$a}->{'lose'}
         } @vskeys;
         foreach (@vs) {
             next
@@ -414,6 +443,9 @@ _HTML_
 
     my $i;
     for ( $i = 1 ; $i < @$data ; $i++ ) {
+
+        # 陣営別の場合、妖魔陣営が2回表示されてしまうのを防ぐ
+        next if ( $title == '陣営' && $i == 4 );
         if ( $data->[$i]->{'total'} > 0 ) {
             my ( $average, $liveaverage, $livedays ) =
               &SetRecordText( $data->[$i] );

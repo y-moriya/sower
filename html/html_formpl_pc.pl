@@ -135,6 +135,10 @@ sub OutHTMLSayPC {
     $markbonds = " ★$sow->{'textrs'}->{'MARK_BONDS'}"
       if ( $curpl->{'bonds'} ne '' );
 
+    my $marklovers = '';
+    $marklovers = " ★$sow->{'textrs'}->{'MARK_LOVERS'}"
+      if ( $curpl->{'lovers'} ne '' );
+
     # キャラ画像
     print <<"_HTML_";
 <div class="formpl_common">
@@ -176,7 +180,7 @@ _HTML_
     print <<"_HTML_";
   <div style="float: right; width: $rwidth;">
     <div class="formpl_content">
-        $chrname ($uidtext)$rolename$markbonds
+        $chrname ($uidtext)$rolename$markbonds$marklovers
 		<label><input type=\"checkbox\" name=\"monospace\" value=\"on\"$checkedmspace$net>等幅</label>
 		<label><input type=\"checkbox\" name=\"loud\" value=\"on\"$checkedloud$net>大声</label>
         <div style="float: right;">
@@ -232,10 +236,8 @@ _HTML_
     if (   ( $curpl->{'live'} eq 'live' )
         || ( $cfg->{'ENABLED_TSAY_GRAVE'} > 0 ) )
     {    # 生きている／墓下独り言有効
-        if ( ( $vil->isepilogue() == 0 ) || ( $cfg->{'ENABLED_TSAY_EP'} > 0 ) )
-        {    # エピではない／エピ独り言有効
-            if ( ( $vil->{'turn'} != 0 ) || ( $cfg->{'ENABLED_TSAY_PRO'} > 0 ) )
-            {    # プロローグ独り言設定チェック
+        if ( ( $vil->isepilogue() == 0 ) || ( $cfg->{'ENABLED_TSAY_EP'} > 0 ) ) {    # エピではない／エピ独り言有効
+            if ( ( $vil->{'turn'} != 0 ) || ( $cfg->{'ENABLED_TSAY_PRO'} > 0 ) ) {    # プロローグ独り言設定チェック
                 my $unit =
                   $sow->{'basictrs'}->{'SAYTEXT'}
                   ->{ $sow->{'cfg'}->{'COUNTS_SAY'}->{ $vil->{'saycnttype'} }->{'COUNT_TYPE'} }->{'UNIT_SAY'};
@@ -388,9 +390,9 @@ sub OutHTMLRolePC {
 
     # 能力者欄のスタイルシートのクラス名
     my @rolestyles = (
-        'random',  'undef',    'vil',     'wolf',    'seer',     'medium',
-        'possess', 'guard',    'fm',      'hamster', 'cpossess', 'stigma',
-        'fanatic', 'sympathy', 'werebat', 'cwolf',   'intwolf',  'trickster'
+        'random',  'undef',     'vil',      'wolf',   'seer',    'medium',   'possess', 'guard',
+        'fm',      'hamster',   'cpossess', 'stigma', 'fanatic', 'sympathy', 'werebat', 'cwolf',
+        'intwolf', 'trickster', 'lovers'
     );
     $rolestyle = "formpl_$rolestyles[$role->{'role'} + 1]";
 
@@ -462,8 +464,12 @@ _HTML_
               if ( ( $curpl->{'role'} == $sow->{'ROLEID_GUARD'} )
                 && ( $vil->{'turn'} == 1 ) );
             $enabled_abi = 0
-              if ( ( $curpl->{'role'} == $sow->{'ROLEID_TRICKSTER'} )
-                && ( $vil->{'turn'} > 1 ) );
+              if (
+                (
+                    ( $curpl->{'role'} == $sow->{'ROLEID_TRICKSTER'} ) || ( $curpl->{'role'} == $sow->{'ROLEID_CUPID'} )
+                )
+                && ( $vil->{'turn'} > 1 )
+              );
             &OutHTMLVotePC( $sow, $vil, 'skill' ) if ( $enabled_abi > 0 );
         }
 
@@ -514,7 +520,7 @@ _HTML_
             $checkedmspace = " $sow->{'html'}->{'checked'}"
               if ( ( $draft > 0 ) && ( $sow->{'draftmspace'} > 0 ) );
             print
-"      <label><input type=\"checkbox\" name=\"monospace\" value=\"on\"$checkedmspace$net>等幅</label>\n";
+              "      <label><input type=\"checkbox\" name=\"monospace\" value=\"on\"$checkedmspace$net>等幅</label>\n";
             my $checkedloud = '';
             $checkedloud = " $sow->{'html'}->{'checked'}"
               if ( ( $draft > 0 ) && ( $sow->{'draftloud'} > 0 ) );
@@ -571,6 +577,27 @@ _HTML_
                 my $resultbonds = $sow->{'textrs'}->{'RESULT_BONDS'};
                 $resultbonds =~ s/_TARGET_/$targetname/g;
                 print "        <strong>$resultbonds</strong><br$net>\n";
+            }
+
+            print <<"_HTML_";
+      </p>
+    </div>
+_HTML_
+        }
+
+        # 恋人の絆
+        if ( $curpl->{'lovers'} ne '' ) {
+            print <<"_HTML_";
+    <div class="formpl_content">
+      <p>
+_HTML_
+
+            my @lovers = split( '/', $curpl->{'lovers'} . '/' );
+            foreach (@lovers) {
+                my $targetname   = $vil->getplbypno($_)->getchrname();
+                my $resultlovers = $sow->{'textrs'}->{'RESULT_LOVERS'};
+                $resultlovers =~ s/_TARGET_/$targetname/g;
+                print "        <strong>$resultlovers</strong><br$net>\n";
             }
 
             print <<"_HTML_";
@@ -693,7 +720,7 @@ sub OutHTMLCommitFormPC {
     my $nosay    = '';
     if ( $sow->{'curpl'}->{'saidcount'} == 0 ) {
         $disabled = " $sow->{'html'}->{'disabled'}";
-        $nosay = "<br$net><br$net>最低一発言して確定しないと、時間を進める事ができません。";
+        $nosay    = "<br$net><br$net>最低一発言して確定しないと、時間を進める事ができません。";
     }
 
     print <<"_HTML_";
@@ -893,7 +920,7 @@ _HTML_
 
     print "      </select>";
 
-    if (   ( $curpl->{'role'} == $sow->{'ROLEID_TRICKSTER'} )
+    if (   ( ( $curpl->{'role'} == $sow->{'ROLEID_TRICKSTER'} ) || ( $curpl->{'role'} == $sow->{'ROLEID_CUPID'} ) )
         && ( $cmd ne 'vote' ) )
     {
         my $votelabel = $sow->{'textrs'}->{'ABI_ROLE'}->[ $curpl->{'role'} ];
@@ -1050,7 +1077,7 @@ _HTML_
     # テキストボックスと発言ボタン初め
     print <<"_HTML_";
     <form action="$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}" method="$cfg->{'METHOD_FORM'}">
-    
+
 _HTML_
 
     # 名前とID
@@ -1079,10 +1106,9 @@ _HTML_
 
     &SWHtmlPC::OutHTMLSayTextAreaPC( $sow, 'writepr', \%htmlsay );
 
-    if ( ( $vil->isepilogue() == 0 ) || ( $cfg->{'ENABLED_TSAY_EP'} > 0 ) )
-    {    # エピではない／エピ独り言有効
+    if ( ( $vil->isepilogue() == 0 ) || ( $cfg->{'ENABLED_TSAY_EP'} > 0 ) ) {    # エピではない／エピ独り言有効
         print
-"　<input type=\"submit\" name=\"submit_type\" value=\"$sow->{'textrs'}->{'CAPTION_TSAY_PC'}\"$disabled$net>";
+          "　<input type=\"submit\" name=\"submit_type\" value=\"$sow->{'textrs'}->{'CAPTION_TSAY_PC'}\"$disabled$net>";
     }
 
     print <<"_HTML_";
@@ -1183,13 +1209,13 @@ _HTML_
     my $i;
     for ( $i = -2 ; $i >= -8 ; $i-- ) {
         my $fltname = "";
-        $fltname = "≪独り言≫"          if ( $i == -2 );
-        $fltname = "≪囁き≫"             if ( $i == -3 );
-        $fltname = "≪死者の呻き≫"    if ( $i == -4 );
+        $fltname = "≪独り言≫"    if ( $i == -2 );
+        $fltname = "≪囁き≫"     if ( $i == -3 );
+        $fltname = "≪死者の呻き≫"  if ( $i == -4 );
         $fltname = "≪村建て人発言≫" if ( $i == -5 );
-        $fltname = "≪管理者発言≫"    if ( $i == -6 );
-        $fltname = "≪傍観者発言≫"    if ( $i == -7 );
-        $fltname = "≪通常発言≫"       if ( $i == -8 );
+        $fltname = "≪管理者発言≫"  if ( $i == -6 );
+        $fltname = "≪傍観者発言≫"  if ( $i == -7 );
+        $fltname = "≪通常発言≫"   if ( $i == -8 );
         my $selected = "";
 
         if ( ( defined($pno) ) && ( $pno == $i ) ) {

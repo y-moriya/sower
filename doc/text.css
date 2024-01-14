@@ -14,7 +14,9 @@ body {
   text-align: center;
 }
 
-div, p, form {
+div,
+p,
+form {
   margin: 0px;
   padding: 0px;
 }
@@ -763,6 +765,14 @@ span.mes_number:hover {
 /* 能力者欄（ピクシー）----------*/
 
 .formpl_trickster {
+  margin: 0px 0px 4px 0px;
+  padding: 4px;
+  border: 1px solid #000;
+}
+
+/* 能力者欄（恋人陣営）----------*/
+
+.formpl_lovers {
   margin: 0px 0px 4px 0px;
   padding: 4px;
   border: 1px solid #000;

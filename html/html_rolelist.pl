@@ -90,6 +90,7 @@ _HTML_
         [ 3,  4 ],                   # 呪狼
         [ 3,  4 ],                   # 智狼
         [ 0,  1 ],                   # ピクシー
+        [ 0,  1 ],                   # キューピッド
     );
 
     my $pllist = $vil->getpllist();
@@ -98,6 +99,14 @@ _HTML_
         print "<h3>$rolename->[$i]</h3>\n";
         $sow->{'curpl'} = $pllist->[ $i - 1 ];
         $sow->{'uid'}   = $sow->{'curpl'}->{'uid'};
+        if (   ( $sow->{'curpl'}->{'role'} == $sow->{'ROLEID_TRICKSTER'} )
+            || ( $sow->{'curpl'}->{'role'} == $sow->{'ROLEID_CUPID'} ) )
+        {
+            $vil->{'turn'}               = 1;
+            $sow->{'turn'}               = 1;
+            $sow->{'curpl'}->{'target'}  = 1;
+            $sow->{'curpl'}->{'target2'} = 2;
+        }
 
         my $history = '';
         my $j;

@@ -196,7 +196,7 @@ sub executesay {
     $chrname = $say->{'chrname'} if ( $say->{'chrname'} ne '' );
 
     # ログへの書き込み
-    my $mes = &SWLog::ReplaceAnchor( $sow, $self->{'vil'}, $say );
+    my $mes    = &SWLog::ReplaceAnchor( $sow, $self->{'vil'}, $say );
     my $memoid = $sow->{'DATATEXT_NONE'};
     $memoid = $say->{'memoid'} if ( defined( $say->{'memoid'} ) );
     my %log = (
@@ -285,7 +285,7 @@ sub entrychara {
     if ( $sow->{'cfg'}->{'ENABLED_PLLOG'} > 0 ) {
         my $selrolename = $textrs->{'ROLENAME'}->[ $epl->{'selrole'} ];
         $selrolename = $textrs->{'RANDOMROLE'} if ( $epl->{'selrole'} < 0 );
-        $mes = $textrs->{'ANNOUNCE_SELROLE'};
+        $mes         = $textrs->{'ANNOUNCE_SELROLE'};
         $mes =~ s/_NAME_/$chrname/;
         $mes =~ s/_SELROLE_/$selrolename/;
         %say = (
@@ -304,7 +304,7 @@ sub entrychara {
         $self->executesay( \%say );
     }
 
-    my $mestype = $sow->{'MESTYPE_QUE'};    # 審問は MESTYPE_SAY
+    my $mestype = $sow->{'MESTYPE_QUE'};                            # 審問は MESTYPE_SAY
     $mestype = $sow->{'MESTYPE_SAY'} if ( $entry->{'npc'} > 0 );    # NPCなら保留なし
 
     # エントリー発言
@@ -338,8 +338,7 @@ sub fixque {
 
     foreach (@$quelist) {
         next
-          if ( ( $sow->{'time'} < $_->{'fixtime'} ) && ( $force == 0 ) )
-          ;    # 撤回猶予期間中かつ強制確定でない時は確定させない
+          if ( ( $sow->{'time'} < $_->{'fixtime'} ) && ( $force == 0 ) );    # 撤回猶予期間中かつ強制確定でない時は確定させない
         my $log = $logfile->read( $_->{'pos'} );
         my ( $logmestype, $logsubid, $logcount ) = &SWLog::GetLogIDArray($log);
         if (   ( $log->{'mestype'} != $sow->{'MESTYPE_QUE'} )
@@ -402,7 +401,6 @@ sub getvlogs {
     );
 
     # 検索モードのセット
-    # TODO: 1
     my $mode = '';
     my $skip = 0;
     if ( $query->{'logid'} ne '' ) {
@@ -466,7 +464,7 @@ sub getvlogs {
         ( $logs, $logkeys, $rowover, $lastlog ) = $self->GetVLogsReverse( $mode, $skip, $maxrow, $masked );
         if ( $lastlog >= 0 ) {
             $rows{'start'} = 1 if ( $rowover == 0 );
-            $rows{'end'} = 1
+            $rows{'end'}   = 1
               if ( ( $#$logs >= 0 )
                 && ( $logs->[$#$logs]->{'indexno'} == $lastlog ) );
         }
@@ -709,24 +707,20 @@ sub delete {
             $sow->{'debug'}->writeaplog( $sow->{'APLOG_WARNING'}, "Cancel, [queid=$del_queid, logid=$log->{'logid'}]" );
         }
         else {
-            $sow->{'debug'}->raise(
-                $sow->{'APLOG_CAUTION'},
+            $sow->{'debug'}->raise( $sow->{'APLOG_CAUTION'},
                 "削除しようとした保留中の発言が見つかりません。",
-                "cannot delete say.[cmd=cancel, vid=$self->{'vil'}->{'vid'}, del_queid=$del_queid]"
-              )
-              if ( $log->{'uid'} ne $sow->{'uid'} )
-              ; # 権限のないユーザからの撤回コマンドが飛んできた場合、セキュリティのためこういう警告にする
-            $sow->{'debug'}->raise(
-                $sow->{'APLOG_CAUTION'},
+                "cannot delete say.[cmd=cancel, vid=$self->{'vil'}->{'vid'}, del_queid=$del_queid]" )
+              if ( $log->{'uid'} ne $sow->{'uid'} );    # 権限のないユーザからの撤回コマンドが飛んできた場合、セキュリティのためこういう警告にする
+            $sow->{'debug'}->raise( $sow->{'APLOG_CAUTION'},
                 "削除しようとした保留中の発言が見つかりません。",
-                "cannot delete say.[cmd=cancel, vid=$self->{'vil'}->{'vid'}, del_queid=$del_queid]"
-            ) if ( $sow->{'time'} >= $que->{'fixtime'} );
+                "cannot delete say.[cmd=cancel, vid=$self->{'vil'}->{'vid'}, del_queid=$del_queid]" )
+              if ( $sow->{'time'} >= $que->{'fixtime'} );
 
             # ログから削除
             my $logindexno =
               $self->{'logindex'}->{'file'}->getbyid( $log->{'logid'} );
             $log->{'mestype'} = $sow->{'MESTYPE_DELETED'};
-            $log->{'logid'} = &SWLog::CreateLogID( $sow, $log->{'mestype'}, $log->{'logsubid'}, $del_queid );
+            $log->{'logid'}   = &SWLog::CreateLogID( $sow, $log->{'mestype'}, $log->{'logsubid'}, $del_queid );
             $self->update( $log, $logindexno );
 
             my $pl = $vil->getpl( $log->{'uid'} );
@@ -740,11 +734,9 @@ sub delete {
     }
     else {
         # キューに該当するデータがない（＝確定している）
-        $sow->{'debug'}->raise(
-            $sow->{'APLOG_NOTICE'},
+        $sow->{'debug'}->raise( $sow->{'APLOG_NOTICE'},
             "削除しようとした保留中の発言が見つかりません。",
-            "cannot delete say.[cmd=cancel, vid=$self->{'vil'}->{'vid'}, del_queid=$del_queid]"
-        );
+            "cannot delete say.[cmd=cancel, vid=$self->{'vil'}->{'vid'}, del_queid=$del_queid]" );
     }
 }
 
@@ -802,12 +794,12 @@ sub CheckLogPermition {
         # 終了後
         $logpermit = 1
           if ( ( $log->{'mestype'} == $sow->{'MESTYPE_WSAY'} )
-            && ( $query->{'mode'} eq 'wolf' ) );                           # 狼視点
+            && ( $query->{'mode'} eq 'wolf' ) );    # 狼視点
         $logpermit = 1
           if ( ( $log->{'mestype'} == $sow->{'MESTYPE_GSAY'} )
-            && ( $query->{'mode'} eq 'grave' ) );                          # 墓視点
-        $logpermit = 1 if ( $query->{'mode'} eq 'all' );                   # 全視点
-        $logpermit = 1 if ( $query->{'mode'} eq '' );                      # 全視点
+            && ( $query->{'mode'} eq 'grave' ) );    # 墓視点
+        $logpermit = 1 if ( $query->{'mode'} eq 'all' );    # 全視点
+        $logpermit = 1 if ( $query->{'mode'} eq '' );       # 全視点
     }
     elsif (( $self->{'vil'}->isepilogue() > 0 )
         && ( $log->{'mestype'} != $sow->{'MESTYPE_QUE'} ) )
@@ -865,7 +857,7 @@ sub CheckLogPermition {
 
     $logpermit = 1
       if ( ( $logined > 0 )
-        && ( $sow->{'uid'} eq $sow->{'cfg'}->{'USERID_ADMIN'} ) );       # 管理者モード
+        && ( $sow->{'uid'} eq $sow->{'cfg'}->{'USERID_ADMIN'} ) );    # 管理者モード
 
     # 個人フィルタ（暫定）
     # プロローグで使えると何か支障あるのかな？

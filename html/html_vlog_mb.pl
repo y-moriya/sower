@@ -31,7 +31,10 @@ _HTML_
         my $markbonds = '';
         $markbonds = " Åö$sow->{'textrs'}->{'MARK_BONDS'}"
           if ( $sow->{'curpl'}->{'bonds'} ne '' );
-        print "$chrname$rolename$markbonds<br$net>\n";
+        my $marklovers = '';
+        $marklovers = " Åö$sow->{'textrs'}->{'MARK_LOVERS'}"
+          if ( $sow->{'curpl'}->{'lovers'} ne '' );
+        print "$chrname$rolename$markbonds$marklovers<br$net>\n";
     }
 
     my $list = $logfile->getlist();
@@ -188,6 +191,8 @@ _HTML_
                 my $roletext = "$rolename->[$_->{'role'}]ÇæÇ¡ÇΩ($selrolenameÇäÛñ])ÅB";
                 $roletext .= " Åö$sow->{'textrs'}->{'MARK_BONDS'}"
                   if ( $_->{'bonds'} ne '' );
+                $roletext .= " Åö$sow->{'textrs'}->{'MARK_LOVERS'}"
+                  if ( $_->{'lovers'} ne '' );
                 $roletext = "$selrolenameÇäÛñ]ÇµÇƒÇ¢ÇΩÅB" if ( $_->{'role'} < 0 );
                 print <<"_HTML_";
 <font color="maroon">$chrname ($_->{'uid'})ÅA$livetextÅB$roletext</font><br$net>
@@ -196,10 +201,8 @@ _HTML_
         }
         else {
             # ÉLÉÉÉâÉNÉ^Å[ÇÃî≠åæ
-            my @logmestypetext = (
-                '', '', '', 'ÅyçÌèúÅz', 'Åyä«óùêlçÌèúÅz', 'Åyñ¢ämÅz',
-                'ÅyêlÅz', 'Åyì∆Åz', 'Åyê‘Åz', 'ÅyïÊÅz', '', '', 'Åyñ¬Åz', 'ÅyîOÅz'
-            );
+            my @logmestypetext =
+              ( '', '', '', 'ÅyçÌèúÅz', 'Åyä«óùêlçÌèúÅz', 'Åyñ¢ämÅz', 'ÅyêlÅz', 'Åyì∆Åz', 'Åyê‘Åz', 'ÅyïÊÅz', '', '', 'Åyñ¬Åz', 'ÅyîOÅz' );
 
             # î≠åæêF
             my @logcolor = ( '', '', '', 'gray', 'gray', '', '', 'gray', 'red', 'blue', '', '', 'green', 'purple' );
@@ -249,7 +252,7 @@ _HTML_
                 my ( $logmestype, $logsubid, $logcnt ) = &SWLog::GetLogIDArray($log);
                 $sow->{'query'}->{'cmd'} = 'cancel';
                 my $reqvals = &SWBase::GetRequestValues($sow);
-                my $hidden = &SWBase::GetHiddenValues( $sow, $reqvals, '' );
+                my $hidden  = &SWBase::GetHiddenValues( $sow, $reqvals, '' );
 
                 print <<"_HTML_";
 <form action="$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}" method="$sow->{'cfg'}->{'METHOD_FORM'}">

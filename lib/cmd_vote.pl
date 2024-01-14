@@ -18,7 +18,7 @@ sub CmdVote {
     }
     else {
         my $reqvals = &SWBase::GetRequestValues($sow);
-        my $link = &SWBase::GetLinkValues( $sow, $reqvals );
+        my $link    = &SWBase::GetLinkValues( $sow, $reqvals );
         $link = "$cfg->{'URL_SW'}/$cfg->{'FILE_SOW'}?$link#newsay";
 
         $sow->{'http'}->{'location'} = "$link";
@@ -57,7 +57,7 @@ sub SetDataCmdVote {
       if ( $curpl->{'live'} ne 'live' );    # 通常起きない
     &CheckValidityTarget( $sow, $vil, 'target' );
 
-# 規定外クエリデーター判定（判定しないと初日にダミー以外を襲撃できるのでチェック）
+    # 規定外クエリデーター判定（判定しないと初日にダミー以外を襲撃できるのでチェック）
     my $targetlist      = $curpl->gettargetlistwithrandom($cmd);
     my $is_valid_target = 0;
     foreach (@$targetlist) {
@@ -68,7 +68,7 @@ sub SetDataCmdVote {
     $debug->raise( $sow->{'APLOG_CAUTION'}, "対象が不正です。", "invalid target." )
       if ( $is_valid_target == 0 );         # （フォーム書き換え等でない限り）通常起きない
 
-    if (   ( $curpl->{'role'} == $sow->{'ROLEID_TRICKSTER'} )
+    if (   ( ( $curpl->{'role'} == $sow->{'ROLEID_TRICKSTER'} ) || ( $curpl->{'role'} == $sow->{'ROLEID_CUPID'} ) )
         && ( $targetid ne 'vote' ) )
     {
         &CheckValidityTarget( $sow, $vil, 'target2' );
@@ -82,24 +82,13 @@ sub SetDataCmdVote {
           if ( ( $vil->{'turn'} < 2 ) || ( $vil->isepilogue() > 0 ) );    # 通常起きない
     }
     else {
-        $debug->raise(
-            $sow->{'APLOG_CAUTION'},
-            "今日は能\力対象を設定できる日ではありません。",
-            "cannot set target."
-        ) if ( ( $vil->{'turn'} == 0 ) || ( $vil->isepilogue() > 0 ) );    # 通常起きない
-        $debug->raise(
-            $sow->{'APLOG_CAUTION'},
-            "今日は能\力対象を設定できる日ではありません。",
-            "cannot set target.[roleid=guard]"
-          )
+        $debug->raise( $sow->{'APLOG_CAUTION'}, "今日は能\力対象を設定できる日ではありません。", "cannot set target." )
+          if ( ( $vil->{'turn'} == 0 ) || ( $vil->isepilogue() > 0 ) );    # 通常起きない
+        $debug->raise( $sow->{'APLOG_CAUTION'}, "今日は能\力対象を設定できる日ではありません。", "cannot set target.[roleid=guard]" )
           if ( ( $curpl->{'role'} eq $sow->{'ROLEID_GUARD'} )
             && ( $vil->{'turn'} == 1 ) );                                  # 通常起きない
-        $debug->raise(
-            $sow->{'APLOG_CAUTION'},
-            "今日は能\力対象を設定できる日ではありません。",
-            "cannot set target.[roleid=trickster]"
-          )
-          if ( ( $curpl->{'role'} eq $sow->{'ROLEID_TRICKSTER'} )
+        $debug->raise( $sow->{'APLOG_CAUTION'}, "今日は能\力対象を設定できる日ではありません。", "cannot set target.[roleid=trickster]" )
+          if ( ( ( $curpl->{'role'} eq $sow->{'ROLEID_TRICKSTER'} ) || ( $curpl->{'role'} eq $sow->{'ROLEID_CUPID'} ) )
             && ( $vil->{'turn'} != 1 ) );                                  # 通常起きない
     }
 
@@ -107,7 +96,7 @@ sub SetDataCmdVote {
     my $saveentrust = $curpl->{'entrust'};
     $curpl->{$targetid} = $query->{'target'};
     my $modifiedtarget2 = 0;
-    if (   ( $curpl->{'role'} == $sow->{'ROLEID_TRICKSTER'} )
+    if (   ( ( $curpl->{'role'} == $sow->{'ROLEID_TRICKSTER'} ) || ( $curpl->{'role'} == $sow->{'ROLEID_CUPID'} ) )
         && ( $cmd ne 'vote' ) )
     {
         if ( $curpl->{'target2'} != $query->{'target2'} ) {
@@ -170,7 +159,7 @@ sub SetDataCmdVote {
         else {
             $targetname = $textrs->{'UNDEFTARGET'};
         }
-        if (   ( $curpl->{'role'} == $sow->{'ROLEID_TRICKSTER'} )
+        if (   ( ( $curpl->{'role'} == $sow->{'ROLEID_TRICKSTER'} ) || ( $curpl->{'role'} == $sow->{'ROLEID_CUPID'} ) )
             && ( $cmd ne 'vote' ) )
         {
             if ( $curpl->{'target2'} == $sow->{'TARGETID_RANDOM'} ) {
@@ -222,23 +211,29 @@ sub CheckValidityTarget {
         if (   ( $query->{$targetid} != $sow->{'TARGETID_RANDOM'} )
             || ( $vil->{'randomtarget'} == 0 ) )
         {
-    # 存在しないプレイヤー番号／ランダム禁止時のランダム対象／襲撃先以外のおまかせ
-    # 通常起きない
+            # 存在しないプレイヤー番号／ランダム禁止時のランダム対象／襲撃先以外のおまかせ
+            # 通常起きない
             $debug->raise( $sow->{'APLOG_CAUTION'}, "対象が不正です。", "invalid target." )
               if ( !defined( $targetpl->{'uid'} ) );
         }
     }
 
-    $debug->raise( $sow->{'APLOG_CAUTION'}, "対象に自分は選べません。", "target is you." )
-      if ( ( defined( $targetpl->{'pno'} ) )
-        && ( $sow->{'curpl'}->{'pno'} == $targetpl->{'pno'} ) );    # 通常起きない
+    if ( defined( $targetpl->{'pno'} ) && ( $curpl->{'pno'} == $targetpl->{'pno'} ) ) {
+        if ( ( $sow->{'cmd'} eq 'vote' ) ) {
+            $debug->raise( $sow->{'APLOG_CAUTION'}, "対象に自分は選べません。", "target is you." );
+        }
+        elsif ( $curpl->{'role'} != $sow->{'ROLEID_CUPID'} ) {
+            $debug->raise( $sow->{'APLOG_CAUTION'}, "対象に自分は選べません。", "target is you." );
+        }
+    }
+
     $debug->raise( $sow->{'APLOG_CAUTION'}, "対象にダミーキャラは選べません。", "target is dummy." )
-      if ( ( $curpl->{'role'} == $sow->{'ROLEID_TRICKSTER'} )
+      if ( ( ( $curpl->{'role'} == $sow->{'ROLEID_TRICKSTER'} ) || ( $curpl->{'role'} == $sow->{'ROLEID_CUPID'} ) )
         && ( defined( $targetpl->{'pno'} ) )
-        && ( $targetpl->{'pno'} == 0 ) );                           # 通常起きない
+        && ( $targetpl->{'pno'} == 0 ) );    # 通常起きない
     $debug->raise( $sow->{'APLOG_CAUTION'}, "対象は既に死んでいます。", "target is dead." )
       if ( ( defined( $targetpl->{'live'} ) )
-        && ( $targetpl->{'live'} ne 'live' ) );                     # 通常起きない
+        && ( $targetpl->{'live'} ne 'live' ) );    # 通常起きない
 
 }
 
