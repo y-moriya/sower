@@ -55,15 +55,15 @@ sub GetCookieFilter {
     my $cookie = $sow->{'cookie'};
     my $i;
 
-    my $pnofilters = &GetCookieValueStr( $sow, 'pnofilter' );
-    my @pnofilter = split( /,/, $pnofilters . ',' );
+    my $pnofilters  = &GetCookieValueStr( $sow, 'pnofilter' );
+    my @pnofilter   = split( /,/, $pnofilters . ',' );
     my $livetypeses = &GetCookieValueStr( $sow, 'livetypes' );
-    my @livetypes = split( /,/, $livetypeses . ',' );
+    my @livetypes   = split( /,/, $livetypeses . ',' );
     for ( $i = 0 ; $i < 4 ; $i++ ) {
         $livetypes[$i] = 0 if ( !defined( $livetypes[$i] ) );
     }
     my $typefilters = &GetCookieValueStr( $sow, 'typefilter' );
-    my @typefilter = split( /,/, $typefilters . ',' );
+    my @typefilter  = split( /,/, $typefilters . ',' );
     for ( $i = 0 ; $i < 4 ; $i++ ) {
         $typefilter[$i] = 0 if ( !defined( $typefilter[$i] ) );
     }
@@ -130,7 +130,7 @@ sub CheckUA {
     foreach (@ualist) {
         $ua = $_ if ( $sow->{'query'}->{'ua'} eq $_ );
     }
-    $ua = 'ihtml' if ( $sow->{'query'}->{'ua'} eq 'mb' );
+    $ua = 'ihtml'                       if ( $sow->{'query'}->{'ua'} eq 'mb' );
     $ua = $sow->{'cfg'}->{'DEFAULT_UA'} if ( $ua eq '' );
 
     my $outmode = 'pc';
@@ -182,11 +182,8 @@ sub LoadTextRS {
     my $trsid = $vil->{'trsid'};
 
     my $fname = "$sow->{'cfg'}->{'DIR_RS'}/trs_$trsid.pl";
-    $sow->{'debug'}->raise(
-        $sow->{'APLOG_WARNING'},
-        "文字列リソ\ース $trsid が見つかりません。",
-        "trsid not found.[$trsid]"
-    ) if ( !( -e $fname ) );
+    $sow->{'debug'}->raise( $sow->{'APLOG_WARNING'}, "文字列リソ\ース $trsid が見つかりません。", "trsid not found.[$trsid]" )
+      if ( !( -e $fname ) );
 
     require "$fname";
     my $sub    = '::SWTextRS_' . $trsid . '::GetTextRS';
@@ -203,11 +200,8 @@ sub LoadTextRSWithoutVil {
     my ( $sow, $trsid ) = @_;
 
     my $fname = "$sow->{'cfg'}->{'DIR_RS'}/trs_$trsid.pl";
-    $sow->{'debug'}->raise(
-        $sow->{'APLOG_WARNING'},
-        "文字列リソ\ース $trsid が見つかりません。",
-        "trsid not found.[$trsid]"
-    ) if ( !( -e $fname ) );
+    $sow->{'debug'}->raise( $sow->{'APLOG_WARNING'}, "文字列リソ\ース $trsid が見つかりません。", "trsid not found.[$trsid]" )
+      if ( !( -e $fname ) );
 
     require "$fname";
     my $sub    = '::SWTextRS_' . $trsid . '::GetTextRS';
@@ -275,8 +269,8 @@ sub GetLinkValues {
 
     my @keys = keys(%$reqvals);
     foreach (@keys) {
-        next if ( !defined( $reqvals->{$_} ) );
-        next if ( $reqvals->{$_} eq '' );
+        next                if ( !defined( $reqvals->{$_} ) );
+        next                if ( $reqvals->{$_} eq '' );
         $linkvalues .= $amp if ( $linkvalues ne '' );
         my $key = $_;
         $key = $shortquery{$_}
@@ -572,14 +566,16 @@ sub GetOperaVersion {
 sub CheckWriteSafetyRole {
     my ( $sow, $vil ) = @_;
 
-    my $curpl = &SWBase::GetCurrentPl( $sow, $vil );
+    my $curpl       = &SWBase::GetCurrentPl( $sow, $vil );
     my $enablecheck = 0;
-    $enablecheck = 1 if ( $curpl->iswolf() > 0 );    # 人狼/呪狼/智狼
+    $enablecheck = 1 if ( $curpl->iswolf() > 0 );              # 人狼/呪狼/智狼
     $enablecheck = 1
       if ( $curpl->{'role'} eq $sow->{'ROLEID_CPOSSESS'} );    # Ｃ国狂人
     $enablecheck = 1 if ( $curpl->{'role'} eq $sow->{'ROLEID_SYMPATHY'} );    # 共鳴者
     $enablecheck = 1
       if ( $curpl->{'role'} eq $sow->{'ROLEID_WEREBAT'} );                    # コウモリ人間
+
+    # TODO: 恋人同士の囁きを追加
 
     return $enablecheck;
 }

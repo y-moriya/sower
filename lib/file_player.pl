@@ -25,7 +25,7 @@ sub getdatalabel {
         'actaddpt',     'saidcount',    'saidpoint',    'countinfosp', 'countthink', 'vote',
         'target',       'target2',      'entrust',      'bonds',       'lovers',     'commit',
         'entrieddt',    'limitentrydt', 'lastwritepos', 'history',     'modified',   'savedraft',
-        'draftmestype', 'draftmspace',  'draftloud',
+        'draftmestype', 'draftmspace',  'draftloud',    'lsay'
     );
 
     return @datalabel;
@@ -113,6 +113,7 @@ sub setsaycount {
     $self->{'spsay'}       = $saycnt->{'MAX_SPSAY'};
     $self->{'bsay'}        = $saycnt->{'MAX_BSAY'};
     $self->{'gsay'}        = $saycnt->{'MAX_GSAY'};
+    $self->{'lsay'}        = $saycnt->{'MAX_LSAY'};
     $self->{'psay'}        = $saycnt->{'MAX_PSAY'};
     $self->{'esay'}        = $saycnt->{'MAX_ESAY'};
     $self->{'say_act'}     = $saycnt->{'MAX_SAY_ACT'};
@@ -141,6 +142,7 @@ sub chargesaycount {
     $self->{'spsay'}    += $saycnt->{'MAX_SPSAY'};
     $self->{'bsay'}     += $saycnt->{'MAX_BSAY'};
     $self->{'gsay'}     += $saycnt->{'MAX_GSAY'};
+    $self->{'lsay'}     += $saycnt->{'MAX_LSAY'};
     $self->{'psay'}     += $saycnt->{'MAX_SAY'};       # プロローグのチャージ量は進行中と同じにしてみた
     $self->{'esay'}     += $saycnt->{'MAX_ESAY'};
     $self->{'say_act'}  += $saycnt->{'MAX_SAY_ACT'};

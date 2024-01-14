@@ -66,6 +66,7 @@ sub GetConfig {
         MAX_SPSAY   => 8000,           # 共鳴発言回数
         MAX_BSAY    => 15000,          # 念話発言回数
         MAX_GSAY    => 15000,          # うめき発言回数
+        MAX_LSAY    => 15000,          # 恋人の囁き発言回数
         MAX_PSAY    => 10000,          # プロローグ発言回数
         MAX_ESAY    => 3000,           # エピローグ発言回数
         MAX_SAY_ACT => 24,             # アクション回数
@@ -84,6 +85,7 @@ sub GetConfig {
         MAX_SPSAY   => 8000,              # 共鳴発言回数
         MAX_BSAY    => 15000,             # 念話発言回数
         MAX_GSAY    => 20000,             # うめき発言回数
+        MAX_LSAY    => 15000,             # 恋人の囁き発言回数
         MAX_PSAY    => 10000,             # プロローグ発言回数
         MAX_ESAY    => 3000,              # エピローグ発言回数
         MAX_SAY_ACT => 24,                # アクション回数
@@ -102,6 +104,7 @@ sub GetConfig {
         MAX_SPSAY   => 8000,              # 共鳴発言回数
         MAX_BSAY    => 15000,             # 念話発言回数
         MAX_GSAY    => 20000,             # うめき発言回数
+        MAX_LSAY    => 15000,             # 恋人の囁き発言回数
         MAX_PSAY    => 10000,             # プロローグ発言回数
         MAX_ESAY    => 3000,              # エピローグ発言回数
         MAX_SAY_ACT => 24,                # アクション回数
@@ -120,6 +123,7 @@ sub GetConfig {
         MAX_SPSAY   => 8000,              # 共鳴発言回数
         MAX_BSAY    => 15000,             # 念話発言回数
         MAX_GSAY    => 20000,             # うめき発言回数
+        MAX_LSAY    => 15000,             # 恋人の囁き発言回数
         MAX_PSAY    => 10000,             # プロローグ発言回数
         MAX_ESAY    => 3000,              # エピローグ発言回数
         MAX_SAY_ACT => 24,                # アクション回数
@@ -138,6 +142,7 @@ sub GetConfig {
         MAX_SPSAY   => 500,               # 共鳴発言回数
         MAX_BSAY    => 500,               # 念話発言回数
         MAX_GSAY    => 500,               # うめき発言回数
+        MAX_LSAY    => 500,               # 恋人の囁き発言回数
         MAX_PSAY    => 500,               # プロローグ発言回数
         MAX_ESAY    => 600,               # エピローグ発言回数
         MAX_SAY_ACT => 15,                # アクション回数
@@ -156,6 +161,7 @@ sub GetConfig {
         MAX_SPSAY   => 20,                # 共鳴発言回数
         MAX_BSAY    => 30,                # 念話発言回数
         MAX_GSAY    => 20,                # うめき発言回数
+        MAX_LSAY    => 30,                # 恋人の囁き発言回数
         MAX_PSAY    => 20,                # プロローグ発言回数
         MAX_ESAY    => 600,               # エピローグ発言回数
         MAX_SAY_ACT => 15,                # アクション回数
@@ -174,6 +180,7 @@ sub GetConfig {
         MAX_SPSAY   => 1000,              # 共鳴発言回数
         MAX_BSAY    => 2000,              # 念話発言回数
         MAX_GSAY    => 2000,              # うめき発言pt数
+        MAX_LSAY    => 2000,              # 恋人の囁き発言回数
         MAX_PSAY    => 2000,              # プロローグ発言pt数
         MAX_ESAY    => 3000,              # エピローグ発言pt数
         ADD_SAY     => 200,               # 促しで増える発言pt数
@@ -192,6 +199,7 @@ sub GetConfig {
         MAX_SPSAY   => 15000,             # 共鳴発言回数
         MAX_BSAY    => 30000,             # 念話発言回数
         MAX_GSAY    => 30000,             # うめき発言pt数
+        MAX_LSAY    => 30000,             # 恋人の囁き発言回数
         MAX_PSAY    => 30000,             # プロローグ発言pt数
         MAX_ESAY    => 4500,              # エピローグ発言pt数
         ADD_SAY     => 200,               # 促しで増える発言pt数
@@ -210,6 +218,7 @@ sub GetConfig {
         MAX_SPSAY   => 12,                # 共鳴発言回数
         MAX_BSAY    => 20,                # 念話発言回数
         MAX_GSAY    => 20,                # うめき発言回数
+        MAX_LSAY    => 20,                # 恋人の囁き発言回数
         MAX_PSAY    => 20,                # プロローグ発言回数
         MAX_ESAY    => 600,               # エピローグ発言回数
         MAX_SAY_ACT => 10,                # アクション回数
@@ -228,6 +237,7 @@ sub GetConfig {
         MAX_SPSAY   => 1500,              # 共鳴発言回数
         MAX_BSAY    => 3000,              # 念話発言回数
         MAX_GSAY    => 3000,              # うめき発言pt数
+        MAX_LSAY    => 3000,              # 恋人の囁き発言回数
         MAX_PSAY    => 3000,              # プロローグ発言pt数
         MAX_ESAY    => 4500,              # エピローグ発言pt数
         ADD_SAY     => 300,               # 促しで増える発言pt数

@@ -16,20 +16,20 @@ sub OutHTMLPreviewPC {
     $srcmes =~ s/(<br( \/)?>)*$//ig;
 
     my $trimedlog = &SWString::GetTrimString( $sow, $vil, $srcmes );
-    my $len = length($trimedlog);
+    my $len       = length($trimedlog);
     $log->{'log'} = substr( $srcmes, 0, $len );
     my $deletedmes = substr( $srcmes, $len );
     $log->{'log'} .= "<span class=\"infotext\">$deletedmes</span>"
       if ( $deletedmes ne '' );
 
-    $sow->{'html'} = SWHtml->new($sow);    # HTMLモードの初期化
+    $sow->{'html'} = SWHtml->new($sow);           # HTMLモードの初期化
     my $net     = $sow->{'html'}->{'net'};        # Null End Tag
     my $outhttp = $sow->{'http'}->outheader();    # HTTPヘッダの出力
     return if ( $outhttp == 0 );                  # ヘッダ出力のみ
-    $sow->{'html'}->outheader('発言のプレビュー');    # HTMLヘッダの出力
+    $sow->{'html'}->outheader('発言のプレビュー');        # HTMLヘッダの出力
     $sow->{'html'}->outcontentheader();
 
-    &SWHtmlPC::OutHTMLLogin($sow);                            # ログイン欄の出力
+    &SWHtmlPC::OutHTMLLogin($sow);                # ログイン欄の出力
 
     my $titleupdate = &SWHtmlPC::GetTitleNextUpdate( $sow, $vil );
     print <<"_HTML_";
@@ -69,14 +69,14 @@ _HTML_
     $query->{'mes'} =~ s/<br( \/)?>/&#13\;/ig;
     my @reqkeys = (
         'csid_cid', 'role',      'mes',        'think', 'wolf', 'maker', 'admin', 'sympathy',
-        'werebat',  'monospace', 'expression', 'guest', 'loud'
+        'werebat',  'monospace', 'expression', 'guest', 'loud', 'lovers'
     );
     push( @reqkeys, 'entrypwd' ) if ( $vil->{'entrylimit'} eq 'password' );
     my $reqvals = &SWBase::GetRequestValues( $sow, \@reqkeys );
-    my $hidden = &SWBase::GetHiddenValues( $sow, $reqvals, '  ' );
+    my $hidden  = &SWBase::GetHiddenValues( $sow, $reqvals, '  ' );
 
     # 行数の取得
-    my @lineslog = split( '<br>', $srcmes );
+    my @lineslog      = split( '<br>', $srcmes );
     my $lineslogcount = @lineslog;
 
     # 文字数の取得
@@ -86,15 +86,14 @@ _HTML_
     # 行数／文字数制限警告
     my $saycnt = $cfg->{'COUNTS_SAY'}->{ $vil->{'saycnttype'} };
     if ( $lineslogcount > $saycnt->{'MAX_MESLINE'} ) {
-        print
-"<p class=\"cautiontext\">行数が多すぎます（$lineslogcount行）。$saycnt->{'MAX_MESLINE'}行以内に収めないと正しく書き込まれません。</p>\n";
+        print "<p class=\"cautiontext\">行数が多すぎます（$lineslogcount行）。$saycnt->{'MAX_MESLINE'}行以内に収めないと正しく書き込まれません。</p>\n";
     }
     elsif ( $countsrc > $saycnt->{'MAX_MESCNT'} ) {
         my $unitcaution =
           $sow->{'basictrs'}->{'SAYTEXT'}->{ $sow->{'cfg'}->{'COUNTS_SAY'}->{ $vil->{'saycnttype'} }->{'COUNT_TYPE'} }
           ->{'UNIT_CAUTION'};
         print
-"<p class=\"cautiontext\">文字が多すぎます（$countsrc$unitcaution）。$countmes$unitcaution以内に収めないと正しく書き込まれません。</p>\n";
+          "<p class=\"cautiontext\">文字が多すぎます（$countsrc$unitcaution）。$countmes$unitcaution以内に収めないと正しく書き込まれません。</p>\n";
     }
 
     # 発言によって消費されるpt数の表示

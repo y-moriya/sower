@@ -18,5 +18,5 @@ RUN a2enmod cgi
 RUN echo "ScriptSock /var/run/cgid.sock" >> /etc/apache2/httpd.conf
 RUN sed -ri -e 's!/cgi-bin/ /usr/lib/cgi-bin/!/sower /workspaces/sower/!g' /etc/apache2/conf-enabled/serve-cgi-bin.conf \
         -ri -e 's!"/usr/lib/cgi-bin"!"/workspaces/sower"!' /etc/apache2/conf-enabled/serve-cgi-bin.conf
-
+RUN chmod 755 sow.cgi
 EXPOSE 80

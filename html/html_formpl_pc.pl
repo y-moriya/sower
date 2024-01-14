@@ -54,6 +54,8 @@ sub OutHTMLPlayerFormPC {
       if ( ( $curpl->iswhisper() == 0 ) || ( $query->{'mode'} ne 'human' ) );
     &OutHTMLRoleFormPC( $sow, $vil )
       if ( $curpl->iswhisper() > 0 && $vil->{'emulated'} < 1 );
+    &OutHTMLLoversPC( $sow, $vil )
+      if ( $curpl->islovers() > 0 && $vil->{'emulated'} < 1 );
     &OutHTMLExitButtonPC( $sow, $vil )    if ( $vil->{'turn'} == 0 );
     &OutHTMLSelRoleButtonPC( $sow, $vil ) if ( $vil->{'turn'} == 0 );
 
@@ -375,6 +377,104 @@ _HTML_
     </form>
 
 _HTML_
+
+    return;
+}
+
+#----------------------------------------
+# 恋人の囁き欄HTML出力
+#----------------------------------------
+sub OutHTMLLoversPC {
+    my ( $sow, $vil, $role ) = @_;
+    my $cfg   = $sow->{'cfg'};
+    my $net   = $sow->{'html'}->{'net'};
+    my $curpl = $sow->{'curpl'};
+
+    # 能力者欄のスタイルシートのクラス名
+    $rolestyle = "formpl_lovers";
+
+    if ( ( $vil->isepilogue() == 0 ) && ( $curpl->{'live'} eq 'live' ) ) {
+
+        # 能力欄表示
+        my $charset = $sow->{'charsets'}->{'csid'}->{ $curpl->{'csid'} };
+
+        # キャラ画像アドレスの取得
+        my $img = &SWHtmlPC::GetImgUrl( $sow, $vil, $curpl, $charset->{'BODY'} );
+        if ( $curpl->iswhisper > 0 ) {
+
+            # TODO: 狼の囁き以外でもWSAY画像を使用しているので、要修正
+            $img = &SWHtmlPC::GetImgUrl( $sow, $vil, $curpl, $charset->{'BODY'}, 0, $sow->{'MESTYPE_WSAY'} );
+        }
+
+        # キャラ画像部とその他部の横幅を取得
+        my ( $rwidth, $lwidth ) =
+          &SWHtmlPC::GetFormBlockWidth( $sow, $charset->{'IMGBODYW'} );
+
+        print <<"_HTML_";
+<div class="$rolestyle">
+  <div style="float: right; width: $rwidth;">
+    <div class="formpl_chrimg"><img src="$img" width="$charset->{'IMGBODYW'}" height="$charset->{'IMGBODYH'}" alt=""$net></div>
+  </div>
+
+  <div style="float: left; width: $lwidth;">
+_HTML_
+
+        print <<"_HTML_";
+    <form action="$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}" method="$cfg->{'METHOD_FORM'}">
+_HTML_
+
+        # 表情選択欄
+        &OutHTMLExpressionFormPC( $sow, $vil );
+
+        print <<"_HTML_";
+    <div class="formpl_content">
+_HTML_
+
+        # 発言欄textarea要素の出力
+        my $saycnt = $cfg->{'COUNTS_SAY'}->{ $vil->{'saycnttype'} };
+        my $unit =
+          $sow->{'basictrs'}->{'SAYTEXT'}->{ $sow->{'cfg'}->{'COUNTS_SAY'}->{ $vil->{'saycnttype'} }->{'COUNT_TYPE'} }
+          ->{'UNIT_SAY'};
+        my %htmlsay;
+        $htmlsay{'buttonlabel'} = $sow->{'textrs'}->{'BUTTONLABEL_PC'};
+        my $caption_rolesay =
+          $sow->{'textrs'}->{'CAPTION_ROLESAY'}->[ $sow->{'ROLEID_CUPID'} ];
+        $htmlsay{'buttonlabel'} =~ s/_BUTTON_/$caption_rolesay/g;
+        $htmlsay{'saycnttext'} = " あと$curpl->{$sow->{'SAYCOUNTID'}->[$sow->{'ROLEID_CUPID'}]}$unit";
+        $htmlsay{'disabled'}   = 0;
+        $htmlsay{'disabled'}   = 1 if ( $vil->{'emulated'} > 0 );
+
+        my $draft = 0;
+        $draft = 1
+          if ( $sow->{'savedraft'} ne '' );
+
+        if ( $draft > 0 ) {
+            my $mes = $sow->{'savedraft'};
+            $mes =~ s/<br( \/)?>/\n/ig;
+            $htmlsay{'text'} = $mes;
+        }
+        &SWHtmlPC::OutHTMLSayTextAreaPC( $sow, 'writepr', \%htmlsay );
+        my $checkedmspace = '';
+        $checkedmspace = " $sow->{'html'}->{'checked'}"
+          if ( ( $draft > 0 ) && ( $sow->{'draftmspace'} > 0 ) );
+        print "      <label><input type=\"checkbox\" name=\"monospace\" value=\"on\"$checkedmspace$net>等幅</label>\n";
+        my $checkedloud = '';
+        $checkedloud = " $sow->{'html'}->{'checked'}"
+          if ( ( $draft > 0 ) && ( $sow->{'draftloud'} > 0 ) );
+        print "      <label><input type=\"checkbox\" name=\"loud\" value=\"on\"$checkedloud$net>大声</label>\n";
+
+        print <<"_HTML_";
+      <input type="hidden" name="love" value="on"$net>
+    </div>
+    </form>
+  </div>
+
+  <div class="clearboth">
+    <hr class="invisible_hr"$net>
+  </div>
+</div>
+_HTML_
+    }
 
     return;
 }

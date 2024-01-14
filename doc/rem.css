@@ -455,7 +455,8 @@ address {
 .mes_grave,
 .mes_sympa,
 .mes_bat,
-.mes_guest {
+.mes_guest,
+.mes_lovers {
   margin: 0 0 1em 0;
   padding: 0px;
   border: 1px solid black;
@@ -496,6 +497,10 @@ address {
 
 .mes_guest .mesname {
   background: #000 url("img/remcss/remmestw.jpg") 0% 100% no-repeat;
+}
+
+.mes_lovers .mesname {
+  background: #000 url("img/remcss/remmestp.jpg") 0% 100% no-repeat;
 }
 
 .mes_nom .mes_text,
@@ -561,6 +566,13 @@ address {
   color: #331;
 }
 
+.mes_lovers .mes_text,
+.mes_lovers .mes_text_monospace,
+.mes_lovers .mes_text_loud {
+  background: #ffe0e0 url("img/remcss/remmesbp.jpg") 0% 100% no-repeat;
+  color: #000;
+}
+
 .mes_nom .mes_text_loud {
   color: #900;
 }
@@ -603,6 +615,10 @@ address {
 
 .mes_guest {
   background: #000 url("img/remcss/remmeslw.jpg") 123px 33px no-repeat;
+}
+
+.mes_lovers {
+  background: #000 url("img/remcss/remmeslp.jpg") 123px 33px no-repeat;
 }
 
 /* …•½üi’Êí‚Í”ñ•\¦j----------*/

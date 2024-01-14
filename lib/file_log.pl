@@ -496,7 +496,6 @@ sub GetVLogsForward {
     $pageno = $query->{'pageno'} if ( defined( $query->{'pageno'} ) );
     if ( ( $query->{'move'} eq 'page' ) && ( $pageno >= 0 ) ) {
 
-        #		$maxrow = $sow->{'cfg'}->{'MAX_PAGEROW_PC'};
         $maxrow = $sow->{'cfg'}->{'MAX_ROW'};
         $maxrow = $query->{'row'}
           if ( ( defined( $query->{'row'} ) ) && ( $query->{'row'} > 0 ) );
@@ -814,7 +813,8 @@ sub CheckLogPermition {
           if ( ( $log->{'uid'} eq $curpl->{'uid'} )
             && ( $log->{'mestype'} != $sow->{'MESTYPE_WSAY'} )
             && ( $log->{'mestype'} != $sow->{'MESTYPE_SPSAY'} )
-            && ( $log->{'mestype'} != $sow->{'MESTYPE_BSAY'} ) );    # Ž©•ª‚Ì”­Œ¾
+            && ( $log->{'mestype'} != $sow->{'MESTYPE_BSAY'} )
+            && ( $log->{'mestype'} != $sow->{'MESTYPE_LSAY'} ) );    # Ž©•ª‚Ì”­Œ¾
         $logpermit = 0
           if ( ( $query->{'mode'} eq 'whisper' )
             && ( $curpl->iswhisper() > 0 ) );                        # š‘‚«‚Ì‚Ýƒ‚[ƒh
@@ -838,6 +838,12 @@ sub CheckLogPermition {
             $logpermit = 1
               if ( ( $curpl->{'role'} == $sow->{'ROLEID_WEREBAT'} )
                 && ( $log->{'mestype'} == $sow->{'MESTYPE_BSAY'} )
+                && ( $query->{'mode'} ne 'human' ) );
+
+            # —öl“¯Žm‚Ìš‘‚«
+            $logpermit = 1
+              if ( ( $curpl->islovers() > 0 )
+                && ( $log->{'mestype'} == $sow->{'MESTYPE_LSAY'} )
                 && ( $query->{'mode'} ne 'human' ) );
         }
         if ( $curpl->{'live'} ne 'live' ) {
@@ -902,6 +908,12 @@ sub CheckLogPermition {
                       if ( ( $targetpl->{'role'} == $sow->{'ROLEID_WEREBAT'} )
                         && ( $log->{'mestype'} == $sow->{'MESTYPE_BSAY'} )
                         && ( $query->{'mode'} ne 'human' ) );
+
+                    # —öl“¯Žm‚Ìš‘‚«
+                    $logpermit = 1
+                      if ( ( $targetpl->islovers() > 0 )
+                        && ( $log->{'mestype'} == $sow->{'MESTYPE_LSAY'} )
+                        && ( $query->{'mode'} ne 'human' ) );
                 }
                 if ( $targetpl->{'live'} ne 'live' ) {
                     $logpermit = 1
@@ -934,17 +946,21 @@ sub CheckLogPermition {
             }
             elsif ( $query->{'pno'} == '-5' ) {
                 $logpermit = 0
-                  if ( $log->{'mestype'} ne $sow->{'MESTYPE_MAKER'} );
+                  if ( $log->{'mestype'} ne $sow->{'MESTYPE_LSAY'} );
             }
             elsif ( $query->{'pno'} == '-6' ) {
                 $logpermit = 0
-                  if ( $log->{'mestype'} ne $sow->{'MESTYPE_ADMIN'} );
+                  if ( $log->{'mestype'} ne $sow->{'MESTYPE_MAKER'} );
             }
             elsif ( $query->{'pno'} == '-7' ) {
                 $logpermit = 0
-                  if ( $log->{'mestype'} ne $sow->{'MESTYPE_GUEST'} );
+                  if ( $log->{'mestype'} ne $sow->{'MESTYPE_ADMIN'} );
             }
             elsif ( $query->{'pno'} == '-8' ) {
+                $logpermit = 0
+                  if ( $log->{'mestype'} ne $sow->{'MESTYPE_GUEST'} );
+            }
+            elsif ( $query->{'pno'} == '-9' ) {
                 $logpermit = 0
                   if ( $log->{'mestype'} ne $sow->{'MESTYPE_SAY'} );
             }
