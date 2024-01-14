@@ -103,7 +103,7 @@ sub OutHTMLSingleLogSayPC {
     my @messtyle = (
         'mes_undef', 'mes_undef', 'mes_undef', 'mes_del',   'mes_deladmin', 'mes_que',
         'mes_nom',   'mes_think', 'mes_wolf',  'mes_grave', 'mes_maker',    'mes_admin',
-        'mes_sympa', 'mes_bat',   'mes_guest'
+        'mes_sympa', 'mes_bat',   'mes_guest', '',          'mes_lovers',
     );
 
     # ƒLƒƒƒ‰‰æ‘œƒAƒhƒŒƒX‚Ìæ“¾
@@ -128,8 +128,9 @@ sub OutHTMLSingleLogSayPC {
     }
 
     # ”­Œ¾í•Ê
-    my @logmestypetexts = ( '', '', '', 'yíœz', 'yŠÇ—líœz', 'y–¢Šmz', '', 'y“Æz', 'yÔz', 'y•æz', '', '', 'y–Âz', 'y”Oz', '' );
-    my $logmestypetext  = '';
+    my @logmestypetexts =
+      ( '', '', '', 'yíœz', 'yŠÇ—líœz', 'y–¢Šmz', '', 'y“Æz', 'yÔz', 'y•æz', '', '', 'y–Âz', 'y”Oz', '', '', 'y—öz' );
+    my $logmestypetext = '';
     $logmestypetext = " <span class=\"mestype\">$logmestypetexts[$log->{'mestype'}]</span>"
       if ( $logmestypetexts[ $log->{'mestype'} ] ne '' );
 
@@ -533,7 +534,7 @@ sub OutHTMLSingleLogPC {
         elsif ( $log->{'mestype'} == $sow->{'MESTYPE_GUEST'} ) {
             &OutHTMLSingleLogGuestPC( $sow, $vil, $log, $no, $newsay, $anchor, $modesingle );
         }
-        elsif ( $log->{'mestype'} >= $sow->{'MESTYPE_CAST'} ) {
+        elsif ( $log->{'mestype'} == $sow->{'MESTYPE_CAST'} ) {
 
             # ”z–ğˆê——
             &OutHTMLSingleLogCastPC( $sow, $vil, $log, $no, $newsay, $anchor, $modesingle );

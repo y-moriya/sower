@@ -54,12 +54,12 @@ sub ReplacePreviewAnchor {
     my $mes = $log->{'log'};
     $sow->{'debug'}->writeaplog( $sow->{'APLOG_OTHERS'}, "Target. [$log->{'log'}]" );
     while ( $mes =~
-        /&gt;&gt;[\+\-\*\#\%\=\!g]?(\d{1,$sow->{'MAXWIDTH_TURN'}}:)?[\+\-\*\#\%\=\!g]?\d{1,$sow->{'MAXWIDTH_LOGCOUNT'}}/
+/&gt;&gt;[\+\-\*\#\%\=\!g\~]?(\d{1,$sow->{'MAXWIDTH_TURN'}}:)?[\+\-\*\#\%\=\!g\~]?\d{1,$sow->{'MAXWIDTH_LOGCOUNT'}}/
       )
     {
         my $anchortext = $&;
         my ( $mestypestr, $mestypestr2, $turn, $logno );
-        $anchortext =~ /(&gt;&gt;)([AS]?)([\+\-\*\#\%\=\!g]?)(\d+:)?([\+\-\*\#\%\=\!g]?)(\d+)/;
+        $anchortext =~ /(&gt;&gt;)([AS]?)([\+\-\*\#\%\=\!g\~]?)(\d+:)?([\+\-\*\#\%\=\!g\~]?)(\d+)/;
         my $mestypemark1 = $3;
         my $mestypemark2 = $5;
         $mestypestr = $3;
@@ -80,13 +80,13 @@ sub ReplacePreviewAnchor {
         my $logmestype    = $sow->{'LOGMESTYPE'};
         my $loganchormark = $sow->{'MARK_LOGANCHOR'};
         my $i;
-        for ( $i = $sow->{'MESTYPE_SAY'} ; $i <= $sow->{'MESTYPE_GUEST'} ; $i++ ) {
+        for ( $i = $sow->{'MESTYPE_SAY'} ; $i <= $sow->{'MESTYPE_LSAY'} ; $i++ ) {
             $mestype = $i
               if ( $mestypestr eq $loganchormark->{ $logmestype->[$i] } );
         }
 
         my $logsubid = $sow->{'LOGSUBID_SAY'};
-        my $logid = &CreateLogID( $sow, $mestype, $logsubid, $logno );
+        my $logid    = &CreateLogID( $sow, $mestype, $logsubid, $logno );
 
         # リンクの文字列用データ
         my $linktext = $anchortext;
@@ -117,12 +117,12 @@ sub ReplaceAnchor {
 
 #	while ($mes =~ /&gt;&gt;[AS]?[\+\-\*\#\%\=\!]?(\d{1,$sow->{'MAXWIDTH_TURN'}}:)?[\+\-\*\#\%\=\!]?\d{1,$sow->{'MAXWIDTH_LOGCOUNT'}}/) {
     while ( $mes =~
-        /&gt;&gt;[\+\-\*\#\%\=\!g]?(\d{1,$sow->{'MAXWIDTH_TURN'}}:)?[\+\-\*\#\%\=\!g]?\d{1,$sow->{'MAXWIDTH_LOGCOUNT'}}/
+/&gt;&gt;[\+\-\*\#\%\=\!g\~]?(\d{1,$sow->{'MAXWIDTH_TURN'}}:)?[\+\-\*\#\%\=\!g\~]?\d{1,$sow->{'MAXWIDTH_LOGCOUNT'}}/
       )
     {
         my $anchortext = $&;
         my ( $mestypestr, $mestypestr2, $turn, $logno );
-        $anchortext =~ /(&gt;&gt;)([AS]?)([\+\-\*\#\%\=\!g]?)(\d+:)?([\+\-\*\#\%\=\!g]?)(\d+)/;
+        $anchortext =~ /(&gt;&gt;)([AS]?)([\+\-\*\#\%\=\!g\~]?)(\d+:)?([\+\-\*\#\%\=\!g\~]?)(\d+)/;
         my $mestypemark1 = $3;
         my $mestypemark2 = $5;
         $mestypestr = $3;
@@ -143,14 +143,13 @@ sub ReplaceAnchor {
         my $logmestype    = $sow->{'LOGMESTYPE'};
         my $loganchormark = $sow->{'MARK_LOGANCHOR'};
         my $i;
-        for ( $i = $sow->{'MESTYPE_SAY'} ; $i <= $sow->{'MESTYPE_GUEST'} ; $i++ ) {
+        for ( $i = $sow->{'MESTYPE_SAY'} ; $i <= $sow->{'MESTYPE_LSAY'} ; $i++ ) {
             $mestype = $i
               if ( $mestypestr eq $loganchormark->{ $logmestype->[$i] } );
         }
 
         my $logsubid = $sow->{'LOGSUBID_SAY'};
 
- #		$logsubid = $sow->{'LOGSUBID_ACTION'} if (defined($2) && ($2 eq $sow->{'LOGSUBID_ACTION'})); # てへっ♪（ぉぃ
         my $logid = &CreateLogID( $sow, $mestype, $logsubid, $logno );
 
         # リンクの文字列用データ
@@ -166,17 +165,14 @@ sub ReplaceAnchor {
         $saymestype = $sow->{'MESTYPE_SAY'}
           if ( $saymestype == $sow->{'MESTYPE_QUE'} );
         my $rolesay = $sow->{'textrs'}->{'CAPTION_ROLESAY'};
-        $sow->{'debug'}->raise(
-            $sow->{'APLOG_NOTICE'},
-            "秘密会話へのアンカーを通常発言に打つ事はできません。",
-            "cannot anchor [$mestype]."
-          )
+        $sow->{'debug'}->raise( $sow->{'APLOG_NOTICE'}, "秘密会話へのアンカーを通常発言に打つ事はできません。", "cannot anchor [$mestype]." )
           if (
                ( $vil->isepilogue() == 0 )
             && ( $saymestype == $sow->{'MESTYPE_SAY'} )
             && (   ( $mestype == $sow->{'MESTYPE_WSAY'} )
                 || ( $mestype == $sow->{'MESTYPE_SPSAY'} )
-                || ( $mestype == $sow->{'MESTYPE_BSAY'} ) )
+                || ( $mestype == $sow->{'MESTYPE_BSAY'} )
+                || ( $mestype == $sow->{'MESTYPE_LSAY'} ) )
           );
 
         $mwtag = $skipmwtag
@@ -204,14 +200,7 @@ sub ReplaceAnchor {
                   if ( ( $mestype ne $saymestype ) && ( $tsay2gsay == 0 ) );    # 異なるmestypeへは張れない
                 $mwtag = $skipmwtag
                   if ( $mestype == $sow->{'MESTYPE_TSAY'} );                    # 独り言へは張れない
-                $mwtag = $skipmwtag if ( $turn == 0 ); # プロローグの囁き／独り言／墓下へは張れない
-            }
-            else {
-# エピローグ中
-# これいらなくね？
-#$mwtag = $skipmwtag if ($turn == $vil->{'turn'}); # 当日は通常発言以外に張れない
-#$mwtag = $skipmwtag if (($turn == 0) && ($mestype != $sow->{'MESTYPE_TSAY'})); # プロローグへは通常発言と独り言以外張れない
-#$mwtag = $skipmwtag if (($turn == 0) && ($sow->{'cfg'}->{'ENABLED_TSAY_PRO'} == 0)); # 独り言＠プロローグでも設定で禁止していたら張れない
+                $mwtag = $skipmwtag if ( $turn == 0 );                          # プロローグの囁き／独り言／墓下へは張れない
             }
         }
 
@@ -263,17 +252,17 @@ s/(s?https?:\/\/[^\/<>\s]+)[-_.!~*'()a-zA-Z0-9;\/?:\@&=+\$,%#]+/<a href=\"$&\" c
                 $blank               = '';
             }
             else {
-                $reqvals->{'turn'} = $turn if ( $turn != $vil->{'turn'} );
+                $reqvals->{'turn'}  = $turn if ( $turn != $vil->{'turn'} );
                 $reqvals->{'logid'} = $logid;
-                $link = &SWBase::GetLinkValues( $sow, $reqvals );
-                $link = "$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}?vid=1&$link";
+                $link               = &SWBase::GetLinkValues( $sow, $reqvals );
+                $link               = "$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}?vid=1&$link";
             }
         }
         else {
-            $reqvals->{'turn'} = $turn if ( $turn != $vil->{'turn'} );
+            $reqvals->{'turn'}  = $turn if ( $turn != $vil->{'turn'} );
             $reqvals->{'logid'} = $logid;
-            $link = &SWBase::GetLinkValues( $sow, $reqvals );
-            $link = "$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}?$link";
+            $link               = &SWBase::GetLinkValues( $sow, $reqvals );
+            $link               = "$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}?$link";
         }
 
         # 正規表現での誤認識を防ぐ
@@ -339,10 +328,10 @@ sub ReplaceAnchorHTMLMb {
             $link = "#$logid";
         }
         else {
-            $reqvals->{'turn'} = $turn if ( $turn != $vil->{'turn'} );
+            $reqvals->{'turn'}  = $turn if ( $turn != $vil->{'turn'} );
             $reqvals->{'logid'} = $logid;
-            $link = &SWBase::GetLinkValues( $sow, $reqvals );
-            $link = "$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}?$link";
+            $link               = &SWBase::GetLinkValues( $sow, $reqvals );
+            $link               = "$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}?$link";
         }
 
         # 正規表現での誤認識を防ぐ
@@ -390,6 +379,7 @@ sub BackQuoteAnchorMark {
     $$anchortext =~ s/\%/\\\%/g;
     $$anchortext =~ s/\!/\\\!/g;
     $$anchortext =~ s/\=/\\\=/g;
+    $$anchortext =~ s/\~/\\\~/g;
 
     return $anchortext;
 }

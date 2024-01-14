@@ -597,6 +597,17 @@ address {
   background: #553;
 }
 
+/* —öl‚Ìš‘‚« ----------*/
+
+.mes_lovers {
+  margin: 0px 0px 16px 0px;
+  padding: 4px;
+  border: 1px solid #fff;
+  color: #000;
+  /*  background: #442; */
+  background: #ffe0e0;
+}
+
 /* ƒƒ‚ ----------*/
 
 .memo {

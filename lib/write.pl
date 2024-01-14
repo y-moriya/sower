@@ -28,11 +28,8 @@ sub ExecuteCmdWrite {
         }
 
         # 発言数がない（仮）
-        $sow->{'debug'}->raise(
-            $sow->{'APLOG_NOTICE'},
-            "発言数が足りません。",
-            "not enough saypoint.[$saytype: $writepl->{$saytype} / $saypoint]"
-          )
+        $sow->{'debug'}->raise( $sow->{'APLOG_NOTICE'},
+            "発言数が足りません。", "not enough saypoint.[$saytype: $writepl->{$saytype} / $saypoint]" )
           if ( ( !defined( $writepl->{$saytype} ) )
             || ( ( $writepl->{$saytype} - $saypoint ) < 0 ) );
     }
@@ -55,11 +52,7 @@ sub ExecuteCmdWrite {
             my $checklogmestype = $log->{'mestype'};
             $checklogmestype = $sow->{'MESTYPE_SAY'}
               if ( $log->{'mestype'} == $sow->{'MESTYPE_QUE'} );
-            $sow->{'debug'}->raise(
-                $sow->{'APLOG_NOTICE'},
-                "直前の発言と同じ内容の発言をしようとしています。",
-                "same last mes."
-              )
+            $sow->{'debug'}->raise( $sow->{'APLOG_NOTICE'}, "直前の発言と同じ内容の発言をしようとしています。", "same last mes." )
               if ( ( $logmes eq $mes )
                 && ( $checklogmestype == $checkmestype ) );
         }
@@ -201,6 +194,12 @@ sub GetMesType {
         # 念話
         $mestype = $sow->{'MESTYPE_BSAY'};
         $saytype = 'bsay';
+    }
+    elsif ( ( $writepl->islovers() > 0 ) && $query->{'love'} eq 'on' ) {
+
+        # 恋人
+        $mestype = $sow->{'MESTYPE_LSAY'};
+        $saytype = 'lsay';
     }
     else {
         # 通常発言

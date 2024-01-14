@@ -103,6 +103,7 @@ sub InitConst {
         guest       => 1,     # 傍観者発言スイッチ
         sympathy    => 1,     # 共鳴スイッチ
         werebat     => 1,     # 念話スイッチ
+        love        => 1,     # 恋人スイッチ
         monospace   => 1,     # 等幅スイッチ
         loud        => 1,     # 大声スイッチ
         safety      => 1,     # 誤爆防止チェック
@@ -168,6 +169,7 @@ sub InitConst {
         'B',    # MESTYPE_BSAY
         'U',    # MESTYPE_GUEST
         'C',    # MESTYPE_CAST
+        'L',    # MESTYPE_LSAY
     );
 
     # ログ番号管理用
@@ -188,6 +190,7 @@ sub InitConst {
         'countwerebat',     # MESTYPE_BSAY
         'countguest',       # MESTYPE_GUEST
         'countundef',       # MESTYPE_CAST
+        'countlover',       # MESTYPE_LSAY
     );
 
     # 更新情報管理用
@@ -208,6 +211,7 @@ sub InitConst {
         'modifiedbsay',     # MESTYPE_BSAY
         'modifiedsay',      # MESTYPE_GUEST
         'modifiedsay',      # MESTYPE_CAST
+        'modifiedlsay',     # MESTYPE_LSAY
     );
 
     # 発言種別フィルタ変換用配列
@@ -226,6 +230,7 @@ sub InitConst {
         4,                  # MESTYPE_ADMIN
         2,                  # MESTYPE_SPSAY
         2,                  # MESTYPE_BSAY
+        2,                  # MESTYPE_LSAY
     );
 
     # 発言スイッチ
@@ -247,6 +252,7 @@ sub InitConst {
         'wolf',             # 呪狼
         'wolf',             # 智狼
         '',                 # ピクシー
+        '',                 # キューピッド
     );
 
     # 発言数ID
@@ -268,6 +274,7 @@ sub InitConst {
         'wsay',             # 呪狼
         'wsay',             # 智狼
         '',                 # ピクシー
+        'lsay',             # キューピッド、ただし恋人同士の囁きとして使われる
     );
 
     my %logcountsubid = (
@@ -289,6 +296,7 @@ sub InitConst {
         P => '=',    # MESTYPE_SPSAY
         B => '!',    # MESTYPE_BSAY
         U => 'g',    # MESTYPE_GUEST
+        L => '~',    # MESTYPE_LSAY
     );
 
     # 役職配分表リスト
@@ -380,6 +388,7 @@ sub InitConst {
         MESTYPE_BSAY  => 13,
         MESTYPE_GUEST => 14,
         MESTYPE_CAST  => 15,
+        MESTYPE_LSAY  => 16,
 
         LOGSUBID_UNDEF    => 'X',
         LOGSUBID_SAY      => 'S',
