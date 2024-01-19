@@ -34,9 +34,9 @@ sub OutHTMLIndex {
     $sow->{'http'}->setnotmodified();    # 最終更新日時
 
     # HTTP/HTMLの出力
-    $sow->{'html'} = SWHtml->new($sow);    # HTMLモードの初期化
-    my $outhttp = $sow->{'http'}->outheader();    # HTTPヘッダの出力
-    return if ( $outhttp == 0 );                  # ヘッダ出力のみ
+    $sow->{'html'} = SWHtml->new($sow);                 # HTMLモードの初期化
+    my $outhttp = $sow->{'http'}->outheader();          # HTTPヘッダの出力
+    return if ( $outhttp == 0 );                        # ヘッダ出力のみ
     $sow->{'html'}->{'rss'} = "$urlsow?cmd=rss";        # 村の一覧のRSS
     $sow->{'html'}->outheader( $cfg->{'NAME_TOP'} );    # HTMLヘッダの出力
     $sow->{'html'}->outcontentheader();
@@ -46,7 +46,7 @@ sub OutHTMLIndex {
         my $savecss = $reqvals->{'css'};
         $reqvals->{'css'} = '';
         $reqvals->{'ua'}  = 'mb';
-        my $linkmb = &SWBase::GetLinkValues( $sow, $reqvals );
+        my $linkmb  = &SWBase::GetLinkValues( $sow, $reqvals );
         my $urlhome = '';
         $urlhome = "<a href=\"$cfg->{'URL_HOME'}\">$cfg->{'NAME_HOME'}</a>/"
           if ( ( $cfg->{'URL_HOME'} ne '' )
@@ -62,7 +62,7 @@ sub OutHTMLIndex {
         print <<"_HTML_";
 <form action="$urlsow" method="get" class="menu">
 <div>
-  $urlhome<a href="$urlsow?$linkmb">携帯版</a>/$supportbbs
+  $urlhome<a href="https://www.amazon.jp/hz/wishlist/ls/1ET0ILYRI88S8?ref_=wl_share">投げ銭はこちら</a>/$supportbbs
   <select name="css">
 _HTML_
 
@@ -113,9 +113,8 @@ _HTML_
       if ( $sow->{'user'}->logined() <= 0 );
     my $vcnt = $vindex->getactivevcnt();
     if ( $vcnt >= $sow->{'cfg'}->{'MAX_VILLAGES'} ) {
-        $linkvmake = "";
-        $caution_vmake =
-' <span class="infotext">現在稼働中の村の数が上限に達しているので、村を作成できません。</span>';
+        $linkvmake     = "";
+        $caution_vmake = ' <span class="infotext">現在稼働中の村の数が上限に達しているので、村を作成できません。</span>';
     }
 
     if ( $sow->{'cfg'}->{'ENABLED_VMAKE'} > 0 ) {
@@ -212,7 +211,7 @@ _HTML_
 
     $reqvals->{'cmd'}  = 'changelog';
     $reqvals->{'csid'} = '';
-    $linkvalue = &SWBase::GetLinkValues( $sow, $reqvals );
+    $linkvalue         = &SWBase::GetLinkValues( $sow, $reqvals );
 
     print <<"_HTML_";
 <hr class="invisible_hr"$net>

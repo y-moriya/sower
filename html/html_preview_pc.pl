@@ -69,7 +69,7 @@ _HTML_
     $query->{'mes'} =~ s/<br( \/)?>/&#13\;/ig;
     my @reqkeys = (
         'csid_cid', 'role',      'mes',        'think', 'wolf', 'maker', 'admin', 'sympathy',
-        'werebat',  'monospace', 'expression', 'guest', 'loud', 'lovers'
+        'werebat',  'monospace', 'expression', 'guest', 'loud', 'love'
     );
     push( @reqkeys, 'entrypwd' ) if ( $vil->{'entrylimit'} eq 'password' );
     my $reqvals = &SWBase::GetRequestValues( $sow, \@reqkeys );
