@@ -17,9 +17,6 @@ sub GetLocalConfig {
 
     my %cfglocal = (
 
-        # 1:動作停止（アップデート用）
-        ENABLED_HALT => 0,
-
         # 0:村の作成ができない（村作成終了用）
         # 1:村を作成可能
         ENABLED_VMAKE => 1,

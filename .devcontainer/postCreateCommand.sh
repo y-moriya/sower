@@ -18,3 +18,4 @@ EOF
 
 source ~/.bashrc
 chmod 755 sow.cgi
+chmod 755 deploy.sh
