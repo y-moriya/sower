@@ -3,8 +3,27 @@ var layoutfilter; // フィルタの配置
 var pnofilter; // 個人ごとの表示／非表示
 var typefilter; // 発言種別ごとの表示／非表示
 var livetypes; //人物欄の表示／非表示
-var mestypes; //発言種別欄の表示／非表示
+var mestypefilter; //発言種別欄の表示／非表示
 var lumpfilter; //一括処理欄の表示／非表示
+var mestypes = [
+	'X',
+	'I',
+	'i',
+	'D',
+	'd',
+	'Q',
+	'S',
+	'T',
+	'W',
+	'G',
+	'M',
+	'A',
+	'P',
+	'B',
+	'U',
+	'C',
+	'L',
+];
 
 //---------------------------------------------
 //発言の表示／非表示
@@ -23,17 +42,79 @@ function changeFilterByPlList(pno) {
 	writeCookieFilter();
 }
 
+function applyFilterByPlList(pno) {
+	//フィルタ位置を一旦リセット
+	moveFilterTopZeroIE();
+
+	changeFilterByPno(pno);
+
+	eventFixFilter(); //フィルタの再配置
+	writeCookieFilter();
+}
+
+function hideMessageByPlList(pno) {
+	//フィルタ位置を一旦リセット
+	moveFilterTopZeroIE();
+
+	hideMessageByPno(pno);
+
+	eventFixFilter(); //フィルタの再配置
+	writeCookieFilter();
+}
+
+//指定したキャラの発言の表示／非表示を切り替える（内部用）
+function hideMessageByPno(pno) {
+	var display = 'none';
+	var enable = 'disenable';
+	var obj = getDocumentObject('checkpnofilter_' + pno);
+	if (!obj) return;
+	obj.checked = false;
+
+	changeSayDisplayByPNo(pno, display); //発言の表示／非表示
+	changeClass('pnofilter_' + pno, 'sayfilter_content_' + enable); // フィルタ欄の表示切り替え
+}
+
 //指定した発言種別の発言の表示／非表示を切り替える
 function changeFilterByCheckBoxMesType(mestype) {
+	var i = mestypes.indexOf(mestype);
+	console.log(i);
 	var display;
 	var enable;
 	var checked;
 
 	//フィルタ位置を一旦リセット
 	moveFilterTopZeroIE();
-	if (!typefilter[mestype]) typefilter[mestype] = 0;
-	typefilter[mestype] = 1 - typefilter[mestype];
-	if (typefilter[mestype] == 0) {
+	if (!typefilter[i]) typefilter[i] = 0;
+	typefilter[i] = 1 - typefilter[i];
+	if (typefilter[i] == 0) {
+		display = 'block';
+		enable = 'enable';
+		checked = true;
+	} else {
+		display = 'none';
+		enable = 'disenable';
+		checked = false;
+	}
+
+	changeSayDisplayByMesType(mestype, display);
+	changeClass('typefilter_' + mestype, 'sayfilter_content_' + enable);
+
+	var obj = getDocumentObject('checktypefilter_' + mestype);
+	if (obj) obj.checked = checked;
+
+	eventFixFilter(); //フィルタの再配置
+	writeCookieFilter();
+}
+
+function applyFilterByCheckBoxMesType(mestype) {
+	var i = mestypes.indexOf(mestype);
+	var display;
+	var enable;
+	var checked;
+
+	//フィルタ位置を一旦リセット
+	moveFilterTopZeroIE();
+	if (typefilter[i] == 0) {
 		display = 'block';
 		enable = 'enable';
 		checked = true;
@@ -70,13 +151,19 @@ function changePlListAll(enabled) {
 		var pno = id.substring(id.indexOf('_') + 1);
 
 		var data = enabled;
-		if (enabled == 2) {
+		if (enabled == 0) {
+			pnofilter[pno] = data;
+			showFilterByPno(pno); //表示／非表示切り替え
+		} else if (enabled == 1) {
+			pnofilter[pno] = data;
+			hideFilterByPno(pno); //表示／非表示切り替え
+		} else if (enabled == 2) {
 			//反転
 			if (!pnofilter[pno]) pnofilter[pno] = 0;
 			data = 1 - pnofilter[pno];
+			pnofilter[pno] = data;
+			changeFilterByPno(pno); //表示／非表示切り替え
 		}
-		pnofilter[pno] = data;
-		changeFilterByPno(pno); //表示／非表示切り替え
 	}
 
 	eventFixFilter(); //フィルタの再配置
@@ -87,22 +174,48 @@ function changePlListAll(enabled) {
 function changeFilterByPno(pno) {
 	var display;
 	var enable;
-	var checked;
-
-	if (pnofilter[pno] == 0) {
-		display = 'block';
-		enable = 'enable';
-		checked = true;
-	} else {
+	var obj = getDocumentObject('checkpnofilter_' + pno);
+	if (!obj) return;
+	var visible = obj.checked;
+	obj.checked = !visible; //チェック欄の切り替え
+	if (visible) {
 		display = 'none';
 		enable = 'disenable';
-		checked = false;
+	} else {
+		display = 'block';
+		enable = 'enable';
 	}
 
 	changeSayDisplayByPNo(pno, display); //発言の表示／非表示
 	changeClass('pnofilter_' + pno, 'sayfilter_content_' + enable); // フィルタ欄の表示切り替え
+}
+
+function showFilterByPno(pno) {
+	var display;
+	var enable;
+
 	var obj = getDocumentObject('checkpnofilter_' + pno);
-	if (obj) obj.checked = checked; //チェック欄の切り替え
+	if (!obj) return;
+	obj.checked = true; //チェック欄の切り替え
+	display = 'block';
+	enable = 'enable';
+
+	changeSayDisplayByPNo(pno, display); //発言の表示／非表示
+	changeClass('pnofilter_' + pno, 'sayfilter_content_' + enable); // フィルタ欄の表示切り替え
+}
+
+function hideFilterByPno(pno) {
+	var display;
+	var enable;
+
+	var obj = getDocumentObject('checkpnofilter_' + pno);
+	if (!obj) return;
+	obj.checked = false; //チェック欄の切り替え
+	display = 'none';
+	enable = 'disenable';
+
+	changeSayDisplayByPNo(pno, display); //発言の表示／非表示
+	changeClass('pnofilter_' + pno, 'sayfilter_content_' + enable); // フィルタ欄の表示切り替え
 }
 
 //---------------------------------------------
@@ -136,8 +249,8 @@ function changeFilterMesType() {
 	var display = 'block';
 	var enable = 'enable';
 
-	if (!mestypes) mestypes = 0;
-	if (mestypes == 0) {
+	if (!mestypefilter) mestypefilter = 0;
+	if (mestypefilter == 0) {
 		display = 'none';
 		enable = 'disenable';
 	}
@@ -149,7 +262,7 @@ function changeFilterMesType() {
 	//発言種別の見出し欄の処理
 	changeClass('mestypefiltercaption', 'sayfilter_caption_' + enable);
 
-	mestypes = 1 - mestypes;
+	mestypefilter = 1 - mestypefilter;
 	writeCookieFilter();
 }
 
@@ -327,44 +440,32 @@ function initFilter() {
 	typefilter = new Array();
 	livetypes = new Array();
 
-	//クッキーの読み込み
-	var cookie = document.cookie;
-	cookie += '; ';
-	var cookies = cookie.split('; ');
-	for (var i = 0; i < cookies.length; i++) {
-		var data = cookies[i].split('=');
-		if (!data[1]) data[1] = '';
-
-		//ここはそのうち直そう……。
-		if (data[0] == 'fixedfilter') {
-			fixedfilter = data[1];
-		} else if (data[0] == 'layoutfilter') {
-			layoutfilter = data[1];
-		} else if (data[0] == 'mestypes') {
-			mestypes = data[1];
-		} else if (data[0] == 'lumpfilter') {
-			lumpfilter = data[1];
-		} else if (data[0] == 'pnofilter') {
-			var pos = data[1].lastIndexOf('1');
-			if (pos >= 0) {
-				data[1] = data[1].substr(0, pos + 1);
-				data[1] += ',';
-				pnofilter = data[1].split(',');
+	const query = window.location.search;
+	const urlParams = new URLSearchParams(query);
+	const vid = urlParams.get('vid');
+	const cookie = document.cookie;
+	const cookies = cookie.split('; ');
+	for (let i = 0; i < cookies.length; i++) {
+		const data = cookies[i].split('=');
+		if (data[0] == `filter_${vid}`) {
+			const obj = JSON.parse(data[1]);
+			fixedfilter = obj.fixedfilter;
+			layoutfilter = obj.layoutfilter;
+			mestypefilter = obj.mestypefilter;
+			lumpfilter = obj.lumpfilter;
+			pnofilter = obj.pnofilter;
+			for (let i = 0; i < pnofilter.length; i++) {
+				if (pnofilter[i] == 1) {
+					hideMessageByPlList(i);
+				}
 			}
-		} else if (data[0] == 'typefilter') {
-			var pos = data[1].lastIndexOf('1');
-			if (pos >= 0) {
-				data[1] = data[1].substr(0, pos + 1);
-				data[1] += ',';
-				typefilter = data[1].split(',');
+			typefilter = obj.typefilter;
+			for (let i = 0; i < typefilter.length; i++) {
+				if (typefilter[i] == 1) {
+					applyFilterByCheckBoxMesType(mestypes[i]);
+				}
 			}
-		} else if (data[0] == 'livetypes') {
-			var pos = data[1].lastIndexOf('1');
-			if (pos >= 0) {
-				data[1] = data[1].substr(0, pos + 1);
-				data[1] += ',';
-				livetypes = data[1].split(',');
-			}
+			livetypes = obj.livetypes;
 		}
 	}
 
@@ -410,26 +511,25 @@ function getClientHeight() {
 
 //指定したキャラの発言の表示／非表示を切り替える
 function changeSayDisplayByPNo(pno, display) {
-	changeSayDisplay('mespno', pno, display)
+	changeSayDisplay(pno, display)
 }
 
 //指定した種別の発言の表示／非表示を切り替える
 function changeSayDisplayByMesType(mestype, display) {
-	changeSayDisplay('mestype', mestype, display)
+	var i;
+	var elems = document.querySelectorAll(`div[data-mestype='${mestype}']`);
+
+	for (i = 0; i < elems.length; i++) {
+		elems[i].style.display = display;
+	}
 }
 
 //指定した発言の表示／非表示を切り替える
-function changeSayDisplay(key, data, display) {
+function changeSayDisplay(data, display) {
 	var i;
-	var elems = document.getElementsByTagName("div");
+	var elems = document.querySelectorAll(`div[data-pno='${data}']`);
 
 	for (i = 0; i < elems.length; i++) {
-		var id = elems[i].id;
-		if (id.indexOf(key) < 0) continue;
-		var pos = id.indexOf('_');
-		if (pos < 0) continue;
-		if (id.substring(pos + 1) != data) continue;
-
 		elems[i].style.display = display;
 	}
 }
@@ -492,13 +592,13 @@ function writeCookieFilter() {
 	const expires = '; expires=' + expiresdate;
 
 	document.cookie = 'modified=' + 'js' + expires;
-	document.cookie = 'fixedfilter=' + fixedfilter + expires;
-	document.cookie = 'layoutfilter=' + layoutfilter + expires;
-	document.cookie = 'mestypes=' + mestypes + expires;
-	document.cookie = 'lumpfilter=' + lumpfilter + expires;
-	document.cookie = 'pnofilter=' + pnofilter.join(',') + expires;
-	document.cookie = 'typefilter=' + typefilter.join(',') + expires;
-	document.cookie = 'livetypes=' + livetypes.join(',') + expires;
+
+	const query = window.location.search;
+	const urlParams = new URLSearchParams(query);
+	const vid = urlParams.get('vid');
+	const obj = { fixedfilter, layoutfilter, mestypefilter, lumpfilter, pnofilter, typefilter, livetypes };
+	const json = JSON.stringify(obj);
+	document.cookie = `filter_${vid}=${json}${expires}`;
 }
 
 $(document).ready(function () {

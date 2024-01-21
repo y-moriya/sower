@@ -17,3 +17,4 @@ alias mv='mv -i'
 EOF
 
 source ~/.bashrc
+chmod 755 sow.cgi
