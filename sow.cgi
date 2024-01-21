@@ -31,8 +31,6 @@ if ( !defined( $ENV{'GATEWAY_INTERFACE'} ) ) {
 # インストールチェック
 &InstallCheck(0) if ( ( $ENABLED_INSTALLCHECK > 0 ) && ( $ENV{'QUERY_STRING'} eq 'check' ) );
 
-#&InstallCheck(1) if (($ENABLED_INSTALLCHECK > 0) && ($ENV{'QUERY_STRING'} eq 'inst'));
-
 # 初期化
 my $sow = &Init( $t[0] );
 
@@ -44,7 +42,7 @@ $sow->{'debug'}->{'checklogin'} = 0;
 
 # 更新中表示
 $sow->{'debug'}->raise( $sow->{'APLOG_OTHERS'}, 'ただいま色々と更新中につき、しばらくお待ち下さい。', 'swbbs is halting.' )
-  if ( $sow->{'cfg'}->{'ENABLED_HALT'} > 0 );
+  if ( -e "halt" );
 
 # 入力値をアプリケーションログへ出力
 $sow->{'debug'}->writequerylog() if ( $sow->{'cfg'}->{'LEVEL_APLOG'} == 5 );

@@ -19,3 +19,6 @@ doc/img/*
 .todo
 _config_local.pl
 config_remote.pl
+
+ftp_info.stg.txt
+ftp_info.prod.txt
