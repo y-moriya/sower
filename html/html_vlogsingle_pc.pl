@@ -23,13 +23,14 @@ sub OutHTMLSingleLogInfoPC {
     my $entry = "";
 
     print <<"_HTML_";
+<div data-mestype="$sow->{'LOGMESTYPE'}[$log->{'mestype'}]">
 <p class="$class">
 <a class=\"anchor\" $atr_id=\"$logid\"></a>
 $entry$logmes
 </p>
 
 <hr class="invisible_hr"$net>
-
+</div>
 _HTML_
 
 }
@@ -226,7 +227,6 @@ _HTML_
   </div>
 </div></div>
 </div></div>
-
 _HTML_
 
 }
@@ -581,8 +581,11 @@ sub OutHTMLFilterDivHeader {
       if ( ( $sow->{'query'}->{'cmd'} eq 'entrypr' )
         || ( $sow->{'query'}->{'cmd'} eq 'writepr' ) );
 
+    # 新フィルター用 data-attr
+    my $data_filter = "data-pno=\"$logpl->{'pno'}\" data-mestype=\"$sow->{'LOGMESTYPE'}[$log->{'mestype'}]\"";
+
     if ( $modesingle == 0 ) {
-        print "<div id=\"mespno$no" . "_$logpno\"$pnofilterstyle>";
+        print "<div id=\"mespno$no" . "_$logpno\"$pnofilterstyle$data_filter>";
         print "<div id=\"mestype$no" . "_$mestype\"$typefilterstyle>\n";
     }
     else {

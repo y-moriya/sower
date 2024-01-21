@@ -359,25 +359,25 @@ sub GetConfig {
     # キャッシュクリアのためファイル名に日付を入れた。（更新忘れそう）
     my %css_default = (
         TITLE => '標準スタイル',
-        FILE  => 'sow.css?date=20240114',
+        FILE  => 'sow.css?date=' . $lastupdate,
         WIDTH => 500,
     );
 
     my %css_text = (
         TITLE => '簡易表示',
-        FILE  => 'text.css?date=20240114',
+        FILE  => 'text.css?date' . $lastupdate,
         WIDTH => 600,
     );
 
     my %css_junawide = (
         TITLE => '審問風',
-        FILE  => 'junawide.css?date=20240114',
+        FILE  => 'junawide.css?date' . $lastupdate,
         WIDTH => 582,
     );
 
     my %css_rem = (
         TITLE            => 'Style-R (default)',
-        FILE             => 'rem.css?date=20240114',
+        FILE             => 'rem.css?date' . $lastupdate,
         WIDTH            => 600,
         FILE_TOPBANNER   => 'remcss/remheader.png',
         WIDTH_TOPBANNER  => 600,
@@ -469,6 +469,8 @@ sub GetConfig {
         gro     => \%ratinggro,
         view    => \%ratingview,
     );
+
+    my $lastupdate = '20240121';
 
     my %cfg = (
 
@@ -671,8 +673,7 @@ sub GetConfig {
         FILE_MEMOINDEX => "memoidx.cgi",
         FILE_SCORE     => "score.cgi",
 
-        # キャッシュクリアのためファイル名に日付を入れた。（更新忘れそう）
-        FILE_JS_SOW    => "sow.js?date=20240114",
+        FILE_JS_SOW    => "sow.js?date=" . $lastupdate,
         FILE_JS_JQUERY => "jquery.js",
         FILE_JS_DRAG   => "jquery.easydrag.js",
         FILE_JS_FILTER => "filter.js",

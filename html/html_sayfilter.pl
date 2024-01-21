@@ -73,30 +73,40 @@ _HTML_
 <div id="mestypefilter" class="sayfilter_content"$display>
 _HTML_
 
-    my @logmestype = ( 0, 1, 2, 3, 4 );
-    my @logmestypetext = (
-        '通常発言',         '独り言',
-        '囁き/共鳴/念話', '死者のうめき',
-        '傍観者発言',
+    my @logmestypearray = (
+        { type => 'S', text => '通常発言' },
+        { type => 'T', text => '独り言' },
+        { type => 'W', text => '狼の囁き' },
+        { type => 'G', text => '死者のうめき' },
+        { type => 'P', text => '共鳴' },
+        { type => 'B', text => '念話' },
+        { type => 'U', text => '傍観者発言' },
+        { type => 'L', text => '恋の囁き' },
+        { type => 'M', text => '村建て人発言' },
+        { type => 'A', text => '管理者発言' },
+        { type => 'I', text => 'システム(公開)' },
+        { type => 'i', text => 'システム(非公開)' },
+        { type => 'D', text => '削除発言' },
+        { type => 'd', text => '削除発言(管理者)' },
     );
-    for ( $i = 0 ; $i < @logmestype ; $i++ ) {
+
+    for my $elem (@logmestypearray) {
         my $enable = 'enable';
         $enable = 'disenable'
           if ( $sow->{'filter'}->{'typefilter'}->[$i] eq '1' );
-        print "  <div id=\"typefilter_$logmestype[$i]\"";
+        print "  <div id=\"typefilter_$elem->{'type'}\"";
         print " class=\"sayfilter_content_$enable\"";
-        print " onclick=\"changeFilterByCheckBoxMesType('$logmestype[$i]');\"";
+        print " onclick=\"changeFilterByCheckBoxMesType('$elem->{'type'}');\"";
 
-        #		print " onkeypress=\"changeFilterByCheckBoxMesType('$logmestype[$i]');\"";
         print "><div class=\"sayfilter_incontent\">";
-        print "<input id=\"checktypefilter_$logmestype[$i]\"";
-        print " $atr_id=\"checktypefilter_$logmestype[$i]\""
+        print "<input id=\"checktypefilter_$elem->{'type'}\"";
+        print " $atr_id=\"checktypefilter_$elem->{'type'}\""
           if ( $atr_id ne 'id' );
         print " style=\"display: none;\"";
         print " type=\"checkbox\"";
         print " $sow->{'html'}->{'checked'}"
           if ( $sow->{'filter'}->{'typefilter'}->[$i] ne '1' );
-        print "$net>$logmestypetext[$i]";
+        print "$net>$elem->{'text'}";
         print "</div></div>\n";
     }
 
@@ -185,7 +195,7 @@ sub OutHTMLSayFilterPlayers {
       if ( @filterlist > 0 );
 
     my $i = 0;
-    $display = '';
+    $display    = '';
     @filterlist = sort { $a->{'deathday'} <=> $b->{'deathday'} or $a->{'pno'} <=> $b->{'pno'} } @filterlist
       if ( $livetype ne 'live' );
     foreach (@filterlist) {
