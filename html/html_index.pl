@@ -228,15 +228,15 @@ _HTML_
 </p>
 
 <ul>
-  <li><a href="http://www.wolfg.x0.com/">人狼BBS</a></li>
-  <li><a href="http://wolfbbs.jp/">人狼BBS まとめサイト</a></li>
-  <li><!--a href="http://www.juna.net/game/wolf/" -->人狼審問 - Neighbour Wolves -<!-- /a --> (終了)</li>
-  <li><a href="http://mshe.skr.jp/">人狼BBQ 四国</a></li>
-  <li><!-- a href="http://shadow.s63.xrea.com/jinro2/index.cgi" -->汝は人狼なりや？Shadow Gallery Ver 2.0<!-- /a -->（終了）</li>
-  <li><!-- a href="http://nekorin.minidns.net/headless/" -->The Village of Headless Knight<!-- /a --> (一時休止中)</li>
-  <li><!-- a href="http://www.bonstato.com/werewolves/" -->人狼(oikosバージョン)<!--/a-->（終了）</li>
-  <li><!-- a href="http://werewolves.jp/" -->人狼の悪夢 (閉鎖)<!-- /a --></li>
-  <li>おとぎの国の人狼（欧州）（閉鎖）</li>
+  <li><a href="https://ninjinix.x0.com/wolfg/">人狼BBS</a></li>
+  <li>人狼BBS まとめサイト</li>
+  <li>人狼審問 - Neighbour Wolves - </li>
+  <li>人狼BBQ 四国</li>
+  <li>汝は人狼なりや？Shadow Gallery Ver 2.0</li>
+  <li>The Village of Headless Knight</li>
+  <li>人狼(oikosバージョン)</li>
+  <li>人狼の悪夢</li>
+  <li>おとぎの国の人狼（欧州）</li>
 </ul>
 <hr class="invisible_hr"$net>
 
