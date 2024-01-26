@@ -1,5 +1,14 @@
+# ˆø”‚Ì“Ç‚İ‚İ
+if [ "$1" = "--prod" ]; then
+    CREDS_FILE="ftp_info.prod.txt"
+elif [ "$1" = "--stg" ]; then
+    CREDS_FILE="ftp_info.stg.txt"
+else
+    echo "Usage: deploy.sh [--prod | --stg]"
+    exit 1
+fi
+
 # ”FØî•ñ‚Ì“Ç‚İ‚İ
-CREDS_FILE=$1
 FTP_USER=$(head -n 1 $CREDS_FILE)
 FTP_PASS=$(head -n 2 $CREDS_FILE | tail -n 1)
 FTP_HOST=$(head -n 3 $CREDS_FILE | tail -n 1)
@@ -11,6 +20,7 @@ chmod 755 sow.cgi
 
 # ‘æ2ˆø”‚ª‚È‚¢ê‡‚Í --dry-run ‚ğw’è
 if [ -z $2 ]; then
+    echo "Dry run mode"
     DRYRUN="--dry-run"
 fi
 
