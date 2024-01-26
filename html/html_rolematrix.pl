@@ -11,14 +11,14 @@ sub OutHTMLRoleMatrix {
     require "$cfg->{'DIR_LIB'}/setrole.pl";
     require "$cfg->{'DIR_HTML'}/html.pl";
 
-    $sow->{'html'} = SWHtml->new($sow);    # HTMLモードの初期化
+    $sow->{'html'} = SWHtml->new($sow);           # HTMLモードの初期化
     my $net     = $sow->{'html'}->{'net'};        # Null End Tag
     my $outhttp = $sow->{'http'}->outheader();    # HTTPヘッダの出力
     return if ( $outhttp == 0 );                  # ヘッダ出力のみ
-    $sow->{'html'}->outheader('役職配分表\\');    # HTMLヘッダの出力
+    $sow->{'html'}->outheader('役職配分表\ ');         # HTMLヘッダの出力
     $sow->{'html'}->outcontentheader();
 
-    &SWHtmlPC::OutHTMLLogin($sow);                     # ログイン欄の出力
+    &SWHtmlPC::OutHTMLLogin($sow);                # ログイン欄の出力
 
     my %vil = ( trsid => $sow->{'cfg'}->{'DEFAULT_TEXTRS'}, );
     &SWBase::LoadTextRS( $sow, \%vil );

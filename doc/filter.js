@@ -449,8 +449,6 @@ function initFilter() {
 		const data = cookies[i].split('=');
 		if (data[0] == `filter_${vid}`) {
 			const obj = JSON.parse(data[1]);
-			fixedfilter = obj.fixedfilter;
-			layoutfilter = obj.layoutfilter;
 			mestypefilter = obj.mestypefilter;
 			lumpfilter = obj.lumpfilter;
 			pnofilter = obj.pnofilter;
@@ -466,6 +464,10 @@ function initFilter() {
 				}
 			}
 			livetypes = obj.livetypes;
+		} else if (data[0] == 'fixedfilter') {
+			fixedfilter = data[1];
+		} else if (data[0] == 'layoutfilter') {
+			layoutfilter = data[1];
 		}
 	}
 
@@ -596,9 +598,12 @@ function writeCookieFilter() {
 	const query = window.location.search;
 	const urlParams = new URLSearchParams(query);
 	const vid = urlParams.get('vid');
-	const obj = { fixedfilter, layoutfilter, mestypefilter, lumpfilter, pnofilter, typefilter, livetypes };
+	const obj = { mestypefilter, lumpfilter, pnofilter, typefilter, livetypes };
 	const json = JSON.stringify(obj);
 	document.cookie = `filter_${vid}=${json}${expires}`;
+	document.cookie = 'fixedfilter=' + fixedfilter + expires;
+	document.cookie = 'layoutfilter=' + layoutfilter + expires;
+
 }
 
 $(document).ready(function () {

@@ -5,7 +5,8 @@ RUN apt-get -y update && apt-get -y install \
         curl \
         vim \
         git \
-        perltidy
+        perltidy \
+        lftp
 
 ENV APACHE_RUN_USER www-data
 ENV APACHE_RUN_GROUP www-data

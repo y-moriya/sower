@@ -356,7 +356,7 @@ sub GetConfig {
         '霧雨降る街 by <a href="http://misty-rain.sakura.ne.jp/fall0rain/">きりのれいん</a>',
     );
 
-    # キャッシュクリアのためファイル名に日付を入れた。（更新忘れそう）
+    # キャッシュクリアのためファイル名に日付を入れた。
     my %css_default = (
         TITLE => '標準スタイル',
         FILE  => 'sow.css?date=' . $lastupdate,
@@ -365,19 +365,19 @@ sub GetConfig {
 
     my %css_text = (
         TITLE => '簡易表示',
-        FILE  => 'text.css?date' . $lastupdate,
+        FILE  => 'text.css?date=' . $lastupdate,
         WIDTH => 600,
     );
 
     my %css_junawide = (
         TITLE => '審問風',
-        FILE  => 'junawide.css?date' . $lastupdate,
+        FILE  => 'junawide.css?date=' . $lastupdate,
         WIDTH => 582,
     );
 
     my %css_rem = (
         TITLE            => 'Style-R (default)',
-        FILE             => 'rem.css?date' . $lastupdate,
+        FILE             => 'rem.css?date=' . $lastupdate,
         WIDTH            => 600,
         FILE_TOPBANNER   => 'remcss/remheader.png',
         WIDTH_TOPBANNER  => 600,
@@ -470,7 +470,7 @@ sub GetConfig {
         view    => \%ratingview,
     );
 
-    my $lastupdate = '20240121';
+    my $lastupdate = '20240126';
 
     my %cfg = (
 
