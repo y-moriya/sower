@@ -18,6 +18,8 @@ doc/img/*
 !img/.gitkeep
 .todo
 _config_local.pl
+_config_local.prod.pl
+_config_local.stg.pl
 config_remote.pl
 
 ftp_info.stg.txt

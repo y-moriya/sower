@@ -2,3 +2,4 @@ username
 password
 host
 remotedir
+_config_local.example.pl
