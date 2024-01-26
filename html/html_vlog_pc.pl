@@ -13,7 +13,7 @@ sub OutHTMLVlogPC {
     my $query = $sow->{'query'};
 
     my $reqvals = &SWBase::GetRequestValues($sow);
-    my $link = &SWBase::GetLinkValues( $sow, $reqvals );
+    my $link    = &SWBase::GetLinkValues( $sow, $reqvals );
     $link = "$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}?$link";
 
     # TODO: parmalinkの場合は該当の発言に飛ぶようにする？
@@ -24,7 +24,7 @@ sub OutHTMLVlogPC {
     # ログID指定表示スイッチ
     my $modesingle = 0;
     $modesingle = 1
-      if ( ( $query->{'logid'} ne '' ) || ( $query->{'ua'} eq 'mb' ) );    # 不具合あったりしないよね？
+      if ( $query->{'logid'} ne '' );
 
     # ログインHTML
     $sow->{'html'}->outcontentheader();
@@ -32,7 +32,7 @@ sub OutHTMLVlogPC {
 
     # 見出し（村名とRSS）
     my $titleupdate = &SWHtmlPC::GetTitleNextUpdate( $sow, $vil );
-    my $linkrss = " <a href=\"$link$amp" . "cmd=rss\">RSS</a>";
+    my $linkrss     = " <a href=\"$link$amp" . "cmd=rss\">RSS</a>";
     my $twitter =
 "<p class=\"return\"><a href=\"https://twitter.com/share\" class=\"twitter-share-button\" data-count=\"horizontal\" data-via=\"webwolves\" data-lang=\"ja\">Tweet</a><script type=\"text/javascript\" src=\"https://platform.twitter.com/widgets.js\"></script></p>";
     $linkrss = '' if ( $cfg->{'ENABLED_RSS'} == 0 );

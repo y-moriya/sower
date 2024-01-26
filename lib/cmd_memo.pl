@@ -51,7 +51,7 @@ sub OutHTMLCmdMemo {
       if ( $sow->{'turn'} > $vil->{'epilogue'} );    # 終了している時は終了日
 
     # メモファイル・村ログファイルを開く
-    my $logfile = SWBoa->new( $sow, $vil, $turn, 0 );
+    my $logfile  = SWBoa->new( $sow, $vil, $turn, 0 );
     my $memofile = SWSnake->new( $sow, $vil, $turn, 0 );
 
     # タイトルの取得
@@ -72,7 +72,7 @@ sub OutHTMLCmdMemo {
     $maxrow = $query->{'row'}
       if ( defined( $query->{'row'} ) && ( $query->{'row'} ne '' ) );
     $query->{'rowall'} = 'on'
-      if ( ( ( $ua ne 'mb' ) ) && ( $sow->{'turn'} < $vil->{'turn'} ) );
+      if ( $sow->{'turn'} < $vil->{'turn'} );
     $maxrow = -1 if ( ( $maxrow eq 'all' ) || ( $query->{'rowall'} ne '' ) );
     $maxrow = -1 if ( $sow->{'outmode'} eq 'pc' );
 
@@ -90,14 +90,8 @@ sub OutHTMLCmdMemo {
     $sow->{'lock'}->gunlock();
 
     # HTMLの出力
-    if ( $ua eq 'mb' ) {
-        require "$cfg->{'DIR_HTML'}/html_memo_mb.pl";
-        &SWHtmlMemoMb::OutHTMLMemoMb( $sow, $vil, $logfile, $memofile, $maxrow, $logs, $logkeys, $rows );
-    }
-    else {
-        require "$cfg->{'DIR_HTML'}/html_memo_pc.pl";
-        &SWHtmlMemoPC::OutHTMLMemoPC( $sow, $vil, $logfile, $memofile, $maxrow, $logs, $logkeys, $rows );
-    }
+    require "$cfg->{'DIR_HTML'}/html_memo_pc.pl";
+    &SWHtmlMemoPC::OutHTMLMemoPC( $sow, $vil, $logfile, $memofile, $maxrow, $logs, $logkeys, $rows );
     $memofile->close();
     $logfile->close();
 

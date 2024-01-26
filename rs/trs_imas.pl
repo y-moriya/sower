@@ -219,13 +219,9 @@ sub GetTextRS {
 
         # ボタンのラベル
         BUTTONLABEL_PC  => '_BUTTON_ / 更新',
-        BUTTONLABEL_MB  => '_BUTTON_',
         CAPTION_SAY_PC  => '発言',
-        CAPTION_SAY_MB  => '発言',
         CAPTION_TSAY_PC => '独り言',
-        CAPTION_TSAY_MB => '独り言',
         CAPTION_GSAY_PC => '死者のうめき',
-        CAPTION_GSAY_MB => 'うめき',
         CAPTION_ROLESAY => \@caption_rolesay,
 
         ANNOUNCE_FIRST       => \@announce_first,

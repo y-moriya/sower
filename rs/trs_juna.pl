@@ -220,13 +220,9 @@ sub GetTextRS {
 
         # ƒ{ƒ^ƒ“‚Ìƒ‰ƒxƒ‹
         BUTTONLABEL_PC  => '_BUTTON_',
-        BUTTONLABEL_MB  => '_BUTTON_',
         CAPTION_SAY_PC  => '”­Œ¾',
-        CAPTION_SAY_MB  => '”­Œ¾',
         CAPTION_TSAY_PC => '“Æ‚èŒ¾',
-        CAPTION_TSAY_MB => '“Æ‚èŒ¾',
         CAPTION_GSAY_PC => '™ï‚«',
-        CAPTION_GSAY_MB => '™ï‚«',
         CAPTION_ROLESAY => \@caption_rolesay,
 
         ANNOUNCE_FIRST       => \@announce_first,

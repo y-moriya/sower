@@ -47,9 +47,6 @@ sub outhtml {
   <li><a href="#randomtext">ランダム表\示機能\</a></li>
   <li><a href="#filter">発言フィルタ</a></li>
   <li><a href="#makeviloption">村作成オプションの説明</a></li>
-  <li><a href="#mbnavi">携帯モードのナビゲータ説明</a></li>
-  <li><a href="#accesskeyvlog">携帯モードでのアクセスキー一覧（村ログ表\示時）</a></li>
-  <li><a href="#accesskeywrform">携帯モードでのアクセスキー一覧（書き込み画面表\示時）</a></li>
 </ul>
 <hr class="invisible_hr"$net>
 
@@ -385,129 +382,6 @@ sub outhtml {
   <dt>閲覧制限</dt>
   <dd><p class="paragraph">年齢制限が必要な内容の企画村を行いたいときなどに、年齢制限をしめすアイコンを村一覧に表\示することができるようになります。</p></dd>
 </dl>
-<hr class="invisible_hr"$net>
-
-<h3><a $atr_id="mbnavi">携帯モードのナビゲータ説明</a></h3>
-<div class="paragraph">
-<table border="1" summary="携帯モードのナビゲータ説明">
-<tr>
-  <th>文字</th>
-  <th>説明</th>
-</tr>
-
-<tr>
-  <td>Pxx</td>
-  <td>xxページ目を表\示</td>
-</tr>
-
-<tr>
-  <td>＜</td>
-  <td>前のページへ移動</td>
-</tr>
-
-<tr>
-  <td>＞</td>
-  <td>次のページへ移動</td>
-</tr>
-
-<tr>
-  <td>頭</td>
-  <td>その日のログ（またはメモ）の先頭へ移動</td>
-</tr>
-
-<tr>
-  <td>末</td>
-  <td>その日のログ（またはメモ）の一番最後へ移動</td>
-</tr>
-
-<tr>
-  <td>新</td>
-  <td>最新日の一番最後（最新）へ移動</td>
-</tr>
-
-<tr>
-  <td>書</td>
-  <td>発言欄／能\力欄を表\示</td>
-</tr>
-
-<tr>
-  <td>設</td>
-  <td>表\示行数／表\示順序の設定欄を表\示</td>
-</tr>
-
-<tr>
-  <td>上</td>
-  <td>画面の一番上へ移動</td>
-</tr>
-
-<tr>
-  <td>下</td>
-  <td>画面の一番下へ移動</td>
-</tr>
-</table>
-</div>
-<hr class="invisible_hr"$net>
-
-<h3><a $atr_id="accesskeyvlog">携帯モードでのアクセスキー一覧（村ログ表\示時）</a></h3>
-
-<div class="paragraph">
-<table border="1" summary="村ログ表\示時のアクセスキー一覧">
-<tr>
-  <td>1<br$net>その日のログの先頭</td>
-  <td>2<br$net>ページの先頭</td>
-  <td>3<br$net>村の情報</td>
-</tr>
-
-<tr>
-  <td>4<br$net>前のページ</td>
-  <td>5<br$net>最新</td>
-  <td>6<br$net>次のページ</td>
-</tr>
-
-<tr>
-  <td>7<br$net>書き込み画面</td>
-  <td>8<br$net>ページの末尾</td>
-  <td>9<br$net>その日のログの最後</td>
-</tr>
-
-<tr>
-  <td>*<br$net>ログ（メモ表\示時）</td>
-  <td>0<br$net>メモ</td>
-  <td>#<br$net>メモ履歴</td>
-</tr>
-</table>
-</div>
-<hr class="invisible_hr"$net>
-
-<h3><a $atr_id="accesskeywrform">携帯モードでのアクセスキー一覧（書き込み画面表\示時）</a></h3>
-
-<div class="paragraph">
-<table border="1" summary="書き込み画面表\示時のアクセスキー一覧">
-<tr>
-  <td>1<br$net>　</td>
-  <td>2<br$net>発言入力欄</td>
-  <td>3<br$net>　</td>
-</tr>
-
-<tr>
-  <td>4<br$net>前の画面へ戻る</td>
-  <td>5<br$net>　</td>
-  <td>6<br$net>アクション入力欄</td>
-</tr>
-
-<tr>
-  <td>7<br$net>　</td>
-  <td>8<br$net>能\力者欄</td>
-  <td>9<br$net>　</td>
-</tr>
-
-<tr>
-  <td>*<br$net>　</td>
-  <td>0<br$net>　</td>
-  <td>#<br$net>　</td>
-</tr>
-</table>
-</div>
 <hr class="invisible_hr"$net>
 
 _HTML_

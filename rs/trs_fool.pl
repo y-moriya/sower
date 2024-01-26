@@ -191,13 +191,9 @@ sub GetTextRS {
         ANNOUNCE_SETTARGET     => '_NAME_ は、なんとなく _TARGET_ を能力（_ABILITY_）の対象に選んでみた。',
 
         BUTTONLABEL_PC  => '_BUTTON_ / 更新',
-        BUTTONLABEL_MB  => '_BUTTON_',
         CAPTION_SAY_PC  => '言う',
-        CAPTION_SAY_MB  => '言う',
         CAPTION_TSAY_PC => '寝言',
-        CAPTION_TSAY_MB => '寝言',
         CAPTION_GSAY_PC => '騒ぐ',
-        CAPTION_GSAY_MB => '騒ぐ',
         CAPTION_ROLESAY => \@caption_rolesay,
 
         ANNOUNCE_FIRST       => \@announce_first,

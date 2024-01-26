@@ -14,19 +14,6 @@ sub CmdVLog {
 }
 
 #----------------------------------------
-# 携帯用顔グラ表示
-#----------------------------------------
-sub CmdMbImg {
-    my $sow = $_[0];
-
-    # データ処理
-    my $vil = &SetDataCmdVLog($sow);
-
-    # HTML出力
-    &OutHTMLCmdMbImg( $sow, $vil );
-}
-
-#----------------------------------------
 # データ処理
 #----------------------------------------
 sub SetDataCmdVLog {
@@ -146,11 +133,10 @@ sub OutHTMLCmdVLog {
     $sow->{'html'}->outheader($title);
 
     # 表示行数の設定
-    my $maxrow = $sow->{'cfg'}->{'MAX_ROW'};    # 標準行数
+    my $maxrow = $sow->{'cfg'}->{'MAX_ROW'};                             # 標準行数
     $maxrow = $query->{'row'}
       if ( defined( $query->{'row'} ) && ( $query->{'row'} ne '' ) );    # 引数による行数指定
 
-    #	$query->{'rowall'} = 'on' if ((($ua ne 'mb')) && ($sow->{'turn'} < $vil->{'turn'})); # 自動全表示
     $maxrow = -1
       if ( ( $maxrow eq 'all' ) || ( $query->{'rowall'} ne '' ) );       # 引数による全表示指定
 
@@ -164,54 +150,12 @@ sub OutHTMLCmdVLog {
     $sow->{'lock'}->gunlock();
 
     # HTMLの出力
-    if ( $ua eq 'mb' ) {
-        require "$cfg->{'DIR_HTML'}/html_vlog_mb.pl";
-        &SWHtmlVlogMb::OutHTMLVlogMb( $sow, $vil, $logfile, $maxrow, $logs, $logkeys, $rows );
-    }
-    else {
-        require "$cfg->{'DIR_HTML'}/html_vlog_pc.pl";
-        require "$cfg->{'DIR_HTML'}/html_sayfilter.pl";
-        &SWHtmlVlogPC::OutHTMLVlogPC( $sow, $vil, $logfile, $maxrow, $logs, $logkeys, $rows );
-    }
+    require "$cfg->{'DIR_HTML'}/html_vlog_pc.pl";
+    require "$cfg->{'DIR_HTML'}/html_sayfilter.pl";
+    &SWHtmlVlogPC::OutHTMLVlogPC( $sow, $vil, $logfile, $maxrow, $logs, $logkeys, $rows );
     $logfile->close();
 
     $sow->{'html'}->outfooter();    # HTMLフッタの出力
-    $sow->{'http'}->outfooter();
-}
-
-#----------------------------------------
-# 顔グラHTML出力
-#----------------------------------------
-sub OutHTMLCmdMbImg {
-    my ( $sow, $vil ) = @_;
-    my $cfg   = $sow->{'cfg'};
-    my $query = $sow->{'query'};
-    my $ua    = $sow->{'outmode'};
-
-    # HTML出力用ライブラリの読み込み
-    require "$cfg->{'DIR_HTML'}/html.pl";
-    require "$cfg->{'DIR_HTML'}/html_vlog.pl";
-
-    $sow->{'cookie'}->{'modified'} = 'js'
-      if ( !defined( $sow->{'cookie'}->{'modified'} ) );
-
-    my $title = '顔画像';
-
-    # HTMLモードの初期化
-    $sow->{'html'} = SWHtml->new($sow);
-    my $net = $sow->{'html'}->{'net'};    # Null End Tag
-    my $amp = $sow->{'html'}->{'amp'};
-
-    # HTTPヘッダ・HTMLヘッダの出力
-    my $outhttp = $sow->{'http'}->outheader();
-    return if ( $outhttp == 0 );          # ヘッダ出力のみ
-    $sow->{'html'}->outheader($title);
-
-    # HTMLの出力
-    require "$cfg->{'DIR_HTML'}/html_vlog_mb.pl";
-    &SWHtmlVlogMb::OutHTMLMbImg( $sow, $vil );
-
-    $sow->{'html'}->outfooter();          # HTMLフッタの出力
     $sow->{'http'}->outfooter();
 }
 
@@ -420,7 +364,7 @@ sub SetLinkElements {
     my $amp = $sow->{'html'}->{'amp'};
 
     my $reqvals = &SWBase::GetRequestValues($sow);
-    my $link = &SWBase::GetLinkValues( $sow, $reqvals );
+    my $link    = &SWBase::GetLinkValues( $sow, $reqvals );
     $link = "$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}?$link";
     my @links = ();
 

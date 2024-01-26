@@ -126,20 +126,13 @@ sub CheckUA {
     }
 
     # uaˆø””FŽ¯
-    my @ualist = ( 'ihtml', 'hdml', 'au', 'voda', 'vodax', 'xhtml', 'html401', 'rss' );
+    my @ualist = ( 'html401', 'rss' );
     foreach (@ualist) {
         $ua = $_ if ( $sow->{'query'}->{'ua'} eq $_ );
     }
-    $ua = 'ihtml'                       if ( $sow->{'query'}->{'ua'} eq 'mb' );
     $ua = $sow->{'cfg'}->{'DEFAULT_UA'} if ( $ua eq '' );
 
     my $outmode = 'pc';
-    $outmode = 'mb'  if ( $ua eq 'ihtml' );
-    $outmode = 'mb'  if ( $ua eq 'hdml' );
-    $outmode = 'mb'  if ( $ua eq 'au' );
-    $outmode = 'mb'  if ( $ua eq 'sb' );
-    $outmode = 'mb'  if ( $ua eq 'vodax' );
-    $outmode = 'mb'  if ( $ua eq 'voda' );
     $outmode = 'rss' if ( $ua eq 'rss' );
 
     return ( $ua, $outmode );
@@ -255,16 +248,15 @@ sub GetLinkValues {
     my ( $pkg, $fname, $line ) = caller;
 
     my %shortquery = (
-        cmd      => 'c',
-        logid    => 'l',
-        mode     => 'm',
-        order    => 'o',
-        pwd      => 'p',
-        row      => 'r',
-        turn     => 't',
-        uid      => 'u',
-        vid      => 'v',
-        mbsayimg => 'i',
+        cmd   => 'c',
+        logid => 'l',
+        mode  => 'm',
+        order => 'o',
+        pwd   => 'p',
+        row   => 'r',
+        turn  => 't',
+        uid   => 'u',
+        vid   => 'v',
     );
 
     my @keys = keys(%$reqvals);
@@ -272,10 +264,7 @@ sub GetLinkValues {
         next                if ( !defined( $reqvals->{$_} ) );
         next                if ( $reqvals->{$_} eq '' );
         $linkvalues .= $amp if ( $linkvalues ne '' );
-        my $key = $_;
-        $key = $shortquery{$_}
-          if ( ( defined( $shortquery{$_} ) )
-            && ( $sow->{'outmode'} eq 'mb' ) );
+        my $key  = $_;
         my $data = &EncodeURL( $reqvals->{$_} );
         $linkvalues .= "$key=$data";
     }
@@ -299,10 +288,10 @@ sub GetRequestValues {
         @basereqkeys = ( 'cmd', 'vid', 'row' );
     }
     elsif ( defined( $query->{'vid'} ) ) {
-        @basereqkeys = ( 'ua', 'uid', 'pwd', 'order', 'row', 'css', 'vid', 'turn', 'mode', 'pno', 'mbsayimg', 'ghost' );
+        @basereqkeys = ( 'ua', 'uid', 'pwd', 'order', 'row', 'css', 'vid', 'turn', 'mode', 'pno', 'ghost' );
     }
     else {
-        @basereqkeys = ( 'ua', 'uid', 'pwd', 'order', 'row', 'css', 'mbsayimg' );
+        @basereqkeys = ( 'ua', 'uid', 'pwd', 'order', 'row', 'css' );
     }
     push( @$reqkeys, @basereqkeys );
 

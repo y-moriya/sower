@@ -45,8 +45,6 @@ sub OutHTMLIndex {
     if ( $cfg->{'ENABLED_MENU'} > 0 ) {
         my $savecss = $reqvals->{'css'};
         $reqvals->{'css'} = '';
-        $reqvals->{'ua'}  = 'mb';
-        my $linkmb  = &SWBase::GetLinkValues( $sow, $reqvals );
         my $urlhome = '';
         $urlhome = "<a href=\"$cfg->{'URL_HOME'}\">$cfg->{'NAME_HOME'}</a>/"
           if ( ( $cfg->{'URL_HOME'} ne '' )
@@ -55,7 +53,6 @@ sub OutHTMLIndex {
         $supportbbs = "<a href=\"$cfg->{'URL_BBS_PC'}\">$cfg->{'NAME_BBS_PC'}</a>/"
           if ( $cfg->{'URL_BBS_PC'} ne '' );
 
-        $reqvals->{'ua'} = '';
         my $hidden = &SWBase::GetHiddenValues( $sow, $reqvals, '  ' );
         $reqvals->{'css'} = $savecss;
 

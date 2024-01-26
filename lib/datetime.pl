@@ -35,7 +35,7 @@ sub cvtdt {
         "%4d/%02d/%02d(%s) %02d:%02d:%02d",
         $year + 1900,
         ++$mon, $day, ( 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat' )[$week],
-        $hour, $min, $sec
+        $hour,  $min, $sec
     );
 
     return $result;
@@ -53,14 +53,14 @@ sub cvtdtsht {
         "%4d/%02d/%02d(%s) %02d:%02d頃",
         $year + 1900,
         ++$mon, $day, ( 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat' )[$week],
-        $hour, $min
+        $hour,  $min
     );
 
     return $result;
 }
 
 #----------------------------------------
-# 日時の変換（モバイル向け短縮形）
+# 日時の変換（モバイル向け短縮形） RSSで利用しているので残す
 #----------------------------------------
 sub cvtdtmb {
     my ( $self, $dt ) = @_;
@@ -72,7 +72,7 @@ sub cvtdtmb {
 }
 
 #----------------------------------------
-# 日時の変換（モバイル向け簡略表示）
+# 日時の変換（モバイル向け簡略表示） RSSで利用しているので残す
 #----------------------------------------
 sub cvtdtmbsht {
     my ( $self, $dt ) = @_;

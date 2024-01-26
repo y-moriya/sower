@@ -12,21 +12,13 @@ sub CmdExtend {
     my $vil = &SetDataCmdExtend($sow);
 
     # HTTP/HTML出力
-    if ( $sow->{'outmode'} eq 'mb' ) {
+    my $reqvals = &SWBase::GetRequestValues($sow);
+    my $link    = &SWBase::GetLinkValues( $sow, $reqvals );
+    $link = "$cfg->{'URL_SW'}/$cfg->{'FILE_SOW'}?$link#newsay";
 
-        # 村ログ表示
-        require "$sow->{'cfg'}->{'DIR_LIB'}/cmd_vlog.pl";
-        &SWCmdVLog::OutHTMLCmdVLog( $sow, $vil );
-    }
-    else {
-        my $reqvals = &SWBase::GetRequestValues($sow);
-        my $link = &SWBase::GetLinkValues( $sow, $reqvals );
-        $link = "$cfg->{'URL_SW'}/$cfg->{'FILE_SOW'}?$link#newsay";
-
-        $sow->{'http'}->{'location'} = "$link";
-        $sow->{'http'}->outheader();    # HTTPヘッダの出力
-        $sow->{'http'}->outfooter();
-    }
+    $sow->{'http'}->{'location'} = "$link";
+    $sow->{'http'}->outheader();    # HTTPヘッダの出力
+    $sow->{'http'}->outfooter();
 }
 
 #----------------------------------------

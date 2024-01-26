@@ -12,19 +12,13 @@ sub CmdCancel {
     my $vil = &SetDataCmdCancel($sow);
 
     # HTTP/HTML出力
-    if ( $sow->{'outmode'} eq 'mb' ) {
-        require "$cfg->{'DIR_LIB'}/cmd_vlog.pl";
-        &SWCmdVLog::OutHTMLCmdVLog( $sow, $vil );
-    }
-    else {
-        my $reqvals = &SWBase::GetRequestValues($sow);
-        my $link = &SWBase::GetLinkValues( $sow, $reqvals );
-        $link = "$cfg->{'URL_SW'}/$cfg->{'FILE_SOW'}?$link#newsay";
+    my $reqvals = &SWBase::GetRequestValues($sow);
+    my $link    = &SWBase::GetLinkValues( $sow, $reqvals );
+    $link = "$cfg->{'URL_SW'}/$cfg->{'FILE_SOW'}?$link#newsay";
 
-        $sow->{'http'}->{'location'} = "$link";
-        $sow->{'http'}->outheader();    # HTTPヘッダの出力
-        $sow->{'http'}->outfooter();
-    }
+    $sow->{'http'}->{'location'} = "$link";
+    $sow->{'http'}->outheader();    # HTTPヘッダの出力
+    $sow->{'http'}->outfooter();
 }
 
 #----------------------------------------

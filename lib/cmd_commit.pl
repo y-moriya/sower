@@ -12,19 +12,13 @@ sub CmdCommit {
     my $vil = &SetDataCmdCommit($sow);
 
     # HTTP/HTML出力
-    if ( $sow->{'outmode'} eq 'mb' ) {
-        require "$sow->{'cfg'}->{'DIR_LIB'}/cmd_wrformmb.pl";
-        &SWCmdWriteFormMb::CmbWriteFormMb($sow);
-    }
-    else {
-        my $reqvals = &SWBase::GetRequestValues($sow);
-        my $link = &SWBase::GetLinkValues( $sow, $reqvals );
-        $link = "$cfg->{'URL_SW'}/$cfg->{'FILE_SOW'}?$link#newsay";
+    my $reqvals = &SWBase::GetRequestValues($sow);
+    my $link    = &SWBase::GetLinkValues( $sow, $reqvals );
+    $link = "$cfg->{'URL_SW'}/$cfg->{'FILE_SOW'}?$link#newsay";
 
-        $sow->{'http'}->{'location'} = "$link";
-        $sow->{'http'}->outheader();    # HTTPヘッダの出力
-        $sow->{'http'}->outfooter();
-    }
+    $sow->{'http'}->{'location'} = "$link";
+    $sow->{'http'}->outheader();    # HTTPヘッダの出力
+    $sow->{'http'}->outfooter();
 }
 
 #----------------------------------------
@@ -51,14 +45,10 @@ sub SetDataCmdCommit {
     # 参加チェック
     $sow->{'debug'}->raise( $sow->{'APLOG_CAUTION'}, "あなたは既に死んでいます。", "you're dead." )
       if ( $curpl->{'live'} ne 'live' );    # 通常起きない
-    $sow->{'debug'}
-      ->raise( $sow->{'APLOG_CAUTION'}, "今日は時間を進める事はできません。", "cannot commit." )
+    $sow->{'debug'}->raise( $sow->{'APLOG_CAUTION'}, "今日は時間を進める事はできません。", "cannot commit." )
       if ( ( $vil->{'turn'} == 0 ) || ( $vil->isepilogue() > 0 ) );    # 通常起きない
-    $sow->{'debug'}->raise(
-        $sow->{'APLOG_CAUTION'},
-        "あなたは未発言です。最低一発言しないと時間を進める事はできません。",
-        "no say."
-    ) if ( $curpl->{'saidcount'} <= 0 );
+    $sow->{'debug'}->raise( $sow->{'APLOG_CAUTION'}, "あなたは未発言です。最低一発言しないと時間を進める事はできません。", "no say." )
+      if ( $curpl->{'saidcount'} <= 0 );
 
     # コミット処理
     my $savecommit = $curpl->{'commit'};

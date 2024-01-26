@@ -8,9 +8,6 @@ sub GetConfig {
     # PCモードの表示件数一覧
     my @row_pc = ( 10, 20, 30, 50, 100, 200 );
 
-    # 携帯モードの表示件数一覧
-    my @row_mb = ( 5, 10, 20, 30, 50, 100 );
-
     # キャラクターセットID
     my @csidlist = ( 'rem', 'sow', 'troika', 'ao', 'wbbs10', 'mistyrain', );
 
@@ -487,8 +484,6 @@ sub GetConfig {
         NAME_TOP     => 'TOP',
         URL_BBS_PC   => 'https://www.twitter.com/euro_s',    # サポート掲示板のURL
         NAME_BBS_PC  => '@euro_s',                           # サポート掲示板の名前
-        URL_BBS_MB   => 'https://www.twitter.com/euro_s',    # サポート掲示板のURL（携帯向け）
-        NAME_BBS_MB  => '@euro_s',                           # サポート掲示板の名前（携帯向け）
 
         MAX_VILLAGES  => 5,                                  # 最大同時稼働村数
         TIMEOUT_SCRAP => 42,                                 # 廃村期限
@@ -496,9 +491,7 @@ sub GetConfig {
 
         MESFIXTIME        => 20,                             # 保留時間
         MAX_ROW           => 50,                             # 標準表示時の行数
-        MAX_ROW_MB        => 10,                             # 標準表示時の行数（モバイル）
         MAX_PAGEROW_PC    => 100,                            # ページ表示時の行数(未使用)
-        MAX_PAGES_MB      => 5,                              # ページリンクの表示数
         ROW_ACTION        => 0,                              # 行数計算にアクションを含むかどうか
         MIN_VSRECORDTOTAL => 2,                              # ｎ戦以上同村している相手のみ、対戦成績を表示
         CANDY_LS          => 5,                              # ｎ個飴を集めると大きくなる
@@ -636,11 +629,6 @@ sub GetConfig {
         # うまく動作しない時は get に設定してみてください。
         METHOD_FORM => 'post',
 
-        # form要素の method属性値（携帯モード）
-        # 大昔の携帯には post を受け付けない物があるらしい。
-        # 最近のならまず大丈夫っぽいけど。
-        METHOD_FORM_MB => 'post',
-
         MAXSIZE_QUERY => 65536,
 
         # 時差
@@ -684,7 +672,6 @@ sub GetConfig {
         CSIDLIST   => \@csidlist,
         TRSIDLIST  => \@trsidlist,
         NOACTLIST  => \@noactlist,
-        ROW_MB     => \@row_mb,
         ROW_PC     => \@row_pc,
         CSS        => \%csslist,
         RATING     => \%rating,

@@ -535,7 +535,6 @@ sub GetVLogsForward {
             }
 
             if (   ( $mode eq 'logid' )
-                && ( $sow->{'outmode'} ne 'mb' )
                 && ( $query->{'move'} ne 'page' )
                 && ( $skip == 0 ) )
             {
@@ -631,7 +630,6 @@ sub GetVLogsReverse {
             }
 
             if (   ( $mode eq 'logid' )
-                && ( $sow->{'outmode'} ne 'mb' )
                 && ( $query->{'move'} ne 'page' )
                 && ( $skip == 0 ) )
             {
