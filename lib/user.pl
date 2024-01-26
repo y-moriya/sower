@@ -29,8 +29,10 @@ sub GetFNameUser {
 # ユーザーデータラベル
 #----------------------------------------
 sub GetUserDataLabel {
-    my @datalabel = ( 'uid', 'pwd', 'handlename', 'url', 'introduction', 'parmalink', 'entriedvils', 'penaltydt',
-        'ptype', 'plevel', );
+    my @datalabel = (
+        'uid',         'pwd',       'handlename', 'url', 'introduction', 'parmalink',
+        'entriedvils', 'penaltydt', 'ptype',      'plevel',
+    );
     return @datalabel;
 }
 
@@ -125,9 +127,8 @@ sub LoginSW {
     my ( $self, $chklogin ) = @_;
     my $sow = $self->{'sow'};
 
-    my $src = $sow->{'cookie'};    # クッキーからユーザーIDを取得
-    $src = $sow->{'query'} if ( $sow->{'outmode'} eq 'mb' );    # 携帯モードの時は引数から取得
-    $src = $sow->{'query'} if ( $chklogin == 0 );               # ログイン処理の時は引数から取得
+    my $src = $sow->{'cookie'};                      # クッキーからユーザーIDを取得
+    $src = $sow->{'query'} if ( $chklogin == 0 );    # ログイン処理の時は引数から取得
     if ( !defined( $src->{'uid'} ) ) {
         $src->{'uid'} = '';
         $src->{'pwd'} = '';
@@ -138,12 +139,12 @@ sub LoginSW {
     my $lengthuid = length( $src->{'uid'} );
     $sow->{'debug'}->raise(
         $sow->{'APLOG_NOTICE'},
-"ユーザIDは $sow->{'cfg'}->{'MAXSIZE_USERID'} バイト以内で入力して下さい（$lengthuid バイト）。",
+        "ユーザIDは $sow->{'cfg'}->{'MAXSIZE_USERID'} バイト以内で入力して下さい（$lengthuid バイト）。",
         "uid too long."
     ) if ( $lengthuid > $sow->{'cfg'}->{'MAXSIZE_USERID'} );
     $sow->{'debug'}->raise(
         $sow->{'APLOG_NOTICE'},
-"ユーザIDは $sow->{'cfg'}->{'MINSIZE_USERID'} バイト以上で入力して下さい（$lengthuid バイト）。",
+        "ユーザIDは $sow->{'cfg'}->{'MINSIZE_USERID'} バイト以上で入力して下さい（$lengthuid バイト）。",
         "uid too short."
       )
       if ( ( $lengthuid < $sow->{'cfg'}->{'MINSIZE_USERID'} )
@@ -152,12 +153,12 @@ sub LoginSW {
     my $lengthpwd = length( $src->{'pwd'} );
     $sow->{'debug'}->raise(
         $sow->{'APLOG_NOTICE'},
-"パスワードは $sow->{'cfg'}->{'MAXSIZE_PASSWD'} バイト以内で入力して下さい（$lengthpwd バイト）。",
+        "パスワードは $sow->{'cfg'}->{'MAXSIZE_PASSWD'} バイト以内で入力して下さい（$lengthpwd バイト）。",
         "pwd too long."
     ) if ( $lengthpwd > $sow->{'cfg'}->{'MAXSIZE_PASSWD'} );
     $sow->{'debug'}->raise(
         $sow->{'APLOG_NOTICE'},
-"パスワードは $sow->{'cfg'}->{'MINSIZE_PASSWD'} バイト以上で入力して下さい（$lengthpwd バイト）。",
+        "パスワードは $sow->{'cfg'}->{'MINSIZE_PASSWD'} バイト以上で入力して下さい（$lengthpwd バイト）。",
         "pwd too short."
       )
       if ( ( $lengthpwd < $sow->{'cfg'}->{'MINSIZE_PASSWD'} )
@@ -179,11 +180,8 @@ sub LoginTypeKey {
 
     # TypeKey認証
     eval 'use Authen::TypeKey;';
-    $sow->{'debug'}->raise(
-        $sow->{'APLOG_WARNING'},
-        "Authen::TypeKeyモジュールが見つかりません。",
-        "Authen::TypeKey not found."
-    ) if ( $@ ne '' );
+    $sow->{'debug'}->raise( $sow->{'APLOG_WARNING'}, "Authen::TypeKeyモジュールが見つかりません。", "Authen::TypeKey not found." )
+      if ( $@ ne '' );
     my $src = $sow->{'cookie'};
     $src = $sow->{'query'} if ( $chklogin == 0 );
     if ( !defined( $src->{'sig'} ) ) {
@@ -193,8 +191,7 @@ sub LoginTypeKey {
 
     if ( $src->{'sig'} eq '' ) {
         if ( $chklogin == 0 ) {
-            $sow->{'debug'}
-              ->raise( $sow->{'APLOG_NOTICE'}, "認証データがありません。", "typekey sig not found." );
+            $sow->{'debug'}->raise( $sow->{'APLOG_NOTICE'}, "認証データがありません。", "typekey sig not found." );
         }
         else {
             $self->{'logined'} = -1;
@@ -205,11 +202,7 @@ sub LoginTypeKey {
     my $typekey = new Authen::TypeKey;
     $typekey->token( $sow->{'cfg'}->{'TOKEN_TYPEKEY'} );
     my $result = $typekey->verify($src);
-    $sow->{'debug'}->raise(
-        $sow->{'APLOG_NOTICE'},
-        "ユーザIDかパスワードが間違っています。。",
-        $typekey->errstr()
-    ) if ( $result ne '' );
+    $sow->{'debug'}->raise( $sow->{'APLOG_NOTICE'}, "ユーザIDかパスワードが間違っています。。", $typekey->errstr() ) if ( $result ne '' );
     $self->{'uid'}  = $src->{'name'};
     $self->{'nick'} = $src->{'nick'};
 
@@ -282,11 +275,7 @@ sub match {
     }
     else {
         $pwmatch = 0;
-        $sow->{'debug'}->raise(
-            $sow->{'APLOG_NOTICE'},
-            "ユーザーIDかパスワードが間違っています。",
-            "no match pass.[$self->{'uid'}]"
-        );
+        $sow->{'debug'}->raise( $sow->{'APLOG_NOTICE'}, "ユーザーIDかパスワードが間違っています。", "no match pass.[$self->{'uid'}]" );
     }
     $self->closeuser();
 

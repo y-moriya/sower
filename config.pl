@@ -1,250 +1,247 @@
 package SWConfig;
 
 #----------------------------------------
-# Ý’èƒtƒ@ƒCƒ‹
+# è¨­å®šãƒ•ã‚¡ã‚¤ãƒ«
 #----------------------------------------
 sub GetConfig {
 
-    # PCƒ‚[ƒh‚Ì•\Ž¦Œ”ˆê——
+    # PCãƒ¢ãƒ¼ãƒ‰ã®è¡¨ç¤ºä»¶æ•°ä¸€è¦§
     my @row_pc = ( 10, 20, 30, 50, 100, 200 );
 
-    # Œg‘Ñƒ‚[ƒh‚Ì•\Ž¦Œ”ˆê——
-    my @row_mb = ( 5, 10, 20, 30, 50, 100 );
-
-    # ƒLƒƒƒ‰ƒNƒ^[ƒZƒbƒgID
+    # ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼ã‚»ãƒƒãƒˆID
     my @csidlist = ( 'rem', 'sow', 'troika', 'ao', 'wbbs10', 'mistyrain', );
 
-    # •¶Žš—ñƒŠƒ\[ƒXƒZƒbƒgID
+    # æ–‡å­—åˆ—ãƒªã‚½ãƒ¼ã‚¹ã‚»ãƒƒãƒˆID
     my @trsidlist = ( 'sow', 'wbbs', 'juna', 'fool', 'ao' );
 
-    # act/memo Ý’è—p
+    # act/memo è¨­å®šç”¨
     my @noactlist = (
-        'ƒAƒNƒVƒ‡ƒ“‰ÂAƒƒ‚‰Â',      # 0
-        'ƒAƒNƒVƒ‡ƒ“•s‰ÂAƒƒ‚‰Â',     # 1
-        'ƒAƒNƒVƒ‡ƒ“‰ÂAƒƒ‚•s‰Â',     # 2
-        'ƒAƒNƒVƒ‡ƒ“•s‰ÂAƒƒ‚•s‰Â',    # 3
+        'ã‚¢ã‚¯ã‚·ãƒ§ãƒ³å¯ã€ãƒ¡ãƒ¢å¯',      # 0
+        'ã‚¢ã‚¯ã‚·ãƒ§ãƒ³ä¸å¯ã€ãƒ¡ãƒ¢å¯',     # 1
+        'ã‚¢ã‚¯ã‚·ãƒ§ãƒ³å¯ã€ãƒ¡ãƒ¢ä¸å¯',     # 2
+        'ã‚¢ã‚¯ã‚·ãƒ§ãƒ³ä¸å¯ã€ãƒ¡ãƒ¢ä¸å¯',    # 3
     );
 
     my %infocap = (
-        vname        => '‘º‚Ì–¼‘O',
-        vcomment     => '‘º‚Ìà–¾',
-        csid         => '“oêl•¨',
-        trsid        => '•¶ÍŒn',
-        roletable    => '–ðE”z•ª',
-        updhour      => 'XVŽžŠÔ',
-        updminite    => 'XVŽžŠÔ',
-        updinterval  => 'XVŠÔŠu',
-        entrylimit   => 'ŽQ‰Á§ŒÀ',
-        entrypwd     => 'ŽQ‰ÁƒpƒXƒ[ƒh',
-        rating       => '‰{——§ŒÀ',
-        vplcnt       => '’èˆõ',
-        vplcntstart  => 'Å’áŠJŽnl”',
-        saycnttype   => '”­Œ¾§ŒÀ',
-        randomtarget => 'ƒ‰ƒ“ƒ_ƒ€',
-        noselrole    => '–ðEŠó–]',
-        makersaymenu => 'is’†‚Ì‘ºŒš‚Äl”­Œ¾—“',
-        entrustmode  => 'ˆÏ”C',
-        showall      => '•æ‰ºŒöŠJ',
+        vname        => 'æ‘ã®åå‰',
+        vcomment     => 'æ‘ã®èª¬æ˜Ž',
+        csid         => 'ç™»å ´äººç‰©',
+        trsid        => 'æ–‡ç« ç³»',
+        roletable    => 'å½¹è·é…åˆ†',
+        updhour      => 'æ›´æ–°æ™‚é–“',
+        updminite    => 'æ›´æ–°æ™‚é–“',
+        updinterval  => 'æ›´æ–°é–“éš”',
+        entrylimit   => 'å‚åŠ åˆ¶é™',
+        entrypwd     => 'å‚åŠ ãƒ‘ã‚¹ãƒ¯ãƒ¼ãƒ‰',
+        rating       => 'é–²è¦§åˆ¶é™',
+        vplcnt       => 'å®šå“¡',
+        vplcntstart  => 'æœ€ä½Žé–‹å§‹äººæ•°',
+        saycnttype   => 'ç™ºè¨€åˆ¶é™',
+        randomtarget => 'ãƒ©ãƒ³ãƒ€ãƒ ',
+        noselrole    => 'å½¹è·å¸Œæœ›',
+        makersaymenu => 'é€²è¡Œä¸­ã®æ‘å»ºã¦äººç™ºè¨€æ¬„',
+        entrustmode  => 'å§”ä»»',
+        showall      => 'å¢“ä¸‹å…¬é–‹',
         noactmode    => 'act/memo',
-        nocandy      => '‘£‚µ',
-        nofreeact    => 'Ž©—R•¶ƒAƒNƒVƒ‡ƒ“',
-        showid       => 'IDŒöŠJ',
-        timestamp    => 'Žž•\Ž¦',
-        guestmenu    => '–TŠÏŽÒ”­Œ¾',
-        votetype     => '“Š•[•û–@',
-        starttype    => 'ŠJŽn•û–@',
+        nocandy      => 'ä¿ƒã—',
+        nofreeact    => 'è‡ªç”±æ–‡ã‚¢ã‚¯ã‚·ãƒ§ãƒ³',
+        showid       => 'IDå…¬é–‹',
+        timestamp    => 'æ™‚åˆ»è¡¨ç¤º',
+        guestmenu    => 'å‚è¦³è€…ç™ºè¨€',
+        votetype     => 'æŠ•ç¥¨æ–¹æ³•',
+        starttype    => 'é–‹å§‹æ–¹æ³•',
 
     );
 
-    # ”­Œ¾§ŒÀ
+    # ç™ºè¨€åˆ¶é™
     my %saycnt_real = (
-        CAPTION     => 'ƒŠƒA[(500pt)',
-        COUNT_TYPE  => 'point',        # ƒ|ƒCƒ“ƒgŠ¨’è
-        MAX_SAY     => 500,            # ’Êí”­Œ¾‰ñ”
-        MAX_TSAY    => 10000,          # “Æ‚èŒ¾”­Œ¾‰ñ”
-        MAX_WSAY    => 15000,          # š‘‚«”­Œ¾‰ñ”
-        MAX_SPSAY   => 8000,           # ‹¤–Â”­Œ¾‰ñ”
-        MAX_BSAY    => 15000,          # ”O˜b”­Œ¾‰ñ”
-        MAX_GSAY    => 15000,          # ‚¤‚ß‚«”­Œ¾‰ñ”
-        MAX_LSAY    => 15000,          # —öl‚Ìš‘‚«”­Œ¾‰ñ”
-        MAX_PSAY    => 10000,          # ƒvƒƒ[ƒO”­Œ¾‰ñ”
-        MAX_ESAY    => 3000,           # ƒGƒsƒ[ƒO”­Œ¾‰ñ”
-        MAX_SAY_ACT => 24,             # ƒAƒNƒVƒ‡ƒ“‰ñ”
-        ADD_SAY     => 200,            # ‘£‚µ‚Å‘‚¦‚é”­Œ¾‰ñ”
-        MAX_ADDSAY  => 1,              # ‘£‚µ‚Ì‰ñ”
-        MAX_MESCNT  => 1000,           # ˆê”­Œ¾‚ÌÅ‘åƒoƒCƒg”
-        MAX_MESLINE => 25,             # ˆê”­Œ¾‚ÌÅ‘ås”
+        CAPTION     => 'ãƒªã‚¢å……(500pt)',
+        COUNT_TYPE  => 'point',        # ãƒã‚¤ãƒ³ãƒˆå‹˜å®š
+        MAX_SAY     => 500,            # é€šå¸¸ç™ºè¨€å›žæ•°
+        MAX_TSAY    => 10000,          # ç‹¬ã‚Šè¨€ç™ºè¨€å›žæ•°
+        MAX_WSAY    => 15000,          # å›ãç™ºè¨€å›žæ•°
+        MAX_SPSAY   => 8000,           # å…±é³´ç™ºè¨€å›žæ•°
+        MAX_BSAY    => 15000,          # å¿µè©±ç™ºè¨€å›žæ•°
+        MAX_GSAY    => 15000,          # ã†ã‚ãç™ºè¨€å›žæ•°
+        MAX_LSAY    => 15000,          # æ‹äººã®å›ãç™ºè¨€å›žæ•°
+        MAX_PSAY    => 10000,          # ãƒ—ãƒ­ãƒ­ãƒ¼ã‚°ç™ºè¨€å›žæ•°
+        MAX_ESAY    => 3000,           # ã‚¨ãƒ”ãƒ­ãƒ¼ã‚°ç™ºè¨€å›žæ•°
+        MAX_SAY_ACT => 24,             # ã‚¢ã‚¯ã‚·ãƒ§ãƒ³å›žæ•°
+        ADD_SAY     => 200,            # ä¿ƒã—ã§å¢—ãˆã‚‹ç™ºè¨€å›žæ•°
+        MAX_ADDSAY  => 1,              # ä¿ƒã—ã®å›žæ•°
+        MAX_MESCNT  => 1000,           # ä¸€ç™ºè¨€ã®æœ€å¤§ãƒã‚¤ãƒˆæ•°
+        MAX_MESLINE => 25,             # ä¸€ç™ºè¨€ã®æœ€å¤§è¡Œæ•°
     );
 
     my %saycnt_mreal = (
-        CAPTION     => '‚à‚Á‚ÆƒŠƒA[(300pt)',
-        COUNT_TYPE  => 'point',           # ƒ|ƒCƒ“ƒgŠ¨’è
-        MAX_SAY     => 300,               # ’Êí”­Œ¾‰ñ”
-        MAX_TSAY    => 10000,             # “Æ‚èŒ¾”­Œ¾‰ñ”
-        MAX_WSAY    => 15000,             # š‘‚«”­Œ¾‰ñ”
-        MAX_SPSAY   => 8000,              # ‹¤–Â”­Œ¾‰ñ”
-        MAX_BSAY    => 15000,             # ”O˜b”­Œ¾‰ñ”
-        MAX_GSAY    => 20000,             # ‚¤‚ß‚«”­Œ¾‰ñ”
-        MAX_LSAY    => 15000,             # —öl‚Ìš‘‚«”­Œ¾‰ñ”
-        MAX_PSAY    => 10000,             # ƒvƒƒ[ƒO”­Œ¾‰ñ”
-        MAX_ESAY    => 3000,              # ƒGƒsƒ[ƒO”­Œ¾‰ñ”
-        MAX_SAY_ACT => 24,                # ƒAƒNƒVƒ‡ƒ“‰ñ”
-        ADD_SAY     => 200,               # ‘£‚µ‚Å‘‚¦‚é”­Œ¾‰ñ”
-        MAX_ADDSAY  => 1,                 # ‘£‚µ‚Ì‰ñ”
-        MAX_MESCNT  => 1000,              # ˆê”­Œ¾‚ÌÅ‘åƒoƒCƒg”
-        MAX_MESLINE => 25,                # ˆê”­Œ¾‚ÌÅ‘ås”
+        CAPTION     => 'ã‚‚ã£ã¨ãƒªã‚¢å……(300pt)',
+        COUNT_TYPE  => 'point',           # ãƒã‚¤ãƒ³ãƒˆå‹˜å®š
+        MAX_SAY     => 300,               # é€šå¸¸ç™ºè¨€å›žæ•°
+        MAX_TSAY    => 10000,             # ç‹¬ã‚Šè¨€ç™ºè¨€å›žæ•°
+        MAX_WSAY    => 15000,             # å›ãç™ºè¨€å›žæ•°
+        MAX_SPSAY   => 8000,              # å…±é³´ç™ºè¨€å›žæ•°
+        MAX_BSAY    => 15000,             # å¿µè©±ç™ºè¨€å›žæ•°
+        MAX_GSAY    => 20000,             # ã†ã‚ãç™ºè¨€å›žæ•°
+        MAX_LSAY    => 15000,             # æ‹äººã®å›ãç™ºè¨€å›žæ•°
+        MAX_PSAY    => 10000,             # ãƒ—ãƒ­ãƒ­ãƒ¼ã‚°ç™ºè¨€å›žæ•°
+        MAX_ESAY    => 3000,              # ã‚¨ãƒ”ãƒ­ãƒ¼ã‚°ç™ºè¨€å›žæ•°
+        MAX_SAY_ACT => 24,                # ã‚¢ã‚¯ã‚·ãƒ§ãƒ³å›žæ•°
+        ADD_SAY     => 200,               # ä¿ƒã—ã§å¢—ãˆã‚‹ç™ºè¨€å›žæ•°
+        MAX_ADDSAY  => 1,                 # ä¿ƒã—ã®å›žæ•°
+        MAX_MESCNT  => 1000,              # ä¸€ç™ºè¨€ã®æœ€å¤§ãƒã‚¤ãƒˆæ•°
+        MAX_MESLINE => 25,                # ä¸€ç™ºè¨€ã®æœ€å¤§è¡Œæ•°
     );
 
     my %saycnt_mmreal = (
-        CAPTION     => '‚¸‚Á‚ÆƒŠƒA[(200pt)',
-        COUNT_TYPE  => 'point',           # ƒ|ƒCƒ“ƒgŠ¨’è
-        MAX_SAY     => 200,               # ’Êí”­Œ¾‰ñ”
-        MAX_TSAY    => 10000,             # “Æ‚èŒ¾”­Œ¾‰ñ”
-        MAX_WSAY    => 15000,             # š‘‚«”­Œ¾‰ñ”
-        MAX_SPSAY   => 8000,              # ‹¤–Â”­Œ¾‰ñ”
-        MAX_BSAY    => 15000,             # ”O˜b”­Œ¾‰ñ”
-        MAX_GSAY    => 20000,             # ‚¤‚ß‚«”­Œ¾‰ñ”
-        MAX_LSAY    => 15000,             # —öl‚Ìš‘‚«”­Œ¾‰ñ”
-        MAX_PSAY    => 10000,             # ƒvƒƒ[ƒO”­Œ¾‰ñ”
-        MAX_ESAY    => 3000,              # ƒGƒsƒ[ƒO”­Œ¾‰ñ”
-        MAX_SAY_ACT => 24,                # ƒAƒNƒVƒ‡ƒ“‰ñ”
-        ADD_SAY     => 100,               # ‘£‚µ‚Å‘‚¦‚é”­Œ¾‰ñ”
-        MAX_ADDSAY  => 1,                 # ‘£‚µ‚Ì‰ñ”
-        MAX_MESCNT  => 1000,              # ˆê”­Œ¾‚ÌÅ‘åƒoƒCƒg”
-        MAX_MESLINE => 25,                # ˆê”­Œ¾‚ÌÅ‘ås”
+        CAPTION     => 'ãšã£ã¨ãƒªã‚¢å……(200pt)',
+        COUNT_TYPE  => 'point',           # ãƒã‚¤ãƒ³ãƒˆå‹˜å®š
+        MAX_SAY     => 200,               # é€šå¸¸ç™ºè¨€å›žæ•°
+        MAX_TSAY    => 10000,             # ç‹¬ã‚Šè¨€ç™ºè¨€å›žæ•°
+        MAX_WSAY    => 15000,             # å›ãç™ºè¨€å›žæ•°
+        MAX_SPSAY   => 8000,              # å…±é³´ç™ºè¨€å›žæ•°
+        MAX_BSAY    => 15000,             # å¿µè©±ç™ºè¨€å›žæ•°
+        MAX_GSAY    => 20000,             # ã†ã‚ãç™ºè¨€å›žæ•°
+        MAX_LSAY    => 15000,             # æ‹äººã®å›ãç™ºè¨€å›žæ•°
+        MAX_PSAY    => 10000,             # ãƒ—ãƒ­ãƒ­ãƒ¼ã‚°ç™ºè¨€å›žæ•°
+        MAX_ESAY    => 3000,              # ã‚¨ãƒ”ãƒ­ãƒ¼ã‚°ç™ºè¨€å›žæ•°
+        MAX_SAY_ACT => 24,                # ã‚¢ã‚¯ã‚·ãƒ§ãƒ³å›žæ•°
+        ADD_SAY     => 100,               # ä¿ƒã—ã§å¢—ãˆã‚‹ç™ºè¨€å›žæ•°
+        MAX_ADDSAY  => 1,                 # ä¿ƒã—ã®å›žæ•°
+        MAX_MESCNT  => 1000,              # ä¸€ç™ºè¨€ã®æœ€å¤§ãƒã‚¤ãƒˆæ•°
+        MAX_MESLINE => 25,                # ä¸€ç™ºè¨€ã®æœ€å¤§è¡Œæ•°
     );
 
     my %saycnt_mmmreal = (
-        CAPTION     => '‚«‚Á‚ÆƒŠƒA[(100pt)',
-        COUNT_TYPE  => 'point',           # ƒ|ƒCƒ“ƒgŠ¨’è
-        MAX_SAY     => 100,               # ’Êí”­Œ¾‰ñ”
-        MAX_TSAY    => 10000,             # “Æ‚èŒ¾”­Œ¾‰ñ”
-        MAX_WSAY    => 15000,             # š‘‚«”­Œ¾‰ñ”
-        MAX_SPSAY   => 8000,              # ‹¤–Â”­Œ¾‰ñ”
-        MAX_BSAY    => 15000,             # ”O˜b”­Œ¾‰ñ”
-        MAX_GSAY    => 20000,             # ‚¤‚ß‚«”­Œ¾‰ñ”
-        MAX_LSAY    => 15000,             # —öl‚Ìš‘‚«”­Œ¾‰ñ”
-        MAX_PSAY    => 10000,             # ƒvƒƒ[ƒO”­Œ¾‰ñ”
-        MAX_ESAY    => 3000,              # ƒGƒsƒ[ƒO”­Œ¾‰ñ”
-        MAX_SAY_ACT => 24,                # ƒAƒNƒVƒ‡ƒ“‰ñ”
-        ADD_SAY     => 50,                # ‘£‚µ‚Å‘‚¦‚é”­Œ¾‰ñ”
-        MAX_ADDSAY  => 1,                 # ‘£‚µ‚Ì‰ñ”
-        MAX_MESCNT  => 1000,              # ˆê”­Œ¾‚ÌÅ‘åƒoƒCƒg”
-        MAX_MESLINE => 25,                # ˆê”­Œ¾‚ÌÅ‘ås”
+        CAPTION     => 'ãã£ã¨ãƒªã‚¢å……(100pt)',
+        COUNT_TYPE  => 'point',           # ãƒã‚¤ãƒ³ãƒˆå‹˜å®š
+        MAX_SAY     => 100,               # é€šå¸¸ç™ºè¨€å›žæ•°
+        MAX_TSAY    => 10000,             # ç‹¬ã‚Šè¨€ç™ºè¨€å›žæ•°
+        MAX_WSAY    => 15000,             # å›ãç™ºè¨€å›žæ•°
+        MAX_SPSAY   => 8000,              # å…±é³´ç™ºè¨€å›žæ•°
+        MAX_BSAY    => 15000,             # å¿µè©±ç™ºè¨€å›žæ•°
+        MAX_GSAY    => 20000,             # ã†ã‚ãç™ºè¨€å›žæ•°
+        MAX_LSAY    => 15000,             # æ‹äººã®å›ãç™ºè¨€å›žæ•°
+        MAX_PSAY    => 10000,             # ãƒ—ãƒ­ãƒ­ãƒ¼ã‚°ç™ºè¨€å›žæ•°
+        MAX_ESAY    => 3000,              # ã‚¨ãƒ”ãƒ­ãƒ¼ã‚°ç™ºè¨€å›žæ•°
+        MAX_SAY_ACT => 24,                # ã‚¢ã‚¯ã‚·ãƒ§ãƒ³å›žæ•°
+        ADD_SAY     => 50,                # ä¿ƒã—ã§å¢—ãˆã‚‹ç™ºè¨€å›žæ•°
+        MAX_ADDSAY  => 1,                 # ä¿ƒã—ã®å›žæ•°
+        MAX_MESCNT  => 1000,              # ä¸€ç™ºè¨€ã®æœ€å¤§ãƒã‚¤ãƒˆæ•°
+        MAX_MESLINE => 25,                # ä¸€ç™ºè¨€ã®æœ€å¤§è¡Œæ•°
     );
 
     my %saycnt_realcnt = (
-        CAPTION     => 'ƒŠƒA[(5‰ñ)',
-        COUNT_TYPE  => 'count',           # ‰ñ”Š¨’è
-        MAX_SAY     => 5,                 # ’Êí”­Œ¾‰ñ”
-        MAX_TSAY    => 500,               # “Æ‚èŒ¾”­Œ¾‰ñ”
-        MAX_WSAY    => 500,               # š‘‚«”­Œ¾‰ñ”
-        MAX_SPSAY   => 500,               # ‹¤–Â”­Œ¾‰ñ”
-        MAX_BSAY    => 500,               # ”O˜b”­Œ¾‰ñ”
-        MAX_GSAY    => 500,               # ‚¤‚ß‚«”­Œ¾‰ñ”
-        MAX_LSAY    => 500,               # —öl‚Ìš‘‚«”­Œ¾‰ñ”
-        MAX_PSAY    => 500,               # ƒvƒƒ[ƒO”­Œ¾‰ñ”
-        MAX_ESAY    => 600,               # ƒGƒsƒ[ƒO”­Œ¾‰ñ”
-        MAX_SAY_ACT => 15,                # ƒAƒNƒVƒ‡ƒ“‰ñ”
-        ADD_SAY     => 0,                 # ‘£‚µ‚Å‘‚¦‚é”­Œ¾‰ñ”
-        MAX_ADDSAY  => 0,                 # ‘£‚µ‚Ì‰ñ”
-        MAX_MESCNT  => 200,               # ˆê”­Œ¾‚ÌÅ‘å•¶Žš”
-        MAX_MESLINE => 25,                # ˆê”­Œ¾‚ÌÅ‘ås”
+        CAPTION     => 'ãƒªã‚¢å……(5å›ž)',
+        COUNT_TYPE  => 'count',           # å›žæ•°å‹˜å®š
+        MAX_SAY     => 5,                 # é€šå¸¸ç™ºè¨€å›žæ•°
+        MAX_TSAY    => 500,               # ç‹¬ã‚Šè¨€ç™ºè¨€å›žæ•°
+        MAX_WSAY    => 500,               # å›ãç™ºè¨€å›žæ•°
+        MAX_SPSAY   => 500,               # å…±é³´ç™ºè¨€å›žæ•°
+        MAX_BSAY    => 500,               # å¿µè©±ç™ºè¨€å›žæ•°
+        MAX_GSAY    => 500,               # ã†ã‚ãç™ºè¨€å›žæ•°
+        MAX_LSAY    => 500,               # æ‹äººã®å›ãç™ºè¨€å›žæ•°
+        MAX_PSAY    => 500,               # ãƒ—ãƒ­ãƒ­ãƒ¼ã‚°ç™ºè¨€å›žæ•°
+        MAX_ESAY    => 600,               # ã‚¨ãƒ”ãƒ­ãƒ¼ã‚°ç™ºè¨€å›žæ•°
+        MAX_SAY_ACT => 15,                # ã‚¢ã‚¯ã‚·ãƒ§ãƒ³å›žæ•°
+        ADD_SAY     => 0,                 # ä¿ƒã—ã§å¢—ãˆã‚‹ç™ºè¨€å›žæ•°
+        MAX_ADDSAY  => 0,                 # ä¿ƒã—ã®å›žæ•°
+        MAX_MESCNT  => 200,               # ä¸€ç™ºè¨€ã®æœ€å¤§æ–‡å­—æ•°
+        MAX_MESLINE => 25,                # ä¸€ç™ºè¨€ã®æœ€å¤§è¡Œæ•°
     );
 
     my %saycnt_wbbs = (
-        CAPTION     => 'BBS(20‰ñ)',
-        COUNT_TYPE  => 'count',           # ‰ñ”Š¨’è
-        MAX_SAY     => 20,                # ’Êí”­Œ¾‰ñ”
-        MAX_TSAY    => 10,                # “Æ‚èŒ¾”­Œ¾‰ñ”
-        MAX_WSAY    => 40,                # š‘‚«”­Œ¾‰ñ”
-        MAX_SPSAY   => 20,                # ‹¤–Â”­Œ¾‰ñ”
-        MAX_BSAY    => 30,                # ”O˜b”­Œ¾‰ñ”
-        MAX_GSAY    => 20,                # ‚¤‚ß‚«”­Œ¾‰ñ”
-        MAX_LSAY    => 30,                # —öl‚Ìš‘‚«”­Œ¾‰ñ”
-        MAX_PSAY    => 20,                # ƒvƒƒ[ƒO”­Œ¾‰ñ”
-        MAX_ESAY    => 600,               # ƒGƒsƒ[ƒO”­Œ¾‰ñ”
-        MAX_SAY_ACT => 15,                # ƒAƒNƒVƒ‡ƒ“‰ñ”
-        ADD_SAY     => 4,                 # ‘£‚µ‚Å‘‚¦‚é”­Œ¾‰ñ”
-        MAX_ADDSAY  => 1,                 # ‘£‚µ‚Ì‰ñ”
-        MAX_MESCNT  => 200,               # ˆê”­Œ¾‚ÌÅ‘å•¶Žš”
-        MAX_MESLINE => 5,                 # ˆê”­Œ¾‚ÌÅ‘ås”
+        CAPTION     => 'BBS(20å›ž)',
+        COUNT_TYPE  => 'count',           # å›žæ•°å‹˜å®š
+        MAX_SAY     => 20,                # é€šå¸¸ç™ºè¨€å›žæ•°
+        MAX_TSAY    => 10,                # ç‹¬ã‚Šè¨€ç™ºè¨€å›žæ•°
+        MAX_WSAY    => 40,                # å›ãç™ºè¨€å›žæ•°
+        MAX_SPSAY   => 20,                # å…±é³´ç™ºè¨€å›žæ•°
+        MAX_BSAY    => 30,                # å¿µè©±ç™ºè¨€å›žæ•°
+        MAX_GSAY    => 20,                # ã†ã‚ãç™ºè¨€å›žæ•°
+        MAX_LSAY    => 30,                # æ‹äººã®å›ãç™ºè¨€å›žæ•°
+        MAX_PSAY    => 20,                # ãƒ—ãƒ­ãƒ­ãƒ¼ã‚°ç™ºè¨€å›žæ•°
+        MAX_ESAY    => 600,               # ã‚¨ãƒ”ãƒ­ãƒ¼ã‚°ç™ºè¨€å›žæ•°
+        MAX_SAY_ACT => 15,                # ã‚¢ã‚¯ã‚·ãƒ§ãƒ³å›žæ•°
+        ADD_SAY     => 4,                 # ä¿ƒã—ã§å¢—ãˆã‚‹ç™ºè¨€å›žæ•°
+        MAX_ADDSAY  => 1,                 # ä¿ƒã—ã®å›žæ•°
+        MAX_MESCNT  => 200,               # ä¸€ç™ºè¨€ã®æœ€å¤§æ–‡å­—æ•°
+        MAX_MESLINE => 5,                 # ä¸€ç™ºè¨€ã®æœ€å¤§è¡Œæ•°
     );
 
     my %saycnt_juna = (
-        CAPTION     => 'R–â(1000pt)',
-        COUNT_TYPE  => 'point',           # ƒoƒCƒgŠ¨’è
-        MAX_SAY     => 1000,              # ’Êí”­Œ¾pt”
-        MAX_TSAY    => 700,               # “Æ‚èŒ¾”­Œ¾pt”
-        MAX_WSAY    => 3000,              # š‘‚«”­Œ¾pt”
-        MAX_SPSAY   => 1000,              # ‹¤–Â”­Œ¾‰ñ”
-        MAX_BSAY    => 2000,              # ”O˜b”­Œ¾‰ñ”
-        MAX_GSAY    => 2000,              # ‚¤‚ß‚«”­Œ¾pt”
-        MAX_LSAY    => 2000,              # —öl‚Ìš‘‚«”­Œ¾‰ñ”
-        MAX_PSAY    => 2000,              # ƒvƒƒ[ƒO”­Œ¾pt”
-        MAX_ESAY    => 3000,              # ƒGƒsƒ[ƒO”­Œ¾pt”
-        ADD_SAY     => 200,               # ‘£‚µ‚Å‘‚¦‚é”­Œ¾pt”
-        MAX_ADDSAY  => 1,                 # ‘£‚µ‚Ì‰ñ”
-        MAX_SAY_ACT => 24,                # ƒAƒNƒVƒ‡ƒ“‰ñ”
-        MAX_MESCNT  => 1000,              # ˆê”­Œ¾‚ÌÅ‘å•¶ŽšƒoƒCƒg”
-        MAX_MESLINE => 20,                # ˆê”­Œ¾‚ÌÅ‘ås”
+        CAPTION     => 'å¯©å•(1000pt)',
+        COUNT_TYPE  => 'point',           # ãƒã‚¤ãƒˆå‹˜å®š
+        MAX_SAY     => 1000,              # é€šå¸¸ç™ºè¨€ptæ•°
+        MAX_TSAY    => 700,               # ç‹¬ã‚Šè¨€ç™ºè¨€ptæ•°
+        MAX_WSAY    => 3000,              # å›ãç™ºè¨€ptæ•°
+        MAX_SPSAY   => 1000,              # å…±é³´ç™ºè¨€å›žæ•°
+        MAX_BSAY    => 2000,              # å¿µè©±ç™ºè¨€å›žæ•°
+        MAX_GSAY    => 2000,              # ã†ã‚ãç™ºè¨€ptæ•°
+        MAX_LSAY    => 2000,              # æ‹äººã®å›ãç™ºè¨€å›žæ•°
+        MAX_PSAY    => 2000,              # ãƒ—ãƒ­ãƒ­ãƒ¼ã‚°ç™ºè¨€ptæ•°
+        MAX_ESAY    => 3000,              # ã‚¨ãƒ”ãƒ­ãƒ¼ã‚°ç™ºè¨€ptæ•°
+        ADD_SAY     => 200,               # ä¿ƒã—ã§å¢—ãˆã‚‹ç™ºè¨€ptæ•°
+        MAX_ADDSAY  => 1,                 # ä¿ƒã—ã®å›žæ•°
+        MAX_SAY_ACT => 24,                # ã‚¢ã‚¯ã‚·ãƒ§ãƒ³å›žæ•°
+        MAX_MESCNT  => 1000,              # ä¸€ç™ºè¨€ã®æœ€å¤§æ–‡å­—ãƒã‚¤ãƒˆæ•°
+        MAX_MESLINE => 20,                # ä¸€ç™ºè¨€ã®æœ€å¤§è¡Œæ•°
     );
 
     my %saycnt_vulcan = (
-        CAPTION     => '‘½•Ù(1500pt)',
-        COUNT_TYPE  => 'point',           # ƒ|ƒCƒ“ƒgŠ¨’è
-        MAX_SAY     => 1500,              # ’Êí”­Œ¾pt”
-        MAX_TSAY    => 10000,             # “Æ‚èŒ¾”­Œ¾pt”
-        MAX_WSAY    => 40000,             # š‘‚«”­Œ¾pt”
-        MAX_SPSAY   => 15000,             # ‹¤–Â”­Œ¾‰ñ”
-        MAX_BSAY    => 30000,             # ”O˜b”­Œ¾‰ñ”
-        MAX_GSAY    => 30000,             # ‚¤‚ß‚«”­Œ¾pt”
-        MAX_LSAY    => 30000,             # —öl‚Ìš‘‚«”­Œ¾‰ñ”
-        MAX_PSAY    => 30000,             # ƒvƒƒ[ƒO”­Œ¾pt”
-        MAX_ESAY    => 4500,              # ƒGƒsƒ[ƒO”­Œ¾pt”
-        ADD_SAY     => 200,               # ‘£‚µ‚Å‘‚¦‚é”­Œ¾pt”
-        MAX_ADDSAY  => 1,                 # ‘£‚µ‚Ì‰ñ”
-        MAX_SAY_ACT => 36,                # ƒAƒNƒVƒ‡ƒ“‰ñ”
-        MAX_MESCNT  => 1000,              # ˆê”­Œ¾‚ÌÅ‘å•¶ŽšƒoƒCƒg”
-        MAX_MESLINE => 30,                # ˆê”­Œ¾‚ÌÅ‘ås”
+        CAPTION     => 'å¤šå¼(1500pt)',
+        COUNT_TYPE  => 'point',           # ãƒã‚¤ãƒ³ãƒˆå‹˜å®š
+        MAX_SAY     => 1500,              # é€šå¸¸ç™ºè¨€ptæ•°
+        MAX_TSAY    => 10000,             # ç‹¬ã‚Šè¨€ç™ºè¨€ptæ•°
+        MAX_WSAY    => 40000,             # å›ãç™ºè¨€ptæ•°
+        MAX_SPSAY   => 15000,             # å…±é³´ç™ºè¨€å›žæ•°
+        MAX_BSAY    => 30000,             # å¿µè©±ç™ºè¨€å›žæ•°
+        MAX_GSAY    => 30000,             # ã†ã‚ãç™ºè¨€ptæ•°
+        MAX_LSAY    => 30000,             # æ‹äººã®å›ãç™ºè¨€å›žæ•°
+        MAX_PSAY    => 30000,             # ãƒ—ãƒ­ãƒ­ãƒ¼ã‚°ç™ºè¨€ptæ•°
+        MAX_ESAY    => 4500,              # ã‚¨ãƒ”ãƒ­ãƒ¼ã‚°ç™ºè¨€ptæ•°
+        ADD_SAY     => 200,               # ä¿ƒã—ã§å¢—ãˆã‚‹ç™ºè¨€ptæ•°
+        MAX_ADDSAY  => 1,                 # ä¿ƒã—ã®å›žæ•°
+        MAX_SAY_ACT => 36,                # ã‚¢ã‚¯ã‚·ãƒ§ãƒ³å›žæ•°
+        MAX_MESCNT  => 1000,              # ä¸€ç™ºè¨€ã®æœ€å¤§æ–‡å­—ãƒã‚¤ãƒˆæ•°
+        MAX_MESLINE => 30,                # ä¸€ç™ºè¨€ã®æœ€å¤§è¡Œæ•°
     );
 
     my %saycnt_saving = (
-        CAPTION     => 'ß–ñ(15‰ñ)',
-        COUNT_TYPE  => 'count',           # ‰ñ”Š¨’è
-        MAX_SAY     => 15,                # ’Êí”­Œ¾‰ñ”
-        MAX_TSAY    => 10,                # “Æ‚èŒ¾”­Œ¾‰ñ”
-        MAX_WSAY    => 30,                # š‘‚«”­Œ¾‰ñ”
-        MAX_SPSAY   => 12,                # ‹¤–Â”­Œ¾‰ñ”
-        MAX_BSAY    => 20,                # ”O˜b”­Œ¾‰ñ”
-        MAX_GSAY    => 20,                # ‚¤‚ß‚«”­Œ¾‰ñ”
-        MAX_LSAY    => 20,                # —öl‚Ìš‘‚«”­Œ¾‰ñ”
-        MAX_PSAY    => 20,                # ƒvƒƒ[ƒO”­Œ¾‰ñ”
-        MAX_ESAY    => 600,               # ƒGƒsƒ[ƒO”­Œ¾‰ñ”
-        MAX_SAY_ACT => 10,                # ƒAƒNƒVƒ‡ƒ“‰ñ”
-        ADD_SAY     => 3,                 # ‘£‚µ‚Å‘‚¦‚é”­Œ¾‰ñ”
-        MAX_ADDSAY  => 1,                 # ‘£‚µ‚Ì‰ñ”
-        MAX_MESCNT  => 200,               # ˆê”­Œ¾‚ÌÅ‘å•¶Žš”
-        MAX_MESLINE => 5,                 # ˆê”­Œ¾‚ÌÅ‘ås”
+        CAPTION     => 'ç¯€ç´„(15å›ž)',
+        COUNT_TYPE  => 'count',           # å›žæ•°å‹˜å®š
+        MAX_SAY     => 15,                # é€šå¸¸ç™ºè¨€å›žæ•°
+        MAX_TSAY    => 10,                # ç‹¬ã‚Šè¨€ç™ºè¨€å›žæ•°
+        MAX_WSAY    => 30,                # å›ãç™ºè¨€å›žæ•°
+        MAX_SPSAY   => 12,                # å…±é³´ç™ºè¨€å›žæ•°
+        MAX_BSAY    => 20,                # å¿µè©±ç™ºè¨€å›žæ•°
+        MAX_GSAY    => 20,                # ã†ã‚ãç™ºè¨€å›žæ•°
+        MAX_LSAY    => 20,                # æ‹äººã®å›ãç™ºè¨€å›žæ•°
+        MAX_PSAY    => 20,                # ãƒ—ãƒ­ãƒ­ãƒ¼ã‚°ç™ºè¨€å›žæ•°
+        MAX_ESAY    => 600,               # ã‚¨ãƒ”ãƒ­ãƒ¼ã‚°ç™ºè¨€å›žæ•°
+        MAX_SAY_ACT => 10,                # ã‚¢ã‚¯ã‚·ãƒ§ãƒ³å›žæ•°
+        ADD_SAY     => 3,                 # ä¿ƒã—ã§å¢—ãˆã‚‹ç™ºè¨€å›žæ•°
+        MAX_ADDSAY  => 1,                 # ä¿ƒã—ã®å›žæ•°
+        MAX_MESCNT  => 200,               # ä¸€ç™ºè¨€ã®æœ€å¤§æ–‡å­—æ•°
+        MAX_MESLINE => 5,                 # ä¸€ç™ºè¨€ã®æœ€å¤§è¡Œæ•°
     );
 
     my %saycnt_gachi = (
-        CAPTION     => 'ƒKƒ`(1800pt)',
-        COUNT_TYPE  => 'point',           # ƒ|ƒCƒ“ƒgŠ¨’è
-        MAX_SAY     => 1800,              # ’Êí”­Œ¾pt”
-        MAX_TSAY    => 2000,              # “Æ‚èŒ¾”­Œ¾pt”
-        MAX_WSAY    => 4000,              # š‘‚«”­Œ¾pt”
-        MAX_SPSAY   => 1500,              # ‹¤–Â”­Œ¾‰ñ”
-        MAX_BSAY    => 3000,              # ”O˜b”­Œ¾‰ñ”
-        MAX_GSAY    => 3000,              # ‚¤‚ß‚«”­Œ¾pt”
-        MAX_LSAY    => 3000,              # —öl‚Ìš‘‚«”­Œ¾‰ñ”
-        MAX_PSAY    => 3000,              # ƒvƒƒ[ƒO”­Œ¾pt”
-        MAX_ESAY    => 4500,              # ƒGƒsƒ[ƒO”­Œ¾pt”
-        ADD_SAY     => 300,               # ‘£‚µ‚Å‘‚¦‚é”­Œ¾pt”
-        MAX_ADDSAY  => 2,                 # ‘£‚µ‚Ì‰ñ”
-        MAX_SAY_ACT => 36,                # ƒAƒNƒVƒ‡ƒ“‰ñ”
-        MAX_MESCNT  => 2000,              # ˆê”­Œ¾‚ÌÅ‘å•¶ŽšƒoƒCƒg”
-        MAX_MESLINE => 40,                # ˆê”­Œ¾‚ÌÅ‘ås”
+        CAPTION     => 'ã‚¬ãƒ(1800pt)',
+        COUNT_TYPE  => 'point',           # ãƒã‚¤ãƒ³ãƒˆå‹˜å®š
+        MAX_SAY     => 1800,              # é€šå¸¸ç™ºè¨€ptæ•°
+        MAX_TSAY    => 2000,              # ç‹¬ã‚Šè¨€ç™ºè¨€ptæ•°
+        MAX_WSAY    => 4000,              # å›ãç™ºè¨€ptæ•°
+        MAX_SPSAY   => 1500,              # å…±é³´ç™ºè¨€å›žæ•°
+        MAX_BSAY    => 3000,              # å¿µè©±ç™ºè¨€å›žæ•°
+        MAX_GSAY    => 3000,              # ã†ã‚ãç™ºè¨€ptæ•°
+        MAX_LSAY    => 3000,              # æ‹äººã®å›ãç™ºè¨€å›žæ•°
+        MAX_PSAY    => 3000,              # ãƒ—ãƒ­ãƒ­ãƒ¼ã‚°ç™ºè¨€ptæ•°
+        MAX_ESAY    => 4500,              # ã‚¨ãƒ”ãƒ­ãƒ¼ã‚°ç™ºè¨€ptæ•°
+        ADD_SAY     => 300,               # ä¿ƒã—ã§å¢—ãˆã‚‹ç™ºè¨€ptæ•°
+        MAX_ADDSAY  => 2,                 # ä¿ƒã—ã®å›žæ•°
+        MAX_SAY_ACT => 36,                # ã‚¢ã‚¯ã‚·ãƒ§ãƒ³å›žæ•°
+        MAX_MESCNT  => 2000,              # ä¸€ç™ºè¨€ã®æœ€å¤§æ–‡å­—ãƒã‚¤ãƒˆæ•°
+        MAX_MESLINE => 40,                # ä¸€ç™ºè¨€ã®æœ€å¤§è¡Œæ•°
     );
 
     my @saycnt_order = ( 'real', 'mreal', 'mmreal', 'mmmreal', 'realcnt', 'wbbs', 'juna', 'vulcan', 'saving', 'gachi' );
@@ -269,7 +266,7 @@ sub GetConfig {
         autoid       => 'real11',
         autoflag     => 0,
         vname        => 'auto',
-        vcomment     => '‚±‚Ì‘º‚ÍŽ©“®“I‚ÉŒš‚Ä‚ç‚ê‚½‘º‚Å‚·B<br>ƒgƒbƒvƒy[ƒW‚É‘‚©‚ê‚Ä‚¢‚éƒ‹[ƒ‹‚ð‚æ‚­“Ç‚ñ‚Å‚©‚çŽQ‰Á‚µ‚Ä‚­‚¾‚³‚¢B',
+        vcomment     => 'ã“ã®æ‘ã¯è‡ªå‹•çš„ã«å»ºã¦ã‚‰ã‚ŒãŸæ‘ã§ã™ã€‚<br>ãƒˆãƒƒãƒ—ãƒšãƒ¼ã‚¸ã«æ›¸ã‹ã‚Œã¦ã„ã‚‹ãƒ«ãƒ¼ãƒ«ã‚’ã‚ˆãèª­ã‚“ã§ã‹ã‚‰å‚åŠ ã—ã¦ãã ã•ã„ã€‚',
         trsid        => 'rem',
         csid         => 'rem',
         roletable    => 'wbbs_g',
@@ -303,7 +300,7 @@ sub GetConfig {
         autoid       => 'real16',
         autoflag     => 1,
         vname        => 'auto',
-        vcomment     => '‚±‚Ì‘º‚ÍŽ©“®“I‚ÉŒš‚Ä‚ç‚ê‚½‘º‚Å‚·B<br>ƒgƒbƒvƒy[ƒW‚É‘‚©‚ê‚Ä‚¢‚éƒ‹[ƒ‹‚ð‚æ‚­“Ç‚ñ‚Å‚©‚çŽQ‰Á‚µ‚Ä‚­‚¾‚³‚¢B',
+        vcomment     => 'ã“ã®æ‘ã¯è‡ªå‹•çš„ã«å»ºã¦ã‚‰ã‚ŒãŸæ‘ã§ã™ã€‚<br>ãƒˆãƒƒãƒ—ãƒšãƒ¼ã‚¸ã«æ›¸ã‹ã‚Œã¦ã„ã‚‹ãƒ«ãƒ¼ãƒ«ã‚’ã‚ˆãèª­ã‚“ã§ã‹ã‚‰å‚åŠ ã—ã¦ãã ã•ã„ã€‚',
         trsid        => 'rem',
         csid         => 'rem',
         roletable    => 'wbbs_g',
@@ -339,38 +336,38 @@ sub GetConfig {
     );
 
     my @autonames = (
-        '‹Å‚Ì‘º',  '‹F‚è‚Ì‘º',   'ŠC•Ó‚Ì‘º',   '‰iŽõ‚Ì‘º', '÷‰Ô‚Ì‘º', '‰e‚Ì‘º',  '‹GßŠO‚ê‚Ì‘º', '‹v‰“‚Ì‘º', 'Œk’J‚Ì‘º', 'P‰·‚Ì‘º',
-        'ÕâJ‚Ì‘º', 'El‚Ì‘º',   '‚·‚Ý‚ê‚Ì‘º',  'òŒ¹‚Ì‘º', '‘©”›‚Ì‘º', '’T‹†‚Ì‘º', '’†¢‚Ì‘º',   'ŒŽ–é‚Ì‘º', '“Vã‚Ì‘º', '“|ö‚Ì‘º',
-        '“â‚Ì‘º',  'lŒ`‰ñ‚µ‚Ì‘º', '‚Ê‚­‚à‚è‚Ì‘º', 'Šè‚¢‚Ì‘º', '–ìä•‚Ì‘º', '”Žˆ¤‚Ì‘º', '•Xá‚Ì‘º',   'á‚Ì‘º', '•Ó‹«‚Ì‘º', '•ú˜Q‚Ì‘º',
-        '^‰Ä‚Ì‘º', '‚Ý‚©‚ñ‚Ì‘º',  '–³–¼‚Ì‘º',   '–Á‰Ù‚Ì‘º', '–Ï‘z‚Ì‘º', 'ˆÅ–é‚Ì‘º', '—[•é‚ê‚Ì‘º',  '—d‰‚Ì‘º', '—‹Œõ‚Ì‘º', '—Î‰J‚Ì‘º',
-        '—¬ŒY‚Ì‘º', '—ùŠ¢‚Ì‘º',   '˜OŠt‚Ì‘º',   '˜a‚Ì‘º',
+        'æšã®æ‘',  'ç¥ˆã‚Šã®æ‘',   'æµ·è¾ºã®æ‘',   'æ°¸å¯¿ã®æ‘', 'æ¡œèŠ±ã®æ‘', 'å½±ã®æ‘',  'å­£ç¯€å¤–ã‚Œã®æ‘', 'ä¹…é ã®æ‘', 'æ¸“è°·ã®æ‘', 'æ’æ¸©ã®æ‘',
+        'ç¥­ç¥€ã®æ‘', 'è·äººã®æ‘',   'ã™ã¿ã‚Œã®æ‘',  'æ³‰æºã®æ‘', 'æŸç¸›ã®æ‘', 'æŽ¢ç©¶ã®æ‘', 'ä¸­ä¸–ã®æ‘',   'æœˆå¤œã®æ‘', 'å¤©ä¸Šã®æ‘', 'å€’éŒ¯ã®æ‘',
+        'å‡ªã®æ‘',  'äººå½¢å›žã—ã®æ‘', 'ã¬ãã‚‚ã‚Šã®æ‘', 'é¡˜ã„ã®æ‘', 'é‡Žè‹ºã®æ‘', 'åšæ„›ã®æ‘', 'æ°·é›ªã®æ‘',   'å¹é›ªã®æ‘', 'è¾ºå¢ƒã®æ‘', 'æ”¾æµªã®æ‘',
+        'çœŸå¤ã®æ‘', 'ã¿ã‹ã‚“ã®æ‘',  'ç„¡åã®æ‘',   'éŠ˜è“ã®æ‘', 'å¦„æƒ³ã®æ‘', 'é—‡å¤œã®æ‘', 'å¤•æš®ã‚Œã®æ‘',  'å¦–è‰¶ã®æ‘', 'é›·å…‰ã®æ‘', 'ç·‘é›¨ã®æ‘',
+        'æµåˆ‘ã®æ‘', 'ç…‰ç“¦ã®æ‘',   'æ¥¼é–£ã®æ‘',   'å’Œã®æ‘',
     );
 
-    # ‰æ‘œ‚ÌìŽÒ“™‚Ì•\Ž¦—p
+    # ç”»åƒã®ä½œè€…ç­‰ã®è¡¨ç¤ºç”¨
     my @copyrights = (
-        'l˜T•¨Œê‰æ‘œ by Momoko Takatori',
-        'SWBBS-R ‰æ‘œ by rembrandt',
-        'ƒgƒƒCƒJ by <a href="http://asakp2.rosx.net/">‚©‚¦‚é‚Ò‚å‚±‚Ò‚å‚±^‚ ‚³‚­‚ç</a>',
-        '‹Â‚°‚Î˜T by ‚¨‚­‚Ý‚Â',
-        'l˜TBBS10Žü”N ‰æ‘œ by AICE',
-        '–¶‰J~‚éŠX by <a href="http://misty-rain.sakura.ne.jp/fall0rain/">‚«‚è‚Ì‚ê‚¢‚ñ</a>',
+        'äººç‹¼ç‰©èªžç”»åƒ by Momoko Takatori',
+        'SWBBS-R ç”»åƒ by rembrandt',
+        'ãƒˆãƒ­ã‚¤ã‚« by <a href="http://asakp2.rosx.net/">ã‹ãˆã‚‹ã´ã‚‡ã“ã´ã‚‡ã“ï¼ã‚ã•ãã‚‰</a>',
+        'ä»°ã’ã°ç‹¼ by ãŠãã¿ã¤',
+        'äººç‹¼BBS10å‘¨å¹´ ç”»åƒ by AICE',
+        'éœ§é›¨é™ã‚‹è¡— by <a href="http://misty-rain.sakura.ne.jp/fall0rain/">ãã‚Šã®ã‚Œã„ã‚“</a>',
     );
 
-    # ƒLƒƒƒbƒVƒ…ƒNƒŠƒA‚Ì‚½‚ßƒtƒ@ƒCƒ‹–¼‚É“ú•t‚ð“ü‚ê‚½B
+    # ã‚­ãƒ£ãƒƒã‚·ãƒ¥ã‚¯ãƒªã‚¢ã®ãŸã‚ãƒ•ã‚¡ã‚¤ãƒ«åã«æ—¥ä»˜ã‚’å…¥ã‚ŒãŸã€‚
     my %css_default = (
-        TITLE => '•W€ƒXƒ^ƒCƒ‹',
+        TITLE => 'æ¨™æº–ã‚¹ã‚¿ã‚¤ãƒ«',
         FILE  => 'sow.css?date=' . $lastupdate,
         WIDTH => 500,
     );
 
     my %css_text = (
-        TITLE => 'ŠÈˆÕ•\Ž¦',
+        TITLE => 'ç°¡æ˜“è¡¨ç¤º',
         FILE  => 'text.css?date=' . $lastupdate,
         WIDTH => 600,
     );
 
     my %css_junawide = (
-        TITLE => 'R–â•—',
+        TITLE => 'å¯©å•é¢¨',
         FILE  => 'junawide.css?date=' . $lastupdate,
         WIDTH => 582,
     );
@@ -391,38 +388,38 @@ sub GetConfig {
         default  => \%css_rem,
     );
 
-    # ƒƒ{ƒbƒgŒŸõ—p‚ÌÝ’è
+    # ãƒ­ãƒœãƒƒãƒˆæ¤œç´¢ç”¨ã®è¨­å®š
     my @robots = (
 
         #	'noindex,nofollow',
         #	'noarchive',
     );
 
-    # ‚¨‚Ý‚­‚¶
-    # ŒÂ”‚ÍŒÅ’è‚È‚Ì‚Å•Ï‚¦‚È‚¢Ž–
+    # ãŠã¿ãã˜
+    # å€‹æ•°ã¯å›ºå®šãªã®ã§å¤‰ãˆãªã„äº‹
     my @mikuji = (
-        'Œ»l_',     #  3
-        'ˆê“™Ü',     #  4
-        '‘å‘å‹g',     #  5
-        '‘å‹g',      #  6
-        '’†‹g',      #  7
-        '¬‹g',      #  8
-        '‹g',       #  9
-        '”¼‹g',      # 10
-        '––‹g',      # 11
-        '––¬‹g',     # 12
-        '‹¥',       # 13
-        '¬‹¥',      # 14
-        '”¼‹¥',      # 15
-        '––‹¥',      # 16
-        '‘å‹¥',      # 17
-        '‰ñ“š‹‘”Û',    # 18
+        'ç¾äººç¥ž',     #  3
+        'ä¸€ç­‰è³ž',     #  4
+        'å¤§å¤§å‰',     #  5
+        'å¤§å‰',      #  6
+        'ä¸­å‰',      #  7
+        'å°å‰',      #  8
+        'å‰',       #  9
+        'åŠå‰',      # 10
+        'æœ«å‰',      # 11
+        'æœ«å°å‰',     # 12
+        'å‡¶',       # 13
+        'å°å‡¶',      # 14
+        'åŠå‡¶',      # 15
+        'æœ«å‡¶',      # 16
+        'å¤§å‡¶',      # 17
+        'å›žç­”æ‹’å¦',    # 18
     );
 
-    # ‰{——§ŒÀ•\Ž¦
+    # é–²è¦§åˆ¶é™è¡¨ç¤º
     my %ratingnormal = (
         FILE    => '',
-        CAPTION => 'ˆê”Ê',
+        CAPTION => 'ä¸€èˆ¬',
         ALT     => '',
         WIDTH   => 0,
         HEIGHT  => 0,
@@ -430,7 +427,7 @@ sub GetConfig {
 
     my %rating15 = (
         FILE    => 'cau15.png',
-        CAPTION => '15ÎˆÈã',
+        CAPTION => '15æ­³ä»¥ä¸Š',
         ALT     => 'R15',
         WIDTH   => 16,
         HEIGHT  => 16,
@@ -438,7 +435,7 @@ sub GetConfig {
 
     my %rating18 = (
         FILE    => 'cau18.png',
-        CAPTION => '18ÎˆÈã',
+        CAPTION => '18æ­³ä»¥ä¸Š',
         ALT     => 'R18',
         WIDTH   => 16,
         HEIGHT  => 16,
@@ -446,16 +443,16 @@ sub GetConfig {
 
     my %ratinggro = (
         FILE    => 'caugro.png',
-        CAPTION => 'ƒOƒ’ˆÓ',
-        ALT     => 'ƒOƒ',
+        CAPTION => 'ã‚°ãƒ­æ³¨æ„',
+        ALT     => 'ã‚°ãƒ­',
         WIDTH   => 16,
         HEIGHT  => 16,
     );
 
     my %ratingview = (
         FILE    => 'cauview.png',
-        CAPTION => '‰{——’ˆÓ',
-        ALT     => '’ˆÓ',
+        CAPTION => 'é–²è¦§æ³¨æ„',
+        ALT     => 'æ³¨æ„',
         WIDTH   => 16,
         HEIGHT  => 16,
     );
@@ -474,144 +471,142 @@ sub GetConfig {
 
     my %cfg = (
 
-        # 0:‘º‚Ìì¬‚ª‚Å‚«‚È‚¢i‘ºì¬I—¹—pj
-        # 1:‘º‚ðì¬‰Â”\
+        # 0:æ‘ã®ä½œæˆãŒã§ããªã„ï¼ˆæ‘ä½œæˆçµ‚äº†ç”¨ï¼‰
+        # 1:æ‘ã‚’ä½œæˆå¯èƒ½
         ENABLED_VMAKE => 1,
 
-        NAME_SW      => 'l˜T•¨Œê',
-        URL_SW       => 'http://***/sow',                    # Ý’u‚·‚éURLiÅŒã‚Ìg/h‚Í•K—v‚ ‚è‚Ü‚¹‚ñj
-        DESC_SW      => 'l˜TBBSŽ—‚ÌƒEƒFƒu”Ål˜TƒNƒ[ƒ“B',
-        ENABLED_MENU => 1,                                   # 1:ƒgƒbƒvƒy[ƒW‚Ìƒƒjƒ…[‚ð•\Ž¦‚·‚é
-        URL_HOME     => 'https://www.gunjobiyori.com/',      # ƒz[ƒ€ƒy[ƒW
-        NAME_HOME    => 'ŒQÂ“ú˜a(blog)',
+        NAME_SW      => 'äººç‹¼ç‰©èªž',
+        URL_SW       => 'http://***/sow',                    # è¨­ç½®ã™ã‚‹URLï¼ˆæœ€å¾Œã®â€œ/â€ã¯å¿…è¦ã‚ã‚Šã¾ã›ã‚“ï¼‰
+        DESC_SW      => 'äººç‹¼BBSä¼¼ã®ã‚¦ã‚§ãƒ–ç‰ˆäººç‹¼ã‚¯ãƒ­ãƒ¼ãƒ³ã€‚',
+        ENABLED_MENU => 1,                                   # 1:ãƒˆãƒƒãƒ—ãƒšãƒ¼ã‚¸ã®ãƒ¡ãƒ‹ãƒ¥ãƒ¼ã‚’è¡¨ç¤ºã™ã‚‹
+        URL_HOME     => 'https://www.gunjobiyori.com/',      # ãƒ›ãƒ¼ãƒ ãƒšãƒ¼ã‚¸
+        NAME_HOME    => 'ç¾¤é’æ—¥å’Œ(blog)',
         NAME_TOP     => 'TOP',
-        URL_BBS_PC   => 'https://www.twitter.com/euro_s',    # ƒTƒ|[ƒgŒfŽ¦”Â‚ÌURL
-        NAME_BBS_PC  => '@euro_s',                           # ƒTƒ|[ƒgŒfŽ¦”Â‚Ì–¼‘O
-        SERVER_INFO  => '‚±‚±‚Íl˜T•¨Œê—ƒŠƒA[–{ƒT[ƒo[‚Å‚·B',               # ƒT[ƒo[î•ñ
+        URL_BBS_PC   => 'https://www.twitter.com/euro_s',    # ã‚µãƒãƒ¼ãƒˆæŽ²ç¤ºæ¿ã®URL
+        NAME_BBS_PC  => '@euro_s',                           # ã‚µãƒãƒ¼ãƒˆæŽ²ç¤ºæ¿ã®åå‰
+        SERVER_INFO  => 'ã“ã“ã¯äººç‹¼ç‰©èªžï¼ ãƒªã‚¢å……æœ¬ã‚µãƒ¼ãƒãƒ¼ã§ã™ã€‚',               # ã‚µãƒ¼ãƒãƒ¼æƒ…å ±
 
-        MAX_VILLAGES  => 5,                                  # Å‘å“¯Žž‰Ò“­‘º”
-        TIMEOUT_SCRAP => 42,                                 # ”p‘ºŠúŒÀ
-        TIMEOUT_ENTRY => 1.5,                                # ƒvƒƒ[ƒO‚Å‚Ì–³”­Œ¾ŽÒŽ©“®’Ç‚¢o‚µ‹@”\‚Ì§ŒÀ“ú”
+        MAX_VILLAGES  => 5,                                  # æœ€å¤§åŒæ™‚ç¨¼åƒæ‘æ•°
+        TIMEOUT_SCRAP => 42,                                 # å»ƒæ‘æœŸé™
+        TIMEOUT_ENTRY => 1.5,                                # ãƒ—ãƒ­ãƒ­ãƒ¼ã‚°ã§ã®ç„¡ç™ºè¨€è€…è‡ªå‹•è¿½ã„å‡ºã—æ©Ÿèƒ½ã®åˆ¶é™æ—¥æ•°
 
-        MESFIXTIME        => 20,                             # •Û—¯ŽžŠÔ
-        MAX_ROW           => 50,                             # •W€•\Ž¦Žž‚Ìs”
-        MAX_ROW_MB        => 10,                             # •W€•\Ž¦Žž‚Ìs”iƒ‚ƒoƒCƒ‹j
-        MAX_PAGEROW_PC    => 100,                            # ƒy[ƒW•\Ž¦Žž‚Ìs”(–¢Žg—p)
-        MAX_PAGES_MB      => 5,                              # ƒy[ƒWƒŠƒ“ƒN‚Ì•\Ž¦”
-        ROW_ACTION        => 0,                              # s”ŒvŽZ‚ÉƒAƒNƒVƒ‡ƒ“‚ðŠÜ‚Þ‚©‚Ç‚¤‚©
-        MIN_VSRECORDTOTAL => 2,                              # ‚ŽíˆÈã“¯‘º‚µ‚Ä‚¢‚é‘ŠŽè‚Ì‚ÝA‘Îí¬Ñ‚ð•\Ž¦
-        CANDY_LS          => 5,                              # ‚ŽŒÂˆ¹‚ðW‚ß‚é‚Æ‘å‚«‚­‚È‚é
+        MESFIXTIME        => 20,                             # ä¿ç•™æ™‚é–“
+        MAX_ROW           => 50,                             # æ¨™æº–è¡¨ç¤ºæ™‚ã®è¡Œæ•°
+        MAX_PAGEROW_PC    => 100,                            # ãƒšãƒ¼ã‚¸è¡¨ç¤ºæ™‚ã®è¡Œæ•°(æœªä½¿ç”¨)
+        ROW_ACTION        => 0,                              # è¡Œæ•°è¨ˆç®—ã«ã‚¢ã‚¯ã‚·ãƒ§ãƒ³ã‚’å«ã‚€ã‹ã©ã†ã‹
+        MIN_VSRECORDTOTAL => 2,                              # ï½Žæˆ¦ä»¥ä¸ŠåŒæ‘ã—ã¦ã„ã‚‹ç›¸æ‰‹ã®ã¿ã€å¯¾æˆ¦æˆç¸¾ã‚’è¡¨ç¤º
+        CANDY_LS          => 5,                              # ï½Žå€‹é£´ã‚’é›†ã‚ã‚‹ã¨å¤§ãããªã‚‹
 
-        ENABLED_TSAY_PRO     => 1,                           # ƒvƒƒ[ƒO‚Å‚Ì“Æ‚èŒ¾
-        ENABLED_TSAY_GRAVE   => 1,                           # •æ‰º‚Å‚Ì“Æ‚èŒ¾
-        ENABLED_TSAY_GUEST   => 1,                           # –TŠÏŽÒ‚Ì“Æ‚èŒ¾
-        ENABLED_TSAY_EP      => 1,                           # ƒGƒs‚Å‚Ì“Æ‚èŒ¾
-        ENABLED_PERMIT_DEAD  => 1,                           # •æ‰º‚Ìl˜T/‹¤–ÂŽÒ/ƒRƒEƒ‚ƒŠlŠÔ‚ªš‘‚«‚ðŒ©‚ç‚ê‚é‚©‚Ç‚¤‚©
-        ENABLED_DELETED      => 1,                           # íœ”­Œ¾‚ð•\Ž¦‚·‚é‚©‚Ç‚¤‚©
-        ENABLED_SUDDENDEATH  => 1,                           # 1:“Ë‘RŽ€‚ ‚è
-        ENABLED_NOTICE_SD    => 0,                           # 1:“Ë‘RŽ€’Ê’m‚ ‚èi–¢ŽÀ‘•j
-        DAY_INITPENALTY      => 0,                           # “Ë‘RŽ€‚È‚Ç‚Ìƒyƒiƒ‹ƒeƒB‰Šú’li’PˆÊ‚Í“ú”j
-        ENABLED_MULTIENTRY   => 1,                           # 1:Š|‚¯Ž‚¿‚ð‹–‰Â‚·‚é
-        ENABLED_RANDOMTARGET => 1,                           # 1:“Š•[E”\—Íæ‚Éuƒ‰ƒ“ƒ_ƒ€v‚ðŠÜ‚ß‚é
-        DEFAULT_VOTETYPE     => 'anonymity',                 # •W€‚Ì“Š•[•û–@(sign: ‹L–¼Aanonymity:–³‹L–¼)
-        DEFAULT_NOSELROLE    => 1,                           # 1:ƒfƒtƒHƒ‹ƒg‚Å–ðEŠó–]–³Œø
-        DEFAULT_MAKERSAYMENU => 1,                           # 1:ƒfƒtƒHƒ‹ƒg‚Åis’†‘ºŒš”­Œ¾•s‰Â”\
-        DEFAULT_ENTRUSTMODE  => 1,                           # 1:ƒfƒtƒHƒ‹ƒg‚ÅˆÏ”C•s‰Â”\
-        DEFAULT_SHOWALL      => 1,                           # 1:ƒfƒtƒHƒ‹ƒg‚Å•æ‰ºŒöŠJ
-        DEFAULT_NOACTMODE    => 2,                           # ƒfƒtƒHƒ‹ƒg‚Åact/memo 0:on/on 1:off/on 2:on/off 3:off/off
-        DEFAULT_NOCANDY      => 1,                           # 1:ƒfƒtƒHƒ‹ƒg‚Å‘£‚µ•s‰Â”\
-        DEFAULT_NOFREEACT    => 1,                           # 1:ƒfƒtƒHƒ‹ƒg‚ÅŽ©—R•¶ƒAƒNƒVƒ‡ƒ“•s‰Â”\
-        DEFAULT_TIMESTAMP    => 1,                           # 1:ƒfƒtƒHƒ‹ƒg‚ÅŽžŠÈˆÕ•\Ž¦
-        DEFAULT_GUESTMENU    => 0,                           # 1:ƒfƒtƒHƒ‹ƒg‚Å–TŠÏŽÒ”­Œ¾•s‰Â”\
+        ENABLED_TSAY_PRO     => 1,                           # ãƒ—ãƒ­ãƒ­ãƒ¼ã‚°ã§ã®ç‹¬ã‚Šè¨€
+        ENABLED_TSAY_GRAVE   => 1,                           # å¢“ä¸‹ã§ã®ç‹¬ã‚Šè¨€
+        ENABLED_TSAY_GUEST   => 1,                           # å‚è¦³è€…ã®ç‹¬ã‚Šè¨€
+        ENABLED_TSAY_EP      => 1,                           # ã‚¨ãƒ”ã§ã®ç‹¬ã‚Šè¨€
+        ENABLED_PERMIT_DEAD  => 1,                           # å¢“ä¸‹ã®äººç‹¼/å…±é³´è€…/ã‚³ã‚¦ãƒ¢ãƒªäººé–“ãŒå›ãã‚’è¦‹ã‚‰ã‚Œã‚‹ã‹ã©ã†ã‹
+        ENABLED_DELETED      => 1,                           # å‰Šé™¤ç™ºè¨€ã‚’è¡¨ç¤ºã™ã‚‹ã‹ã©ã†ã‹
+        ENABLED_SUDDENDEATH  => 1,                           # 1:çªç„¶æ­»ã‚ã‚Š
+        ENABLED_NOTICE_SD    => 0,                           # 1:çªç„¶æ­»é€šçŸ¥ã‚ã‚Šï¼ˆæœªå®Ÿè£…ï¼‰
+        DAY_INITPENALTY      => 0,                           # çªç„¶æ­»ãªã©ã®ãƒšãƒŠãƒ«ãƒ†ã‚£åˆæœŸå€¤ï¼ˆå˜ä½ã¯æ—¥æ•°ï¼‰
+        ENABLED_MULTIENTRY   => 1,                           # 1:æŽ›ã‘æŒã¡ã‚’è¨±å¯ã™ã‚‹
+        ENABLED_RANDOMTARGET => 1,                           # 1:æŠ•ç¥¨ãƒ»èƒ½åŠ›å…ˆã«ã€Œãƒ©ãƒ³ãƒ€ãƒ ã€ã‚’å«ã‚ã‚‹
+        DEFAULT_VOTETYPE     => 'anonymity',                 # æ¨™æº–ã®æŠ•ç¥¨æ–¹æ³•(sign: è¨˜åã€anonymity:ç„¡è¨˜å)
+        DEFAULT_NOSELROLE    => 1,                           # 1:ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã§å½¹è·å¸Œæœ›ç„¡åŠ¹
+        DEFAULT_MAKERSAYMENU => 1,                           # 1:ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã§é€²è¡Œä¸­æ‘å»ºç™ºè¨€ä¸å¯èƒ½
+        DEFAULT_ENTRUSTMODE  => 1,                           # 1:ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã§å§”ä»»ä¸å¯èƒ½
+        DEFAULT_SHOWALL      => 1,                           # 1:ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã§å¢“ä¸‹å…¬é–‹
+        DEFAULT_NOACTMODE    => 2,                           # ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã§act/memo 0:on/on 1:off/on 2:on/off 3:off/off
+        DEFAULT_NOCANDY      => 1,                           # 1:ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã§ä¿ƒã—ä¸å¯èƒ½
+        DEFAULT_NOFREEACT    => 1,                           # 1:ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã§è‡ªç”±æ–‡ã‚¢ã‚¯ã‚·ãƒ§ãƒ³ä¸å¯èƒ½
+        DEFAULT_TIMESTAMP    => 1,                           # 1:ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã§æ™‚åˆ»ç°¡æ˜“è¡¨ç¤º
+        DEFAULT_GUESTMENU    => 0,                           # 1:ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã§å‚è¦³è€…ç™ºè¨€ä¸å¯èƒ½
 
-        ENABLED_POPUP => 1,                                  # ƒAƒ“ƒJ[‚Ìƒ|ƒbƒvƒAƒbƒv
+        ENABLED_POPUP => 1,                                  # ã‚¢ãƒ³ã‚«ãƒ¼ã®ãƒãƒƒãƒ—ã‚¢ãƒƒãƒ—
 
-        USERID_NPC   => 'master',                            # ƒ_ƒ~[ƒLƒƒƒ‰‚Ìƒ†[ƒUID
-        USERID_ADMIN => 'admin',                             # ŠÇ—l‚Ìƒ†[ƒUID
+        USERID_NPC   => 'master',                            # ãƒ€ãƒŸãƒ¼ã‚­ãƒ£ãƒ©ã®ãƒ¦ãƒ¼ã‚¶ID
+        USERID_ADMIN => 'admin',                             # ç®¡ç†äººã®ãƒ¦ãƒ¼ã‚¶ID
 
-        # ƒtƒ@ƒCƒ‹ƒƒbƒN‹@”\
+        # ãƒ•ã‚¡ã‚¤ãƒ«ãƒ­ãƒƒã‚¯æ©Ÿèƒ½
         ENABLED_GLOCK => 1,                                  # 0: none, 1: flock, 2: rename
-        TIMEOUT_GLOCK => 5 * 60,                             # rename•ûŽ®‚ÌŽž‚ÌŽžŠÔØ‚ê
+        TIMEOUT_GLOCK => 5 * 60,                             # renameæ–¹å¼ã®æ™‚ã®æ™‚é–“åˆ‡ã‚Œ
 
-        # •W€‚Ìƒoƒi[‰æ‘œ
+        # æ¨™æº–ã®ãƒãƒŠãƒ¼ç”»åƒ
         FILE_TOPBANNER   => 'mwtitle.jpg',
         TOPBANNER_WIDTH  => 500,
         TOPBANNER_HEIGHT => 70,
 
         #----------------------------------------
-        # “ü—Í’l‚Ì§ŒÀ’l
+        # å…¥åŠ›å€¤ã®åˆ¶é™å€¤
         #----------------------------------------
-        MAXSIZE_USERID     => 32,     # ƒ†[ƒUID‚ÌÅ‘åƒoƒCƒg”
-        MINSIZE_USERID     => 2,      # ƒ†[ƒUID‚ÌÅ¬ƒoƒCƒg”
-        MAXSIZE_PASSWD     => 256,    # ƒpƒXƒ[ƒh‚ÌÅ‘åƒoƒCƒg”
-        MINSIZE_PASSWD     => 8,      # ƒpƒXƒ[ƒh‚ÌÅ¬ƒoƒCƒg”
-        NEW_MAXSIZE_PASSWD => 256,    # V‚µ‚¢ƒpƒXƒ[ƒh‚ÌÅ‘åƒoƒCƒg”iƒpƒXƒ[ƒh•ÏXŽž‚Ì‚Ý“K—pj
-        NEW_MINSIZE_PASSWD => 8,      # V‚µ‚¢ƒpƒXƒ[ƒh‚ÌÅ¬ƒoƒCƒg”iƒpƒXƒ[ƒh•ÏXŽž‚Ì‚Ý“K—pj
+        MAXSIZE_USERID     => 32,     # ãƒ¦ãƒ¼ã‚¶IDã®æœ€å¤§ãƒã‚¤ãƒˆæ•°
+        MINSIZE_USERID     => 2,      # ãƒ¦ãƒ¼ã‚¶IDã®æœ€å°ãƒã‚¤ãƒˆæ•°
+        MAXSIZE_PASSWD     => 256,    # ãƒ‘ã‚¹ãƒ¯ãƒ¼ãƒ‰ã®æœ€å¤§ãƒã‚¤ãƒˆæ•°
+        MINSIZE_PASSWD     => 8,      # ãƒ‘ã‚¹ãƒ¯ãƒ¼ãƒ‰ã®æœ€å°ãƒã‚¤ãƒˆæ•°
+        NEW_MAXSIZE_PASSWD => 256,    # æ–°ã—ã„ãƒ‘ã‚¹ãƒ¯ãƒ¼ãƒ‰ã®æœ€å¤§ãƒã‚¤ãƒˆæ•°ï¼ˆãƒ‘ã‚¹ãƒ¯ãƒ¼ãƒ‰å¤‰æ›´æ™‚ã®ã¿é©ç”¨ï¼‰
+        NEW_MINSIZE_PASSWD => 8,      # æ–°ã—ã„ãƒ‘ã‚¹ãƒ¯ãƒ¼ãƒ‰ã®æœ€å°ãƒã‚¤ãƒˆæ•°ï¼ˆãƒ‘ã‚¹ãƒ¯ãƒ¼ãƒ‰å¤‰æ›´æ™‚ã®ã¿é©ç”¨ï¼‰
 
-        MINSIZE_MES      => 4,        # ”­Œ¾‚ÌÅ¬ƒoƒCƒg”
-        MAXSIZE_ACTION   => 60,       # ƒAƒNƒVƒ‡ƒ“‚ÌÅ‘åƒoƒCƒg”
-        MINSIZE_ACTION   => 4,        # ƒAƒNƒVƒ‡ƒ“‚ÌÅ‘åƒoƒCƒg”
-        MAXSIZE_MEMOCNT  => 300,      # ƒƒ‚‚ÌÅ‘åƒoƒCƒg”
-        MINSIZE_MEMOCNT  => 4,        # ƒƒ‚‚ÌÅ¬ƒoƒCƒg”
-        MAXSIZE_MEMOLINE => 15,       # ƒƒ‚‚ÌÅ‘ås”
+        MINSIZE_MES      => 4,        # ç™ºè¨€ã®æœ€å°ãƒã‚¤ãƒˆæ•°
+        MAXSIZE_ACTION   => 60,       # ã‚¢ã‚¯ã‚·ãƒ§ãƒ³ã®æœ€å¤§ãƒã‚¤ãƒˆæ•°
+        MINSIZE_ACTION   => 4,        # ã‚¢ã‚¯ã‚·ãƒ§ãƒ³ã®æœ€å¤§ãƒã‚¤ãƒˆæ•°
+        MAXSIZE_MEMOCNT  => 300,      # ãƒ¡ãƒ¢ã®æœ€å¤§ãƒã‚¤ãƒˆæ•°
+        MINSIZE_MEMOCNT  => 4,        # ãƒ¡ãƒ¢ã®æœ€å°ãƒã‚¤ãƒˆæ•°
+        MAXSIZE_MEMOLINE => 15,       # ãƒ¡ãƒ¢ã®æœ€å¤§è¡Œæ•°
 
-        MAXSIZE_VNAME    => 32,       # ‘º‚Ì–¼‘O‚ÌÅ‘åƒoƒCƒg”
-        MINSIZE_VNAME    => 6,        # ‘º‚Ì–¼‘O‚ÌÅ¬ƒoƒCƒg”
-        MAXSIZE_VCOMMENT => 600,      # ‘º‚Ìà–¾‚ÌÅ‘åƒoƒCƒg”
-        MINSIZE_VCOMMENT => 16,       # ‘º‚Ìà–¾‚ÌÅ¬ƒoƒCƒg”
-        MAXSIZE_VPLCNT   => 25,       # ’èˆõ‚ÌÅ‘å”
-        MINSIZE_VPLCNT   => 4,        # ’èˆõ‚ÌÅ¬”
+        MAXSIZE_VNAME    => 32,       # æ‘ã®åå‰ã®æœ€å¤§ãƒã‚¤ãƒˆæ•°
+        MINSIZE_VNAME    => 6,        # æ‘ã®åå‰ã®æœ€å°ãƒã‚¤ãƒˆæ•°
+        MAXSIZE_VCOMMENT => 600,      # æ‘ã®èª¬æ˜Žã®æœ€å¤§ãƒã‚¤ãƒˆæ•°
+        MINSIZE_VCOMMENT => 16,       # æ‘ã®èª¬æ˜Žã®æœ€å°ãƒã‚¤ãƒˆæ•°
+        MAXSIZE_VPLCNT   => 25,       # å®šå“¡ã®æœ€å¤§æ•°
+        MINSIZE_VPLCNT   => 4,        # å®šå“¡ã®æœ€å°æ•°
 
-        MAXSIZE_HANDLENAME => 64,     # ƒnƒ“ƒhƒ‹–¼‚ÌÅ‘åƒoƒCƒg”
-        MAXSIZE_URL        => 128,    # URL‚ÌÅ‘åƒoƒCƒg”
-        MAXSIZE_INTRO      => 600,    # Ž©ŒÈÐ‰î‚ÌÅ‘åƒoƒCƒg”
+        MAXSIZE_HANDLENAME => 64,     # ãƒãƒ³ãƒ‰ãƒ«åã®æœ€å¤§ãƒã‚¤ãƒˆæ•°
+        MAXSIZE_URL        => 128,    # URLã®æœ€å¤§ãƒã‚¤ãƒˆæ•°
+        MAXSIZE_INTRO      => 600,    # è‡ªå·±ç´¹ä»‹ã®æœ€å¤§ãƒã‚¤ãƒˆæ•°
 
-        MAXCOUNT_STIGMA => 5,         # ¹­ŽÒ‚ÌÅ‘å”
+        MAXCOUNT_STIGMA => 5,         # è–ç—•è€…ã®æœ€å¤§æ•°
 
         #----------------------------------------
-        # ƒIƒvƒVƒ‡ƒ“‹@”\
+        # ã‚ªãƒ—ã‚·ãƒ§ãƒ³æ©Ÿèƒ½
         #----------------------------------------
 
-        # Ž©“®¶¬ŠÖŒW
+        # è‡ªå‹•ç”Ÿæˆé–¢ä¿‚
         AUTOMV_TIMING     => 'VSTATUSID_PLAY',
         AUTO_MAKEVILS     => \%automv,
         AUTO_NAMES        => \@autonames,
-        ENABLED_AUTOVMAKE => 0,                  # 1:Ž©“®‚Å‘º‚ð¶¬‚·‚é
+        ENABLED_AUTOVMAKE => 0,                  # 1:è‡ªå‹•ã§æ‘ã‚’ç”Ÿæˆã™ã‚‹
 
-        # ŽQl
-        # VSTATUSID_PRO      => 0, # ŽQ‰ÁŽÒ•åW’†^ŠJŽn‘O
-        # VSTATUSID_PLAY     => 1, # is’†
-        # VSTATUSID_EP       => 2, # Ÿ”s‚ªŒˆ‚µ‚Ü‚µ‚½
-        # VSTATUSID_END      => 3, # I—¹
-        # VSTATUSID_SCRAP    => 4, # ”p‘ºiƒGƒs’†j
-        # VSTATUSID_SCRAPEND => 5, # ”p‘ºI—¹
+        # å‚è€ƒ
+        # VSTATUSID_PRO      => 0, # å‚åŠ è€…å‹Ÿé›†ä¸­ï¼é–‹å§‹å‰
+        # VSTATUSID_PLAY     => 1, # é€²è¡Œä¸­
+        # VSTATUSID_EP       => 2, # å‹æ•—ãŒæ±ºã—ã¾ã—ãŸ
+        # VSTATUSID_END      => 3, # çµ‚äº†
+        # VSTATUSID_SCRAP    => 4, # å»ƒæ‘ï¼ˆã‚¨ãƒ”ä¸­ï¼‰
+        # VSTATUSID_SCRAPEND => 5, # å»ƒæ‘çµ‚äº†
 
-        # TypeKey”FØi–¢ŽÀ‘•j
-        ENABLED_TYPEKEY => 0,    # 1:TypeKey”FØ‚ð—p‚¢‚é
+        # TypeKeyèªè¨¼ï¼ˆæœªå®Ÿè£…ï¼‰
+        ENABLED_TYPEKEY => 0,    # 1:TypeKeyèªè¨¼ã‚’ç”¨ã„ã‚‹
         TOKEN_TYPEKEY   => '',
 
-        # QRƒR[ƒh
-        # ¦—vQRcode Perl CGI & PHP scripts
+        # QRã‚³ãƒ¼ãƒ‰
+        # â€»è¦QRcode Perl CGI & PHP scripts
         # http://www.swetake.com/qr/qr_cgi.html
-        ENABLED_QR => 0,    # 1:QRƒR[ƒho—Í‹@”\‚ðŽg—p‚·‚é
+        ENABLED_QR => 0,    # 1:QRã‚³ãƒ¼ãƒ‰å‡ºåŠ›æ©Ÿèƒ½ã‚’ä½¿ç”¨ã™ã‚‹
         URL_QR     => '',
 
-        # gzip“]‘—‹@”\
+        # gzipè»¢é€æ©Ÿèƒ½
         #		FILE_GZIP => '/bin/gzip',
         FILE_GZIP => '',
 
-        DEFAULT_TEXTRS => 'sow',    # ƒfƒtƒHƒ‹ƒg‚Ì•¶Žš—ñƒŠƒ\[ƒX
+        DEFAULT_TEXTRS => 'sow',    # ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã®æ–‡å­—åˆ—ãƒªã‚½ãƒ¼ã‚¹
 
-        DEFAULT_UA    => 'html401', # ƒfƒtƒHƒ‹ƒg‚Ìo—ÍŒ`Ž®
-        ENABLED_PLLOG => 1,         # 1:ƒvƒŒƒCƒ„[‚Ì‘€ìƒƒO‚ð‹L˜^
-        ENABLED_SCORE => 1,         # l˜T•ˆ‚Ìo—Í
+        DEFAULT_UA    => 'html401', # ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã®å‡ºåŠ›å½¢å¼
+        ENABLED_PLLOG => 1,         # 1:ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®æ“ä½œãƒ­ã‚°ã‚’è¨˜éŒ²
+        ENABLED_SCORE => 1,         # äººç‹¼è­œã®å‡ºåŠ›
 
-        # RSSo—Í
+        # RSSå‡ºåŠ›
         ENABLED_RSS       => 1,
-        MAXSIZE_RSSDESC   => 400,    # RSS ‚Ì description—v‘f‚ÌÅ‘åƒoƒCƒg”
-        RSS_ENCODING_UTF8 => 0,      # 1:RSS‚ð UTF-8 ‚Åo—Í‚·‚éi—vJcode.pmj
+        MAXSIZE_RSSDESC   => 400,    # RSS ã® descriptionè¦ç´ ã®æœ€å¤§ãƒã‚¤ãƒˆæ•°
+        RSS_ENCODING_UTF8 => 0,      # 1:RSSã‚’ UTF-8 ã§å‡ºåŠ›ã™ã‚‹ï¼ˆè¦Jcode.pmï¼‰
 
-        # ƒ‰ƒ“ƒ_ƒ€•\Ž¦‹@”\
+        # ãƒ©ãƒ³ãƒ€ãƒ è¡¨ç¤ºæ©Ÿèƒ½
         ENABLED_RANDOMTEXT => 1,
         RANDOMTEXT_1D6     => '1d6',
         RANDOMTEXT_1D10    => '1d10',
@@ -621,43 +616,38 @@ sub GetConfig {
         RANDOMTEXT_MIKUJI  => 'omikuji',
         RANDOMTEXT_ROLE    => 'role',
 
-        # ƒAƒvƒŠƒP[ƒVƒ‡ƒ“ƒƒO
+        # ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ãƒ­ã‚°
         ENABLED_APLOG   => 1,
         LEVEL_APLOG     => 5,
         MAXSIZE_APLOG   => 65536,
         MAXNO_APLOG     => 9,
-        ENABLED_HTTPLOG => 0,       # HTTPƒƒOo—Í
+        ENABLED_HTTPLOG => 0,       # HTTPãƒ­ã‚°å‡ºåŠ›
 
-        OUTPUT_HTTP_EQUIV  => 1,    # HTML‚É http-equiv ‚ðo—Í‚·‚éŽž‚Í 1 ‚ÉB
-        ENABLED_HTTP_CACHE => 0,    # 1:ƒLƒƒƒbƒVƒ…§Œä‚ð—LŒø‚É‚·‚éi”ñ„§j
+        OUTPUT_HTTP_EQUIV  => 1,    # HTMLã« http-equiv ã‚’å‡ºåŠ›ã™ã‚‹æ™‚ã¯ 1 ã«ã€‚
+        ENABLED_HTTP_CACHE => 0,    # 1:ã‚­ãƒ£ãƒƒã‚·ãƒ¥åˆ¶å¾¡ã‚’æœ‰åŠ¹ã«ã™ã‚‹ï¼ˆéžæŽ¨å¥¨ï¼‰
 
-        # form—v‘f‚Ì method‘®«’l
-        # ‚¤‚Ü‚­“®ì‚µ‚È‚¢Žž‚Í get ‚ÉÝ’è‚µ‚Ä‚Ý‚Ä‚­‚¾‚³‚¢B
+        # formè¦ç´ ã® methodå±žæ€§å€¤
+        # ã†ã¾ãå‹•ä½œã—ãªã„æ™‚ã¯ get ã«è¨­å®šã—ã¦ã¿ã¦ãã ã•ã„ã€‚
         METHOD_FORM => 'post',
-
-        # form—v‘f‚Ì method‘®«’liŒg‘Ñƒ‚[ƒhj
-        # ‘åÌ‚ÌŒg‘Ñ‚É‚Í post ‚ðŽó‚¯•t‚¯‚È‚¢•¨‚ª‚ ‚é‚ç‚µ‚¢B
-        # Å‹ß‚Ì‚È‚ç‚Ü‚¸‘åä•v‚Á‚Û‚¢‚¯‚ÇB
-        METHOD_FORM_MB => 'post',
 
         MAXSIZE_QUERY => 65536,
 
-        # Žž·
+        # æ™‚å·®
         TIMEZONE => 9,    # JST
 
-        # ƒNƒbƒL[‚Ì¶‘¶ŠúŠÔ
+        # ã‚¯ãƒƒã‚­ãƒ¼ã®ç”Ÿå­˜æœŸé–“
         TIMEOUT_COOKIE => 60 * 60 * 24 * 14,
 
-        CID_MAKER => 'maker',    # ‘ºŒš‚Äl—p‚Ì•Ö‹Xã‚ÌƒLƒƒƒ‰ID
-        CID_ADMIN => 'admin',    # ŠÇ—l—p‚Ì•Ö‹Xã‚ÌƒLƒƒƒ‰ID
-        CID_GUEST => 'guest',    # –TŠÏŽÒ—p‚Ì•Ö‹Xã‚ÌƒLƒƒƒ‰ID
+        CID_MAKER => 'maker',    # æ‘å»ºã¦äººç”¨ã®ä¾¿å®œä¸Šã®ã‚­ãƒ£ãƒ©ID
+        CID_ADMIN => 'admin',    # ç®¡ç†äººç”¨ã®ä¾¿å®œä¸Šã®ã‚­ãƒ£ãƒ©ID
+        CID_GUEST => 'guest',    # å‚è¦³è€…ç”¨ã®ä¾¿å®œä¸Šã®ã‚­ãƒ£ãƒ©ID
 
-        # Šî–{ƒfƒBƒŒƒNƒgƒŠ
+        # åŸºæœ¬ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒª
         BASEDIR_CGI => '.',
         BASEDIR_DOC => '.',
         BASEDIR_DAT => './data',
 
-        ENABLED_DIRVIL => 1,     # ‘ºƒf[ƒ^‚ð‘º”Ô†–ˆ‚ÉƒfƒBƒŒƒNƒgƒŠ•ª‚¯‚·‚é
+        ENABLED_DIRVIL => 1,     # æ‘ãƒ‡ãƒ¼ã‚¿ã‚’æ‘ç•ªå·æ¯Žã«ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªåˆ†ã‘ã™ã‚‹
 
         FILE_SOW       => "sow.cgi",
         FILE_VIL       => "vil.cgi",
@@ -683,7 +673,6 @@ sub GetConfig {
         CSIDLIST   => \@csidlist,
         TRSIDLIST  => \@trsidlist,
         NOACTLIST  => \@noactlist,
-        ROW_MB     => \@row_mb,
         ROW_PC     => \@row_pc,
         CSS        => \%csslist,
         RATING     => \%rating,

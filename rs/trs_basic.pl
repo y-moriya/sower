@@ -4,7 +4,7 @@ sub SWBasicTextRS {
     my $sow = $_[0];
 
     my @starttypeorder = ( 'manual', 'wbbs', 'juna' );
-    my %starttypetext = (
+    my %starttypetext  = (
         manual => '手動開始',
         wbbs   => '人狼BBS型（更新時間が来たら開始）',
         juna   => '人狼審問型（定員が揃ったら開始）',
@@ -40,7 +40,6 @@ sub SWBasicTextRS {
         ORDER_STARTTYPE => \@starttypeorder,
         STARTTYPE       => \%starttypetext,
         BUTTONLABEL_PC  => '_BUTTON_ / 更新',
-        BUTTONLABEL_MB  => '_BUTTON_',
     );
 
     return \%basictrs;

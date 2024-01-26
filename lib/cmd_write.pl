@@ -43,28 +43,13 @@ sub CmdWrite {
     $vil->closevil();
 
     # HTTP/HTML出力
-    if ( $sow->{'outmode'} eq 'mb' ) {
-        if ( $checknosay > 0 ) {
-            require "$cfg->{'DIR_LIB'}/file_log.pl";
-            require "$cfg->{'DIR_LIB'}/log.pl";
-            require "$cfg->{'DIR_LIB'}/cmd_vlog.pl";
-            &SWCmdVLog::OutHTMLCmdVLog( $sow, $vil );
-        }
-        else {
-            require "$cfg->{'DIR_HTML'}/html.pl";
-            require "$cfg->{'DIR_HTML'}/html_formpl_mb.pl";
-            &SWHtmlPlayerFormMb::OutHTMLPlayerFormMb( $sow, $vil );
-        }
-    }
-    else {
-        my $reqvals = &SWBase::GetRequestValues($sow);
-        my $link = &SWBase::GetLinkValues( $sow, $reqvals );
-        $link = "$cfg->{'URL_SW'}/$cfg->{'FILE_SOW'}?$link#newsay";
+    my $reqvals = &SWBase::GetRequestValues($sow);
+    my $link    = &SWBase::GetLinkValues( $sow, $reqvals );
+    $link = "$cfg->{'URL_SW'}/$cfg->{'FILE_SOW'}?$link#newsay";
 
-        $sow->{'http'}->{'location'} = "$link";
-        $sow->{'http'}->outheader();    # HTTPヘッダの出力
-        $sow->{'http'}->outfooter();
-    }
+    $sow->{'http'}->{'location'} = "$link";
+    $sow->{'http'}->outheader();    # HTTPヘッダの出力
+    $sow->{'http'}->outfooter();
 }
 
 #----------------------------------------
@@ -85,10 +70,10 @@ sub CheckWriteSafety {
 
     my ( $mestype, $saytype ) = &SWWrite::GetMesType( $sow, $vil, $curpl );
     return 1
-      if ( &SWBase::CheckWriteSafetyRole( $sow, $vil ) == 0 );    # 秘密会話のできない役職なら問題ない
-    return 1 if ( $mestype != $sow->{'MESTYPE_QUE'} );    # 通常発言ではないなら問題ない
-    return 1 if ( $vil->isepilogue() > 0 );               # エピなら問題ない
-    return 1 if ( $query->{'safety'} eq 'on' );           # 確認のチェックが付いているなら問題ない
+      if ( &SWBase::CheckWriteSafetyRole( $sow, $vil ) == 0 );        # 秘密会話のできない役職なら問題ない
+    return 1 if ( $mestype != $sow->{'MESTYPE_QUE'} );                # 通常発言ではないなら問題ない
+    return 1 if ( $vil->isepilogue() > 0 );                           # エピなら問題ない
+    return 1 if ( $query->{'safety'} eq 'on' );                       # 確認のチェックが付いているなら問題ない
 
     return 0;
 }

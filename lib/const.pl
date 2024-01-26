@@ -25,23 +25,21 @@ sub InitConst {
         cmdfrom => 1,    # 呼び出し元処理内容
         br      => 1,    # 改行文字のテスト用引数
 
-        vid      => 0,   # 村番号
-        v        => 0,   # 村番号（短縮形）
-        turn     => 0,   # ｎ日目
-        t        => 0,   # ｎ日目（短縮形）
-        mode     => 1,   # 終了後の視点切り替え
-        m        => 1,   # 終了後の視点切り替え（短縮形）
-        order    => 1,   # 村ログの表示順（昇順／降順）
-        o        => 1,   # 村ログの表示順短縮形（昇順／降順）
-        mbsayimg => 1,   # 携帯での顔グラ表示
-        i        => 1,   # 携帯での顔グラ表示（短縮形）
-        row      => 0,   # 村ログの表示行数
-        r        => 0,   # 村ログの表示行数（短縮形）
-        rowall   => 1,   # 全表示スイッチ
-        logid    => 1,   # 村ログ表示時の基準ログID
-        l        => 1,   # 村ログ表示時の基準ログID（短縮形）
-        pno      => 0,   # プレイヤー番号（絞り込み用）
-        ghost    => 0,   # ゴーストモード
+        vid    => 0,     # 村番号
+        v      => 0,     # 村番号（短縮形）
+        turn   => 0,     # ｎ日目
+        t      => 0,     # ｎ日目（短縮形）
+        mode   => 1,     # 終了後の視点切り替え
+        m      => 1,     # 終了後の視点切り替え（短縮形）
+        order  => 1,     # 村ログの表示順（昇順／降順）
+        o      => 1,     # 村ログの表示順短縮形（昇順／降順）
+        row    => 0,     # 村ログの表示行数
+        r      => 0,     # 村ログの表示行数（短縮形）
+        rowall => 1,     # 全表示スイッチ
+        logid  => 1,     # 村ログ表示時の基準ログID
+        l      => 1,     # 村ログ表示時の基準ログID（短縮形）
+        pno    => 0,     # プレイヤー番号（絞り込み用）
+        ghost  => 0,     # ゴーストモード
 
         vname        => 1,    # 村の名前
         vcomment     => 2,    # 村の説明
@@ -148,7 +146,6 @@ sub InitConst {
         t => 'turn',
         u => 'uid',
         v => 'vid',
-        i => 'mbsayimg',
     );
 
     # ログID発言種別
@@ -366,7 +363,7 @@ sub InitConst {
         COPY_AUTHOR => 'ゆーろ',
         URL_AUTHOR  => 'https://github.com/y-moriya/sower/',
         SITE_AUTHOR => 'github/sower',
-        VERSION_SW  => 'sower ver. 1.3.0',
+        VERSION_SW  => 'sower ver. 1.4.0',
 
         QUERY_INVALID    => \%queryinvalid,
         QUERY_SHORT2FULL => \%query_short2full,

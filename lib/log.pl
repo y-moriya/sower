@@ -300,50 +300,6 @@ sub GetPopupAnchor {
 }
 
 #----------------------------------------
-# 内部データ形式のアンカーをHTMLに整形（モバイル用）
-#----------------------------------------
-sub ReplaceAnchorHTMLMb {
-    my ( $sow, $vil, $mes, $anchor ) = @_;
-    my $cfg     = $sow->{'cfg'};
-    my $reqvals = &SWBase::GetRequestValues($sow);
-
-    while ( $mes =~ /<mw ([a-zA-Z]+\d+),([^,]*),([^>]+)>/ ) {
-        my $anchortext = $&;
-        my $logid      = $1;
-        my $turn       = $2;
-        my $linktext   = $3;
-
-        $reqvals->{'turn'} = '';
-        $reqvals->{'pno'}  = '';
-        my $link = '';
-        $turn = $sow->{'query'}->{'turn'} if ( $turn eq '' );
-        $anchor->{'logkeys'}->{$logid} = -1
-          if ( !defined( $anchor->{'logkeys'}->{$logid} ) );
-        if (
-            ( $turn == $sow->{'turn'} )
-            && (   ( $anchor->{'rowover'} == 0 )
-                || ( $anchor->{'logkeys'}->{$logid} >= 0 ) )
-          )
-        {
-            $link = "#$logid";
-        }
-        else {
-            $reqvals->{'turn'}  = $turn if ( $turn != $vil->{'turn'} );
-            $reqvals->{'logid'} = $logid;
-            $link               = &SWBase::GetLinkValues( $sow, $reqvals );
-            $link               = "$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}?$link";
-        }
-
-        # 正規表現での誤認識を防ぐ
-        &BackQuoteAnchorMark( \$anchortext );
-
-        $mes =~ s/$anchortext/<a href=\"$link\">&gt;&gt;$linktext<\/a>/;
-    }
-
-    return $mes;
-}
-
-#----------------------------------------
 # 内部データ形式のアンカーをテキストに整形（RSS向け）
 # ※引数の $anchor は未使用
 #----------------------------------------

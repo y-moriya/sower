@@ -12,22 +12,15 @@ sub CmdRestMemoIndex {
     my $vil = &SetRestMemoIndex($sow);
 
     # HTTP/HTML出力
-    if ( $sow->{'outmode'} eq 'mb' ) {
-        require "$sow->{'cfg'}->{'DIR_LIB'}/cmd_memo.pl";
-        $sow->{'query'}->{'cmd'} = 'memo';
-        &SWCmdMemo::CmdMemo($sow);
-    }
-    else {
-        my $reqvals = &SWBase::GetRequestValues($sow);
-        $reqvals->{'cmd'}  = 'memo';
-        $reqvals->{'turn'} = '';
-        my $link = &SWBase::GetLinkValues( $sow, $reqvals );
-        $link = "$cfg->{'URL_SW'}/$cfg->{'FILE_SOW'}?$link#newsay";
+    my $reqvals = &SWBase::GetRequestValues($sow);
+    $reqvals->{'cmd'}  = 'memo';
+    $reqvals->{'turn'} = '';
+    my $link = &SWBase::GetLinkValues( $sow, $reqvals );
+    $link = "$cfg->{'URL_SW'}/$cfg->{'FILE_SOW'}?$link#newsay";
 
-        $sow->{'http'}->{'location'} = "$link";
-        $sow->{'http'}->outheader();    # HTTPヘッダの出力
-        $sow->{'http'}->outfooter();
-    }
+    $sow->{'http'}->{'location'} = "$link";
+    $sow->{'http'}->outheader();    # HTTPヘッダの出力
+    $sow->{'http'}->outfooter();
 }
 
 #----------------------------------------

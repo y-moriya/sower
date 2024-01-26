@@ -37,47 +37,7 @@ sub initua {
     my $ua = $sow->{'ua'};
     $ua = $forceua if ( defined($forceua) );
 
-    if ( $ua eq 'ihtml' ) {
-
-        # DoCoMo i-mode
-        # iHTML DTD
-        require "$dirhtml/html_mb.pl";
-        require "$dirhtml/dtd_ihtml.pl";
-        $self->{'dtd'} = SWiHtml->new($self);
-    }
-    elsif ( $ua eq 'hdml' ) {
-
-        # au HDML系端末
-        # 未対応（とりあえずi-mode用で代用）
-        require "$dirhtml/html_mb.pl";
-        require "$dirhtml/dtd_ihtml.pl";
-        $self->{'dtd'} = SWiHtml->new($self);
-    }
-    elsif ( $ua eq 'au' ) {
-
-        # au WAP2.0系端末
-        # XHTMLbasic DTD
-        require "$dirhtml/html_mb.pl";
-        require "$dirhtml/dtd_xhtmlbasic.pl";
-        $self->{'dtd'} = SWXHtmlBasic->new($self);
-    }
-    elsif ( ( $ua eq 'sb' ) || ( $ua eq 'vodax' ) ) {
-
-        # SoftBank（Vodafone）Ｗ端末／3GC端末
-        # とりあえずi-mode用で代用
-        require "$dirhtml/html_mb.pl";
-        require "$dirhtml/dtd_ihtml.pl";
-        $self->{'dtd'} = SWiHtml->new($self);
-    }
-    elsif ( $ua eq 'voda' ) {
-
-        # Vodafone Ｃ型／Ｐ型端末
-        # とりあえずi-mode用で代用
-        require "$dirhtml/html_mb.pl";
-        require "$dirhtml/dtd_ihtml.pl";
-        $self->{'dtd'} = SWiHtml->new($self);
-    }
-    elsif ( $ua eq 'rss' ) {
+    if ( $ua eq 'rss' ) {
 
         # RSS1.0
         require "$dirhtml/dtd_rss10.pl";
@@ -167,14 +127,7 @@ sub ConvertNET {
 #----------------------------------------
 sub OutHTMLReturn {
     my $sow = $_[0];
-
-    if ( $sow->{'query'}->{'ua'} eq 'mb' ) {
-        &SWHtmlMb::OutHTMLReturnMb(@_);
-    }
-    else {
-        &SWHtmlPC::OutHTMLReturnPC(@_);
-    }
-
+    &SWHtmlPC::OutHTMLReturnPC(@_);
     return;
 }
 
@@ -191,7 +144,7 @@ sub GetViewMode {
     $mode = 'wolf'  if ( $query->{'mode'} eq 'wolf' );
     $mode = 'grave' if ( $query->{'mode'} eq 'grave' );
     my @modes    = ( 'human', 'wolf', 'grave', 'all' );
-    my @modename = ( '人',   '狼',  '墓',   '全' );
+    my @modename = ( '人',     '狼',    '墓',     '全' );
 
     return ( $mode, \@modes, \@modename );
 }
@@ -210,7 +163,7 @@ sub GetPagesPermit {
         push( @pages, $_ )
           if ( ( !defined( $_->{'logsubid'} ) )
             || ( $_->{'logsubid'} ne $sow->{'LOGSUBID_ACTION'} )
-            || ( $sow->{'cfg'}->{'ROW_ACTION'} > 0 ) );            # アクションは除外
+            || ( $sow->{'cfg'}->{'ROW_ACTION'} > 0 ) );    # アクションは除外
         $indexno = $#pages if ( $_->{'logid'} eq $plogid );
     }
 

@@ -209,29 +209,11 @@ sub TaskBranch {
         require "$dirlib/cmd_editvilform.pl";
         &SWCmdEditVilForm::CmdEditVilForm($sow);
     }
-    elsif ( ( $cmd eq 'vinfo' ) && ( $sow->{'outmode'} eq 'mb' ) ) {
-
-        # 村情報画面表示（モバイル）
-        require "$dirhtml/html_vinfo_mb.pl";
-        &SWHtmlVilInfoMb::OutHTMLVilInfoMb($sow);
-    }
     elsif ( $cmd eq 'vinfo' ) {
 
         # 村情報画面表示
         require "$dirhtml/html_vinfo_pc.pl";
         &SWHtmlVilInfo::OutHTMLVilInfo($sow);
-    }
-    elsif ( ( ( $cmd eq 'vindex' ) || ( $cmd eq 'oldlog' ) ) && ( $sow->{'outmode'} eq 'mb' ) ) {
-
-        # 村一覧表示（モバイル）
-        require "$dirhtml/html_vindex_mb.pl";
-        &SWHtmlVIndexMb::OutHTMLVIndexMb($sow);
-    }
-    elsif ( $cmd eq 'enformmb' ) {
-
-        # エントリー画面（モバイル）
-        require "$dirlib/cmd_enformmb.pl";
-        &SWCmdEntryFormMb::CmbEntryFormMb($sow);
     }
     elsif ( $cmd eq 'entrypr' ) {
 
@@ -252,12 +234,6 @@ sub TaskBranch {
         }
         require "$dirlib/cmd_entry.pl";
         &SWCmdEntry::CmdEntry($sow);
-    }
-    elsif ( $cmd eq 'cfg' ) {
-
-        # モバイル用設定画面
-        require "$dirhtml/html_loginform_mb.pl";
-        &SWHtmlLoginFormMb::OutHTMLLoginMb($sow);
     }
     elsif ( $cmd eq 'exitpr' ) {
 
@@ -306,18 +282,6 @@ sub TaskBranch {
         # 発言プレビュー表示
         require "$dirlib/cmd_writepr.pl";
         &SWCmdWritePreview::CmdWritePreview($sow);
-    }
-    elsif ( $cmd eq 'wrformmb' ) {
-
-        # 発言フォーム表示（モバイル）
-        require "$dirlib/cmd_wrformmb.pl";
-        &SWCmdWriteFormMb::CmbWriteFormMb($sow);
-    }
-    elsif ( $cmd eq 'wrmemoformmb' ) {
-
-        # メモ書き込みフォーム（モバイル）
-        require "$dirlib/cmd_memoformmb.pl";
-        &SWCmdWriteMemoFormMb::CmbWriteMemoFormMb($sow);
     }
     elsif ( $cmd eq 'write' ) {
 
@@ -490,30 +454,18 @@ sub TaskBranch {
     elsif ( $cmd eq 'restrec' ) {
 
         # 戦績再構築
-        if ( $ENV{'REQUEST_METHOD'} ne 'POST' ) {
-            $sow->{'debug'}->raise( $sow->{'APLOG_CAUTION'}, "不正なリクエストです。", "invalid request method." );
-            return;
-        }
         require "$dirlib/cmd_restrec.pl";
         &SWCmdRestRecord::CmdRestRecord($sow);
     }
     elsif ( ( $cmd eq 'restviform' ) || ( $cmd eq 'restvi' ) ) {
 
         # 村一覧再構築
-        if ( $ENV{'REQUEST_METHOD'} ne 'POST' ) {
-            $sow->{'debug'}->raise( $sow->{'APLOG_CAUTION'}, "不正なリクエストです。", "invalid request method." );
-            return;
-        }
         require "$dirlib/cmd_restvi.pl";
         &SWCmdRestVIndex::CmdRestVIndex($sow);
     }
     elsif ( ( $cmd eq 'restplayingvil' ) || ( $cmd eq 'restpvil' ) ) {
 
         # 参加中の村一覧クリア
-        if ( $ENV{'REQUEST_METHOD'} ne 'POST' ) {
-            $sow->{'debug'}->raise( $sow->{'APLOG_CAUTION'}, "不正なリクエストです。", "invalid request method." );
-            return;
-        }
         require "$dirlib/cmd_restpvil.pl";
         &SWCmdRestPlayingVil::CmdRestPlayingVil($sow);
     }
@@ -530,10 +482,6 @@ sub TaskBranch {
     elsif ( $cmd eq 'movevil' ) {
 
         # 村データ移動
-        if ( $ENV{'REQUEST_METHOD'} ne 'POST' ) {
-            $sow->{'debug'}->raise( $sow->{'APLOG_CAUTION'}, "不正なリクエストです。", "invalid request method." );
-            return;
-        }
         require "$dirlib/cmd_movevil.pl";
         &SWCmdMoveVil::CmdMoveVil($sow);
     }
@@ -606,12 +554,6 @@ sub TaskBranch {
         require "$dirlib/cmd_restmemo.pl";
         &SWCmdRestMemoIndex::CmdRestMemoIndex($sow);
     }
-    elsif ( $cmd eq 'mbimg' ) {
-
-        # 携帯用顔グラフィック表示
-        require "$dirlib/cmd_vlog.pl";
-        &SWCmdVLog::CmdMbImg($sow);
-    }
     elsif ( defined( $sow->{'query'}->{'vid'} ) ) {
 
         # 村ログ表示
@@ -619,18 +561,9 @@ sub TaskBranch {
         &SWCmdVLog::CmdVLog($sow);
     }
     else {
-        # TODO: モバイル用を削除する
-        if ( $sow->{'outmode'} eq 'mb' ) {
-
-            # モバイル用ログイン画面
-            require "$dirhtml/html_loginform_mb.pl";
-            &SWHtmlLoginFormMb::OutHTMLLoginMb($sow);
-        }
-        else {
-            # トップページ表示
-            require "$dirhtml/html_index.pl";
-            &SWHtmlIndex::OutHTMLIndex($sow);
-        }
+        # トップページ表示
+        require "$dirhtml/html_index.pl";
+        &SWHtmlIndex::OutHTMLIndex($sow);
     }
 
     return;

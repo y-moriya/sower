@@ -24,14 +24,11 @@ sub CmdEntryPreview {
     my $lenmes = length( $query->{'mes'} );
     $debug->raise(
         $sow->{'APLOG_NOTICE'},
-"参加する時のセリフが短すぎます（$lenmes バイト）。$sow->{'cfg'}->{'MINSIZE_MES'} バイト以上必要です。",
+        "参加する時のセリフが短すぎます（$lenmes バイト）。$sow->{'cfg'}->{'MINSIZE_MES'} バイト以上必要です。",
         "mes too short.$errfrom"
     ) if ( ( $lenmes < $sow->{'cfg'}->{'MINSIZE_MES'} ) && ( $lenmes != 0 ) );
-    $debug->raise(
-        $sow->{'APLOG_NOTICE'},
-        "参加する時のセリフがありません。",
-        "no entry message.$errfrom"
-    ) if ( &SWString::CheckNoSay( $sow, $sow->{'query'}->{'mes'} ) == 0 );
+    $debug->raise( $sow->{'APLOG_NOTICE'}, "参加する時のセリフがありません。", "no entry message.$errfrom" )
+      if ( &SWString::CheckNoSay( $sow, $sow->{'query'}->{'mes'} ) == 0 );
     $debug->raise( $sow->{'APLOG_NOTICE'}, '参加パスワードが違います。', "invalid entrypwd.$errfrom" )
       if ( ( $vil->{'entrylimit'} eq 'password' )
         && ( $query->{'entrypwd'} ne $vil->{'entrypwd'} ) );
@@ -97,16 +94,9 @@ sub OutHTMLCmdEntryPreview {
     $plsingle->createpl( $log{'uid'} );
 
     my %preview = ( cmd => 'entry', );
-    if ( $sow->{'outmode'} eq 'mb' ) {
-        $preview{'cmdfrom'} = 'enformmb';
-        require "$sow->{'cfg'}->{'DIR_HTML'}/html_preview_mb.pl";
-        &SWHtmlPreviewMb::OutHTMLPreviewMb( $sow, $vil, \%log, \%preview );
-    }
-    else {
-        require "$sow->{'cfg'}->{'DIR_HTML'}/html_preview_pc.pl";
-        require "$sow->{'cfg'}->{'DIR_HTML'}/html_vlog_pc.pl";
-        &SWHtmlPreviewPC::OutHTMLPreviewPC( $sow, $vil, \%log, \%preview );
-    }
+    require "$sow->{'cfg'}->{'DIR_HTML'}/html_preview_pc.pl";
+    require "$sow->{'cfg'}->{'DIR_HTML'}/html_vlog_pc.pl";
+    &SWHtmlPreviewPC::OutHTMLPreviewPC( $sow, $vil, \%log, \%preview );
 }
 
 1;

@@ -227,7 +227,7 @@ sub getmemo {
         ( $logs, $logkeys, $rowover, $lastlog ) = $self->GetVLogsReverse( $mode, $skip, $maxrow );
         if ( $lastlog >= 0 ) {
             $rows{'start'} = 1 if ( $rowover == 0 );
-            $rows{'end'} = 1
+            $rows{'end'}   = 1
               if ( ( $#$logs >= 0 )
                 && ( $logs->[$#$logs]->{'indexno'} == $lastlog ) );
         }
@@ -266,7 +266,6 @@ sub GetVLogsForward {
 
         last
           if ( ( $mode eq 'logid' )
-            && ( $sow->{'outmode'} ne 'mb' )
             && ( $skip == 0 ) );
 
         if (   ( $mode eq 'logid' )
@@ -335,7 +334,6 @@ sub GetVLogsReverse {
 
         last
           if ( ( $mode eq 'logid' )
-            && ( $sow->{'outmode'} ne 'mb' )
             && ( $skip == 0 ) );
 
         if ( ( $mode eq 'logid' ) && ( $logid eq $query->{'logid'} ) ) {

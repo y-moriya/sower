@@ -148,7 +148,7 @@ sub FileRotation {
     my $size = ( -s $datafile );
     if ( $size >= $sow->{'cfg'}->{'MAXSIZE_APLOG'} ) {
         for ( $i = $sow->{'cfg'}->{'MAXNO_APLOG'} ; $i > 0 ; $i-- ) {
-            my $fileid = '.' . ( $i - 1 );
+            my $fileid     = '.' . ( $i - 1 );
             my $fileidnext = ".$i";
             $fileid = '' if ( $i == 1 );
             rename( "$datafile$fileid", "$datafile$fileidnext" )
@@ -179,12 +179,7 @@ sub OutHTMLError {
     $sow->{'html'}->outheader($mes1);
     $sow->{'html'}->outcontentheader();
 
-    if ( $sow->{'outmode'} eq 'mb' ) {
-        $self->OutHTMLErrorMb( $mes1, $mes2, $mes3, $mes4 );
-    }
-    else {
-        $self->OutHTMLErrorPC( $mes1, $mes2, $mes3, $mes4 );
-    }
+    $self->OutHTMLErrorPC( $mes1, $mes2, $mes3, $mes4 );
 
     $sow->{'html'}->outcontentfooter();
     $sow->{'html'}->outfooter();
@@ -231,42 +226,6 @@ _HTML_
 
 _HTML_
 
-}
-
-#----------------------------------------
-# エラー表示（モバイルモード）
-#----------------------------------------
-sub OutHTMLErrorMb {
-    my ( $self, $mes1, $mes2, $mes3, $mes4 ) = @_;
-    my $sow = $self->{'sow'};
-    my $cfg = $sow->{'cfg'};
-    my $net = $sow->{'html'}->{'net'};
-
-    my $link = "$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}";
-    if ( defined( $sow->{'file'}->{'vil'} ) ) {
-        my $vil = $sow->{'file'}->{'vil'}->{'parent'};
-        &SWHtmlMb::OutHTMLTurnNaviMb( $sow, $vil, 0 );
-    }
-
-    print <<"_HTML_";
-<p>$mes1</p>
-<p>$mes2</p>
-<hr$net>
-
-_HTML_
-
-    if ( defined( $sow->{'file'}->{'vil'} ) ) {
-        my $vil = $sow->{'file'}->{'vil'}->{'parent'};
-        &SWHtmlMb::OutHTMLTurnNaviMb( $sow, $vil, 1 );
-    }
-    else {
-        my $reqvals = &SWBase::GetRequestValues($sow);
-        $reqvals->{'uid'} = '';
-        $reqvals->{'pwd'} = '';
-        $reqvals->{'vid'} = '';
-        my $urlsow = &SWBase::GetLinkValues( $sow, $reqvals );
-        print "<a href=\"$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}?$urlsow\">戻る</a>\n";
-    }
 }
 
 1;

@@ -12,23 +12,15 @@ sub CmdWriteMemo {
     my ( $vil, $checknosay ) = &SetDataCmdWriteMemo($sow);
 
     # HTTP/HTML出力
-    if ( $sow->{'outmode'} eq 'mb' ) {
-        require "$sow->{'cfg'}->{'DIR_LIB'}/cmd_memo.pl";
-        $sow->{'query'}->{'cmd'}     = 'memo';
-        $sow->{'query'}->{'cmdfrom'} = 'wrmemo';
-        &SWCmdMemo::CmdMemo($sow);
-    }
-    else {
-        my $reqvals = &SWBase::GetRequestValues($sow);
-        $reqvals->{'cmd'}  = 'memo';
-        $reqvals->{'turn'} = '';
-        my $link = &SWBase::GetLinkValues( $sow, $reqvals );
-        $link = "$cfg->{'URL_SW'}/$cfg->{'FILE_SOW'}?$link#newsay";
+    my $reqvals = &SWBase::GetRequestValues($sow);
+    $reqvals->{'cmd'}  = 'memo';
+    $reqvals->{'turn'} = '';
+    my $link = &SWBase::GetLinkValues( $sow, $reqvals );
+    $link = "$cfg->{'URL_SW'}/$cfg->{'FILE_SOW'}?$link#newsay";
 
-        $sow->{'http'}->{'location'} = "$link";
-        $sow->{'http'}->outheader();    # HTTPヘッダの出力
-        $sow->{'http'}->outfooter();
-    }
+    $sow->{'http'}->{'location'} = "$link";
+    $sow->{'http'}->outheader();    # HTTPヘッダの出力
+    $sow->{'http'}->outfooter();
 }
 
 #----------------------------------------
@@ -60,11 +52,8 @@ sub SetDataCmdWriteMemo {
     # 残りアクションがゼロの時
     require "$sow->{'cfg'}->{'DIR_LIB'}/write.pl";
     my ( $dummy, $saytype ) = &SWWrite::GetMesType( $sow, $vil, $writepl );
-    $debug->raise(
-        $sow->{'APLOG_NOTICE'},
-        "アクションが足りません。",
-        "not enough saypoint.[$saytype: $writepl->{$saytype} / 1]"
-    ) if ( $writepl->{$saytype} <= 0 );
+    $debug->raise( $sow->{'APLOG_NOTICE'}, "アクションが足りません。", "not enough saypoint.[$saytype: $writepl->{$saytype} / 1]" )
+      if ( $writepl->{$saytype} <= 0 );
 
     # 行数・文字数の取得の取得
     my $mes           = $query->{'mes'};
@@ -75,7 +64,7 @@ sub SetDataCmdWriteMemo {
     # 行数／文字数制限警告
     $debug->raise(
         $sow->{'APLOG_NOTICE'},
-"行数が多すぎます（$lineslogcount行）。$cfg->{'MAXSIZE_MEMOLINE'}行以内に収めないと書き込めません。",
+        "行数が多すぎます（$lineslogcount行）。$cfg->{'MAXSIZE_MEMOLINE'}行以内に収めないと書き込めません。",
         "too many mes lines.$errfrom"
     ) if ( $lineslogcount > $cfg->{'MAXSIZE_MEMOLINE'} );
     my $unitcaution =
@@ -83,7 +72,7 @@ sub SetDataCmdWriteMemo {
       ->{'UNIT_CAUTION'};
     $debug->raise(
         $sow->{'APLOG_NOTICE'},
-"文字が多すぎます（$countmes$unitcaution）。$cfg->{'MAXSIZE_MEMOCNT'}$unitcaution以内に収めないと書き込めません。",
+        "文字が多すぎます（$countmes$unitcaution）。$cfg->{'MAXSIZE_MEMOCNT'}$unitcaution以内に収めないと書き込めません。",
         "too many mes.$errfrom"
     ) if ( $countmes > $cfg->{'MAXSIZE_MEMOCNT'} );
     my $lenmes = length( $query->{'mes'} );
@@ -98,7 +87,7 @@ sub SetDataCmdWriteMemo {
     my $checknosay = &SWString::CheckNoSay( $sow, $query->{'mes'} );
 
     my $memofile = SWSnake->new( $sow, $vil, $vil->{'turn'}, 0 );
-    my $newmemo = $memofile->getnewmemo($writepl);
+    my $newmemo  = $memofile->getnewmemo($writepl);
     $debug->raise( $sow->{'APLOG_NOTICE'}, 'メモを貼っていません。', "memo not found.$errfrom" )
       if ( ( $checknosay == 0 ) && ( $newmemo->{'log'} eq '' ) );
 
