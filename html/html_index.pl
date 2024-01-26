@@ -94,8 +94,12 @@ _HTML_
 
     &SWHtmlPC::OutHTMLLogin($sow);    # ログイン欄の出力
 
-    # 管理人からのお知らせ
     require "./_info.pl";
+
+    # サーバー情報
+    &SWAdminInfo::OutHTMLServerInfo($sow);
+
+    # 管理人からのお知らせ
     &SWAdminInfo::OutHTMLAdminInfo($sow);
 
     # 概略

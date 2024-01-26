@@ -1,6 +1,24 @@
 package SWAdminInfo;
 
 #----------------------------------------
+# サーバー情報
+#----------------------------------------
+
+sub OutHTMLServerInfo {
+    my $sow    = shift;
+    my $cfg    = $sow->{'cfg'};
+    my $net    = $sow->{'html'}->{'net'};      # Null End Tag
+    my $atr_id = $sow->{'html'}->{'atr_id'};
+    print <<"_HTML_";
+<h2>サーバー情報</h2>
+<p>
+$cfg->{'SERVER_INFO'}
+</p>
+_HTML_
+
+}
+
+#----------------------------------------
 # 管理人からのお知らせ
 #----------------------------------------
 sub OutHTMLAdminInfo {
