@@ -54,6 +54,13 @@ sub OutHTMLDialog {
             buttoncaption => '廃村',
         );
     }
+    elsif ( $query->{'cmd'} eq 'extendpr' ) {
+        %dialog = (
+            cmd           => 'extend',
+            text          => "廃村を$query->{'extenddate'}日延長しますか？",
+            buttoncaption => '延長',
+        );
+    }
 
     $sow->{'debug'}->raise( $sow->{'APLOG_CAUTION'}, "未定義の行動です。", "invalid cmd." )
       if ( $dialog{'cmd'} eq 'none' );

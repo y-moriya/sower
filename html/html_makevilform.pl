@@ -14,9 +14,9 @@ sub OutHTMLMakeVilForm {
         $vcmd  = 'editvil';
     }
 
-    $sow->{'html'} = SWHtml->new($sow);    # HTMLモードの初期化
-    my $net = $sow->{'html'}->{'net'};            # Null End Tag
-    $sow->{'http'}->outheader();                  # HTTPヘッダの出力
+    $sow->{'html'} = SWHtml->new($sow);       # HTMLモードの初期化
+    my $net = $sow->{'html'}->{'net'};        # Null End Tag
+    $sow->{'http'}->outheader();              # HTTPヘッダの出力
     $sow->{'html'}->outheader("村の$vmode");    # HTMLヘッダの出力
     $sow->{'html'}->outcontentheader();
 
@@ -26,7 +26,7 @@ sub OutHTMLMakeVilForm {
     my $urlsow = "$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}";
     &SWBase::LoadTextRS( $sow, $vil );
 
-    &SWHtmlPC::OutHTMLLogin($sow);                # ログインボタン
+    &SWHtmlPC::OutHTMLLogin($sow);            # ログインボタン
 
     # 日付別ログへのリンク
     &SWHtmlPC::OutHTMLTurnNavi( $sow, $vil )
@@ -96,7 +96,7 @@ _HTML_
 _HTML_
 
     for ( $i = 0 ; $i < 60 ; $i += 30 ) {
-        my $min = sprintf( '%02d分', $i );
+        my $min      = sprintf( '%02d分', $i );
         my $selected = '';
         $selected = " $sow->{'html'}->{'selected'}"
           if ( $vil->{'updminite'} == $i );
@@ -205,7 +205,7 @@ _HTML_
             $sow->{'charsets'}->loadchrrs($_);
             push( @captions, $sow->{'charsets'}->{'csid'}->{$_}->{'CAPTION'} );
         }
-        my $caption = join( 'と', @captions );
+        my $caption  = join( 'と', @captions );
         my $selected = '';
         $selected = " $sow->{'html'}->{'selected'}" if ( $vil->{'csid'} eq $_ );
         print "      <option value=\"$_\"$selected> $caption$sow->{'html'}->{'option'}\n";

@@ -271,17 +271,15 @@ sub OutHTMLVlogFormArea {
     my $net    = $sow->{'html'}->{'net'};
     my $pllist = $vil->getpllist();
     my $date   = $sow->{'dt'}->cvtdt( $vil->{'nextupdatedt'} );
+    my $scraplimit =
+      "\n\n<p class=\"caution\">\n" . $sow->{'dt'}->cvtdt( $vil->{'scraplimitdt'} ) . "までに開始しなかった場合、この村は廃村となります。\n</p>";
+    $scraplimit = '' if ( $vil->{'scraplimitdt'} == 0 );
 
     if (   ( $vil->{'turn'} == 0 )
         && ( $vil->checkentried() < 0 )
         && ( $vil->{'vplcnt'} > @$pllist ) )
     {
         # プロローグ未参加／未ログイン時アナウンス
-        my $scraplimit =
-            "\n\n<p class=\"caution\">\n"
-          . $sow->{'dt'}->cvtdt( $vil->{'scraplimitdt'} )
-          . "までに開始しなかった場合、この村は廃村となります。\n</p>";
-        $scraplimit = '' if ( $vil->{'scraplimitdt'} == 0 );
         print <<"_HTML_";
 <p class="caution">
 演じたいキャラクターを選び、発言してください。<br$net>
@@ -289,8 +287,10 @@ sub OutHTMLVlogFormArea {
 ※希望能\力についての発言は控えてください。
 </p>$scraplimit
 <hr class="invisible_hr"$net>
-
 _HTML_
+    }
+    elsif ( $vil->{'turn'} == 0 ) {
+        print $scraplimit;
     }
     elsif ( $vil->isepilogue() > 0 ) {
 
@@ -427,6 +427,8 @@ sub OutHTMLVilMakerInFormPlPC {
         &SWHtmlPlayerFormPC::OutHTMLUpdateSessionButtonPC( $sow, $vil );
         &SWHtmlPlayerFormPC::OutHTMLScrapVilButtonPC( $sow, $vil )
           if ( $vil->{'turn'} < $vil->{'epilogue'} );
+        &SWHtmlPlayerFormPC::OutHTMLExtendScrapVilButtonPC( $sow, $vil )
+          if ( $vil->{'turn'} == 0 );
         &SWHtmlPlayerFormPC::OutHTMLKickFormPC( $sow, $vil )
           if ( $vil->{'turn'} == 0 );
         print "</div>\n";

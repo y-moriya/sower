@@ -127,6 +127,8 @@ sub InitConst {
         vidend   => 0,        # 村番号範囲指定（終了）
         vidmove  => 1,        # 村データの移動先
 
+        extenddate => 0,      # 廃村延長期間
+
         # TypeKey
         email => 1,
         name  => 1,
@@ -363,7 +365,7 @@ sub InitConst {
         COPY_AUTHOR => 'ゆーろ',
         URL_AUTHOR  => 'https://github.com/y-moriya/sower/',
         SITE_AUTHOR => 'github/sower',
-        VERSION_SW  => 'sower ver. 1.4.2',
+        VERSION_SW  => 'sower ver. 1.4.3',
 
         QUERY_INVALID    => \%queryinvalid,
         QUERY_SHORT2FULL => \%query_short2full,

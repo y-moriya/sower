@@ -15,7 +15,8 @@
         "ms-azuretools.vscode-docker",
         "eamodio.gitlens",
         "lacroixdavid1.vscode-format-context-menu",
-        "esbenp.prettier-vscode"
+        "esbenp.prettier-vscode",
+        "Gruntfuggly.todo-tree"
       ]
     }
   },
