@@ -36,9 +36,10 @@ sub outhtmlnew {
     my $atr_id = $sow->{'html'}->{'atr_id'};
 
     print <<"_HTML_";
-<h3>Sower Version 1.4.0</h3>
+<h3>Sower Version 1.4.1</h3>
 <ul>
-  <li>携帯モードを削除</li>
+  <li>個別フィルタ修正</li>
+  <li>参加していない進行中の村で、自身の傍観者発言と独り言を見れるように修正</li>
 </ul>
 _HTML_
 
@@ -61,6 +62,11 @@ _HTML_
     $self->outhtmlnew();
 
     print <<"_HTML_";
+<hr class="invisible_hr"$net>
+<h3>Sower Version 1.4.0</h3>
+<ul>
+  <li>携帯モードを削除</li>
+</ul>
 <hr class="invisible_hr"$net>
 <h3>Sower Version 1.3.0 (2024/01/14)</h3>
 <ul>
