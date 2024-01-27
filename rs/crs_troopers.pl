@@ -345,7 +345,14 @@ sub GetRSChr {
         '── 集う機械達から無機質な音声が発せられる。<br><br>『正常化を開始します。<br>　繰り返します、正常化を開始します。』',
     );
 
-    my @expression = ();
+    my @expression    = ( '通常', '墓', '狼', '独', '恋', );
+    my %expressiondic = (
+        SAY   => '',
+        GRAVE => '-haka',
+        WOLF  => '-red',
+        TSAY  => '-doku',
+        LSAY  => '-momo',
+    );
 
     my %charset = (
         CAPTION        => 'Troopers',
@@ -366,6 +373,7 @@ sub GetRSChr {
         TSAY           => '-doku',
         LSAY           => '-momo',
         EXPRESSION     => \@expression,
+        EXPRESSIONDIC  => \%expressiondic,
         LAYOUT_NAME    => 'right',
     );
 

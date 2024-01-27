@@ -384,10 +384,12 @@ sub GetImgUrl {
     }
     else {
         if ( defined($expression) ) {
-            $expression = "_$expression";
+            my @expressionarray = ( 'SAY', 'GRAVE', 'WOLF', 'TSAY', 'LSAY' );
+
+            $expression = $charset->{'EXPRESSIONDIC'}->{ @expressionarray[$expression] };
         }
         else {
-            $expression = "_0";
+            $expression = "";
         }
     }
 
