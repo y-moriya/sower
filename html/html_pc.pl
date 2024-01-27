@@ -397,8 +397,9 @@ sub GetImgUrl {
     $imggrwl = $charset->{'WOLF'}
       if ( ( $mestype eq $sow->{'MESTYPE_WSAY'} )
         && ( $charset->{'WOLF'} ne '' ) );                                 # š‘‚«•\¦
-    $imggrwl = $charset->{'TSAY'} if ( ( $charset->{'TSAY'} ne '' ) && $mestype eq $sow->{'MESTYPE_TSAY'} );    # “Æ‚èŒ¾
-    $imggrwl = $charset->{'LSAY'} if ( ( $charset->{'LSAY'} ne '' ) && $mestype eq $sow->{'MESTYPE_LSAY'} );    # —ö‘‹
+    $imggrwl = $charset->{'BSAY'} if ( ( $charset->{'BSAY'} ne '' ) && ( $mestype eq $sow->{'MESTYPE_BSAY'} ) );   # ”O˜b
+    $imggrwl = $charset->{'TSAY'} if ( ( $charset->{'TSAY'} ne '' ) && ( $mestype eq $sow->{'MESTYPE_TSAY'} ) );   # “Æ‚èŒ¾
+    $imggrwl = $charset->{'LSAY'} if ( ( $charset->{'LSAY'} ne '' ) && ( $mestype eq $sow->{'MESTYPE_LSAY'} ) );   # —ö‘‹
     my $img = "$charset->{'DIR'}/$imgid$imggrwl$imgparts$expression$charset->{'EXT'}";
 
     return $img;
