@@ -537,7 +537,7 @@ _HTML_
 
         # キャラ画像アドレスの取得
         my $img = &SWHtmlPC::GetImgUrl( $sow, $vil, $curpl, $charset->{'BODY'} );
-        if ( $curpl->iswhisper > 0 ) {
+        if ( $curpl->iswolf > 0 ) {
             $img = &SWHtmlPC::GetImgUrl( $sow, $vil, $curpl, $charset->{'BODY'}, 0, $sow->{'MESTYPE_WSAY'} );
         }
 
