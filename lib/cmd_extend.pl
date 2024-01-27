@@ -40,7 +40,16 @@ sub SetDataCmdExtend {
 
     $sow->{'debug'}->raise( $sow->{'APLOG_NOTICE'}, "管理人権限が必要です。", "no permition.$errfrom" )
       if ( $sow->{'uid'} ne $sow->{'cfg'}->{'USERID_ADMIN'} );
-    $vil->{'nextupdatedt'} = $vil->{'nextupdatedt'} + 24 * 60 * 60;
+    if ( $vil->{'turn'} == 0 ) {
+
+        # 開始前は廃村期限を延長する。
+        $vil->{'scraplimitdt'} = $vil->{'scraplimitdt'} + 24 * 60 * 60 * $query->{'extenddate'};
+    }
+    else {
+
+        # 進行中は次の更新時間を延長する。現状、これを呼べるインターフェースはない。
+        $vil->{'nextupdatedt'} = $vil->{'nextupdatedt'} + 24 * 60 * 60 * $query->{'extenddate'};
+    }
     $vil->writevil();
     $vil->closevil();
 

@@ -345,6 +345,11 @@ sub TaskBranch {
     }
     elsif ( $cmd eq 'startpr' ) {
 
+        if ( $ENV{'REQUEST_METHOD'} ne 'POST' ) {
+            $sow->{'debug'}->raise( $sow->{'APLOG_CAUTION'}, "不正なリクエストです。", "invalid request method." );
+            return;
+        }
+
         # 確認画面（村開始）
         require "$dirlib/vld_start.pl";
         &SWValidityStart::CheckValidityStart($sow);
@@ -375,6 +380,11 @@ sub TaskBranch {
     }
     elsif ( $cmd eq 'updatepr' ) {
 
+        if ( $ENV{'REQUEST_METHOD'} ne 'POST' ) {
+            $sow->{'debug'}->raise( $sow->{'APLOG_CAUTION'}, "不正なリクエストです。", "invalid request method." );
+            return;
+        }
+
         # 確認画面（更新）
         require "$dirlib/vld_start.pl";
         &SWValidityStart::CheckValidityUpdate($sow);
@@ -383,9 +393,25 @@ sub TaskBranch {
     }
     elsif ( $cmd eq 'scrapvilpr' ) {
 
+        if ( $ENV{'REQUEST_METHOD'} ne 'POST' ) {
+            $sow->{'debug'}->raise( $sow->{'APLOG_CAUTION'}, "不正なリクエストです。", "invalid request method." );
+            return;
+        }
+
         # 確認画面（廃村）
         require "$dirlib/vld_start.pl";
         &SWValidityStart::CheckValidityUpdate($sow);
+        require "$dirhtml/html_dialog.pl";
+        &SWHtmlDialog::OutHTMLDialog($sow);
+    }
+    elsif ( $cmd eq 'extendpr' ) {
+
+        if ( $ENV{'REQUEST_METHOD'} ne 'POST' ) {
+            $sow->{'debug'}->raise( $sow->{'APLOG_CAUTION'}, "不正なリクエストです。", "invalid request method." );
+            return;
+        }
+
+        # 確認画面（廃村期限延長）
         require "$dirhtml/html_dialog.pl";
         &SWHtmlDialog::OutHTMLDialog($sow);
     }

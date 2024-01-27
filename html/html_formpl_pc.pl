@@ -76,6 +76,8 @@ sub OutHTMLPlayerFormPC {
             &OutHTMLKickFormPC( $sow, $vil ) if ( $vil->{'turn'} == 0 );
             &OutHTMLScrapVilButtonPC( $sow, $vil )
               if ( $vil->{'turn'} < $vil->{'epilogue'} );
+            &OutHTMLExtendScrapVilButtonPC( $sow, $vil )
+              if ( $vil->{'turn'} == 0 );
         }
         if ( $vil->{'guestmenu'} == 0 ) {
             &OutHTMLVilGuestPC( $sow, $vil, 'guest' )
@@ -792,6 +794,34 @@ sub OutHTMLScrapVilButtonPC {
   <p class="commitbutton">
     <input type="hidden" name="cmd" value="scrapvilpr"$net>$hidden
     <input type="submit" value="”p‘º‚·‚é"$net>
+  </p>
+  </form>
+</div>
+
+_HTML_
+
+    return;
+}
+
+#----------------------------------------
+# ”p‘ºŠúŒÀ‰„’·ƒ{ƒ^ƒ“HTMLo—Í
+#----------------------------------------
+sub OutHTMLExtendScrapVilButtonPC {
+    my ( $sow, $vil ) = @_;
+    my $cfg = $sow->{'cfg'};
+    my $net = $sow->{'html'}->{'net'};
+
+    my $reqvals = &SWBase::GetRequestValues($sow);
+    my $hidden  = &SWBase::GetHiddenValues( $sow, $reqvals, '    ' );
+
+    print <<"_HTML_";
+<div class="formpl_gm">
+  <form action="$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}" method="$cfg->{'METHOD_FORM'}">
+  <p class="commitbutton">
+    ”p‘º‚ð
+    <input type="number" name="extenddate" value="$cfg->{'TIMEOUT_SCRAP'}"$net>“ú
+    <input type="hidden" name="cmd" value="extendpr"$net>$hidden
+    <input type="submit" value="‰„’·‚·‚é"$net>
   </p>
   </form>
 </div>
