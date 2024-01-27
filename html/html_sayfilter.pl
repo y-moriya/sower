@@ -81,7 +81,7 @@ _HTML_
         { type => 'P', text => '共鳴' },
         { type => 'B', text => '念話' },
         { type => 'U', text => '傍観者発言' },
-        { type => 'L', text => '恋の囁き' },
+        { type => 'L', text => '恋人の囁き' },
         { type => 'M', text => '村建て人発言' },
         { type => 'A', text => '管理者発言' },
         { type => 'I', text => 'システム(公開)' },

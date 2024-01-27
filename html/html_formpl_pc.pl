@@ -1310,12 +1310,13 @@ _HTML_
     for ( $i = -2 ; $i >= -8 ; $i-- ) {
         my $fltname = "";
         $fltname = "≪独り言≫"    if ( $i == -2 );
-        $fltname = "≪囁き≫"     if ( $i == -3 );
+        $fltname = "≪狼の囁き≫"   if ( $i == -3 );
         $fltname = "≪死者の呻き≫"  if ( $i == -4 );
-        $fltname = "≪村建て人発言≫" if ( $i == -5 );
-        $fltname = "≪管理者発言≫"  if ( $i == -6 );
-        $fltname = "≪傍観者発言≫"  if ( $i == -7 );
-        $fltname = "≪通常発言≫"   if ( $i == -8 );
+        $fltname = "≪恋人の囁き≫"  if ( $i == -5 );
+        $fltname = "≪村建て人発言≫" if ( $i == -6 );
+        $fltname = "≪管理者発言≫"  if ( $i == -7 );
+        $fltname = "≪傍観者発言≫"  if ( $i == -8 );
+        $fltname = "≪通常発言≫"   if ( $i == -9 );
         my $selected = "";
 
         if ( ( defined($pno) ) && ( $pno == $i ) ) {

@@ -804,6 +804,11 @@ sub CheckLogPermition {
         # エピローグ中
         $logpermit = 1;
     }
+    elsif ( ( $logined > 0 ) && ( !defined( $curpl->{'uid'} ) ) ) {
+
+        # 不参加(観戦中)で、uidが一致する場合は傍観者発言
+        $logpermit = 1 if ( $log->{'uid'} eq $sow->{'uid'} );
+    }
     elsif ( ( $logined > 0 ) && ( defined( $curpl->{'uid'} ) ) ) {
 
         # 進行中
@@ -813,6 +818,7 @@ sub CheckLogPermition {
             && ( $log->{'mestype'} != $sow->{'MESTYPE_SPSAY'} )
             && ( $log->{'mestype'} != $sow->{'MESTYPE_BSAY'} )
             && ( $log->{'mestype'} != $sow->{'MESTYPE_LSAY'} ) );    # 自分の発言
+
         $logpermit = 0
           if ( ( $query->{'mode'} eq 'whisper' )
             && ( $curpl->iswhisper() > 0 ) );                        # 囁きのみモード
