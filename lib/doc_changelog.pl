@@ -36,6 +36,11 @@ sub outhtmlnew {
     my $atr_id = $sow->{'html'}->{'atr_id'};
 
     print <<"_HTML_";
+<h3>Sower Version 1.4.2</h3>
+<ul>
+  <li>キャラセット: Troopers 実装</li>
+  <li>各窓用アイコンがある場合ちゃんと使うように修正</li>
+</ul>
 <h3>Sower Version 1.4.1</h3>
 <ul>
   <li>個別フィルタ修正</li>

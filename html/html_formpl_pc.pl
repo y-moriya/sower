@@ -124,6 +124,9 @@ sub OutHTMLSayPC {
 
     # キャラ画像アドレスの取得
     my $img = &SWHtmlPC::GetImgUrl( $sow, $vil, $curpl, $charset->{'BODY'} );
+    if ( $curpl->{'live'} ne 'live' ) {
+        $img = &SWHtmlPC::GetImgUrl( $sow, $vil, $curpl, $charset->{'BODY'}, 0, $sow->{'MESTYPE_GSAY'} );
+    }
 
     # キャラ画像部とその他部の横幅を取得
     my ( $lwidth, $rwidth ) =
@@ -399,12 +402,7 @@ sub OutHTMLLoversPC {
         my $charset = $sow->{'charsets'}->{'csid'}->{ $curpl->{'csid'} };
 
         # キャラ画像アドレスの取得
-        my $img = &SWHtmlPC::GetImgUrl( $sow, $vil, $curpl, $charset->{'BODY'} );
-        if ( $curpl->iswhisper > 0 ) {
-
-            # TODO: 狼の囁き以外でもWSAY画像を使用しているので、要修正
-            $img = &SWHtmlPC::GetImgUrl( $sow, $vil, $curpl, $charset->{'BODY'}, 0, $sow->{'MESTYPE_WSAY'} );
-        }
+        my $img = &SWHtmlPC::GetImgUrl( $sow, $vil, $curpl, $charset->{'BODY'}, 0, $sow->{'MESTYPE_LSAY'} );
 
         # キャラ画像部とその他部の横幅を取得
         my ( $rwidth, $lwidth ) =
@@ -538,8 +536,6 @@ _HTML_
         # キャラ画像アドレスの取得
         my $img = &SWHtmlPC::GetImgUrl( $sow, $vil, $curpl, $charset->{'BODY'} );
         if ( $curpl->iswhisper > 0 ) {
-
-            # TODO: 狼の囁き以外でもWSAY画像を使用しているので、要修正
             $img = &SWHtmlPC::GetImgUrl( $sow, $vil, $curpl, $charset->{'BODY'}, 0, $sow->{'MESTYPE_WSAY'} );
         }
 

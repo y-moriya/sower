@@ -9,7 +9,7 @@ sub GetConfig {
     my @row_pc = ( 10, 20, 30, 50, 100, 200 );
 
     # キャラクターセットID
-    my @csidlist = ( 'rem', 'sow', 'troika', 'ao', 'wbbs10', 'mistyrain', );
+    my @csidlist = ( 'rem', 'sow', 'troika', 'ao', 'wbbs10', 'mistyrain', 'troopers', );
 
     # 文字列リソースセットID
     my @trsidlist = ( 'sow', 'wbbs', 'juna', 'fool', 'ao' );
@@ -351,6 +351,7 @@ sub GetConfig {
         '仰げば狼 by おくみつ',
         '人狼BBS10周年 画像 by AICE',
         '霧雨降る街 by <a href="http://misty-rain.sakura.ne.jp/fall0rain/">きりのれいん</a>',
+        'Troopers by <a href="http://mrhappiness.client.jp/top_troopers.html">作者：人類管理連合</a>',
     );
 
     # キャッシュクリアのためファイル名に日付を入れた。

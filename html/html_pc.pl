@@ -43,7 +43,7 @@ _HTML_
     my $alternate = '';
     my $cssid     = 'default';
     $cssid = $sow->{'query'}->{'css'} if ( $sow->{'query'}->{'css'} ne '' );
-    $cssid = 'default' if ( !defined( $css->{$cssid} ) );
+    $cssid = 'default'                if ( !defined( $css->{$cssid} ) );
     foreach (@csskey) {
         next if ( $_ ne $cssid );    # alternateは取りあえず停止中
         $alternate = 'alternate ';
@@ -154,7 +154,7 @@ sub OutHTMLContentFrameHeader {
 
     my $cssid = 'default';
     $cssid = $sow->{'query'}->{'css'} if ( $sow->{'query'}->{'css'} ne '' );
-    $cssid = 'default' if ( !defined( $cfg->{'CSS'}->{$cssid} ) );
+    $cssid = 'default'                if ( !defined( $cfg->{'CSS'}->{$cssid} ) );
     my $css       = $cfg->{'CSS'}->{$cssid};
     my %topbanner = (
         file   => $cfg->{'FILE_TOPBANNER'},
@@ -303,7 +303,7 @@ _HTML_
 
         $reqvals->{'prof'} = '';
         $reqvals->{'cmd'}  = 'admin';
-        $link = &SWBase::GetLinkValues( $sow, $reqvals );
+        $link              = &SWBase::GetLinkValues( $sow, $reqvals );
         my $linkadmin = '';
         $linkadmin = "\n  [<a href=\"$urlsow?$link\">管理画面</a>] / "
           if ( $sow->{'uid'} eq $cfg->{'USERID_ADMIN'} );
@@ -397,6 +397,8 @@ sub GetImgUrl {
     $imggrwl = $charset->{'WOLF'}
       if ( ( $mestype eq $sow->{'MESTYPE_WSAY'} )
         && ( $charset->{'WOLF'} ne '' ) );                                 # 囁き表示
+    $imggrwl = $charset->{'TSAY'} if ( ( $charset->{'TSAY'} ne '' ) && $mestype eq $sow->{'MESTYPE_TSAY'} );    # 独り言
+    $imggrwl = $charset->{'LSAY'} if ( ( $charset->{'LSAY'} ne '' ) && $mestype eq $sow->{'MESTYPE_LSAY'} );    # 恋窓
     my $img = "$charset->{'DIR'}/$imgid$imggrwl$imgparts$expression$charset->{'EXT'}";
 
     return $img;
@@ -447,9 +449,7 @@ sub GetFormBlockWidth {
     # キャラセットごとの幅の違いに対応するためにwidthを広く取ることにした
     #$imgwidth = $imgwidth + 4 + 4 + 50;
     $imgwidth = 118;
-    my $textwidth =
-      $css->{$cssid}->{'WIDTH'} - 32 - 2 - 8 -
-      $imgwidth - 8 - 2;    # 8 を引かないと IE で何故かうまく動かない
+    my $textwidth = $css->{$cssid}->{'WIDTH'} - 32 - 2 - 8 - $imgwidth - 8 - 2;    # 8 を引かないと IE で何故かうまく動かない
     $imgwidth  .= "px";
     $textwidth .= "px";
 
@@ -503,10 +503,9 @@ sub OutHTMLTurnNavi {
     $reqvals->{'turn'} = $sow->{'turn'};
     $linkvalues = &SWBase::GetLinkValues( $sow, $reqvals );
 
-    my $linklog  = "<a href=\"$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}?$linkvalues\">ログ</a>";
-    my $linkmemo = "<a href=\"$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}?$linkvalues$amp" . "cmd=memo\">メモ</a>";
-    my $linkmemohist =
-      "<a href=\"$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}?$linkvalues$amp" . "cmd=hist\">メモ履歴</a>";
+    my $linklog      = "<a href=\"$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}?$linkvalues\">ログ</a>";
+    my $linkmemo     = "<a href=\"$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}?$linkvalues$amp" . "cmd=memo\">メモ</a>";
+    my $linkmemohist = "<a href=\"$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}?$linkvalues$amp" . "cmd=hist\">メモ履歴</a>";
     $linkmemo = 'メモ'
       if ( ( $query->{'cmd'} eq 'memo' )
         || ( $query->{'cmd'} eq 'vinfo' )
@@ -517,7 +516,7 @@ sub OutHTMLTurnNavi {
         || ( $sow->{'turn'} > $vil->{'epilogue'} ) );
     my $memolinks = '';
     $memolinks = "[$linkmemo/$linkmemohist] / " if ( $vil->{'noactmode'} <= 1 );
-    $linklog = 'ログ'
+    $linklog   = 'ログ'
       if ( ( $query->{'cmd'} eq '' ) || ( $query->{'cmd'} eq 'vinfo' ) );
     my $linkform = "<a href=\"$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}?$linknew#newsay\">発言欄へ</a>";
     $linkform = '発言欄へ' if ( $vil->{'turn'} > $vil->{'epilogue'} );
@@ -558,7 +557,7 @@ sub OutHTMLTurnNavi {
         my $turnname = "$i日目";
         $turnname = "プロローグ" if ( $i == 0 );
         $turnname = "エピローグ" if ( $i == $vil->{'epilogue'} );
-        $turnname = "終了"          if ( $i > $vil->{'epilogue'} );
+        $turnname = "終了"    if ( $i > $vil->{'epilogue'} );
 
         if (   ( $i == $sow->{'turn'} )
             && ( $cmdlog > 0 )
@@ -638,7 +637,7 @@ sub OutHTMLPageNaviPC {
     my $reqvals = &SWBase::GetRequestValues($sow);
     $reqvals->{'cmd'} = '';
     my $linkvalues = &SWBase::GetLinkValues( $sow, $reqvals );
-    my $urlsow = "$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}?$linkvalues";
+    my $urlsow     = "$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}?$linkvalues";
 
     # 可視ログのカウント
     my ( $pages, $indexno ) = &SWHtml::GetPagesPermit( $sow, $logs, $list );
@@ -649,7 +648,7 @@ sub OutHTMLPageNaviPC {
     $row = $cfg->{'MAX_ROW'} if ( $row <= 0 );
 
     my $maxpage = int( ( @$pages + $row - 1 ) / $row );    # 最大ページ
-    my $maxrow = $maxpage;
+    my $maxrow  = $maxpage;
 
     # 最初に表示するページリンク番号
     my $firstpage = 0;
