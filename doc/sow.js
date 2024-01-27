@@ -186,6 +186,8 @@ function icoChange() {
 		s += ".jpg";
 	} else if (s.match("mistyrain")) {
 		s += ".png";
+	} else if (s.match("troopers")) {
+		s += ".png";
 	}
 	document.charaImg.src = imgDir + s;
 }
@@ -467,4 +469,3 @@ $(document).ready(function () {
 		timer = setInterval("mesFixCountDown()", 1000);
 	}
 });
-

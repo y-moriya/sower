@@ -30,6 +30,8 @@ sub OutHTMLChrList {
     my $body    = $charset->{'BODY'};                      # 全身画像の有無
     my $grave   = $charset->{'GRAVE'};
     my $wolf    = $charset->{'WOLF'};
+    my $tsay    = $charset->{'TSAY'};
+    my $lsay    = $charset->{'LSAY'};
 
     print <<"_HTML_";
 <h2>キャラクター一覧 [$charset->{'CAPTION'}セット]</h2>
@@ -63,6 +65,18 @@ _HTML_
 _HTML_
     }
 
+    if ( $tsay ne '' ) {
+        print <<"_HTML_";
+  <th>独り言画像</th>
+_HTML_
+    }
+
+    if ( $lsay ne '' ) {
+        print <<"_HTML_";
+  <th>恋の囁き画像</th>
+_HTML_
+    }
+
     print <<"_HTML_";
   <th>名前</th>
 </tr>
@@ -73,7 +87,7 @@ _HTML_
 
     my $order = $charset->{'ORDER'};
     foreach (@$order) {
-        my $chrname = $sow->{'charsets'}->getchrname( $csid, $_ );
+        my $chrname    = $sow->{'charsets'}->getchrname( $csid, $_ );
         my $expression = '';
         $expression = '_0' if ( @{ $charset->{'EXPRESSION'} } > 0 );
         print "\n<tr>\n";
@@ -91,6 +105,14 @@ _HTML_
           . $_
           . "$wolf$expression$charset->{'EXT'}\" width=\"$charset->{'IMGBODYW'}\" height=\"$charset->{'IMGBODYH'}\" alt=\"$chrnameの囁き画像\"$net></td>\n"
           if ( $wolf ne '' );
+        print "  <td style=\"text-align: center;\"><img src=\"$charset->{'DIR'}/"
+          . $_
+          . "$tsay$expression$charset->{'EXT'}\" width=\"$charset->{'IMGBODYW'}\" height=\"$charset->{'IMGBODYH'}\" alt=\"$chrnameの独り言画像\"$net></td>\n"
+          if ( $tsay ne '' );
+        print "  <td style=\"text-align: center;\"><img src=\"$charset->{'DIR'}/"
+          . $_
+          . "$lsay$expression$charset->{'EXT'}\" width=\"$charset->{'IMGBODYW'}\" height=\"$charset->{'IMGBODYH'}\" alt=\"$chrnameの恋の囁き画像\"$net></td>\n"
+          if ( $lsay ne '' );
         my $dummychr = '';
         $dummychr = "★ダミーキャラ<br$net>" if ( $charset->{'NPCID'} eq $_ );
         my $romanname = '';
