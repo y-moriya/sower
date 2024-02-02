@@ -24,7 +24,7 @@ sub OutHTMLRestPlayingVil {
 
 <form action="$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}" method="$cfg->{'METHOD_FORM'}">
 <p class="paragraph">$hidden
-  <input type="submit" value="クリア"$net>
+  <input type="submit" value="クリア" data-submit-type="restpvil"$net>
 </p>
 </form>
 <hr class="invisible_hr"$net>

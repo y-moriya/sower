@@ -24,7 +24,7 @@ sub OutHTMLEditPenalty {
 
 <form action="$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}" method="$cfg->{'METHOD_FORM'}">
 <p class="paragraph">$hidden
-  <input type="submit" value="Ä\\’z"$net>
+  <input type="submit" value="Ä\\’z" data-submit-type="editpenalty"$net>
 </p>
 </form>
 <hr class="invisible_hr"$net>

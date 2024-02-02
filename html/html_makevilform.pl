@@ -498,7 +498,7 @@ _HTML_
       if ( $sow->{'user'}->logined() <= 0 );
 
     print <<"_HTML_";
-    <input type="submit" value="‘º‚Ì$vmode"$disabled$net>
+    <input type="submit" value="‘º‚Ì$vmode" data-submit-type="$vcmd"$disabled$net>
   </div>
 </div>
 </form>

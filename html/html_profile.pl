@@ -153,7 +153,7 @@ _HTML_
   <label>現在のパスワード: <input type="password" size="20" name="pwd" value=""$net></label><br>
   <label>新しいパスワード: <input type="password" size="20" name="newpwd" value=""$net></label><br>
   <label>確認用パスワード: <input type="password" size="20" name="confirm" value=""$net></label>
-  <input type="submit" value="確認"$disabled$net>
+  <input type="submit" value="変更" data-submit-type="changepwd"$disabled$net>
 </p>
 </form>
 <hr class="invisible_hr"$net>

@@ -52,7 +52,6 @@ sub GetAnchorlogID {
 sub ReplacePreviewAnchor {
     my ( $sow, $vil, $log ) = @_;
     my $mes = $log->{'log'};
-    $sow->{'debug'}->writeaplog( $sow->{'APLOG_OTHERS'}, "Target. [$log->{'log'}]" );
     while ( $mes =~
 /&gt;&gt;[\+\-\*\#\%\=\!g\~]?(\d{1,$sow->{'MAXWIDTH_TURN'}}:)?[\+\-\*\#\%\=\!g\~]?\d{1,$sow->{'MAXWIDTH_LOGCOUNT'}}/
       )

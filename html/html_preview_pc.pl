@@ -15,8 +15,20 @@ sub OutHTMLPreviewPC {
     my $srcmes = $log->{'log'};    # 削除前の発言
     $srcmes =~ s/(<br( \/)?>)*$//ig;
 
-    my $trimedlog = &SWString::GetTrimString( $sow, $vil, $srcmes );
-    my $len       = length($trimedlog);
+    # 発言制限するかどうか
+    my $isrestrict =
+         ( $log->{'mestype'} ne $sow->{'MESTYPE_ADMIN'} )
+      && ( $log->{'mestype'} ne $sow->{'MESTYPE_GUEST'} )
+      && ( $log->{'mestype'} ne $sow->{'MESTYPE_MAKER'} )
+      && ( $log->{'mestype'} ne $sow->{'MESTYPE_TSAY'} )
+      && ( $log->{'mestype'} ne $sow->{'MESTYPE_GSAY'} );
+
+    my $trimedlog = $srcmes;
+
+    if ($isrestrict) {
+        $trimedlog = &SWString::GetTrimString( $sow, $vil, $srcmes );
+    }
+    my $len = length($trimedlog);
     $log->{'log'} = substr( $srcmes, 0, $len );
     my $deletedmes = substr( $srcmes, $len );
     $log->{'log'} .= "<span class=\"infotext\">$deletedmes</span>"
@@ -85,7 +97,11 @@ _HTML_
 
     # 行数／文字数制限警告
     my $saycnt = $cfg->{'COUNTS_SAY'}->{ $vil->{'saycnttype'} };
-    if ( $lineslogcount > $saycnt->{'MAX_MESLINE'} ) {
+    if ( !$isrestrict ) {
+
+        # 制限なしの発言種別の場合は何もしない
+    }
+    elsif ( $lineslogcount > $saycnt->{'MAX_MESLINE'} ) {
         print "<p class=\"cautiontext\">行数が多すぎます（$lineslogcount行）。$saycnt->{'MAX_MESLINE'}行以内に収めないと正しく書き込まれません。</p>\n";
     }
     elsif ( $countsrc > $saycnt->{'MAX_MESCNT'} ) {
@@ -117,7 +133,7 @@ _HTML_
 <p class="multicolumn_label">
   <input type="hidden" name="cmd" value="$preview->{'cmd'}"$net>
   <input type="hidden" name="cmdfrom" value="$query->{'cmd'}"$net>$hidden
-  <input type="submit" value="書き込む"$net>
+  <input type="submit" value="書き込む" data-submit-type="write"$net>
 </p>
 </form>
 _HTML_
@@ -132,7 +148,7 @@ _HTML_
 <form action="$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}" method="$cfg->{'METHOD_FORM'}">
 <p class="multicolumn_left">
   <input type="hidden" name="cmd" value="editmes"$net>$hidden
-  <input type="submit" value="修正する"$net>
+  <input type="submit" value="修正する" data-submit-type="edit"$net>
 </p>
 </form>
 _HTML_

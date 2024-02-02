@@ -24,15 +24,18 @@ _HTML_
 sub OutHTMLAdminInfo {
     my $sow    = shift;
     my $cfg    = $sow->{'cfg'};
-    my $net    = $sow->{'html'}->{'net'};      # Null End Tag
+    my $net    = $sow->{'html'}->{'net'};                      # Null End Tag
     my $atr_id = $sow->{'html'}->{'atr_id'};
+    my $urlsow = "$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}";
+    $reqvals->{'cmd'} = 'spec';
+    my $linkspec = &SWBase::GetLinkValues( $sow, $reqvals );
 
     print <<"_HTML_";
 <h2>管理人からのお知らせ</h2>
 <p>
-<h3>2024/01/27</h3>
-参加していない進行中の村で傍観者発言をした場合、自分の発言が見えるようになりました。<br>
-キャラセット: Troopersを実装しました。
+<h3>2024/02/02</h3>
+発言制限: 1文字1発言を追加しました。<br>
+細かな仕様については<a href="$urlsow?$linkspec#one">発言制限の1文字1発言の仕様について</a>を参照してください。
 </p>
 _HTML_
 

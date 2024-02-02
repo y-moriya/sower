@@ -33,7 +33,7 @@ sub OutHTMLMoveVil {
     <option value="file2dir">‘º‘S‘Ì ¨ ‘º”Ô†•Ê$option
     <option value="dir2file">‘º”Ô†•Ê ¨ ‘º‘S‘Ì$option
   </select>
-  <input type="submit" value="ˆÚ“®"$net>
+  <input type="submit" value="ˆÚ“®" data-submit-type="movevil"$net>
 </p>
 </form>
 <hr class="invisible_hr"$net>

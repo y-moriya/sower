@@ -254,7 +254,7 @@ _HTML_
                     && ( $sow->{'draftmestype'} == $sow->{'MESTYPE_TSAY'} ) );
                 print "<div style=\"float: right\">\n";
                 print
-"　<input type=\"submit\" name=\"submit_type\" value=\"$sow->{'textrs'}->{'CAPTION_TSAY_PC'}\"$disabled$net> あと$curpl->{'tsay'}$unit\n";
+"　<input type=\"submit\" name=\"submit_type\" value=\"$sow->{'textrs'}->{'CAPTION_TSAY_PC'}\" data-submit-type=\"tsay\"$disabled$net> あと$curpl->{'tsay'}$unit\n";
                 print "</div>\n";
             }
         }
@@ -377,7 +377,7 @@ _HTML_
       <input type="hidden" name="cmd" value="action"$net>$hidden
       $freeactform
       </fieldset>
-      <input type="submit" value="アクション"$actdisabled$net> あと$curpl->{'say_act'}$unitaction
+      <input type="submit" value="アクション" data-submit-type="action"$actdisabled$net> あと$curpl->{'say_act'}$unitaction
     </div>
     </form>
 
@@ -758,7 +758,7 @@ _HTML_
   <form action="$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}" method="$sow->{'cfg'}->{'METHOD_FORM'}">
   <p class="commitbutton">
     <input type="hidden" name="cmd" value="editvilform"$net>$hidden
-    <input type="submit" value="村の編集"$net>
+    <input type="submit" value="村の編集" data-submit-type="editvil"$net>
   </p>
   </form>
 _HTML_
@@ -768,7 +768,7 @@ _HTML_
   <form action="$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}" method="$sow->{'cfg'}->{'METHOD_FORM'}">
   <p class="commitbutton">
     <input type="hidden" name="cmd" value="$button{'cmd'}"$net>$hidden
-    <input type="submit" value="$button{'label'}"$net>
+    <input type="submit" value="$button{'label'}" data-submit-type="commit"$net>
   </p>
   </form>
 </div>
@@ -794,7 +794,7 @@ sub OutHTMLScrapVilButtonPC {
   <form action="$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}" method="$sow->{'cfg'}->{'METHOD_FORM'}">
   <p class="commitbutton">
     <input type="hidden" name="cmd" value="scrapvilpr"$net>$hidden
-    <input type="submit" value="廃村する"$net>
+    <input type="submit" value="廃村する" data-submit-type="scrapvil"$net>
   </p>
   </form>
 </div>
@@ -822,7 +822,7 @@ sub OutHTMLExtendScrapVilButtonPC {
     廃村を
     <input type="number" name="extenddate" value="$cfg->{'TIMEOUT_SCRAP'}"$net>日
     <input type="hidden" name="cmd" value="extendpr"$net>$hidden
-    <input type="submit" value="延長する"$net>
+    <input type="submit" value="延長する" data-submit-type="extend"$net>
   </p>
   </form>
 </div>
@@ -875,7 +875,7 @@ _HTML_
     print <<"_HTML_";
   </select>
   <input type="hidden" name="cmd" value="commit"$net>$hidden
-  <input type="submit" value="変更"$disabled$net>
+  <input type="submit" value="変更" data-submit-type="commit"$disabled$net>
   </div>
   </form>
 
@@ -906,7 +906,7 @@ sub OutHTMLExitButtonPC {
   <form action="$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}" method="$sow->{'cfg'}->{'METHOD_FORM'}">
   <p class="commitbutton">
     <input type="hidden" name="cmd" value="exitpr"$net>$hidden
-    <input type="submit" value="村を出る"$disabled$net>
+    <input type="submit" value="村を出る" data-submit-type="exit"$disabled$net>
   </p>
   </form>
 </div>
@@ -955,7 +955,7 @@ _HTML_
     print <<"_HTML_";
       </select>
 	  <input type="hidden" name="cmd" value="selrolepr"$net>$hidden
-	  <input type="submit" value="希望役職を変更する"$disabled$net>
+	  <input type="submit" value="希望役職を変更する" data-submit-type="selrole"$disabled$net>
 	</p>
   </form>
 </div>
@@ -1073,7 +1073,7 @@ _HTML_
     print "\n";
 
     print <<"_HTML_";
-      <input type="submit" value="変更"$disabled$net>
+      <input type="submit" value="変更" data-submit-type="$cmd"$disabled$net>
       </div>
     </form>
 
@@ -1235,7 +1235,7 @@ _HTML_
 
     if ( ( $vil->isepilogue() == 0 ) || ( $cfg->{'ENABLED_TSAY_EP'} > 0 ) ) {    # エピではない／エピ独り言有効
         print
-          "　<input type=\"submit\" name=\"submit_type\" value=\"$sow->{'textrs'}->{'CAPTION_TSAY_PC'}\"$disabled$net>";
+"　<input type=\"submit\" name=\"submit_type\" value=\"$sow->{'textrs'}->{'CAPTION_TSAY_PC'}\" data-submit-type=\"tsay\"$disabled$net>";
     }
 
     print <<"_HTML_";
@@ -1419,7 +1419,7 @@ _HTML_
     }
     print <<"_HTML_";
   </select>
-  <input type="submit" value="強制退村">
+  <input type="submit" value="強制退村" data-submit-type="kick"$net>
 </form>
 _HTML_
 
