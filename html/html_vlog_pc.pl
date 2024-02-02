@@ -244,7 +244,7 @@ _HTML_
     <option value="asc"$asc>è„Ç©ÇÁâ∫$star_asc$option
     <option value="desc"$desc>â∫Ç©ÇÁè„$star_desc$option
   </select>
-  <input type="submit" value="ïœçX"$net>
+  <input type="submit" value="ïœçX" data-submit-type="order"$net>
 </p>
 </form>
 <hr class="invisible_hr"$net>

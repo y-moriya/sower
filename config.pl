@@ -244,8 +244,28 @@ sub GetConfig {
         MAX_MESLINE => 40,                # 一発言の最大行数
     );
 
-    my @saycnt_order = ( 'real', 'mreal', 'mmreal', 'mmmreal', 'realcnt', 'wbbs', 'juna', 'vulcan', 'saving', 'gachi' );
-    my %saycnt       = (
+    my %saycnt_one = (
+        CAPTION     => '1文字1発言',
+        COUNT_TYPE  => 'count',           # ポイント勘定
+        MAX_SAY     => 1,                 # 通常発言回数
+        MAX_TSAY    => 1000,              # 独り言発言回数
+        MAX_WSAY    => 2,                 # 囁き発言回数
+        MAX_SPSAY   => 2,                 # 共鳴発言回数
+        MAX_BSAY    => 2,                 # 念話発言回数
+        MAX_GSAY    => 2000,              # うめき発言回数
+        MAX_LSAY    => 2,                 # 恋人の囁き発言回数
+        MAX_PSAY    => 2000,              # プロローグ発言回数
+        MAX_ESAY    => 6000,              # エピローグ発言回数
+        MAX_SAY_ACT => 0,                 # アクション回数
+        ADD_SAY     => 1,                 # 促しで増える発言回数
+        MAX_ADDSAY  => 1,                 # 促しの回数
+        MAX_MESCNT  => 1,                 # 一発言の最大文字数
+        MAX_MESLINE => 1,                 # 一発言の最大行数
+    );
+
+    my @saycnt_order =
+      ( 'real', 'mreal', 'mmreal', 'mmmreal', 'realcnt', 'wbbs', 'juna', 'vulcan', 'saving', 'gachi', 'one' );
+    my %saycnt = (
         ORDER   => \@saycnt_order,
         real    => \%saycnt_real,
         mreal   => \%saycnt_mreal,
@@ -257,6 +277,7 @@ sub GetConfig {
         vulcan  => \%saycnt_vulcan,
         saving  => \%saycnt_saving,
         gachi   => \%saycnt_gachi,
+        one     => \%saycnt_one,
     );
 
     my @real11_hours = ( 5, 1 );
@@ -354,9 +375,9 @@ sub GetConfig {
         'Troopers by <a href="http://mrhappiness.client.jp/top_troopers.html">作者：人類管理連合</a>',
     );
 
-    my $lastupdate = '20240131';
-
     # キャッシュクリアのためファイル名に日付を入れた。
+    my $lastupdate = '20240202';
+
     my %css_default = (
         TITLE => '標準スタイル',
         FILE  => 'sow.css?date=' . $lastupdate,
@@ -544,11 +565,11 @@ sub GetConfig {
         NEW_MAXSIZE_PASSWD => 256,    # 新しいパスワードの最大バイト数（パスワード変更時のみ適用）
         NEW_MINSIZE_PASSWD => 8,      # 新しいパスワードの最小バイト数（パスワード変更時のみ適用）
 
-        MINSIZE_MES      => 4,        # 発言の最小バイト数
+        MINSIZE_MES      => 1,        # 発言の最小バイト数
         MAXSIZE_ACTION   => 60,       # アクションの最大バイト数
-        MINSIZE_ACTION   => 4,        # アクションの最大バイト数
+        MINSIZE_ACTION   => 1,        # アクションの最小バイト数
         MAXSIZE_MEMOCNT  => 300,      # メモの最大バイト数
-        MINSIZE_MEMOCNT  => 4,        # メモの最小バイト数
+        MINSIZE_MEMOCNT  => 1,        # メモの最小バイト数
         MAXSIZE_MEMOLINE => 15,       # メモの最大行数
 
         MAXSIZE_VNAME    => 32,       # 村の名前の最大バイト数

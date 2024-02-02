@@ -28,7 +28,7 @@ sub OutHTMLDeleteVil {
 <form action="$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}" method="$cfg->{'METHOD_FORM'}">
 <p class="paragraph">$hidden
   <label>‘º”Ô†F<input type="text" name="vidstart" value="" size="4"$net></label> <label>` <input type="text" name="vidend" value="" size="4"$net></label>
-  <input type="submit" value="íœ"$net>
+  <input type="submit" value="íœ" data-submit-type="deletevil"$net>
 </p>
 </form>
 <hr class="invisible_hr"$net>

@@ -14,7 +14,18 @@ sub ExecuteCmdWrite {
     $act = 1 if ( index( $saytype, '_act' ) >= 0 );
     $sow->{'saytype'} = $saytype;
 
-    my $mes = &SWString::GetTrimString( $sow, $vil, $query->{'mes'} );
+    # ”­Œ¾§ŒÀ‚·‚é‚©‚Ç‚¤‚©
+    my $isrestrict =
+         ( $mestype ne $sow->{'MESTYPE_ADMIN'} )
+      && ( $mestype ne $sow->{'MESTYPE_GUEST'} )
+      && ( $mestype ne $sow->{'MESTYPE_MAKER'} )
+      && ( $mestype ne $sow->{'MESTYPE_TSAY'} )
+      && ( $mestype ne $sow->{'MESTYPE_GSAY'} );
+
+    my $mes = $query->{'mes'};
+    if ($isrestrict) {
+        $mes = &SWString::GetTrimString( $sow, $vil, $query->{'mes'} );
+    }
 
     my $saypoint;
     if ( $writepl->{'emulated'} == 0 ) {

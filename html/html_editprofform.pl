@@ -11,13 +11,13 @@ sub OutHTMLEditProfileForm {
 
     require "$cfg->{'DIR_HTML'}/html.pl";
 
-    $sow->{'html'} = SWHtml->new($sow);    # HTMLモードの初期化
-    my $net = $sow->{'html'}->{'net'};                                           # Null End Tag
-    $sow->{'http'}->outheader();                                                 # HTTPヘッダの出力
+    $sow->{'html'} = SWHtml->new($sow);                      # HTMLモードの初期化
+    my $net = $sow->{'html'}->{'net'};                       # Null End Tag
+    $sow->{'http'}->outheader();                             # HTTPヘッダの出力
     $sow->{'html'}->outheader("ユーザー情報編集($sow->{'uid'})");    # HTMLヘッダの出力
     $sow->{'html'}->outcontentheader('');
 
-    &SWHtmlPC::OutHTMLLogin($sow);                                               # ログイン欄の出力
+    &SWHtmlPC::OutHTMLLogin($sow);                           # ログイン欄の出力
 
     my $user = SWUser->new($sow);
     $user->{'uid'} = $sow->{'uid'};
@@ -66,7 +66,7 @@ sub OutHTMLEditProfileForm {
   </fieldset>
 
   <div class="exevmake">$hidden
-    <input type="submit" value="変更"$net>
+    <input type="submit" value="変更" data-submit-type="editprof"$net>
   </div>
 </div>
 </form>

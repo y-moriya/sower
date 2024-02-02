@@ -428,6 +428,27 @@ function mesFixCountDown() {
 	}
 }
 
+function confirmSubmit(e) {
+	e.preventDefault();
+
+	// get textarea has data-textarea-type = "writepr"
+	const textareas = document.querySelectorAll('textarea[data-textarea-type="writepr"]');
+
+	// if textarea filled, confirm submit
+	const hasFilled = Array.from(textareas).some((textarea) => {
+		return textarea.value.length > 0;
+	});
+
+	if (hasFilled) {
+		const confirmed = confirm('入力中の内容があります。このまま実行しますか？');
+		if (!confirmed) {
+			return false; // キャンセルした場合はsubmitをキャンセル
+		}
+	}
+
+	$(e.target).closest('form').submit();
+}
+
 $(document).ready(function () {
 	ajaxitems = [];
 	setAjaxEvent($(".inframe"));
@@ -440,4 +461,18 @@ $(document).ready(function () {
 	if (que_messages.length > 0) {
 		timer = setInterval("mesFixCountDown()", 1000);
 	}
+
+	// get submit button has data-submit-type = "vote" or "commit" or "skill"
+	const confirmType = ['vote', 'commit', 'skill'];
+	const query = confirmType.map((type) => {
+		return `input[type="submit"][data-submit-type="${type}"]`;
+	}).join(', ');
+	const submitButtons = document.querySelectorAll(query);
+
+	// add event listener to submit button
+	Array.from(submitButtons).forEach((button) => {
+		button.addEventListener('click', function (e) {
+			confirmSubmit(e)
+		});
+	});
 });

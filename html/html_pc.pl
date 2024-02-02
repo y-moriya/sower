@@ -258,7 +258,7 @@ sub OutHTMLLogin {
   <input type="hidden" name="cmdfrom" value="$query->{'cmd'}"$net>$hidden
   <label>user id: <input type="text" size="10" name="uid" value="$sow->{'uid'}"$net></label>
   <label>password: <input type="password" size="10" name="pwd" value=""$net></label>
-  <input type="submit" value="ログイン"$disabled$net>
+  <input type="submit" value="ログイン" data-submit-type="login"$disabled$net>
 </p>
 </form>
 <hr class="invisible_hr"$net>
@@ -276,7 +276,7 @@ _HTML_
   <input type="hidden" name="need_email" value="0"$net>
   <input type="hidden" name="_return" value="$sow->{'cfg'}->{'URL_SW'}/$sow->{'cfg'}->{'FILE_SOW'}?$linkvalue"$net>
   <input type="hidden" name="v" value="1.1"$net>
-  <input type="submit" value="ログイン"$disabled$net>
+  <input type="submit" value="ログイン" data-submit-type="login"$disabled$net>
   (<a href="http://www.sixapart.jp/typekey/">TypeKey</a>)
 </p>
 </form>
@@ -317,7 +317,7 @@ _HTML_
   <input type="hidden" name="cmd" value="logout"$net>
   <input type="hidden" name="cmdfrom" value="$query->{'cmd'}"$net>$hidden$linkadmin
   user id: $uidtext
-  <input type="submit" value="ログアウト"$disabled$net>
+  <input type="submit" value="ログアウト" data-submit-type="logout"$disabled$net>
 </p>
 </form>
 <hr class="invisible_hr"$net>
@@ -333,7 +333,7 @@ _HTML_
 <p>
   <input type="hidden" name="_return" value="$sow->{'cfg'}->{'URL_SW'}/$sow->{'cfg'}->{'FILE_SOW'}?$linkvalue"$net>$linkadmin
   user id: $uidtext
-  <input type="submit" value="ログアウト"$disabled$net>
+  <input type="submit" value="ログアウト" data-submit-type="logout"$disabled$net>
   (<a href="http://www.sixapart.jp/typekey/">TypeKey</a>)
 </p>
 </form>
@@ -474,10 +474,10 @@ sub OutHTMLSayTextAreaPC {
       if ( $htmlsay->{'disabled'} > 0 );
 
     print <<"_HTML_";
-      <textarea name="mes" cols="30" rows="5" onkeyup="showCount(value, this);" onmouseup="showCount(value, this);">$text</textarea><br$net>
+      <textarea name="mes" cols="30" rows="5" onkeyup="showCount(value, this);" onmouseup="showCount(value, this);" data-textarea-type="$cmd">$text</textarea><br$net>
       <input type="hidden" name="cmd" value="$cmd"$net>$hidden
       <div style="float: left;">
-      <input type="submit" value="$htmlsay->{'buttonlabel'}"$disabled$net>$htmlsay->{'saycnttext'}
+      <input type="submit" value="$htmlsay->{'buttonlabel'}" data-submit-type="$cmd"$disabled$net>$htmlsay->{'saycnttext'}
       </div>
 _HTML_
 

@@ -90,7 +90,7 @@ sub OutHTMLDialog {
 
 <p class="paragraph">
   <input type="hidden" name="cmd" value="$dialog{'cmd'}"$net>$hidden
-  <input type="submit" value="$dialog{'buttoncaption'}"$net>
+  <input type="submit" value="$dialog{'buttoncaption'}" data-submit-type="$query->{'cmd'}"$net>
 </p>
 </form>
 _HTML_

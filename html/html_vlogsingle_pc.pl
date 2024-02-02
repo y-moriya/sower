@@ -194,7 +194,7 @@ _HTML_
     <p class="saycancelframe">
       <input type="hidden" name="cmd" value="cancel"$net>
       <input type="hidden" name="queid" value="$logcnt"$net>$hidden
-      <input type="submit" value="‚±‚Ì”­Œ¾‚ðíœ" class="saycancelbutton"$net>
+      <input type="submit" value="‚±‚Ì”­Œ¾‚ðíœ" class="saycancelbutton" data-submit-type="delete"$net>
 	  (<span class="mes_fix_time">$sow->{'cfg'}->{'MESFIXTIME'}</span>•bˆÈ“à)
     </p>
     </form>
@@ -638,8 +638,6 @@ sub IsMaskedLogid {
     my $result = 0;
     if ( ( $vil->isepilogue() eq 1 ) || ( $sow->{'uid'} eq $sow->{'cfg'}->{'USERID_ADMIN'} ) ) {
         $result = 0;
-        $sow->{'debug'}
-          ->writeaplog( $sow->{'APLOG_POSTED'}, "IsMaskedLogid: uid=$sow->{'uid'}, $sow->{'cfg'}->{'USERID_ADMIN'}" );
     }
     else {
         if (   $log->{'mestype'} eq $sow->{'MESTYPE_TSAY'}

@@ -16,20 +16,17 @@ sub OutHTMLMakeVilPreview {
     my $vindex = SWFileVIndex->new($sow);
     $vindex->openvindex();
     my $vcnt = $vindex->getactivevcnt();
-    $sow->{'debug'}->raise(
-        $sow->{'APLOG_CAUTION'},
-        "現在稼働中の村の数が上限に達しているので、村を作成できません。",
-        "too many villages."
-    ) if ( $vcnt >= $sow->{'cfg'}->{'MAX_VILLAGES'} );
+    $sow->{'debug'}->raise( $sow->{'APLOG_CAUTION'}, "現在稼働中の村の数が上限に達しているので、村を作成できません。", "too many villages." )
+      if ( $vcnt >= $sow->{'cfg'}->{'MAX_VILLAGES'} );
     $vindex->closevindex();
 
     require "$sow->{'cfg'}->{'DIR_HTML'}/html.pl";
 
-    $sow->{'html'} = SWHtml->new($sow);    # HTMLモードの初期化
+    $sow->{'html'} = SWHtml->new($sow);           # HTMLモードの初期化
     my $net     = $sow->{'html'}->{'net'};        # Null End Tag
     my $outhttp = $sow->{'http'}->outheader();    # HTTPヘッダの出力
     return if ( $outhttp == 0 );                  # ヘッダ出力のみ
-    $sow->{'html'}->outheader('村作成のプレビュー');    # HTMLヘッダの出力
+    $sow->{'html'}->outheader('村作成のプレビュー');       # HTMLヘッダの出力
     $sow->{'html'}->outcontentheader();
 
     print <<"_HTML_";
@@ -93,7 +90,7 @@ _HTML_
 
 _HTML_
 
-    my $roletable = getinfocap_roletable( $sow, $query->{'roletable'} );
+    my $roletable  = getinfocap_roletable( $sow, $query->{'roletable'} );
     my $roletable2 = '';
     if ( $query->{'roletable'} eq 'custom' ) {
         $roletable2 = getinfocap_custom( $sow, $query );
@@ -145,8 +142,8 @@ _HTML_
 _HTML_
 
     $saycnttype = getinfocap_saycnttype( $sow, $query->{'saycnttype'} );
-    $starttype = getinfocap_starttype( $sow, $query->{'starttype'} );
-    $trsid = getinfocap_trsid( $sow, $query->{'trsid'} );
+    $starttype  = getinfocap_starttype( $sow, $query->{'starttype'} );
+    $trsid      = getinfocap_trsid( $sow, $query->{'trsid'} );
 
     print <<"_HTML_";
 <p class="multicolumn_label">発言制限：</p>
@@ -275,7 +272,7 @@ _HTML_
         'randomtarget', 'makersaymenu', 'csid',       'trsid'
     );
     my $reqvals = &SWBase::GetRequestValues( $sow, \@reqkeys );
-    my $hidden = &SWBase::GetHiddenValues( $sow, $reqvals, '  ' );
+    my $hidden  = &SWBase::GetHiddenValues( $sow, $reqvals, '  ' );
 
     # 作成・修正ボタンの表示
     print <<"_HTML_";
@@ -284,7 +281,7 @@ _HTML_
 <p class="multicolumn_label">
   <input type="hidden" name="cmd" value="makevil"$net>
   <input type="hidden" name="cmdfrom" value="$query->{'cmd'}"$net>$hidden
-  <input type="submit" value="村の作成"$net>
+  <input type="submit" value="村の作成" data-submit-type="makevil"$net>
 </p>
 </form
 <div class="multicolumn_clear">

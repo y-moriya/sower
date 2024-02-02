@@ -36,6 +36,11 @@ sub outhtmlnew {
     my $atr_id = $sow->{'html'}->{'atr_id'};
 
     print <<"_HTML_";
+<h3>Sower Version 1.4.6</h3>
+<ul>
+  <li>発言、囁きなどで文章入力中の場合、投票やコミットボタンを押したときに確認ダイアログを表\示するようにした</li>
+  <li>発言制限: 1文字1発言を追加</li>
+</ul>
 <h3>Sower Version 1.4.5</h3>
 <ul>
   <li>恋窓周りの不具合修正</li>
