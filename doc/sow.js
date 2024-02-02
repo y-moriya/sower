@@ -80,41 +80,13 @@ function showCount(str, elm) {
 
 function setAjaxEvent(target) {
 	// 記号類修飾
-	// 日時、発言プレビュー内部、を対象外にしておく。そうしないとヤバイ。
+	// 日時、発言プレビュー内部、を対象外にしておく。
 	target.find("p:not(.multicolumn_label):not(.mes_date)").each(function () {
 		html = $(this).html();
 		$(this).html(
 			html
 				.replace(/(\/\*)(.*?)(\*\/|$)/g, '$1<em>$2</em>$3')
 		);
-	});
-
-	// ドラッグ機能付与
-	target.find("img").toggle(function () {
-		var ank = $(this);
-		var base = ank.parents(".message_filter");
-		if ($(base).hasClass("ajax")) {
-			return false;
-		}
-		var handlerId = "handler" + (new Date().getTime());
-		var handler = $("<div id=\"" + handlerId + "\"></div>").addClass("handler");
-		base.clone(true).css('display', 'none').addClass("origin").insertAfter(base);
-		base.addClass("drag");
-		base.prepend(handler);
-		base.easydrag();
-		base.setHandler(handlerId);
-		return false;
-	}, function () {
-		var ank = $(this);
-		var base = ank.parents(".message_filter");
-		if ($(base).hasClass("ajax")) {
-			return false;
-		}
-		base.nextAll(".origin").fadeIn();
-		base.fadeOut("nomal", function () {
-			base.remove();
-		});
-		return false;
 	});
 
 	// アンカーポップアップ機能付与

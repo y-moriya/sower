@@ -636,8 +636,10 @@ sub GetLogPL {
 sub IsMaskedLogid {
     my ( $sow, $vil, $log ) = @_;
     my $result = 0;
-    if ( $vil->isepilogue() eq 1 ) {
+    if ( ( $vil->isepilogue() eq 1 ) || ( $sow->{'uid'} eq $sow->{'cfg'}->{'USERID_ADMIN'} ) ) {
         $result = 0;
+        $sow->{'debug'}
+          ->writeaplog( $sow->{'APLOG_POSTED'}, "IsMaskedLogid: uid=$sow->{'uid'}, $sow->{'cfg'}->{'USERID_ADMIN'}" );
     }
     else {
         if (   $log->{'mestype'} eq $sow->{'MESTYPE_TSAY'}

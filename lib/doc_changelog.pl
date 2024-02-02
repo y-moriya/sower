@@ -36,23 +36,9 @@ sub outhtmlnew {
     my $atr_id = $sow->{'html'}->{'atr_id'};
 
     print <<"_HTML_";
-<h3>Sower Version 1.4.4</h3>
+<h3>Sower Version 1.4.5</h3>
 <ul>
-  <li>軽微な不具合修正</li>
-</ul>
-<h3>Sower Version 1.4.3</h3>
-<ul>
-  <li>廃村期限延長機能を実装。管理者のみ実行できます</li>
-</ul>
-<h3>Sower Version 1.4.2</h3>
-<ul>
-  <li>キャラセット: Troopers 実装</li>
-  <li>各窓用アイコンがある場合ちゃんと使うように修正</li>
-</ul>
-<h3>Sower Version 1.4.1</h3>
-<ul>
-  <li>個別フィルタ修正</li>
-  <li>参加していない進行中の村で、自身の傍観者発言と独り言を見れるように修正</li>
+  <li>恋窓周りの不具合修正</li>
 </ul>
 _HTML_
 
@@ -75,6 +61,26 @@ _HTML_
     $self->outhtmlnew();
 
     print <<"_HTML_";
+<h3>Sower Version 1.4.4</h3>
+<ul>
+  <li>軽微な不具合修正</li>
+</ul>
+<h3>Sower Version 1.4.3</h3>
+<ul>
+  <li>廃村期限延長機能を実装。管理者のみ実行できます</li>
+</ul>
+<hr class="invisible_hr"$net>
+<h3>Sower Version 1.4.2</h3>
+<ul>
+  <li>キャラセット: Troopers 実装</li>
+  <li>各窓用アイコンがある場合ちゃんと使うように修正</li>
+</ul>
+<hr class="invisible_hr"$net>
+<h3>Sower Version 1.4.1</h3>
+<ul>
+  <li>個別フィルタ修正</li>
+  <li>参加していない進行中の村で、自身の傍観者発言と独り言を見れるように修正</li>
+</ul>
 <hr class="invisible_hr"$net>
 <h3>Sower Version 1.4.0</h3>
 <ul>

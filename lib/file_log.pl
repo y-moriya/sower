@@ -432,6 +432,7 @@ sub getvlogs {
                 || ( $logmestype eq $sow->{'LOGMESTYPE'}->[ $sow->{'MESTYPE_TSAY'} ] )
             )
             && ( $self->{'vil'}->isepilogue() == 0 )
+            && ( $sow->{'uid'} ne $sow->{'cfg'}->{'USERID_ADMIN'} )
           );
     }
 

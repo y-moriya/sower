@@ -354,6 +354,8 @@ sub GetConfig {
         'Troopers by <a href="http://mrhappiness.client.jp/top_troopers.html">作者：人類管理連合</a>',
     );
 
+    my $lastupdate = '20240131';
+
     # キャッシュクリアのためファイル名に日付を入れた。
     my %css_default = (
         TITLE => '標準スタイル',
@@ -467,8 +469,6 @@ sub GetConfig {
         gro     => \%ratinggro,
         view    => \%ratingview,
     );
-
-    my $lastupdate = '20240126';
 
     my %cfg = (
 
@@ -663,7 +663,7 @@ sub GetConfig {
         FILE_JS_SOW    => "sow.js?date=" . $lastupdate,
         FILE_JS_JQUERY => "jquery.js",
         FILE_JS_DRAG   => "jquery.easydrag.js",
-        FILE_JS_FILTER => "filter.js",
+        FILE_JS_FILTER => "filter.js?date=" . $lastupdate,
         FILE_FAVICON   => "favicon.ico",
 
         PERMITION_MKDIR => 0777,

@@ -17,10 +17,11 @@ sub CmdEditMes {
     if ( defined( $curpl->{'uid'} ) ) {
         $curpl->{'savedraft'} = $query->{'mes'};
         my $mestype = $sow->{'MESTYPE_SAY'};
-        $mestype = $sow->{'MESTYPE_TSAY'}  if ( $query->{'think'} ne '' );
-        $mestype = $sow->{'MESTYPE_WSAY'}  if ( $query->{'wolf'} ne '' );
-        $mestype = $sow->{'MESTYPE_SPSAY'} if ( $query->{'sympathy'} ne '' );
-        $mestype = $sow->{'MESTYPE_BSAY'}  if ( $query->{'werebat'} ne '' );
+        $mestype                 = $sow->{'MESTYPE_TSAY'}  if ( $query->{'think'} ne '' );
+        $mestype                 = $sow->{'MESTYPE_WSAY'}  if ( $query->{'wolf'} ne '' );
+        $mestype                 = $sow->{'MESTYPE_SPSAY'} if ( $query->{'sympathy'} ne '' );
+        $mestype                 = $sow->{'MESTYPE_BSAY'}  if ( $query->{'werebat'} ne '' );
+        $mestype                 = $sow->{'MESTYPE_LSAY'}  if ( $query->{'love'} ne '' );
         $curpl->{'draftmestype'} = $mestype;
         $curpl->{'draftmspace'}  = 0;
         $curpl->{'draftmspace'}  = 1 if ( $query->{'monospace'} ne '' );

@@ -446,7 +446,8 @@ _HTML_
 
         my $draft = 0;
         $draft = 1
-          if ( $sow->{'savedraft'} ne '' );
+          if ( ( $sow->{'savedraft'} ne '' )
+            && ( $sow->{'draftmestype'} == $sow->{'MESTYPE_LSAY'} ) );
 
         if ( $draft > 0 ) {
             my $mes = $sow->{'savedraft'};
