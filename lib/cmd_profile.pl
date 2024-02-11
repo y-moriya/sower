@@ -54,7 +54,12 @@ sub SumUserRecord {
             &AddRecordSingle( $totalrecord, $_ );
 
             # w‰c•ÊíÑWŒv
-            &AddRecordSingle( $camps[ $sow->{'ROLECAMP'}[ $_->{'role'} ] ], $_ );
+            if ( $_->{'lovers'} ne '/' ) {
+                &AddRecordSingle( $camps[ $sow->{'ROLECAMP'}[ $_->{'sow'}->{'ROLEID_CUPID'} ] - 1 ], $_ );
+            }
+            else {
+                &AddRecordSingle( $camps[ $sow->{'ROLECAMP'}[ $_->{'role'} ] ], $_ );
+            }
 
             # –ðE•ÊíÑWŒv
             &AddRecordSingle( $roles[ $_->{'role'} ], $_ );

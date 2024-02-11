@@ -445,13 +445,16 @@ _HTML_
     for ( $i = 1 ; $i < @$data ; $i++ ) {
 
         # w‰c•Ê‚Ìê‡A—d–‚w‰c‚ª2‰ñ•\Ž¦‚³‚ê‚Ä‚µ‚Ü‚¤‚Ì‚ð–h‚®
-        next if ( $title == 'w‰c' && $i == 4 );
+        next if ( $title eq 'w‰c' && $i == 4 );
+
+        my $side = '';
+        $side = '‘¤' if ( $title eq 'w‰c' );
         if ( $data->[$i]->{'total'} > 0 ) {
             my ( $average, $liveaverage, $livedays ) =
               &SetRecordText( $data->[$i] );
             print <<"_HTML_";
 <tr>
-  <td>$caption->[$i]‘¤</td>
+  <td>$caption->[$i]$side</td>
   <td>$data->[$i]->{'win'}Ÿ $data->[$i]->{'lose'}”s</td>
   <td>$average%</td>
   <td>$liveaverage%</td>
@@ -463,7 +466,7 @@ _HTML_
         else {
             print <<"_HTML_";
 <tr>
-  <td>$caption->[$i]‘¤</td>
+  <td>$caption->[$i]$side</td>
   <td colspan="4">‚È‚µ</td>
 </tr>
 
