@@ -498,57 +498,61 @@ sub GetConfig {
         ENABLED_VMAKE => 1,
 
         NAME_SW      => '人狼物語',
-        URL_SW       => 'http://***/sow',                    # 設置するURL（最後の“/”は必要ありません）
+        URL_SW       => 'http://***/sow',                       # 設置するURL（最後の“/”は必要ありません）
         DESC_SW      => '人狼BBS似のウェブ版人狼クローン。',
-        ENABLED_MENU => 1,                                   # 1:トップページのメニューを表示する
-        URL_HOME     => 'https://www.gunjobiyori.com/',      # ホームページ
-        NAME_HOME    => '群青日和(blog)',
+        ENABLED_MENU => 1,                                      # 1:トップページのメニューを表示する
+        URL_HOME     => 'https://www.gunjobiyori.com/',         # ホームページ
+        NAME_HOME    => 'blog',
         NAME_TOP     => 'TOP',
-        URL_BBS_PC   => 'https://www.twitter.com/euro_s',    # サポート掲示板のURL
-        NAME_BBS_PC  => '@euro_s',                           # サポート掲示板の名前
-        SERVER_INFO  => 'ここは人狼物語＠リア充本サーバーです。',               # サーバー情報
+        URL_BBS_PC   => 'https://www.twitter.com/euro_s',       # サポート掲示板のURL
+        NAME_BBS_PC  => '@euro_s',                              # サポート掲示板の名前
+        URL_DONATE   => 'https://amzn.to/49xmIqi',              # 寄付先のURL
+        NAME_DONATE  => '投げ銭はこちら',                              # 寄付先の名前
+        URL_BOT      => 'https://mastodon-japan.net/@sower',    # 通知ボットのURL
+        NAME_BOT     => '通知bot(試験運用中)',                         # 通知ボットの名前
+        SERVER_INFO  => 'ここは人狼物語＠リア充本サーバーです。',                  # サーバー情報
 
-        MAX_VILLAGES  => 5,                                  # 最大同時稼働村数
-        TIMEOUT_SCRAP => 42,                                 # 廃村期限
-        TIMEOUT_ENTRY => 1.5,                                # プロローグでの無発言者自動追い出し機能の制限日数
+        MAX_VILLAGES  => 5,                                     # 最大同時稼働村数
+        TIMEOUT_SCRAP => 42,                                    # 廃村期限
+        TIMEOUT_ENTRY => 1.5,                                   # プロローグでの無発言者自動追い出し機能の制限日数
 
-        MESFIXTIME        => 20,                             # 保留時間
-        MAX_ROW           => 50,                             # 標準表示時の行数
-        MAX_PAGEROW_PC    => 100,                            # ページ表示時の行数(未使用)
-        ROW_ACTION        => 0,                              # 行数計算にアクションを含むかどうか
-        MIN_VSRECORDTOTAL => 2,                              # ｎ戦以上同村している相手のみ、対戦成績を表示
-        CANDY_LS          => 5,                              # ｎ個飴を集めると大きくなる
+        MESFIXTIME        => 20,                                # 保留時間
+        MAX_ROW           => 50,                                # 標準表示時の行数
+        MAX_PAGEROW_PC    => 100,                               # ページ表示時の行数(未使用)
+        ROW_ACTION        => 0,                                 # 行数計算にアクションを含むかどうか
+        MIN_VSRECORDTOTAL => 2,                                 # ｎ戦以上同村している相手のみ、対戦成績を表示
+        CANDY_LS          => 5,                                 # ｎ個飴を集めると大きくなる
 
-        ENABLED_TSAY_PRO     => 1,                           # プロローグでの独り言
-        ENABLED_TSAY_GRAVE   => 1,                           # 墓下での独り言
-        ENABLED_TSAY_GUEST   => 1,                           # 傍観者の独り言
-        ENABLED_TSAY_EP      => 1,                           # エピでの独り言
-        ENABLED_PERMIT_DEAD  => 1,                           # 墓下の人狼/共鳴者/コウモリ人間が囁きを見られるかどうか
-        ENABLED_DELETED      => 1,                           # 削除発言を表示するかどうか
-        ENABLED_SUDDENDEATH  => 1,                           # 1:突然死あり
-        ENABLED_NOTICE_SD    => 0,                           # 1:突然死通知あり（未実装）
-        DAY_INITPENALTY      => 0,                           # 突然死などのペナルティ初期値（単位は日数）
-        ENABLED_MULTIENTRY   => 1,                           # 1:掛け持ちを許可する
-        ENABLED_RANDOMTARGET => 1,                           # 1:投票・能力先に「ランダム」を含める
-        DEFAULT_VOTETYPE     => 'anonymity',                 # 標準の投票方法(sign: 記名、anonymity:無記名)
-        DEFAULT_NOSELROLE    => 1,                           # 1:デフォルトで役職希望無効
-        DEFAULT_MAKERSAYMENU => 1,                           # 1:デフォルトで進行中村建発言不可能
-        DEFAULT_ENTRUSTMODE  => 1,                           # 1:デフォルトで委任不可能
-        DEFAULT_SHOWALL      => 1,                           # 1:デフォルトで墓下公開
-        DEFAULT_NOACTMODE    => 2,                           # デフォルトでact/memo 0:on/on 1:off/on 2:on/off 3:off/off
-        DEFAULT_NOCANDY      => 1,                           # 1:デフォルトで促し不可能
-        DEFAULT_NOFREEACT    => 1,                           # 1:デフォルトで自由文アクション不可能
-        DEFAULT_TIMESTAMP    => 1,                           # 1:デフォルトで時刻簡易表示
-        DEFAULT_GUESTMENU    => 0,                           # 1:デフォルトで傍観者発言不可能
+        ENABLED_TSAY_PRO     => 1,                              # プロローグでの独り言
+        ENABLED_TSAY_GRAVE   => 1,                              # 墓下での独り言
+        ENABLED_TSAY_GUEST   => 1,                              # 傍観者の独り言
+        ENABLED_TSAY_EP      => 1,                              # エピでの独り言
+        ENABLED_PERMIT_DEAD  => 1,                              # 墓下の人狼/共鳴者/コウモリ人間が囁きを見られるかどうか
+        ENABLED_DELETED      => 1,                              # 削除発言を表示するかどうか
+        ENABLED_SUDDENDEATH  => 1,                              # 1:突然死あり
+        ENABLED_NOTICE_SD    => 0,                              # 1:突然死通知あり（未実装）
+        DAY_INITPENALTY      => 0,                              # 突然死などのペナルティ初期値（単位は日数）
+        ENABLED_MULTIENTRY   => 1,                              # 1:掛け持ちを許可する
+        ENABLED_RANDOMTARGET => 1,                              # 1:投票・能力先に「ランダム」を含める
+        DEFAULT_VOTETYPE     => 'anonymity',                    # 標準の投票方法(sign: 記名、anonymity:無記名)
+        DEFAULT_NOSELROLE    => 1,                              # 1:デフォルトで役職希望無効
+        DEFAULT_MAKERSAYMENU => 1,                              # 1:デフォルトで進行中村建発言不可能
+        DEFAULT_ENTRUSTMODE  => 1,                              # 1:デフォルトで委任不可能
+        DEFAULT_SHOWALL      => 1,                              # 1:デフォルトで墓下公開
+        DEFAULT_NOACTMODE    => 2,                              # デフォルトでact/memo 0:on/on 1:off/on 2:on/off 3:off/off
+        DEFAULT_NOCANDY      => 1,                              # 1:デフォルトで促し不可能
+        DEFAULT_NOFREEACT    => 1,                              # 1:デフォルトで自由文アクション不可能
+        DEFAULT_TIMESTAMP    => 1,                              # 1:デフォルトで時刻簡易表示
+        DEFAULT_GUESTMENU    => 0,                              # 1:デフォルトで傍観者発言不可能
 
-        ENABLED_POPUP => 1,                                  # アンカーのポップアップ
+        ENABLED_POPUP => 1,                                     # アンカーのポップアップ
 
-        USERID_NPC   => 'master',                            # ダミーキャラのユーザID
-        USERID_ADMIN => 'admin',                             # 管理人のユーザID
+        USERID_NPC   => 'master',                               # ダミーキャラのユーザID
+        USERID_ADMIN => 'admin',                                # 管理人のユーザID
 
         # ファイルロック機能
-        ENABLED_GLOCK => 1,                                  # 0: none, 1: flock, 2: rename
-        TIMEOUT_GLOCK => 5 * 60,                             # rename方式の時の時間切れ
+        ENABLED_GLOCK => 1,                                     # 0: none, 1: flock, 2: rename
+        TIMEOUT_GLOCK => 5 * 60,                                # rename方式の時の時間切れ
 
         # 標準のバナー画像
         FILE_TOPBANNER   => 'mwtitle.jpg',

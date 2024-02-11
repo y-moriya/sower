@@ -43,23 +43,36 @@ sub OutHTMLIndex {
     my $net = $sow->{'html'}->{'net'};                  # Null End Tag
 
     if ( $cfg->{'ENABLED_MENU'} > 0 ) {
-        my $savecss = $reqvals->{'css'};
+        my $original_css = $reqvals->{'css'};
         $reqvals->{'css'} = '';
-        my $urlhome = '';
-        $urlhome = "<a href=\"$cfg->{'URL_HOME'}\">$cfg->{'NAME_HOME'}</a>/"
-          if ( ( $cfg->{'URL_HOME'} ne '' )
-            && ( $cfg->{'URL_HOME'} ne 'http://***/' ) );
-        my $supportbbs = '';
-        $supportbbs = "<a href=\"$cfg->{'URL_BBS_PC'}\">$cfg->{'NAME_BBS_PC'}</a>/"
-          if ( $cfg->{'URL_BBS_PC'} ne '' );
 
-        my $hidden = &SWBase::GetHiddenValues( $sow, $reqvals, '  ' );
-        $reqvals->{'css'} = $savecss;
+        my $url_home =
+          $cfg->{'URL_HOME'} && $cfg->{'URL_HOME'} ne 'http://***/'
+          ? "<a href=\"$cfg->{'URL_HOME'}\">$cfg->{'NAME_HOME'}</a>/"
+          : '';
+
+        my $donate =
+          $cfg->{'URL_DONATE'} ne ''
+          ? "<a href=\"$cfg->{'URL_DONATE'}\">$cfg->{'NAME_DONATE'}</a>/"
+          : '';
+
+        my $support_bbs =
+          $cfg->{'URL_BBS_PC'} ne ''
+          ? "<a href=\"$cfg->{'URL_BBS_PC'}\">$cfg->{'NAME_BBS_PC'}</a>/"
+          : '';
+
+        my $bot =
+          $cfg->{'URL_BOT'} ne ''
+          ? "<a href=\"$cfg->{'URL_BOT'}\">$cfg->{'NAME_BOT'}</a>/"
+          : '';
+
+        my $hidden_values = &SWBase::GetHiddenValues( $sow, $reqvals, '  ' );
+        $reqvals->{'css'} = $original_css;
 
         print <<"_HTML_";
 <form action="$urlsow" method="get" class="menu">
 <div>
-  $urlhome<a href="https://www.amazon.jp/hz/wishlist/ls/1ET0ILYRI88S8?ref_=wl_share">“Š‚°‘K‚Í‚±‚¿‚ç</a>/$supportbbs
+  $url_home$donate$support_bbs$bot
   <select name="css">
 _HTML_
 
