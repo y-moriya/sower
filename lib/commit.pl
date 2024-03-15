@@ -277,7 +277,12 @@ sub UpdateSession {
         }
 
         if ( ( $winner > 0 ) || ( $scrapvil > 0 ) ) {    # ゲーム終了
-                                                         # 終了メッセージ
+
+            # エピローグの長さを再設定
+            $vil->{'nextupdatedt'} =
+              $sow->{'dt'}->getnextupdatedt( $vil, $sow->{'time'}, $sow->{'cfg'}->{'DAYS_OF_EPILOGUE'}, $commit );
+
+            # 終了メッセージ
             my $epinfo = $sow->{'textrs'}->{'ANNOUNCE_WINNER'}->[$winner];
             $logfile->writeinfo( '', $sow->{'MESTYPE_INFONOM'}, $epinfo );
 
