@@ -214,6 +214,7 @@ sub GetTextRS {
         ANNOUNCE_SETVOTE       => '_NAME_は、_TARGET_ を投票先に選びました。',
         ANNOUNCE_SETENTRUST    => '投票を委任します。<br><br>_NAME_は、_TARGET_ に投票を委任しました。',
         ANNOUNCE_SETTARGET     => '_NAME_は、_TARGET_ を能力（_ABILITY_）の対象に選びました。',
+        ANNOUNCE_EDITJOB       => '_OLDNAME_は、名前を _NEWNAME_ に変更しました。',
 
         BUTTONLABEL_PC  => '_BUTTON_ / 更新',
         CAPTION_SAY_PC  => '発言',
