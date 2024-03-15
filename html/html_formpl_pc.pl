@@ -58,6 +58,7 @@ sub OutHTMLPlayerFormPC {
       if ( $curpl->islovers() > 0 && $vil->{'emulated'} < 1 );
     &OutHTMLExitButtonPC( $sow, $vil )    if ( $vil->{'turn'} == 0 );
     &OutHTMLSelRoleButtonPC( $sow, $vil ) if ( $vil->{'turn'} == 0 );
+    &OutHTMLEditJobButtonPC( $sow, $vil ) if ( $vil->{'turn'} == 0 );
 
     # 村建て人フォーム／管理人フォーム／傍観者フォーム表示
     if ( $sow->{'user'}->logined() > 0 ) {
@@ -956,6 +957,34 @@ _HTML_
       </select>
 	  <input type="hidden" name="cmd" value="selrolepr"$net>$hidden
 	  <input type="submit" value="希望役職を変更する" data-submit-type="selrole"$disabled$net>
+	</p>
+  </form>
+</div>
+
+_HTML_
+
+    return;
+}
+
+#----------------------------------------
+# 「肩書変更」HTML出力
+#----------------------------------------
+sub OutHTMLEditJobButtonPC {
+    my ( $sow, $vil ) = @_;
+    my $cfg = $sow->{'cfg'};
+    my $net = $sow->{'html'}->{'net'};
+
+    my $reqvals = &SWBase::GetRequestValues($sow);
+    my $hidden  = &SWBase::GetHiddenValues( $sow, $reqvals, '    ' );
+
+    print <<"_HTML_";
+<div class="formpl_gm">
+  <form action="$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}" method="$sow->{'cfg'}->{'METHOD_FORM'}">
+	<p class="commitbutton">
+      <label for="jobname">肩書の変更：</label>
+      <input type="text" name="jobname" value="$sow->{'curpl'}->{'jobname'}" size="15"$net>
+	  <input type="hidden" name="cmd" value="editjob"$net>$hidden
+	  <input type="submit" value="肩書を変更する" data-submit-type="editjob"$net>
 	</p>
   </form>
 </div>

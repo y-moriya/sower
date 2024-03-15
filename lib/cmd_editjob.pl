@@ -1,7 +1,7 @@
 package SWCmdEditJobName;
 
 #----------------------------------------
-# 肩書き変更（暫定）
+# 肩書き変更
 #----------------------------------------
 sub CmdEditJobName {
     my $sow   = $_[0];
@@ -38,11 +38,30 @@ sub SetDataCmdExtend {
     # リソースの読み込み
     &SWBase::LoadVilRS( $sow, $vil );
 
-    $sow->{'debug'}->raise( $sow->{'APLOG_NOTICE'}, "管理人権限が必要です。", "no permition.$errfrom" )
-      if ( $sow->{'uid'} ne $sow->{'cfg'}->{'USERID_ADMIN'} );
+    $sow->{'debug'}->raise( $sow->{'APLOG_NOTICE'}, '進行中は肩書を変更できません。', "jobname can not change.[$sow->{'uid'}]" )
+      if ( $vil->{'turn'} > 0 );
 
-    my $curpl = $vil->getplbypno( $query->{'target'} );
-    $curpl->{'jobname'} = $query->{'jobname'};
+    $sow->{'debug'}->raise( $sow->{'APLOG_NOTICE'}, '肩書が同じです。', "jobname not change.[$sow->{'uid'}]" )
+      if ( $sow->{'curpl'}->{'jobname'} eq $query->{'jobname'} );
+
+    # 変更前のキャラ名を保存
+    my $oldchrname = $sow->{'curpl'}->getchrname();
+
+    # 変更処理
+    $sow->{'curpl'}->{'jobname'} = $query->{'jobname'};
+
+    require "$sow->{'cfg'}->{'DIR_LIB'}/log.pl";
+    require "$sow->{'cfg'}->{'DIR_LIB'}/file_log.pl";
+
+    my $newchrname = $sow->{'curpl'}->getchrname();
+    my $logfile    = SWBoa->new( $sow, $vil, $vil->{'turn'}, 0 );
+    my $changemes  = $sow->{'textrs'}->{'ANNOUNCE_EDITJOB'};
+    $changemes =~ s/_OLDNAME_/$oldchrname/g;
+    $changemes =~ s/_NEWNAME_/$newchrname/g;
+    $logfile->writeinfo( '', $sow->{'MESTYPE_INFONOM'}, $changemes );
+
+    $sow->{'debug'}->writeaplog( $sow->{'APLOG_POSTED'}, "Edit jobname. [$sow->{'curpl'}->{'uid'}]" );
+    $logfile->close();
     $vil->writevil();
     $vil->closevil();
 

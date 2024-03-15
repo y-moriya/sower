@@ -189,6 +189,7 @@ sub GetTextRS {
         ANNOUNCE_SETVOTE       => 'せっかくだから、_NAME_ は _TARGET_ に投票するぜ！',
         ANNOUNCE_SETENTRUST    => 'めんどくさい。<br><br>めんどくさいから、_NAME_ は _TARGET_ に投票任せた！',
         ANNOUNCE_SETTARGET     => '_NAME_ は、なんとなく _TARGET_ を能力（_ABILITY_）の対象に選んでみた。',
+        ANNOUNCE_EDITJOB       => '_OLDNAME_ は、_NEWNAME_ って呼んでほしいみたい。',
 
         BUTTONLABEL_PC  => '_BUTTON_ / 更新',
         CAPTION_SAY_PC  => '言う',
