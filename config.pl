@@ -584,6 +584,7 @@ sub GetConfig {
         MAXSIZE_VPLCNT   => 25,       # 定員の最大数
         MINSIZE_VPLCNT   => 4,        # 定員の最小数
 
+        MAXSIZE_JOBNAME    => 40,     # 肩書の最大バイト数
         MAXSIZE_HANDLENAME => 64,     # ハンドル名の最大バイト数
         MAXSIZE_URL        => 128,    # URLの最大バイト数
         MAXSIZE_INTRO      => 600,    # 自己紹介の最大バイト数

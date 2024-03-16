@@ -982,7 +982,7 @@ sub OutHTMLEditJobButtonPC {
   <form action="$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}" method="$sow->{'cfg'}->{'METHOD_FORM'}">
 	<p class="commitbutton">
       <label for="jobname">Œ¨‘‚Ì•ÏXF</label>
-      <input type="text" name="jobname" value="$sow->{'curpl'}->{'jobname'}" size="15"$net>
+      <input type="text" name="jobname" value="$sow->{'curpl'}->{'jobname'}" size="15" maxlength="$sow->{'cfg'}->{'MAXSIZE_JOBNAME'}"$net>
 	  <input type="hidden" name="cmd" value="editjob"$net>$hidden
 	  <input type="submit" value="Œ¨‘‚ğ•ÏX‚·‚é" data-submit-type="editjob"$net>
 	</p>

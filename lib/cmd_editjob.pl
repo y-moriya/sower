@@ -44,6 +44,12 @@ sub SetDataCmdExtend {
     $sow->{'debug'}->raise( $sow->{'APLOG_NOTICE'}, '肩書が同じです。', "jobname not change.[$sow->{'uid'}]" )
       if ( $sow->{'curpl'}->{'jobname'} eq $query->{'jobname'} );
 
+    $sow->{'debug'}->raise(
+        $sow->{'APLOG_NOTICE'},
+        "肩書が長すぎます。最大$sow->{'cfg'}->{'MAXSIZE_JOBNAME'}バイト以内にしてください。",
+        "jobname too long.[$sow->{'uid'}]"
+    ) if ( length( $query->{'jobname'} ) > $sow->{'cfg'}->{'MAXSIZE_JOBNAME'} );
+
     # 変更前のキャラ名を保存
     my $oldchrname = $sow->{'curpl'}->getchrname();
 
