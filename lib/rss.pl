@@ -24,6 +24,7 @@ sub OutXMLRSS {
 
     $sow->{'html'} = SWHtml->new( $sow, 'rss' );    # XMLモードの初期化
     my $net     = $sow->{'html'}->{'net'};          # Null End Tag
+    my $amp     = $sow->{'html'}->{'amp'};          # &
     my $outhttp = $sow->{'http'}->outheader();      # HTTPヘッダの出力
     return if ( $outhttp == 0 );                    # ヘッダ出力のみ
     $sow->{'html'}->outheader('');                  # HTMLヘッダの出力
@@ -33,6 +34,9 @@ sub OutXMLRSS {
     my $linkvalues = &SWBase::GetLinkValues( $sow, $reqvals );
 
     my $titlerss = "$title - $sow->{'cfg'}->{'NAME_SW'}";
+
+    # & を &amp; に変換
+    $titlerss =~ s/&/$amp/g;
     if ( $utf8 > 0 ) {
         &SWBase::JcodeConvert( $sow, \$titlerss, 'utf8', 'sjis' );
         &SWBase::JcodeConvert( $sow, \$desc,     'utf8', 'sjis' );
@@ -69,6 +73,7 @@ _XML_
         my $desc   = $items->[$i]->{'content'};
         $desc =~ s/<br( \/)?>/ /ig;
         $desc = &SWString::GetTrimStringRSSDesc( $desc, $sow->{'cfg'}->{'MAXSIZE_RSSDESC'} );
+        $desc =~ s/&/$amp/g;
         &SWHtml::ConvertNET( $sow, \$items->[$i]->{'content'} );
         if ( $utf8 > 0 ) {
             &SWBase::JcodeConvert( $sow, \$date,                     'utf8', 'sjis' );
@@ -77,10 +82,12 @@ _XML_
             &SWBase::JcodeConvert( $sow, \$items->[$i]->{'name'},    'utf8', 'sjis' );
             &SWBase::JcodeConvert( $sow, \$items->[$i]->{'content'}, 'utf8', 'sjis' );
         }
+        my $title = $items->[$i]->{'title'};
+        $title =~ s/&/$amp/g;
 
         print <<"_XML_";
   <item rdf:about="$items->[$i]->{'link'}">
-    <title>$items->[$i]->{'title'} $date</title>
+    <title>$title $date</title>
     <link>$items->[$i]->{'link'}</link>
     <description>$desc</description>
     <dc:date>$dcdate</dc:date>
