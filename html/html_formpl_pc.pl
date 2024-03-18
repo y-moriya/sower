@@ -65,7 +65,7 @@ sub OutHTMLPlayerFormPC {
         if ( $sow->{'uid'} eq $vil->{'makeruid'} ) {
             &OutHTMLVilMakerPC( $sow, $vil, 'maker' )
               if ( ( $vil->{'turn'} == 0 )
-                || ( $vil->isepilogue() != 0 )
+                || ( $vil->isepilogue() > 0 )
                 || ( $vil->{'makersaymenu'} == 0 ) );
             &OutHTMLUpdateSessionButtonPC( $sow, $vil )
               if ( $vil->{'turn'} == 0 );
@@ -80,15 +80,44 @@ sub OutHTMLPlayerFormPC {
             &OutHTMLExtendScrapVilButtonPC( $sow, $vil )
               if ( $vil->{'turn'} == 0 );
         }
-        if ( $vil->{'guestmenu'} == 0 ) {
-            &OutHTMLVilGuestPC( $sow, $vil, 'guest' )
-              if ( ( $vil->{'turn'} == 0 ) || ( $vil->isepilogue() != 0 ) );
+        if ( &GGetShowGuestFormFlag( $sow, $vil ) > 0 ) {
+            &OutHTMLVilGuestPC( $sow, $vil, 'guest' );
         }
     }
 
     print "</div>\n\n";
 
     return;
+}
+
+#----------------------------------------
+# 傍観者発言フォームを表示するかどうかのチェック
+#----------------------------------------
+sub GGetShowGuestFormFlag {
+    my ( $sow, $vil ) = @_;
+
+    # 村のオプションで傍観者発言オフの場合は表示しない
+    if ( $vil->{'guestmenu'} < 0 ) {
+        return 0;
+    }
+
+    # 進行中は表示しない
+    if ( $vil->{'turn'} > 0 && $vil->isepilogue() == 0 ) {
+        return 0;
+    }
+
+    # 村に参加していない場合は表示する
+    if ( $vil->checkentried() < 0 ) {
+        return 1;
+    }
+
+    # 村に参加しているが、傍観者発言フォーム表示フラグが表示の場合は表示する
+    if ( &SWUser::GetShowGuestFormFlag == 1 ) {
+        return 1;
+    }
+
+    # いずれにも該当しない場合は表示しない
+    return 0;
 }
 
 #----------------------------------------

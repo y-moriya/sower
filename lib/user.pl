@@ -30,8 +30,8 @@ sub GetFNameUser {
 #----------------------------------------
 sub GetUserDataLabel {
     my @datalabel = (
-        'uid',         'pwd',       'handlename', 'url', 'introduction', 'parmalink',
-        'entriedvils', 'penaltydt', 'ptype',      'plevel',
+        'uid',         'pwd',       'handlename', 'url',    'introduction', 'parmalink',
+        'entriedvils', 'penaltydt', 'ptype',      'plevel', 'guestform'
     );
     return @datalabel;
 }
@@ -549,6 +549,20 @@ sub GetShowParmalinkFlag {
     $user->openuser(1);
     $user->closeuser();
     return $user->{'parmalink'};
+}
+
+#----------------------------------------
+# 入村後の傍観者発言表示フラグの取得
+#----------------------------------------
+sub GetShowGuestFormFlag {
+    my $sow = $_[0];
+
+    my $user = SWUser->new($sow);
+    $user->{'uid'} = $sow->{'uid'};
+    return if ( $sow->{'uid'} eq '' );
+    $user->openuser(1);
+    $user->closeuser();
+    return $user->{'guestform'};
 }
 
 1;
