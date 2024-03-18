@@ -58,6 +58,9 @@ sub OutHTMLProfile {
     my $parmalink = '非表\示';
     $parmalink = '表\示' if ( $user->{'parmalink'} == 1 );
 
+    my $guestform = '非表\示';
+    $guestform = '表\示' if ( $user->{'guestform'} == 1 );
+
     print <<"_HTML_";
 <h2>$query->{'prof'}さんの情報$linkedit</h2>
 
@@ -72,6 +75,9 @@ sub OutHTMLProfile {
   <br class="multicolumn_clear"$net>
 
   <span class="multicolumn_label">固定リンク：</span><span class="multicolumn_left">$parmalink</span>
+  <br class="multicolumn_clear"$net>
+
+  <span class="multicolumn_label">入村後の傍観者発言フォーム：</span><span class="multicolumn_left">$guestform</span>
   <br class="multicolumn_clear"$net>
 
 _HTML_

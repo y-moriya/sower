@@ -122,6 +122,7 @@ sub InitConst {
         url        => 1,      # ユーザーのURL
         intro      => 2,      # ユーザーの自己紹介
         parmalink  => 0,      # ユーザーのパーマリンクオンオフフラグ
+        guestform  => 0,      # ユーザーの入村後の傍観者発言フォームオンオフフラグ
 
         vidstart => 0,        # 村番号範囲指定（開始）
         vidend   => 0,        # 村番号範囲指定（終了）

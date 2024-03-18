@@ -30,7 +30,7 @@ sub SetDataCmdEditProfile {
     my $lenhn = length( $query->{'handlename'} );
     $debug->raise(
         $sow->{'APLOG_CAUTION'},
-"ハンドル名が長すぎます（$lenhnバイト）。最大$sow->{'cfg'}->{'MAXSIZE_HANDLENAME'}バイトまでです。",
+        "ハンドル名が長すぎます（$lenhnバイト）。最大$sow->{'cfg'}->{'MAXSIZE_HANDLENAME'}バイトまでです。",
         "handle name too long.$errfrom"
     ) if ( $lenhn > $sow->{'cfg'}->{'MAXSIZE_HANDLENAME'} );
 
@@ -44,7 +44,7 @@ sub SetDataCmdEditProfile {
     my $lenintro = length( $query->{'intro'} );
     $debug->raise(
         $sow->{'APLOG_CAUTION'},
-"自己紹介が長すぎます（$lenintroバイト）。最大$sow->{'cfg'}->{'MAXSIZE_INTRO'}バイトまでです。",
+        "自己紹介が長すぎます（$lenintroバイト）。最大$sow->{'cfg'}->{'MAXSIZE_INTRO'}バイトまでです。",
         "introduction too long.$errfrom"
     ) if ( $lenintro > $sow->{'cfg'}->{'MAXSIZE_INTRO'} );
 
@@ -57,6 +57,7 @@ sub SetDataCmdEditProfile {
     $user->{'url'}          = '' if ( $query->{'url'} eq 'http://' );
     $user->{'introduction'} = $query->{'intro'};
     $user->{'parmalink'}    = ( $query->{'parmalink'} eq '1' ) ? 1 : 0;
+    $user->{'guestform'}    = ( $query->{'guestform'} eq '1' ) ? 1 : 0;
     $user->writeuser();
     $user->closeuser();
 
