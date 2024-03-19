@@ -259,6 +259,14 @@ _HTML_
 <br class="multicolumn_clear"$net>
 _HTML_
 
+    my $noque = getinfocap_noque( $query->{'noque'} );
+    print <<"_HTML_";
+
+<p class="multicolumn_label">î≠åæï€óØÅF</p>
+<p class="multicolumn_left">$noque</p>
+<br class="multicolumn_clear"$net>
+_HTML_
+
     print "</div>\n\n";
 
     # ëÆê´ílê∂ê¨
@@ -269,7 +277,7 @@ _HTML_
         'updinterval',  'vplcnt',       'entrylimit', 'entrypwd',  'rating',      'vplcntstart',
         'saycnttype',   'starttype',    'votetype',   'noselrole', 'entrustmode', 'showall',
         'noactmode',    'nocandy',      'nofreeact',  'guestmenu', 'showid',      'timestamp',
-        'randomtarget', 'makersaymenu', 'csid',       'trsid'
+        'randomtarget', 'makersaymenu', 'csid',       'trsid',     'noque'
     );
     my $reqvals = &SWBase::GetRequestValues( $sow, \@reqkeys );
     my $hidden  = &SWBase::GetHiddenValues( $sow, $reqvals, '  ' );
@@ -508,6 +516,16 @@ sub getinfocap_timestamp {
 sub getinfocap_guestmenu {
     my $guestmenu = shift;
     if ( $guestmenu ne '' ) {
+        return 'Ç»Çµ';
+    }
+    else {
+        return 'Ç†ÇË';
+    }
+}
+
+sub getinfocap_noqueu {
+    my $noqueu = shift;
+    if ( $noqueu ne '' ) {
         return 'Ç»Çµ';
     }
     else {

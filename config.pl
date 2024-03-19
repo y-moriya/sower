@@ -50,6 +50,7 @@ sub GetConfig {
         guestmenu    => '傍観者発言',
         votetype     => '投票方法',
         starttype    => '開始方法',
+        noque        => '発言保留時間',
 
     );
 
@@ -314,6 +315,7 @@ sub GetConfig {
         showid       => '',
         timestamp    => 'on',
         guestmenu    => '',
+        noque        => '',
 
     );
 
@@ -348,6 +350,7 @@ sub GetConfig {
         showid       => '',
         timestamp    => 'on',
         guestmenu    => '',
+        noque        => '',
 
     );
 
@@ -545,6 +548,7 @@ sub GetConfig {
         DEFAULT_NOFREEACT    => 1,                              # 1:デフォルトで自由文アクション不可能
         DEFAULT_TIMESTAMP    => 1,                              # 1:デフォルトで時刻簡易表示
         DEFAULT_GUESTMENU    => 0,                              # 1:デフォルトで傍観者発言不可能
+        DEFAULT_NOQUE        => 0,                              # 1:デフォルトで発言保留時間無し
 
         ENABLED_POPUP => 1,                                     # アンカーのポップアップ
 

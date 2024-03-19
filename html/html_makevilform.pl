@@ -337,7 +337,6 @@ _HTML_
     print <<"_HTML_";
 	<label for="guestmenu" class="multicolumn_label">傍観者発言： </label>
 	<input type="checkbox" id="guestmenu" class="multicolumn_left" name="guestmenu" value="on"$checkedguestmenu$net><div class="multicolumn_notes"><label for="guestmenu">傍観者発言を不可にする</label></div>
-  </fieldset>
 _HTML_
 
     # 委任なし
@@ -372,12 +371,27 @@ _HTML_
 	<input type="checkbox" id="showall" class="multicolumn_left" name="showall" value="on"$checkedshowall$net><div class="multicolumn_notes"><label for="showall">墓下からは全役職と囁きが見えるようにする</label></div>
 _HTML_
 
+    my $checkednoque = '';
+    if ( $sow->{'query'}->{'cmd'} eq 'editvilform' ) {
+        $checkednoque = " $sow->{'html'}->{'checked'}"
+          if ( $vil->{'noque'} > 0 );
+    }
+    else {
+        $checkednoque = " $sow->{'html'}->{'checked'}"
+          if ( $cfg->{'DEFAULT_NOQUE'} > 0 );
+    }
+
+    print <<"_HTML_";
+	<label for="noque" class="multicolumn_label">発言保留： </label>
+	<input type="checkbox" id="noque" class="multicolumn_left" name="noque" value="on"$checkednoque$net><div class="multicolumn_notes"><label for="noque">発言保留時間をなくす</label></div>
+_HTML_
+
+    # レイティング
     print <<"_HTML_";
     <label for="rating" class="multicolumn_label">閲覧制限： </label>
     <select id="rating" name="rating" class="multicolumn_left">
 _HTML_
 
-    # レイティング
     my $rating = $sow->{'cfg'}->{'RATING'};
     foreach ( @{ $rating->{'ORDER'} } ) {
         my $selected = '';

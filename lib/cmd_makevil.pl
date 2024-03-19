@@ -14,11 +14,8 @@ sub CmdMakeVil {
     my $vindex = SWFileVIndex->new($sow);
     $vindex->openvindex();
     my $vcnt = $vindex->getactivevcnt();
-    $sow->{'debug'}->raise(
-        $sow->{'APLOG_CAUTION'},
-        "現在稼働中の村の数が上限に達しているので、村を作成できません。",
-        "too many villages."
-    ) if ( $vcnt >= $sow->{'cfg'}->{'MAX_VILLAGES'} );
+    $sow->{'debug'}->raise( $sow->{'APLOG_CAUTION'}, "現在稼働中の村の数が上限に達しているので、村を作成できません。", "too many villages." )
+      if ( $vcnt >= $sow->{'cfg'}->{'MAX_VILLAGES'} );
     $vindex->closevindex();
 
     # 村作成処理
@@ -109,6 +106,8 @@ sub SetDataCmdMakeVil {
     $vil->{'showid'}       = 1 if ( $query->{'showid'} ne '' );
     $vil->{'timestamp'}    = 0;
     $vil->{'timestamp'}    = 1 if ( $query->{'timestamp'} ne '' );
+    $vil->{'noque'}        = 0;
+    $vil->{'noque'}        = 1 if ( $query->{'noque'} ne '' );
 
     my $roleid = $sow->{'ROLEID'};
     for ( $i = 1 ; $i < @$roleid ; $i++ ) {
@@ -120,7 +119,7 @@ sub SetDataCmdMakeVil {
 
     # キャラセットの読み込み
     my @csids = split( '/', $csids );
-    my $csid = $csids[0];
+    my $csid  = $csids[0];
     foreach (@csids) {
         $sow->{'charsets'}->loadchrrs($_);
     }
@@ -144,7 +143,7 @@ sub SetDataCmdMakeVil {
     $sowgrobal->closemw();
 
     # ログデータ・メモデータファイルの作成
-    my $logfile = SWBoa->new( $sow, $vil, $vil->{'turn'}, 1 );
+    my $logfile  = SWBoa->new( $sow, $vil, $vil->{'turn'}, 1 );
     my $memofile = SWSnake->new( $sow, $vil, $vil->{'turn'}, 1 );
 
     # プロローグアナウンス

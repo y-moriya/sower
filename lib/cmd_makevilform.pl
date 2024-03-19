@@ -32,6 +32,7 @@ sub CmdMakeVilForm {
         showid       => 0,
         noselrole    => 0,
         guestmenu    => 0,
+        noque        => 0,
     );
     my $roleid = $sow->{'ROLEID'};
     for ( $i = 1 ; $i < @$roleid ; $i++ ) {

@@ -228,12 +228,14 @@ sub executesay {
     }
 
     if ( $noque == 0 ) {
+        my $mesfixtime = $sow->{'cfg'}->{'MESFIXTIME'};
+        $mesfixtime = 0 if ( $vil->{'noque'} > 0 );
 
         # ”­Œ¾ƒLƒ…[‚ÉÏ‚Þ
         my %que = (
             queid   => sprintf( "%05d", $logcnt->{'countque'} ),
             pos     => $log{'pos'},
-            fixtime => $sow->{'time'} + $sow->{'cfg'}->{'MESFIXTIME'},
+            fixtime => $sow->{'time'} + $mesfixtime,
         );
         $self->{'que'}->{'file'}->add( \%que );
     }

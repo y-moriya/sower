@@ -495,6 +495,10 @@ sub getinfocap {
         $resultcap = "‚ ‚è";
         $resultcap = "‚È‚µ" if ( $self->{$infocap} > 0 );
     }
+    elsif ( $infocap eq 'noque' ) {
+        $resultcap = "‚ ‚è";
+        $resultcap = "‚È‚µ" if ( $self->{$infocap} > 0 );
+    }
 
     return $resultcap;
 }
@@ -686,6 +690,7 @@ sub GetVilDataLabel {
         'noselrole',
         'makersaymenu',
         'guestmenu',
+        'noque',
         'entrustmode',
         'showall',
         'noactmode',

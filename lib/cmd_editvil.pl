@@ -40,7 +40,7 @@ sub SetDataCmdEditVil {
     my $oldinfo;
     foreach (@villabel) {
         $oldinfo{$_} = $vil->{$_};
-        last if ( $_ eq 'timestamp' );
+        last if ( $_ eq 'noque' );
     }
 
     # 村編集時値チェック
@@ -48,11 +48,7 @@ sub SetDataCmdEditVil {
     &SWValidityMakeVil::CheckValidityMakeVil($sow);
 
     my $errfrom = "[uid=$sow->{'uid'}, cmd=$query->{'cmd'}]";
-    $sow->{'debug'}->raise(
-        $sow->{'APLOG_CAUTION'},
-        "村作成者以外には村の編集は行えません。",
-        "no permition.$errfrom"
-      )
+    $sow->{'debug'}->raise( $sow->{'APLOG_CAUTION'}, "村作成者以外には村の編集は行えません。", "no permition.$errfrom" )
       if ( ( $sow->{'uid'} ne $vil->{'makeruid'} )
         && ( $sow->{'uid'} ne $sow->{'cfg'}->{'USERID_ADMIN'} ) );
 
@@ -107,6 +103,8 @@ sub SetDataCmdEditVil {
     $vil->{'showid'}       = 1 if ( $query->{'showid'} ne '' );
     $vil->{'timestamp'}    = 0;
     $vil->{'timestamp'}    = 1 if ( $query->{'timestamp'} ne '' );
+    $vil->{'noque'}        = 0;
+    $vil->{'noque'}        = 1 if ( $query->{'noque'} ne '' );
 
     my $nextupdate =
       $sow->{'dt'}->getnextupdatedt( $vil, $sow->{'time'}, 1, 0 );
@@ -147,7 +145,7 @@ sub SetDataCmdEditVil {
             }
             $mes = $mes . "$diff<br$net>";
         }
-        last if ( $_ eq 'timestamp' );
+        last if ( $_ eq 'noque' );
     }
     $mes = $mes . "と言いつつ何も変更されませんでした。" if ( $df == 0 );
     my $logfile = SWBoa->new( $sow, $vil, $vil->{'turn'}, 0 );
@@ -160,7 +158,7 @@ sub SetDataCmdEditVil {
     my $vindex = SWFileVIndex->new($sow);
     $vindex->openvindex();
     my $vindexsingle = $vindex->{'vi'}->{ $vil->{'vid'} };
-    $vindexsingle->{'vname'}       = $vil->{'vname'},
+    $vindexsingle->{'vname'} = $vil->{'vname'},
       $vindexsingle->{'updhour'}   = $vil->{'updhour'},
       $vindexsingle->{'updminite'} = $vil->{'updminite'},
       $vindexsingle->{'vstatus'}   = $sow->{'VSTATUSID_PRO'},

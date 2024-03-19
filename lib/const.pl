@@ -70,6 +70,7 @@ sub InitConst {
         noselrole    => 1,    # 役職希望無視
         guestmenu    => 1,    # 傍観者発言不可
         makeruid     => 1,    # 村建人ID
+        noque        => 1,    # 発言保留時間有無
 
         cntvillager  => 0,    # 村人
         cntwolf      => 0,    # 人狼
