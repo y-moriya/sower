@@ -80,7 +80,7 @@ sub OutHTMLPlayerFormPC {
             &OutHTMLExtendScrapVilButtonPC( $sow, $vil )
               if ( $vil->{'turn'} == 0 );
         }
-        if ( &GGetShowGuestFormFlag( $sow, $vil ) > 0 ) {
+        if ( &GetShowGuestFormFlag( $sow, $vil ) > 0 ) {
             &OutHTMLVilGuestPC( $sow, $vil, 'guest' );
         }
     }
@@ -93,7 +93,7 @@ sub OutHTMLPlayerFormPC {
 #----------------------------------------
 # 傍観者発言フォームを表示するかどうかのチェック
 #----------------------------------------
-sub GGetShowGuestFormFlag {
+sub GetShowGuestFormFlag {
     my ( $sow, $vil ) = @_;
 
     # 村のオプションで傍観者発言オフの場合は表示しない

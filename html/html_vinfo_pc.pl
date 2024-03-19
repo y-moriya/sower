@@ -27,19 +27,19 @@ sub OutHTMLVilInfo {
     my $logfile = SWBoa->new( $sow, $vil, $vid, 0 );
     $logfile->close();
 
-    $sow->{'html'} = SWHtml->new($sow);    # HTMLモードの初期化
-    my $net = $sow->{'html'}->{'net'};     # Null End Tag
+    $sow->{'html'} = SWHtml->new($sow);                                              # HTMLモードの初期化
+    my $net = $sow->{'html'}->{'net'};                                               # Null End Tag
     my $amp = $sow->{'html'}->{'amp'};
-    $sow->{'http'}->outheader();                                                              # HTTPヘッダの出力
-    $sow->{'html'}->outheader("村の情報 / $sow->{'query'}->{'vid'} $vil->{'vname'}"); # HTMLヘッダの出力
+    $sow->{'http'}->outheader();                                                     # HTTPヘッダの出力
+    $sow->{'html'}->outheader("村の情報 / $sow->{'query'}->{'vid'} $vil->{'vname'}");    # HTMLヘッダの出力
     $sow->{'html'}->outcontentheader();
 
     my $reqvals = &SWBase::GetRequestValues($sow);
     $reqvals->{'vid'} = $query->{'vid'};
     my $linkvalue = &SWBase::GetLinkValues( $sow, $reqvals );
-    my $urlsow = "$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}";
+    my $urlsow    = "$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}";
 
-    &SWHtmlPC::OutHTMLLogin($sow);    # ログインボタン表示
+    &SWHtmlPC::OutHTMLLogin($sow);                                                   # ログインボタン表示
 
     # 日付別ログへのリンク
     my $list = $logfile->getlist();
@@ -288,6 +288,14 @@ _HTML_
 
 <p class="multicolumn_label">時刻表\示：</p>
 <p class="multicolumn_left">$timestamp</p>
+<br class="multicolumn_clear"$net>
+_HTML_
+
+    my $noque = $vil->getinfocap('noque');
+    print <<"_HTML_";
+
+<p class="multicolumn_label">発言保留：</p>
+<p class="multicolumn_left">$noque</p>
 <br class="multicolumn_clear"$net>
 _HTML_
 
