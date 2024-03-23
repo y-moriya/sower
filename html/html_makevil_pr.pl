@@ -523,7 +523,7 @@ sub getinfocap_guestmenu {
     }
 }
 
-sub getinfocap_noqueu {
+sub getinfocap_noque {
     my $noqueu = shift;
     if ( $noqueu ne '' ) {
         return '‚È‚µ';
