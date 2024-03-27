@@ -36,6 +36,10 @@ sub outhtmlnew {
     my $atr_id = $sow->{'html'}->{'atr_id'};
 
     print <<"_HTML_";
+<h3>Sower Version 1.4.9</h3>
+<ul>
+  <li>ページリンクが一定数を超えると省略するようにした</li>
+</ul>
 <h3>Sower Version 1.4.8</h3>
 <ul>
   <li>発言保留時間無しオプションを追加</li>

@@ -10,6 +10,7 @@ var mesFixTime = 20; //MESFIXTIME‚Æ“¯‚¶’l‚ðÝ’è
 var timer;
 var que_messages;
 var warnFlag = false;
+var pageLinksThreshold = 10;
 
 function closeWindow() {
 	$(".close").toggle(
@@ -449,6 +450,27 @@ function confirmSubmit(e) {
 	$(e.target).closest('form').submit();
 }
 
+function hidePageLinks() {
+	const upper_links = document.querySelectorAll('#pagenavi_upper a');
+	if (upper_links.length > pageLinksThreshold) {
+		togglePageLinks('upper', 'hide');
+		togglePageLinks('bottom', 'hide');
+	}
+}
+
+function togglePageLinks(position, action) {
+	const holder = document.querySelector(`#pagenavi_hide_holder_${position}`);
+	const navi = document.querySelector(`#pagenavi_${position}`);
+	const hide_link = document.querySelector(`#hide_${position}_page_link`);
+
+	const displayStyle = action === 'show' ? 'block' : 'none';
+	const holderDisplayStyle = action === 'show' ? 'none' : 'block';
+
+	navi.style.display = displayStyle;
+	holder.style.display = holderDisplayStyle;
+	hide_link.style.display = displayStyle;
+}
+
 $(document).ready(function () {
 	ajaxitems = [];
 	setAjaxEvent($(".inframe"));
@@ -475,4 +497,6 @@ $(document).ready(function () {
 			confirmSubmit(e)
 		});
 	});
+
+	hidePageLinks();
 });
