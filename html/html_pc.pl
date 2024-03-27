@@ -526,7 +526,13 @@ sub OutHTMLTurnNavi {
         && ( $sow->{'turn'} <= $vil->{'epilogue'} )
         && ( $query->{'cmd'} ne 'vinfo' ) )
     {
-        print "<p class=\"pagenavi\">\n";
+        print <<"_HTML_";
+<p id="pagenavi_hide_holder_bottom" style="display: none;" class="pagenavi">
+  <a href="#" onclick="togglePageLinks('bottom', 'show'); return false;">ページリンクを表\示</a>
+</p>
+<p id="pagenavi_bottom" class="pagenavi">
+<a href="#" id="hide_bottom_page_link" style="display: none;" onclick="togglePageLinks('bottom', 'hide'); return false;">ページリンクを隠す</a>
+_HTML_
         &OutHTMLPageNaviPC( $sow, $vil, $logs, $list, $rows );
         print "$memolinks$linkform\n";
         print "</p>\n\n";
@@ -581,7 +587,13 @@ _HTML_
         && ( $sow->{'turn'} <= $vil->{'epilogue'} )
         && ( $query->{'cmd'} ne 'vinfo' ) )
     {
-        print "<p class=\"pagenavi\">\n";
+        print <<"_HTML_";
+<p id="pagenavi_hide_holder_upper" style="display: none;" class="pagenavi">
+  <a href="#" onclick="togglePageLinks('upper', 'show'); return false;">ページリンクを表\示</a>
+</p>
+<p id="pagenavi_upper" class="pagenavi">
+<a href="#" id="hide_upper_page_link" style="display: none;" onclick="togglePageLinks('upper', 'hide'); return false;">ページリンクを隠す</a>
+_HTML_
         &OutHTMLPageNaviPC( $sow, $vil, $logs, $list, $rows );
         print "$memolinks$linkform\n";
         print "</p>\n\n";
