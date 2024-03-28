@@ -96,6 +96,8 @@ sub ExecuteCmdWrite {
         undef      => 0,
         monospace  => $monospace,
         loud       => $loud,
+        saytype    => $saytype,
+        saypoint   => $saypoint,
     );
     my $lastwritepos = $logfile->executesay( \%say );
     $logfile->close();

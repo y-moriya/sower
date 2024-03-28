@@ -250,6 +250,7 @@ function getSowFeed(url, title, n) {
 			}
 		},
 		error: function (xhr, status, e) {
+			console.error(e);
 			$("#newinfotime").text("最終取得時刻 エラー発生。手動で更新してください。");
 		},
 		complete: function (xhr, status) {
@@ -322,6 +323,7 @@ function getMoreLog(link) {
 
 function getNewLog(link) {
 	var href = link.href;
+	console.log(`getNewLog: ${href}`);
 	var base = $(link).parent();
 	base.find("img").show();
 	$("#getnewloglink").hide();
@@ -332,6 +334,7 @@ function getNewLog(link) {
 		var latestLogId = $(atags[atags.length - 1]).attr("name");
 		if ((oldestLogId === undefined) || (oldestLogId === "IS00000") || (oldestLogId === "")) {
 			base.find("img").hide();
+			console.error(`oldestLogId is ${oldestLogId}`);
 			$("#newinfomes").text("最終取得時刻 エラー発生。手動で更新してください。");
 			$("#newinfomes").show();
 			$("#newinfotime").hide();
