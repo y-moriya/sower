@@ -214,6 +214,8 @@ sub executesay {
         memoid     => $memoid,
         monospace  => $say->{'monospace'},
         loud       => $say->{'loud'},
+        saytype    => $say->{'saytype'},
+        saypoint   => $say->{'saypoint'},
     );
     $self->add( \%log );
 
@@ -725,6 +727,11 @@ sub delete {
 
             my $pl = $vil->getpl( $log->{'uid'} );
             $pl->{'modified'} = $sow->{'time'};
+
+            # 消費した発言ポイントを戻す
+            $pl->{ $log->{'saytype'} } += $log->{'saypoint'}
+              if ( $vil->isepilogue() == 0 && $vil->isprologue() == 0 );
+
             $vil->writevil();
 
             # キューから削除

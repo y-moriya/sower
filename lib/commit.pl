@@ -93,7 +93,8 @@ sub StartSession {
 
     # ダミーキャラ発言
     $plsingle = $vil->getpl( $sow->{'cfg'}->{'USERID_NPC'} );
-    my $charset = $sow->{'charsets'}->{'csid'}->{ $plsingle->{'csid'} };
+    my $charset  = $sow->{'charsets'}->{'csid'}->{ $plsingle->{'csid'} };
+    my $saypoint = &SWBase::GetSayPoint( $sow, $vil, $charset->{'NPCSAY'}->[1] );
     %say = (
         mestype    => $sow->{'MESTYPE_SAY'},
         logsubid   => $sow->{'LOGSUBID_SAY'},
@@ -106,9 +107,10 @@ sub StartSession {
         undef      => 0,
         monospace  => 0,
         loud       => 0,
+        saytype    => 'say',
+        saypoint   => $saypoint,
     );
     $plsingle->{'lastwritepos'} = $logfile->executesay( \%say );
-    my $saypoint = &SWBase::GetSayPoint( $sow, $vil, $say{'mes'} );
     $plsingle->{'say'} -= $saypoint;    # 発言数消費
     $plsingle->{'saidcount'}++;
     $plsingle->{'saidpoint'} += $saypoint;

@@ -36,18 +36,9 @@ sub outhtmlnew {
     my $atr_id = $sow->{'html'}->{'atr_id'};
 
     print <<"_HTML_";
-<h3>Sower Version 1.4.9</h3>
+<h3>Sower Version 1.5.0</h3>
 <ul>
-  <li>ページリンクが一定数を超えると省略するようにした</li>
-</ul>
-<h3>Sower Version 1.4.8</h3>
-<ul>
-  <li>発言保留時間無しオプションを追加</li>
-</ul>
-<h3>Sower Version 1.4.7</h3>
-<ul>
-  <li>エピローグをデフォルトで3日間続くように変更</li>
-  <li>肩書変更機能\を追加</li>
+  <li>発言削除で消費ポイント/消費発言回数を戻すようにした</li>
 </ul>
 _HTML_
 
@@ -70,6 +61,19 @@ _HTML_
     $self->outhtmlnew();
 
     print <<"_HTML_";
+<h3>Sower Version 1.4.9</h3>
+<ul>
+  <li>ページリンクが一定数を超えると省略するようにした</li>
+</ul>
+<h3>Sower Version 1.4.8</h3>
+<ul>
+  <li>発言保留時間無しオプションを追加</li>
+</ul>
+<h3>Sower Version 1.4.7</h3>
+<ul>
+  <li>エピローグをデフォルトで3日間続くように変更</li>
+  <li>肩書変更機能\を追加</li>
+</ul>
 <h3>Sower Version 1.4.6</h3>
 <ul>
   <li>発言、囁きなどで文章入力中の場合、投票やコミットボタンを押したときに確認ダイアログを表\示するようにした</li>
