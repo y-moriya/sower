@@ -18,8 +18,6 @@ sub SetRole {
     for ( $i = 0 ; $i < $sow->{'COUNT_ROLE'} ; $i++ ) {
         my @rolepllist;
         $roles[$i] = \@rolepllist;
-
-        #		print "[$i] $rolename->[$i]\n";
     }
 
     # 役職希望者IDを希望した役職の配列に格納
@@ -34,8 +32,6 @@ sub SetRole {
     for ( $i = 1 ; $i < $sow->{'COUNT_ROLE'} ; $i++ ) {
         my $rolepllist = $roles[$i];
 
-        #		print "[matrix] $roletable->[$i]\n";
-
         # あぶれた人をおまかせ配列に移動
         while ( $roletable->[$i] < @$rolepllist ) {
             my $freepllist = $roles[0];                   # おまかせ配列
@@ -46,13 +42,6 @@ sub SetRole {
             push( @$freepllist, $movepl );
         }
     }
-
-    # 割り当て一覧表示（テスト用）
-    #	for ($i = 0; $i < @$rolename; $i++) {
-    #		my $pid = $roles[$i];
-    #		my $n = @$pid;
-    #		print "[$rolename->[$i]] $n\n";
-    #	}
 
     # おまかせの人を空いている役職へ割り当て
     for ( $i = 1 ; $i < $sow->{'COUNT_ROLE'} ; $i++ ) {
@@ -65,13 +54,6 @@ sub SetRole {
             push( @$rolepllist, $movepl );
         }
     }
-
-    # テスト用
-    #	for ($i = 0; $i < @$rolename; $i++) {
-    #		my $pid = $roles[$i];
-    #		my $n = @$pid;
-    #		print "[$rolename->[$i]] $n\n";
-    #	}
 
     # 役職を決定
     my $dummypl = $vil->getpl( $sow->{'cfg'}->{'USERID_NPC'} );
@@ -88,11 +70,6 @@ sub SetRole {
             $_->{'rolesubid'} = -1;
         }
     }
-
-    # 割り当て一覧表示（テスト用）
-    #	foreach (@$pllist) {
-    #		print "[$_->{'uid'}] $rolename->[$_->{'selrole'}] → $rolename->[$_->{'role'}]\n";
-    #	}
 
     # 共有者処理
     &SetFreeMasonHistory( $sow, $vil, $sow->{'ROLEID_FM'} );
@@ -131,11 +108,6 @@ sub SetRole {
     foreach (@$fanatic) {
         $_->{'history'} = $history;
     }
-
-    # 能力履歴表示（テスト用）
-    #	foreach (@$pllist) {
-    #		print "[$_->{'uid'}] $_->{'history'}\n";
-    #	}
 
 }
 
@@ -473,7 +445,7 @@ sub SetFreeMasonHistory {
     my ( $sow, $vil, $roleid ) = @_;
     my $textrs = $sow->{'textrs'};
 
-    my $fm = &GetPlRole( $sow, $vil, $roleid );
+    my $fm     = &GetPlRole( $sow, $vil, $roleid );
     my $namefm = $textrs->{'ROLENAME'}->[$roleid];
     my $fmplsrc;
     foreach $fmplsrc (@$fm) {

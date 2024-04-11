@@ -89,7 +89,7 @@ _HTML_
 </ul>
 <h3>Sower Version 1.4.3</h3>
 <ul>
-  <li>廃村期限延長機能を実装。管理者のみ実行できます</li>
+  <li>廃村期限延長機能\を実装。管理者のみ実行できます</li>
 </ul>
 <hr class="invisible_hr"$net>
 <h3>Sower Version 1.4.2</h3>

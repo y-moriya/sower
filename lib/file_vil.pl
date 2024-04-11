@@ -169,8 +169,6 @@ sub readvil {
     }
     else {
         $sow->{'turn'} = $self->{'turn'};
-
-        #		$sow->{'turn'} = $self->{'epilogue'} if ($self->{'epilogue'} < $self->{'turn'});
     }
 
     # カレントプレイヤー（ログイン中のプレイヤー）
@@ -192,10 +190,6 @@ sub writevil {
     my $sow    = $self->{'sow'};
     my $pl     = $self->{'pl'};
     my $pllist = $self->{'pllist'};
-
-    #	my $fh = $self->{'file'}->{'filehandle'};
-    #	truncate($fh, 0);
-    #	seek($fh, 0, 0);
 
     my $fh        = \*TMP;
     my $tempfname = sprintf( "%s/%04d%s_%s_%s",
@@ -726,6 +720,7 @@ sub GetVilDataLabel {
         'cntintwolf',      # 智狼
         'cnttrickster',    # ピクシー
         'cntcupid',        # キューピッド
+        'cntbread',        # パン屋
         'modifiedsay',
         'modifiedwsay',
         'modifiedgsay',

@@ -89,6 +89,7 @@ sub InitConst {
         cntintwolf   => 0,    # 智狼
         cnttrickster => 0,    # ピクシー
         cntcupid     => 0,    # キューピッド
+        cntbread     => 0,    # パン屋
 
         cid         => 1,     # キャラクタID
         csid_cid    => 1,     # キャラクタセット/キャラクタID
@@ -254,6 +255,7 @@ sub InitConst {
         'wolf',             # 智狼
         '',                 # ピクシー
         '',                 # キューピッド
+        '',                 # パン屋
     );
 
     # 発言数ID
@@ -276,6 +278,7 @@ sub InitConst {
         'wsay',             # 智狼
         '',                 # ピクシー
         'lsay',             # キューピッド、ただし恋人同士の囁きとして使われる
+        '',                 # パン屋
     );
 
     my %logcountsubid = (
@@ -334,6 +337,7 @@ sub InitConst {
         'intwolf',     # 智狼
         'trickster',   # ピクシー
         'cupid',       # キューピッド
+        'bread',       # パン屋
     );
 
     # 役職別陣営
@@ -359,6 +363,7 @@ sub InitConst {
         3,             # ピクシー
 
         5,             # キューピッド
+        1,             # パン屋
     );
 
     my %sow = (
@@ -434,6 +439,7 @@ sub InitConst {
         ROLEID_INTWOLF   => 15,                   # 智狼
         ROLEID_TRICKSTER => 16,                   # ピクシー
         ROLEID_CUPID     => 17,                   # キューピッド
+        ROLEID_BREAD     => 18,                   # パン屋
         ROLEID           => \@roleid,
         ROLECAMP         => \@rolecamp,
         COUNT_CAMP       => 5,                    # 陣営数+1
