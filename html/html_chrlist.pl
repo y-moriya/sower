@@ -85,34 +85,24 @@ _HTML_
 <tbody>
 _HTML_
 
+    sub create_img_html {
+        my ( $charset, $img_name, $expression, $chrname, $net ) = @_;
+        return
+"  <td style=\"text-align: center;\"><img src=\"$charset->{'DIR'}/$img_name$expression$charset->{'EXT'}\" width=\"$charset->{'IMGBODYW'}\" height=\"$charset->{'IMGBODYH'}\" alt=\"$chrnameの画像\"$net></td>\n";
+    }
+
     my $order = $charset->{'ORDER'};
     foreach (@$order) {
         my $chrname    = $sow->{'charsets'}->getchrname( $csid, $_ );
         my $expression = '';
         $expression = '_0' if ( @{ $charset->{'EXPRESSION'} } > 0 );
         print "\n<tr>\n";
-        print "  <td style=\"text-align: center;\"><img src=\"$charset->{'DIR'}/" . $_
-          . "$body$expression$charset->{'EXT'}\" width=\"$charset->{'IMGBODYW'}\" height=\"$charset->{'IMGBODYH'}\" alt=\"$chrnameの画像\"$net></td>\n";
-        print "  <td style=\"text-align: center;\"><img src=\"$charset->{'DIR'}/"
-          . $_
-          . "_face$expression$charset->{'EXT'}\" width=\"$charset->{'IMGFACEW'}\" height=\"$charset->{'IMGFACEH'}\" alt=\"$chrnameの顔画像\"$net></td>\n"
-          if ( $body ne '' );
-        print "  <td style=\"text-align: center;\"><img src=\"$charset->{'DIR'}/"
-          . $_
-          . "$grave$expression$charset->{'EXT'}\" width=\"$charset->{'IMGBODYW'}\" height=\"$charset->{'IMGBODYH'}\" alt=\"$chrnameの墓下画像\"$net></td>\n"
-          if ( $grave ne '' );
-        print "  <td style=\"text-align: center;\"><img src=\"$charset->{'DIR'}/"
-          . $_
-          . "$wolf$expression$charset->{'EXT'}\" width=\"$charset->{'IMGBODYW'}\" height=\"$charset->{'IMGBODYH'}\" alt=\"$chrnameの囁き画像\"$net></td>\n"
-          if ( $wolf ne '' );
-        print "  <td style=\"text-align: center;\"><img src=\"$charset->{'DIR'}/"
-          . $_
-          . "$tsay$expression$charset->{'EXT'}\" width=\"$charset->{'IMGBODYW'}\" height=\"$charset->{'IMGBODYH'}\" alt=\"$chrnameの独り言画像\"$net></td>\n"
-          if ( $tsay ne '' );
-        print "  <td style=\"text-align: center;\"><img src=\"$charset->{'DIR'}/"
-          . $_
-          . "$lsay$expression$charset->{'EXT'}\" width=\"$charset->{'IMGBODYW'}\" height=\"$charset->{'IMGBODYH'}\" alt=\"$chrnameの恋の囁き画像\"$net></td>\n"
-          if ( $lsay ne '' );
+        print create_img_html( $charset, $_ . $body,   $expression, $chrname, $net );
+        print create_img_html( $charset, $_ . "_face", $expression, $chrname, $net ) if ( $body ne '' );
+        print create_img_html( $charset, $_ . $grave,  $expression, $chrname, $net ) if ( $grave ne '' );
+        print create_img_html( $charset, $_ . $wolf,   $expression, $chrname, $net ) if ( $wolf ne '' );
+        print create_img_html( $charset, $_ . $tsay,   $expression, $chrname, $net ) if ( $tsay ne '' );
+        print create_img_html( $charset, $_ . $lsay,   $expression, $chrname, $net ) if ( $lsay ne '' );
         my $dummychr = '';
         $dummychr = "★ダミーキャラ<br$net>" if ( $charset->{'NPCID'} eq $_ );
         my $romanname = '';
@@ -122,6 +112,15 @@ _HTML_
         print "</tr>\n";
     }
 
+    print "\n<tr>\n";
+    print create_img_html( $charset, $sow->{'cfg'}->{'CID_GUEST'}, '', '傍観者', $net );
+    print "<td></td>\n" if ( $body ne '' );
+    print "<td></td>\n" if ( $grave ne '' );
+    print "<td></td>\n" if ( $wolf ne '' );
+    print "<td></td>\n" if ( $tsay ne '' );
+    print "<td></td>\n" if ( $lsay ne '' );
+    print "<td>傍観者</td>\n";
+    print "</tr>\n";
     print <<"_HTML_";
 </tbody>
 </table>
