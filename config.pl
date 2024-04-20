@@ -379,7 +379,7 @@ sub GetConfig {
     );
 
     # キャッシュクリアのためファイル名に日付を入れた。
-    my $lastupdate = '20240327';
+    my $lastupdate = '20240418';
 
     my %css_default = (
         TITLE => '標準スタイル',
@@ -402,9 +402,9 @@ sub GetConfig {
     my %css_rem = (
         TITLE            => 'Style-R (default)',
         FILE             => 'rem.css?date=' . $lastupdate,
-        WIDTH            => 600,
+        WIDTH            => 750,
         FILE_TOPBANNER   => 'remcss/remheader.png',
-        WIDTH_TOPBANNER  => 600,
+        WIDTH_TOPBANNER  => 750,
         HEIGHT_TOPBANNER => 70,
     );
 

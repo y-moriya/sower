@@ -669,6 +669,15 @@ span.mes_number:hover {
   text-decoration: underline;
 }
 
+/* 新着取得時刻 ----------*/
+
+.new_date {
+  font-size: 90%;
+  float: right;
+  margin-top: 3px;
+  color: #cca;
+}
+
 /* アクション ----------*/
 
 .action_nom {

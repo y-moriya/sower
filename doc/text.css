@@ -368,8 +368,8 @@ address {
 .readmore {
   margin: 0.5em 0;
   padding: 0.5em 1em;
-  color: #cca;
-  border: 1px solid #cca;
+  color: #000;
+  border: 1px solid #000;
   text-align: center;
 }
 
@@ -378,8 +378,8 @@ address {
 .newinfo {
   margin: 0.5em 0;
   padding: 0.5em 1em;
-  color: #cca;
-  border: 1px solid #cca;
+  color: #000;
+  border: 1px solid #000;
   text-align: center;
 }
 
@@ -572,6 +572,15 @@ span.mes_number:hover {
   color: #0ff;
   cursor: pointer;
   text-decoration: underline;
+}
+
+/* 新着取得時刻 ----------*/
+
+.new_date {
+  font-size: 90%;
+  float: right;
+  margin-top: 3px;
+  color: #000;
 }
 
 /* アクション ----------*/

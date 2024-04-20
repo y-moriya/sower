@@ -141,7 +141,7 @@ address {
   padding: 0px;
   width: 750px;
   text-align: left;
-  border: 1em solid #110;
+  /* border: 1em solid #110; */
   border-left: 0;
   border-right: 0;
   background: #000;
@@ -152,7 +152,7 @@ address {
 .outframe {
   margin: 0 auto 0 auto;
   padding: 0;
-  width: 600px;
+  width: 750px;
 }
 
 /* フィルタを左に配置した時の外枠 ----------*/
@@ -161,17 +161,17 @@ address {
   margin: 0 auto 0 auto;
   padding: 0;
   text-align: right;
-  width: 750px;
+  width: 900px;
 }
 
 .ajax {
   position: absolute;
-  width: 570px;
+  width: 720px;
 }
 
 .drag {
   position: absolute;
-  width: 570px;
+  width: 720px;
 }
 
 /* 内枠 ----------*/
@@ -179,9 +179,9 @@ address {
 .contentframe {
   margin: 0;
   padding: 0;
-  width: 600px;
+  width: 750px;
   text-align: left;
-  border: 1em solid #110;
+  /* border: 1em solid #110; */
   border-left: 0;
   border-right: 0;
   background: #000;
@@ -192,10 +192,10 @@ address {
 .contentframe_navileft {
   margin: 0;
   padding: 0;
-  width: 600px;
+  width: 750px;
   text-align: left;
   float: right;
-  border: 1em solid #110;
+  /* border: 1em solid #110; */
   border-left: 0;
   border-right: 0;
   background: #000;
@@ -464,112 +464,112 @@ address {
 }
 
 .mes_nom .mesname {
-  background: #000 url("img/remcss/remmestw.jpg") 0% 100% no-repeat;
+  background: #000 url("img/remcss/remmestw.png") 0% 100% no-repeat;
 }
 
 .mes_wolf .mesname {
-  background: #000 url("img/remcss/remmestr.jpg") 0% 100% no-repeat;
+  background: #000 url("img/remcss/remmestr.png") 0% 100% no-repeat;
 }
 
 .mes_think .mesname {
-  background: #000 url("img/remcss/remmestg.jpg") 0% 100% no-repeat;
+  background: #000 url("img/remcss/remmestg.png") 0% 100% no-repeat;
 }
 
 .mes_del .mesname {
-  background: #000 url("img/remcss/remmestg.jpg") 0% 100% no-repeat;
+  background: #000 url("img/remcss/remmestg.png") 0% 100% no-repeat;
 }
 
 .mes_que .mesname {
-  background: #000 url("img/remcss/remmestg.jpg") 0% 100% no-repeat;
+  background: #000 url("img/remcss/remmestg.png") 0% 100% no-repeat;
 }
 
 .mes_grave .mesname {
-  background: #000 url("img/remcss/remmestb.jpg") 0% 100% no-repeat;
+  background: #000 url("img/remcss/remmestb.png") 0% 100% no-repeat;
 }
 
 .mes_sympa .mesname {
-  background: #000 url("img/remcss/remmestm.jpg") 0% 100% no-repeat;
+  background: #000 url("img/remcss/remmestm.png") 0% 100% no-repeat;
 }
 
 .mes_bat .mesname {
-  background: #000 url("img/remcss/remmesty.jpg") 0% 100% no-repeat;
+  background: #000 url("img/remcss/remmesty.png") 0% 100% no-repeat;
 }
 
 .mes_guest .mesname {
-  background: #000 url("img/remcss/remmestw.jpg") 0% 100% no-repeat;
+  background: #000 url("img/remcss/remmestw.png") 0% 100% no-repeat;
 }
 
 .mes_lovers .mesname {
-  background: #000 url("img/remcss/remmestp.jpg") 0% 100% no-repeat;
+  background: #000 url("img/remcss/remmestp.png") 0% 100% no-repeat;
 }
 
 .mes_nom .mes_text,
 .mes_nom .mes_text_monospace,
 .mes_nom .mes_text_loud {
-  background: #ffffff url("img/remcss/remmesbw.jpg") 0% 100% no-repeat;
+  background: #ffffff url("img/remcss/remmesbw.png") 0% 100% no-repeat;
   color: #331;
 }
 
 .mes_wolf .mes_text,
 .mes_wolf .mes_text_monospace,
 .mes_wolf .mes_text_loud {
-  background: #703120 url("img/remcss/remmesbr.jpg") 0% 100% no-repeat;
+  background: #703120 url("img/remcss/remmesbr.png") 0% 100% no-repeat;
   color: #cc6;
 }
 
 .mes_think .mes_text,
 .mes_think .mes_text_monospace,
 .mes_think .mes_text_loud {
-  background: #414141 url("img/remcss/remmesbg.jpg") 0% 100% no-repeat;
+  background: #414141 url("img/remcss/remmesbg.png") 0% 100% no-repeat;
   color: #cca;
 }
 
 .mes_del .mes_text,
 .mes_del .mes_text_monospace,
 .mes_del .mes_text_loud {
-  background: #414141 url("img/remcss/remmesbg.jpg") 0% 100% no-repeat;
+  background: #414141 url("img/remcss/remmesbg.png") 0% 100% no-repeat;
   color: #cca;
 }
 
 .mes_que .mes_text,
 .mes_que .mes_text_monospace,
 .mes_que .mes_text_loud {
-  background: #414141 url("img/remcss/remmesbg.jpg") 0% 100% no-repeat;
+  background: #414141 url("img/remcss/remmesbg.png") 0% 100% no-repeat;
   color: #cca;
 }
 
 .mes_grave .mes_text,
 .mes_grave .mes_text_monospace,
 .mes_grave .mes_text_loud {
-  background: #1f3040 url("img/remcss/remmesbb.jpg") 0% 100% no-repeat;
+  background: #1f3040 url("img/remcss/remmesbb.png") 0% 100% no-repeat;
   color: #cca;
 }
 
 .mes_sympa .mes_text,
 .mes_sympa .mes_text_monospace,
 .mes_sympa .mes_text_loud {
-  background: #205030 url("img/remcss/remmesbm.jpg") 0% 100% no-repeat;
+  background: #205030 url("img/remcss/remmesbm.png") 0% 100% no-repeat;
   color: #cca;
 }
 
 .mes_bat .mes_text,
 .mes_bat .mes_text_monospace,
 .mes_bat .mes_text_loud {
-  background: #414219 url("img/remcss/remmesby.jpg") 0% 100% no-repeat;
+  background: #414219 url("img/remcss/remmesby.png") 0% 100% no-repeat;
   color: #cca;
 }
 
 .mes_guest .mes_text,
 .mes_guest .mes_text_monospace,
 .mes_guest .mes_text_loud {
-  background: #ffffff url("img/remcss/remmesbw.jpg") 0% 100% no-repeat;
+  background: #ffffff url("img/remcss/remmesbw.png") 0% 100% no-repeat;
   color: #331;
 }
 
 .mes_lovers .mes_text,
 .mes_lovers .mes_text_monospace,
 .mes_lovers .mes_text_loud {
-  background: #ffe0e0 url("img/remcss/remmesbp.jpg") 0% 100% no-repeat;
+  background: #ffe0e0 url("img/remcss/remmesbp.png") 0% 100% no-repeat;
   color: #000;
 }
 
@@ -582,43 +582,43 @@ address {
 }
 
 .mes_nom {
-  background: #000 url("img/remcss/remmeslw.jpg") 123px 33px no-repeat;
+  background: #000 url("img/remcss/remmeslw.png") 123px 33px no-repeat;
 }
 
 .mes_wolf {
-  background: #000 url("img/remcss/remmeslr.jpg") 123px 33px no-repeat;
+  background: #000 url("img/remcss/remmeslr.png") 123px 33px no-repeat;
 }
 
 .mes_think {
-  background: #000 url("img/remcss/remmeslg.jpg") 123px 33px no-repeat;
+  background: #000 url("img/remcss/remmeslg.png") 123px 33px no-repeat;
 }
 
 .mes_del {
-  background: #000 url("img/remcss/remmeslg2.jpg") 123px 33px no-repeat;
+  background: #000 url("img/remcss/remmeslg2.png") 123px 33px no-repeat;
 }
 
 .mes_que {
-  background: #000 url("img/remcss/remmeslg2.jpg") 123px 33px no-repeat;
+  background: #000 url("img/remcss/remmeslg2.png") 123px 33px no-repeat;
 }
 
 .mes_grave {
-  background: #000 url("img/remcss/remmeslb.jpg") 123px 33px no-repeat;
+  background: #000 url("img/remcss/remmeslb.png") 123px 33px no-repeat;
 }
 
 .mes_sympa {
-  background: #000 url("img/remcss/remmeslm.jpg") 123px 33px no-repeat;
+  background: #000 url("img/remcss/remmeslm.png") 123px 33px no-repeat;
 }
 
 .mes_bat {
-  background: #000 url("img/remcss/remmesly.jpg") 123px 33px no-repeat;
+  background: #000 url("img/remcss/remmesly.png") 123px 33px no-repeat;
 }
 
 .mes_guest {
-  background: #000 url("img/remcss/remmeslw.jpg") 123px 33px no-repeat;
+  background: #000 url("img/remcss/remmeslw.png") 123px 33px no-repeat;
 }
 
 .mes_lovers {
-  background: #000 url("img/remcss/remmeslp.jpg") 123px 33px no-repeat;
+  background: #000 url("img/remcss/remmeslp.png") 123px 33px no-repeat;
 }
 
 /* 水平線（通常は非表示）----------*/

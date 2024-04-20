@@ -41,7 +41,7 @@ $sow->{'uid'} = $sow->{'user'}->{'uid'};
 $sow->{'debug'}->{'checklogin'} = 0;
 
 # 更新中表示
-$sow->{'debug'}->raise( $sow->{'APLOG_OTHERS'}, 'ただいま色々と更新中につき、しばらくお待ち下さい。', 'swbbs is halting.' )
+$sow->{'debug'}->raise( $sow->{'APLOG_OTHERS'}, 'ただいま色々と更新中につき、しばらくお待ち下さい。', 'sower is halting.' )
   if ( -e "halt" );
 
 # 入力値をアプリケーションログへ出力

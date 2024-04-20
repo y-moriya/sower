@@ -197,8 +197,7 @@ _HTML_
 # HTMLフッタの出力
 #----------------------------------------
 sub OutHTMLFooterPC {
-    my $sow  = $_[0];
-    my $cput = int( $_[1] * 1000 ) / 1000;
+    my $sow = $_[0];
 
     my $net    = $sow->{'html'}->{'net'};
     my $atr_id = $sow->{'html'}->{'atr_id'};
@@ -208,7 +207,6 @@ sub OutHTMLFooterPC {
 <p id="popupmsg"></p>
 <p class="popup"></p>
 <address>
-($cput CPUs)<br$net>
 $sow->{'VERSION_SW'} <a href="$sow->{'URL_AUTHOR'}">$sow->{'COPY_AUTHOR'}</a><br$net>
 forked from SWBBS V2.00 Beta8 <a href="http://asbntby.sakura.ne.jp/">あず/asbntby</a><br$net>
 _HTML_
