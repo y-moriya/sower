@@ -132,7 +132,8 @@ sub ExecuteCmdWrite {
                 $writepl->{'saidpoint'} += $saypoint;
             }
         }
-        $writepl->{'limitentrydt'} = $sow->{'time'} + $sow->{'cfg'}->{'TIMEOUT_ENTRY'} * 24 * 60 * 60
+        my $timeout = $sow->{'cfg'}->{'TIMEOUT_ENTRY'} + $vil->{'chatmode'} * $sow->{'cfg'}->{'TIMEOUT_ENTRY_CHATMODE'};
+        $writepl->{'limitentrydt'} = $sow->{'time'} + $timeout * 24 * 60 * 60
           if ( $writepl->{'limitentrydt'} > 0 );
         $writepl->{'lastwritepos'} = $lastwritepos;
 

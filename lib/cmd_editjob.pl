@@ -9,7 +9,7 @@ sub CmdEditJobName {
     my $cfg   = $sow->{'cfg'};
 
     # データ処理
-    my $vil = &SetDataCmdExtend($sow);
+    my $vil = &SetDataCmdEditJobName($sow);
 
     # HTTP/HTML出力
     my $reqvals = &SWBase::GetRequestValues($sow);
@@ -24,7 +24,7 @@ sub CmdEditJobName {
 #----------------------------------------
 # データ処理
 #----------------------------------------
-sub SetDataCmdExtend {
+sub SetDataCmdEditJobName {
     my $sow     = $_[0];
     my $query   = $sow->{'query'};
     my $debug   = $sow->{'debug'};

@@ -429,6 +429,8 @@ sub OutHTMLVilMakerInFormPlPC {
           if ( $vil->{'turn'} < $vil->{'epilogue'} );
         &SWHtmlPlayerFormPC::OutHTMLExtendScrapVilButtonPC( $sow, $vil )
           if ( $vil->{'turn'} == 0 );
+        &SWHtmlPlayerFormPC::OutHTMLEnableChatModeButtonPC( $sow, $vil )
+          if ( $vil->{'turn'} == 0 );
         &SWHtmlPlayerFormPC::OutHTMLKickFormPC( $sow, $vil )
           if ( $vil->{'turn'} == 0 );
         print "</div>\n";

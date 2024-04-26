@@ -415,6 +415,17 @@ sub TaskBranch {
         require "$dirhtml/html_dialog.pl";
         &SWHtmlDialog::OutHTMLDialog($sow);
     }
+    elsif ( $cmd eq 'chatmodepr' ) {
+
+        if ( $ENV{'REQUEST_METHOD'} ne 'POST' ) {
+            $sow->{'debug'}->raise( $sow->{'APLOG_CAUTION'}, "不正なリクエストです。", "invalid request method." );
+            return;
+        }
+
+        # 確認画面（雑談村有効化）
+        require "$dirhtml/html_dialog.pl";
+        &SWHtmlDialog::OutHTMLDialog($sow);
+    }
     elsif ( $cmd eq 'commit' ) {
 
         # 時間を進める
@@ -463,13 +474,23 @@ sub TaskBranch {
     }
     elsif ( $cmd eq 'extend' ) {
 
-        # 延長（暫定）
+        # 延長
         if ( $ENV{'REQUEST_METHOD'} ne 'POST' ) {
             $sow->{'debug'}->raise( $sow->{'APLOG_CAUTION'}, "不正なリクエストです。", "invalid request method." );
             return;
         }
         require "$dirlib/cmd_extend.pl";
         &SWCmdExtend::CmdExtend($sow);
+    }
+    elsif ( $cmd eq 'chatmode' ) {
+
+        # 雑談村有効化
+        if ( $ENV{'REQUEST_METHOD'} ne 'POST' ) {
+            $sow->{'debug'}->raise( $sow->{'APLOG_CAUTION'}, "不正なリクエストです。", "invalid request method." );
+            return;
+        }
+        require "$dirlib/cmd_chatmode.pl";
+        &SWCmdEnableChatMode::CmdEnableChatMode($sow);
     }
     elsif ( $cmd eq 'admin' ) {
 

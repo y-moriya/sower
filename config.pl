@@ -515,10 +515,11 @@ sub GetConfig {
         NAME_BOT     => '通知bot(試験運用中)',                         # 通知ボットの名前
         SERVER_INFO  => 'ここは人狼物語＠リア充本サーバーです。',                  # サーバー情報
 
-        MAX_VILLAGES     => 5,                                  # 最大同時稼働村数
-        TIMEOUT_SCRAP    => 42,                                 # 廃村期限
-        TIMEOUT_ENTRY    => 1.5,                                # プロローグでの無発言者自動追い出し機能の制限日数
-        DAYS_OF_EPILOGUE => 3,                                  # エピローグの長さ（日）
+        MAX_VILLAGES           => 5,                            # 最大同時稼働村数
+        TIMEOUT_SCRAP          => 42,                           # 廃村期限
+        TIMEOUT_ENTRY          => 1.5,                          # プロローグでの無発言者自動追い出し機能の制限日数
+        TIMEOUT_ENTRY_CHATMODE => 5.5,                          # 雑談村の場合、自動追い出しにかかる日数がプラスされる
+        DAYS_OF_EPILOGUE       => 3,                            # エピローグの長さ（日）
 
         MESFIXTIME        => 20,                                # 保留時間
         MAX_ROW           => 50,                                # 標準表示時の行数

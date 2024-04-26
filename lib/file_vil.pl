@@ -67,6 +67,7 @@ sub createvil {
     $self->{'modifiedbsay'}  = 0;
     $self->{'cntmemo'}       = 0;
     $self->{'emulated'}      = 0;
+    $self->{'chatmode'}      = 0;
     %{ $self->{'pl'} }      = ();
     @{ $self->{'pllist'} }  = ();
     %{ $sow->{'csidlist'} } = ();
@@ -732,6 +733,7 @@ sub GetVilDataLabel {
         'modifiedspsay',
         'modifiedbsay',
         'cntmemo',
+        'chatmode',        # ŽG’k‘º‚©‚Ç‚¤‚©
     );
     return @datalabel;
 }

@@ -88,12 +88,13 @@ sub SetDataCmdEntry {
     # 参加者データレコードの新規作成
     my $plsingle = SWPlayer->new($sow);
     $plsingle->createpl( $sow->{'uid'} );
-    $plsingle->{'cid'}          = $q_cid;
-    $plsingle->{'csid'}         = $q_csid;
-    $plsingle->{'selrole'}      = $query->{'role'};
-    $plsingle->{'role'}         = -1;
+    $plsingle->{'cid'}     = $q_cid;
+    $plsingle->{'csid'}    = $q_csid;
+    $plsingle->{'selrole'} = $query->{'role'};
+    $plsingle->{'role'}    = -1;
+    my $timeout = $sow->{'cfg'}->{'TIMEOUT_ENTRY'} + $vil->{'chatmode'} * $sow->{'cfg'}->{'TIMEOUT_ENTRY_CHATMODE'};
     $plsingle->{'limitentrydt'} = $writepl->{'limitentrydt'} =
-      $sow->{'time'} + $sow->{'cfg'}->{'TIMEOUT_ENTRY'} * 24 * 60 * 60;
+      $sow->{'time'} + $timeout * 24 * 60 * 60;
     $vil->addpl($plsingle);      # 村へ追加
     $plsingle->setsaycount();    # 発言数初期化
 

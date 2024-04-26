@@ -79,6 +79,8 @@ sub OutHTMLPlayerFormPC {
               if ( $vil->{'turn'} < $vil->{'epilogue'} );
             &OutHTMLExtendScrapVilButtonPC( $sow, $vil )
               if ( $vil->{'turn'} == 0 );
+            &OutHTMLEnableChatModeButtonPC( $sow, $vil )
+              if ( $vil->{'turn'} == 0 );
         }
         if ( &GetShowGuestFormFlag( $sow, $vil ) > 0 ) {
             &OutHTMLVilGuestPC( $sow, $vil, 'guest' );
@@ -853,6 +855,32 @@ sub OutHTMLExtendScrapVilButtonPC {
     <input type="number" name="extenddate" value="$cfg->{'TIMEOUT_SCRAP'}"$net>“ú
     <input type="hidden" name="cmd" value="extendpr"$net>$hidden
     <input type="submit" value="‰„’·‚·‚é" data-submit-type="extend"$net>
+  </p>
+  </form>
+</div>
+
+_HTML_
+
+    return;
+}
+
+#----------------------------------------
+# ŽG’k‘º—LŒø‰»ƒ{ƒ^ƒ“HTMLo—Í
+#----------------------------------------
+sub OutHTMLEnableChatModeButtonPC {
+    my ( $sow, $vil ) = @_;
+    my $cfg = $sow->{'cfg'};
+    my $net = $sow->{'html'}->{'net'};
+
+    my $reqvals = &SWBase::GetRequestValues($sow);
+    my $hidden  = &SWBase::GetHiddenValues( $sow, $reqvals, '    ' );
+
+    print <<"_HTML_";
+<div class="formpl_gm">
+  <form action="$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}" method="$cfg->{'METHOD_FORM'}">
+  <p class="commitbutton">
+    <input type="hidden" name="cmd" value="chatmodepr"$net>$hidden
+    <input type="submit" value="ŽG’k‘º‚ð—LŒø‰»‚·‚é" data-submit-type="chatmode"$net>
   </p>
   </form>
 </div>

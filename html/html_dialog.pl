@@ -61,6 +61,13 @@ sub OutHTMLDialog {
             buttoncaption => '延長',
         );
     }
+    elsif ( $query->{'cmd'} eq 'chatmodepr' ) {
+        %dialog = (
+            cmd           => 'chatmode',
+            text          => '雑談村を有効化しますか？',
+            buttoncaption => '変更',
+        );
+    }
 
     $sow->{'debug'}->raise( $sow->{'APLOG_CAUTION'}, "未定義の行動です。", "invalid cmd." )
       if ( $dialog{'cmd'} eq 'none' );
@@ -78,7 +85,7 @@ sub OutHTMLDialog {
     # 日付別ログへのリンク
     &SWHtmlPC::OutHTMLTurnNavi( $sow, $vil );
 
-    my @reqkeys = ( 'csid_cid', 'role', 'mes', 'think', 'wolf', 'maker', 'admin' );
+    my @reqkeys = ( 'csid_cid', 'role', 'mes', 'think', 'wolf', 'maker', 'admin', 'extenddate' );
     my $reqvals = &SWBase::GetRequestValues( $sow, \@reqkeys );
     my $hidden  = &SWBase::GetHiddenValues( $sow, $reqvals, '' );
 

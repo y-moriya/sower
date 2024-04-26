@@ -45,9 +45,9 @@ sub outheader {
         && ( $sow->{'cfg'}->{'RSS_ENCODING_UTF8'} > 0 ) );
     print <<"_HTML_";
 <?xml version="1.0" encoding="$encoding"?>
-<rdf:RDF 
+<rdf:RDF
   xmlns="http://purl.org/rss/1.0/"
-  xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" 
+  xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
   xmlns:dc="http://purl.org/dc/elements/1.1/"
   xmlns:content="http://purl.org/rss/1.0/modules/content/"
   xml:lang="ja">
