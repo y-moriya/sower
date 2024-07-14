@@ -373,11 +373,15 @@ sub OutHTMLSingleLogAdminPC {
     }
 
     # 日付にパーマリンク付与
-    my $reqvals = &SWBase::GetRequestValues($sow);
-    my $link    = &SWBase::GetLinkValues( $sow, $reqvals );
-    my $amp     = $sow->{'html'}->{'amp'};
-    $link = "$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}?$link";
-    $date = "<a href=\"$link$amp" . "logid=$log->{'logid'}\">$date</a>";
+    if (   ( &SWUser::GetShowParmalinkFlag eq 1 )
+        && ( IsMaskedLogid( $sow, $vil, $log ) eq 0 ) )
+    {
+        my $reqvals = &SWBase::GetRequestValues($sow);
+        my $link    = &SWBase::GetLinkValues( $sow, $reqvals );
+        my $amp     = $sow->{'html'}->{'amp'};
+        $link = "$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}?$link";
+        $date = "<a href=\"$link$amp" . "logid=$log->{'logid'}\">$date</a>";
+    }
 
     # クラス名
     my @messtyle = ( 'mes_maker', 'mes_admin' );
