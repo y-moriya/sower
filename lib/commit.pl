@@ -193,7 +193,7 @@ sub UpdateSession {
 
             # 突然死
             my ( $history, $suddendeathpl ) = &SuddenDeath( $sow, $vil, $logfile )
-              if ( $sow->{'cfg'}->{'ENABLED_SUDDENDEATH'} > 0 );
+              if ( $sow->{'cfg'}->{'ENABLED_SUDDENDEATH'} > 0 && $vil->{'nosudden'} == 0 );
 
             # 突然死者の霊能判定追記
             &AddMediumHistory( $sow, $vil, $history );

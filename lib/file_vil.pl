@@ -500,6 +500,10 @@ sub getinfocap {
         $resultcap = "‚ ‚è";
         $resultcap = "‚È‚µ" if ( $self->{$infocap} > 0 );
     }
+    elsif ( $infocap eq 'nosudden' ) {
+        $resultcap = "‚ ‚è";
+        $resultcap = "‚È‚µ" if ( $self->{$infocap} > 0 );
+    }
 
     return $resultcap;
 }
@@ -692,6 +696,7 @@ sub GetVilDataLabel {
         'makersaymenu',
         'guestmenu',
         'noque',
+        'nosudden',
         'entrustmode',
         'showall',
         'noactmode',

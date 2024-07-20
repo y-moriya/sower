@@ -51,6 +51,7 @@ sub GetConfig {
         votetype     => '投票方法',
         starttype    => '開始方法',
         noque        => '発言保留時間',
+        nosudden     => '突然死',
 
     );
 
@@ -281,92 +282,6 @@ sub GetConfig {
         one     => \%saycnt_one,
     );
 
-    my @real11_hours = ( 5, 1 );
-    my @real16_hours = ( 5, 1 );
-
-    my %automv_real11 = (
-        autoid       => 'real11',
-        autoflag     => 0,
-        vname        => 'auto',
-        vcomment     => 'この村は自動的に建てられた村です。<br>トップページに書かれているルールをよく読んでから参加してください。',
-        trsid        => 'rem',
-        csid         => 'rem',
-        roletable    => 'wbbs_g',
-        hour         => 5,
-        hours        => \@real11_hours,
-        minite       => 0,
-        updinterval  => 1,
-        vplcnt       => 11,
-        entrylimit   => 'free',
-        entrypwd     => '',
-        rating       => 'default',
-        vplcntstart  => 11,
-        saycnttype   => 'real',
-        votetype     => 'anonymity',
-        starttype    => 'wbbs',
-        randomtarget => '',
-        noselrole    => 'on',
-        makersaymenu => 'on',
-        entrustmode  => 'on',
-        showall      => 'on',
-        noactmode    => 2,
-        nocandy      => 'on',
-        nofreeact    => 'on',
-        showid       => '',
-        timestamp    => 'on',
-        guestmenu    => '',
-        noque        => '',
-
-    );
-
-    my %automv_real16 = (
-        autoid       => 'real16',
-        autoflag     => 1,
-        vname        => 'auto',
-        vcomment     => 'この村は自動的に建てられた村です。<br>トップページに書かれているルールをよく読んでから参加してください。',
-        trsid        => 'rem',
-        csid         => 'rem',
-        roletable    => 'wbbs_g',
-        hour         => 5,
-        hours        => \@real16_hours,
-        minite       => 0,
-        updinterval  => 1,
-        vplcnt       => 16,
-        entrylimit   => 'free',
-        entrypwd     => '',
-        rating       => 'default',
-        vplcntstart  => 11,
-        saycnttype   => 'real',
-        votetype     => 'anonymity',
-        starttype    => 'wbbs',
-        randomtarget => '',
-        noselrole    => 'on',
-        makersaymenu => 'on',
-        entrustmode  => 'on',
-        showall      => 'on',
-        noactmode    => 2,
-        nocandy      => 'on',
-        nofreeact    => 'on',
-        showid       => '',
-        timestamp    => 'on',
-        guestmenu    => '',
-        noque        => '',
-
-    );
-
-    my %automv = (
-        real11 => \%automv_real11,
-        real16 => \%automv_real16,
-    );
-
-    my @autonames = (
-        '暁の村',  '祈りの村',   '海辺の村',   '永寿の村', '桜花の村', '影の村',  '季節外れの村', '久遠の村', '渓谷の村', '恒温の村',
-        '祭祀の村', '職人の村',   'すみれの村',  '泉源の村', '束縛の村', '探究の村', '中世の村',   '月夜の村', '天上の村', '倒錯の村',
-        '凪の村',  '人形回しの村', 'ぬくもりの村', '願いの村', '野苺の村', '博愛の村', '氷雪の村',   '吹雪の村', '辺境の村', '放浪の村',
-        '真夏の村', 'みかんの村',  '無名の村',   '銘菓の村', '妄想の村', '闇夜の村', '夕暮れの村',  '妖艶の村', '雷光の村', '緑雨の村',
-        '流刑の村', '煉瓦の村',   '楼閣の村',   '和の村',
-    );
-
     # 画像の作者等の表示用
     my @copyrights = (
         '人狼物語画像 by Momoko Takatori',
@@ -548,8 +463,9 @@ sub GetConfig {
         DEFAULT_NOCANDY      => 1,                              # 1:デフォルトで促し不可能
         DEFAULT_NOFREEACT    => 1,                              # 1:デフォルトで自由文アクション不可能
         DEFAULT_TIMESTAMP    => 1,                              # 1:デフォルトで時刻簡易表示
-        DEFAULT_GUESTMENU    => 0,                              # 1:デフォルトで傍観者発言不可能
-        DEFAULT_NOQUE        => 0,                              # 1:デフォルトで発言保留時間無し
+        DEFAULT_GUESTMENU    => 0,                              # 0:デフォルトで傍観者発言可能
+        DEFAULT_NOQUE        => 0,                              # 0:デフォルトで発言保留時間有り
+        DEFAULT_NOSUDDEN     => 0,                              # 0:デフォルトで突然死有り
 
         ENABLED_POPUP => 1,                                     # アンカーのポップアップ
 

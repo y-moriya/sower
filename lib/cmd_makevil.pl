@@ -108,6 +108,8 @@ sub SetDataCmdMakeVil {
     $vil->{'timestamp'}    = 1 if ( $query->{'timestamp'} ne '' );
     $vil->{'noque'}        = 0;
     $vil->{'noque'}        = 1 if ( $query->{'noque'} ne '' );
+    $vil->{'nosudden'}     = 0;
+    $vil->{'nosudden'}     = 1 if ( $query->{'nosudden'} ne '' );
 
     my $roleid = $sow->{'ROLEID'};
     for ( $i = 1 ; $i < @$roleid ; $i++ ) {

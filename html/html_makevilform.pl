@@ -386,6 +386,21 @@ _HTML_
 	<input type="checkbox" id="noque" class="multicolumn_left" name="noque" value="on"$checkednoque$net><div class="multicolumn_notes"><label for="noque">発言保留時間をなくす</label></div>
 _HTML_
 
+    my $checkednosudden = '';
+    if ( $sow->{'query'}->{'cmd'} eq 'editvilform' ) {
+        $checkednosudden = " $sow->{'html'}->{'checked'}"
+          if ( $vil->{'nosudden'} > 0 );
+    }
+    else {
+        $checkednosudden = " $sow->{'html'}->{'checked'}"
+          if ( $cfg->{'DEFAULT_NOSUDDEN'} > 0 );
+    }
+
+    print <<"_HTML_";
+	<label for="nosudden" class="multicolumn_label">突然死： </label>
+	<input type="checkbox" id="nosudden" class="multicolumn_left" name="nosudden" value="on"$checkednosudden$net><div class="multicolumn_notes"><label for="nosudden">突然死をなくす</label></div>
+_HTML_
+
     # レイティング
     print <<"_HTML_";
     <label for="rating" class="multicolumn_label">閲覧制限： </label>

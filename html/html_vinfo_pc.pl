@@ -299,6 +299,14 @@ _HTML_
 <br class="multicolumn_clear"$net>
 _HTML_
 
+    my $nosudden = $vil->getinfocap('nosudden');
+    print <<"_HTML_";
+
+<p class="multicolumn_label">“Ë‘R€F</p>
+<p class="multicolumn_left">$nosudden</p>
+<br class="multicolumn_clear"$net>
+_HTML_
+
     print "</div>\n\n";
 
     if ( ( $cfg->{'ENABLED_QR'} > 0 ) && ( $sow->{'user'}->logined() > 0 ) ) {

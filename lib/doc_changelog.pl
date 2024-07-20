@@ -36,9 +36,9 @@ sub outhtmlnew {
     my $atr_id = $sow->{'html'}->{'atr_id'};
 
     print <<"_HTML_";
-<h3>Sower Version 1.5.0</h3>
+<h3>Sower Version 1.5.1</h3>
 <ul>
-  <li>発言削除で消費ポイント/消費発言回数を戻すようにした</li>
+  <li>村オプションに「突然死なし」を追加。</li>
 </ul>
 _HTML_
 
@@ -61,6 +61,10 @@ _HTML_
     $self->outhtmlnew();
 
     print <<"_HTML_";
+<h3>Sower Version 1.5.0</h3>
+<ul>
+  <li>発言削除で消費ポイント/消費発言回数を戻すようにした</li>
+</ul>
 <h3>Sower Version 1.4.9</h3>
 <ul>
   <li>ページリンクが一定数を超えると省略するようにした</li>

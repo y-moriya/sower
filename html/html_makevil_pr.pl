@@ -267,6 +267,14 @@ _HTML_
 <br class="multicolumn_clear"$net>
 _HTML_
 
+    my $nosudden = getinfocap_nosudden( $query->{'nosudden'} );
+    print <<"_HTML_";
+
+<p class="multicolumn_label">“Ë‘R€F</p>
+<p class="multicolumn_left">$nosudden</p>
+<br class="multicolumn_clear"$net>
+_HTML_
+
     print "</div>\n\n";
 
     # ‘®«’l¶¬
@@ -277,7 +285,7 @@ _HTML_
         'updinterval',  'vplcnt',       'entrylimit', 'entrypwd',  'rating',      'vplcntstart',
         'saycnttype',   'starttype',    'votetype',   'noselrole', 'entrustmode', 'showall',
         'noactmode',    'nocandy',      'nofreeact',  'guestmenu', 'showid',      'timestamp',
-        'randomtarget', 'makersaymenu', 'csid',       'trsid',     'noque'
+        'randomtarget', 'makersaymenu', 'csid',       'trsid',     'noque',       'nosudden',
     );
     my $reqvals = &SWBase::GetRequestValues( $sow, \@reqkeys );
     my $hidden  = &SWBase::GetHiddenValues( $sow, $reqvals, '  ' );
@@ -524,8 +532,18 @@ sub getinfocap_guestmenu {
 }
 
 sub getinfocap_noque {
-    my $noqueu = shift;
-    if ( $noqueu ne '' ) {
+    my $noque = shift;
+    if ( $noque ne '' ) {
+        return '‚È‚µ';
+    }
+    else {
+        return '‚ ‚è';
+    }
+}
+
+sub getinfocap_nosudden {
+    my $nosudden = shift;
+    if ( $nosudden ne '' ) {
         return '‚È‚µ';
     }
     else {

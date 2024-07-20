@@ -71,6 +71,7 @@ sub InitConst {
         guestmenu    => 1,    # 傍観者発言不可
         makeruid     => 1,    # 村建人ID
         noque        => 1,    # 発言保留時間有無
+        nosudden     => 1,    # 突然死有無
 
         cntvillager  => 0,    # 村人
         cntwolf      => 0,    # 人狼
@@ -367,7 +368,7 @@ sub InitConst {
         COPY_AUTHOR => 'ゆーろ',
         URL_AUTHOR  => 'https://github.com/y-moriya/sower/',
         SITE_AUTHOR => 'github/sower',
-        VERSION_SW  => 'sower ver. 1.5.0',
+        VERSION_SW  => 'sower ver. 1.5.1',
 
         QUERY_INVALID    => \%queryinvalid,
         QUERY_SHORT2FULL => \%query_short2full,
