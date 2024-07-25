@@ -1,5 +1,7 @@
 package SWPlayer;
 
+use Encode;
+
 #----------------------------------------
 # プレイヤーデータ
 #----------------------------------------
@@ -307,6 +309,24 @@ sub changeselrole {
 sub getchrname {
     my $self = shift;
     return $self->{'sow'}->{'charsets'}->getchrname( $self->{'csid'}, $self->{'cid'}, $self->{'jobname'} );
+}
+
+#----------------------------------------
+# キャラのフィルター用の名前を取得する
+#----------------------------------------
+sub getfilterchrname {
+    my $self     = shift;
+    my $fullname = $self->{'sow'}->{'charsets'}->getchrname( $self->{'csid'}, $self->{'cid'}, $self->{'jobname'} );
+
+    my $decoded_fullname = decode( 'shiftjis', $fullname );
+
+    # デコードされた文字列の頭文字を取得
+    my $initial = substr( $decoded_fullname, 0, 1 );
+
+    my $encoded_initial = encode( 'shiftjis', $initial );
+
+    my $shortname = $self->{'sow'}->{'charsets'}->getshortchrname( $self->{'csid'}, $self->{'cid'} );
+    return "【$encoded_initial】 $shortname";
 }
 
 #----------------------------------------

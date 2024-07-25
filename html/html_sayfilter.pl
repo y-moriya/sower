@@ -210,9 +210,8 @@ sub OutHTMLSayFilterPlayers {
         my $unit =
           $sow->{'basictrs'}->{'SAYTEXT'}->{ $sow->{'cfg'}->{'COUNTS_SAY'}->{ $vil->{'saycnttype'} }->{'COUNT_TYPE'} }
           ->{'UNIT_SAY'};
-        my $shortchrname =
-          $sow->{'charsets'}->getshortchrname( $_->{'csid'}, $_->{'cid'} );
-        my $showid = "";
+        my $shortchrname = $_->getfilterchrname();
+        my $showid       = "";
         $showid = " ($_->{'uid'})"
           if (
                $vil->isepilogue() != 0

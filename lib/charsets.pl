@@ -21,11 +21,8 @@ sub loadchrrs {
     return if ( defined( $self->{'csid'}->{$csid}->{'CAPTION'} ) );
 
     my $fname = "$sow->{'cfg'}->{'DIR_RS'}/crs_$csid.pl";
-    $sow->{'debug'}->raise(
-        $sow->{'APLOG_WARNING'},
-        "キャラクタセット $csid が見つかりません。",
-        "csid not found.[$csid]"
-    ) if ( !( -e $fname ) );
+    $sow->{'debug'}->raise( $sow->{'APLOG_WARNING'}, "キャラクタセット $csid が見つかりません。", "csid not found.[$csid]" )
+      if ( !( -e $fname ) );
 
     require "$fname";
     my $sub     = '::SWResource_' . $csid . '::GetRSChr';
