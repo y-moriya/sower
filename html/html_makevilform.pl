@@ -157,7 +157,7 @@ _HTML_
     <br class="multicolumn_clear"$net>
   </fieldset>
 
-  <fieldset>
+  <fieldset id="customOptionsField">
     <legend>–ðE”z•ªŽ©—RÝ’è</legend>
 _HTML_
 

@@ -502,4 +502,14 @@ $(document).ready(function () {
 	});
 
 	hidePageLinks();
+
+	const customOptionsField = document.querySelector('#customOptionsField');
+	if (customOptionsField) {
+		const roletable = document.querySelector('#roletable');
+		customOptionsField.style.display = (roletable.value === 'custom') ? 'block' : 'none';
+
+		roletable.addEventListener('change', function (e) {
+			customOptionsField.style.display = (e.target.value === 'custom') ? 'block' : 'none';
+		});
+	}
 });
