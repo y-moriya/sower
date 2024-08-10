@@ -148,7 +148,6 @@ _HTML_
 <form action="$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}" method="$cfg->{'METHOD_FORM'}">
 <p class="multicolumn_left">
   <input type="hidden" name="cmd" value="editmes"$net>$hidden
-  <input type="hidden" name="thinkpr" value="$query->{'think'}"$net>
   <input type="submit" value="C³‚·‚é" data-submit-type="edit"$net>
 </p>
 </form>

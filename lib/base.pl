@@ -288,7 +288,7 @@ sub GetRequestValues {
         @basereqkeys = ( 'cmd', 'vid', 'row' );
     }
     elsif ( defined( $query->{'vid'} ) ) {
-        @basereqkeys = ( 'ua', 'uid', 'pwd', 'order', 'row', 'css', 'vid', 'turn', 'mode', 'pno', 'ghost', 'thinkpr' );
+        @basereqkeys = ( 'ua', 'uid', 'pwd', 'order', 'row', 'css', 'vid', 'turn', 'mode', 'pno', 'ghost' );
     }
     else {
         @basereqkeys = ( 'ua', 'uid', 'pwd', 'order', 'row', 'css' );

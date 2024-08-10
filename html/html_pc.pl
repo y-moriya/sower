@@ -460,19 +460,20 @@ sub GetFormBlockWidth {
 #----------------------------------------
 sub OutHTMLSayTextAreaPC {
     my ( $sow, $vil, $cmd, $htmlsay, $type ) = @_;
-    my $net = $sow->{'html'}->{'net'};
-
+    my $net     = $sow->{'html'}->{'net'};
     my $reqvals = &SWBase::GetRequestValues($sow);
     my $hidden  = &SWBase::GetHiddenValues( $sow, $reqvals, '      ' );
     my $text    = '';
-    $text = $htmlsay->{'text'} if ( defined( $htmlsay->{'text'} ) );
-    my $normalChecked    = '';
-    my $monologueChecked = '';
-    if ( defined( $sow->{'query'}->{'thinkpr'} ) && $sow->{'query'}->{'thinkpr'} eq 'on' ) {
-        $monologueChecked = " $sow->{'html'}->{'checked'}";
+    $text  = $htmlsay->{'text'} if ( defined( $htmlsay->{'text'} ) );
+    $curpl = $sow->{'curpl'};
+    my $checkedNormal    = '';
+    my $checkedMonologue = '';
+
+    if ( $curpl->{'draftmestype'} eq $sow->{'MESTYPE_TSAY'} ) {
+        $checkedMonologue = ' checked';
     }
     else {
-        $normalChecked = " $sow->{'html'}->{'checked'}";
+        $checkedNormal = ' checked';
     }
 
     my $disabled = '';
@@ -484,9 +485,9 @@ sub OutHTMLSayTextAreaPC {
         print <<"_HTML_";
       <div class="radio-btn-container">
         <div class="radio-btn-group">
-          <input type="radio" id="say_type_normal_$type" class="say_type_normal" name="say_type_$type" value="normal"$normalChecked>
-          <label for="say_type_normal_$type">í èÌ</label>
-          <input type="radio" id="say_type_monologue_$type" class="say_type_monologue" name="say_type_$type" value="monologue"$monologueChecked>
+          <input type="radio" id="say_type_normal_$type" class="say_type_normal" name="say_type_$type" value="normal"$checkedNormal>
+          <label for="say_type_normal_$type">í èÌ$reqvals->{'say_type_character'}</label>
+          <input type="radio" id="say_type_monologue_$type" class="say_type_monologue" name="say_type_$type" value="monologue"$checkedMonologue>
           <label for="say_type_monologue_$type">ì∆ÇËåæ</label>
         </div>
       </div>
@@ -500,7 +501,6 @@ _HTML_
       <span id="submit_normal_$type"><input type="submit" value="$htmlsay->{'buttonlabel'}" data-submit-type="$cmd"$disabled$net>$htmlsay->{'saycnttext'}</span>
 _HTML_
 
-    $curpl = $sow->{'curpl'};
     my $unit =
       $sow->{'basictrs'}->{'SAYTEXT'}->{ $sow->{'cfg'}->{'COUNTS_SAY'}->{ $vil->{'saycnttype'} }->{'COUNT_TYPE'} }
       ->{'UNIT_SAY'};
