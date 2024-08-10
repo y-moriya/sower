@@ -541,8 +541,9 @@ sub GetConfig {
         URL_QR     => '',
 
         # gzip転送機能
-        #		FILE_GZIP => '/bin/gzip',
-        FILE_GZIP => '',
+        FILE_GZIP => '/bin/gzip',
+
+        # FILE_GZIP => '',
 
         DEFAULT_TEXTRS => 'sow',    # デフォルトの文字列リソース
 
