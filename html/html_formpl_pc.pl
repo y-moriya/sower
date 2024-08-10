@@ -268,29 +268,7 @@ _HTML_
         $htmlsay{'text'} = $mes;
     }
 
-    &SWHtmlPC::OutHTMLSayTextAreaPC( $sow, 'writepr', \%htmlsay );
-
-    # 独り言チェックボックス
-    my $saycnt = $cfg->{'COUNTS_SAY'}->{ $vil->{'saycnttype'} };
-    if (   ( $curpl->{'live'} eq 'live' )
-        || ( $cfg->{'ENABLED_TSAY_GRAVE'} > 0 ) )
-    {    # 生きている／墓下独り言有効
-        if ( ( $vil->isepilogue() == 0 ) || ( $cfg->{'ENABLED_TSAY_EP'} > 0 ) ) {    # エピではない／エピ独り言有効
-            if ( ( $vil->{'turn'} != 0 ) || ( $cfg->{'ENABLED_TSAY_PRO'} > 0 ) ) {    # プロローグ独り言設定チェック
-                my $unit =
-                  $sow->{'basictrs'}->{'SAYTEXT'}
-                  ->{ $sow->{'cfg'}->{'COUNTS_SAY'}->{ $vil->{'saycnttype'} }->{'COUNT_TYPE'} }->{'UNIT_SAY'};
-                my $checked = '';
-                $checked = " $sow->{'html'}->{'checked'}"
-                  if ( ( $draft > 0 )
-                    && ( $sow->{'draftmestype'} == $sow->{'MESTYPE_TSAY'} ) );
-                print "<div style=\"float: right\">\n";
-                print
-"　<input type=\"submit\" name=\"submit_type\" value=\"$sow->{'textrs'}->{'CAPTION_TSAY_PC'}\" data-submit-type=\"tsay\"$disabled$net> あと$curpl->{'tsay'}$unit\n";
-                print "</div>\n";
-            }
-        }
-    }
+    &SWHtmlPC::OutHTMLSayTextAreaPC( $sow, $vil, 'writepr', \%htmlsay, 'character' );
 
     print "<div class=\"clearboth\"><hr class=\"invisible_hr\"></div> ";
     print <<"_HTML_";
@@ -486,7 +464,7 @@ _HTML_
             $mes =~ s/<br( \/)?>/\n/ig;
             $htmlsay{'text'} = $mes;
         }
-        &SWHtmlPC::OutHTMLSayTextAreaPC( $sow, 'writepr', \%htmlsay );
+        &SWHtmlPC::OutHTMLSayTextAreaPC( $sow, $vil, 'writepr', \%htmlsay, 'love' );
         my $checkedmspace = '';
         $checkedmspace = " $sow->{'html'}->{'checked'}"
           if ( ( $draft > 0 ) && ( $sow->{'draftmspace'} > 0 ) );
@@ -646,7 +624,7 @@ _HTML_
                 $mes =~ s/<br( \/)?>/\n/ig;
                 $htmlsay{'text'} = $mes;
             }
-            &SWHtmlPC::OutHTMLSayTextAreaPC( $sow, 'writepr', \%htmlsay );
+            &SWHtmlPC::OutHTMLSayTextAreaPC( $sow, $vil, 'writepr', \%htmlsay, 'whisper' );
             my $checkedmspace = '';
             $checkedmspace = " $sow->{'html'}->{'checked'}"
               if ( ( $draft > 0 ) && ( $sow->{'draftmspace'} > 0 ) );
@@ -1233,7 +1211,7 @@ _HTML_
     $htmlsay{'buttonlabel'} =~ s/_BUTTON_/$caption_say/g;
     $htmlsay{'disabled'} = 0;
     $htmlsay{'disabled'} = 1 if ( $vil->{'emulated'} > 0 );
-    &SWHtmlPC::OutHTMLSayTextAreaPC( $sow, 'writepr', \%htmlsay );
+    &SWHtmlPC::OutHTMLSayTextAreaPC( $sow, $vil, 'writepr', \%htmlsay, 'maker' );
 
     print <<"_HTML_";
       <input type="hidden" name="$writemode" value="on"$net>
@@ -1317,7 +1295,7 @@ _HTML_
     $htmlsay{'disabled'} = 0;
     $htmlsay{'disabled'} = 1 if ( $vil->{'emulated'} > 0 );
 
-    &SWHtmlPC::OutHTMLSayTextAreaPC( $sow, 'writepr', \%htmlsay );
+    &SWHtmlPC::OutHTMLSayTextAreaPC( $sow, $vil, 'writepr', \%htmlsay, 'guest' );
 
     if ( ( $vil->isepilogue() == 0 ) || ( $cfg->{'ENABLED_TSAY_EP'} > 0 ) ) {    # エピではない／エピ独り言有効
         print

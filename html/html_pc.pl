@@ -459,27 +459,73 @@ sub GetFormBlockWidth {
 # î≠åæóìtextareaóvëfÇÃèoóÕ
 #----------------------------------------
 sub OutHTMLSayTextAreaPC {
-    my ( $sow, $cmd, $htmlsay ) = @_;
+    my ( $sow, $vil, $cmd, $htmlsay, $type ) = @_;
     my $net = $sow->{'html'}->{'net'};
 
     my $reqvals = &SWBase::GetRequestValues($sow);
     my $hidden  = &SWBase::GetHiddenValues( $sow, $reqvals, '      ' );
     my $text    = '';
     $text = $htmlsay->{'text'} if ( defined( $htmlsay->{'text'} ) );
+    my $normalChecked    = '';
+    my $monologueChecked = '';
+    if ( defined( $sow->{'query'}->{'thinkpr'} ) && $sow->{'query'}->{'thinkpr'} eq 'on' ) {
+        $monologueChecked = " $sow->{'html'}->{'checked'}";
+    }
+    else {
+        $normalChecked = " $sow->{'html'}->{'checked'}";
+    }
 
     my $disabled = '';
     $disabled = " $sow->{'html'}->{'disabled'}"
       if ( $htmlsay->{'disabled'} > 0 );
 
-    print <<"_HTML_";
-      <textarea name="mes" cols="30" rows="5" onkeyup="showCount(value, this);" onmouseup="showCount(value, this);" data-textarea-type="$cmd">$text</textarea><br$net>
-      <input type="hidden" name="cmd" value="$cmd"$net>$hidden
-      <div style="float: left;">
-      <input type="submit" value="$htmlsay->{'buttonlabel'}" data-submit-type="$cmd"$disabled$net>$htmlsay->{'saycnttext'}
+    if ( $type eq 'character' || $type eq 'guest' ) {
+
+        print <<"_HTML_";
+      <div class="radio-btn-container">
+        <div class="radio-btn-group">
+          <input type="radio" id="say_type_normal_$type" class="say_type_normal" name="say_type_$type" value="normal"$normalChecked>
+          <label for="say_type_normal_$type">í èÌ</label>
+          <input type="radio" id="say_type_monologue_$type" class="say_type_monologue" name="say_type_$type" value="monologue"$monologueChecked>
+          <label for="say_type_monologue_$type">ì∆ÇËåæ</label>
+        </div>
       </div>
 _HTML_
+    }
+
+    print <<"_HTML_";
+      <textarea id="textarea_$type" name="mes" cols="30" rows="5" onkeyup="showCount(value, this);" onmouseup="showCount(value, this);" data-textarea-type="$cmd">$text</textarea><br$net>
+      <input type="hidden" name="cmd" value="$cmd"$net>$hidden
+      <div style="float: left;">
+      <span id="submit_normal_$type"><input type="submit" value="$htmlsay->{'buttonlabel'}" data-submit-type="$cmd"$disabled$net>$htmlsay->{'saycnttext'}</span>
+_HTML_
+
+    $curpl = $sow->{'curpl'};
+    my $unit =
+      $sow->{'basictrs'}->{'SAYTEXT'}->{ $sow->{'cfg'}->{'COUNTS_SAY'}->{ $vil->{'saycnttype'} }->{'COUNT_TYPE'} }
+      ->{'UNIT_SAY'};
+    if ( CanTsay( $sow, $vil, $curpl ) == 1 ) {
+        print <<"_HTML_";
+      <span id="submit_monologue_$type"><input name="submit_type" type="submit" value="$sow->{'textrs'}->{'CAPTION_TSAY_PC'}" data-submit-type="tsay"$disabled$net> Ç†Ç∆$curpl->{'tsay'}$unit</span>
+_HTML_
+
+    }
+
+    print "</div>";
 
     return;
+}
+
+# ì∆ÇËåæÇ™Ç≈Ç´ÇÈÇ©Ç«Ç§Ç©ÇîªíËÇ∑ÇÈä÷êî
+sub CanTsay {
+    my ( $sow, $vil, $curpl ) = @_;
+
+    return 0 if $curpl->{'live'} ne 'live' && $sow->{'cfg'}->{'ENABLED_TSAY_GRAVE'} <= 0;
+    return 0 if $vil->isepilogue() != 0    && $sow->{'cfg'}->{'ENABLED_TSAY_EP'} <= 0;
+    return 0 if $vil->{'turn'} == 0        && $sow->{'cfg'}->{'ENABLED_TSAY_PRO'} <= 0;
+
+    return 1;
+
 }
 
 #----------------------------------------

@@ -70,7 +70,7 @@ _HTML_
     $reqvals->{'cmd'}  = 'chrlist';
     $reqvals->{'csid'} = $vil->{'csid'};
     $reqvals->{'vid'}  = '';
-    $linkvalue = &SWBase::GetLinkValues( $sow, $reqvals );
+    $linkvalue         = &SWBase::GetLinkValues( $sow, $reqvals );
     print " <a href=\"$urlsow?$linkvalue\" target=\"_blank\">”z–ðˆê——</a>\n";
     my $noselrole = '';
     if ( $vil->{'noselrole'} > 0 ) {
@@ -87,7 +87,7 @@ _HTML_
 _HTML_
 
     # Šó–]‚·‚é”\—Í‚Ì•\Ž¦
-    my $rolename = $sow->{'textrs'}->{'ROLENAME'};
+    my $rolename   = $sow->{'textrs'}->{'ROLENAME'};
     my $rolematrix = &SWSetRole::GetSetRoleTable( $sow, $vil, $vil->{'roletable'}, $vil->{'vplcnt'} );
 
     my $i;
@@ -120,7 +120,7 @@ _HTML_
         #		&SWBase::ExtractChrRef(\$mes);
         $htmlsay{'text'} = $mes;
     }
-    &SWHtmlPC::OutHTMLSayTextAreaPC( $sow, 'entrypr', \%htmlsay );
+    &SWHtmlPC::OutHTMLSayTextAreaPC( $sow, $vil, 'entrypr', \%htmlsay, 'entry' );
 
     my $checkedmspace = '';
     $checkedmspace = " $sow->{'html'}->{'checked'}"

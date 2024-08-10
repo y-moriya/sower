@@ -15,7 +15,7 @@ sub OutHTMLMemoPC {
     my $query = $sow->{'query'};
 
     my $reqvals = &SWBase::GetRequestValues($sow);
-    my $link = &SWBase::GetLinkValues( $sow, $reqvals );
+    my $link    = &SWBase::GetLinkValues( $sow, $reqvals );
     $link = "$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}?$link";
 
     # ÉçÉOÉCÉìHTML
@@ -184,7 +184,7 @@ _HTML_
     # ñºëOÇ∆ID
     my $reqvals = &SWBase::GetRequestValues($sow);
     $reqvals->{'prof'} = $sow->{'uid'};
-    my $link = &SWBase::GetLinkValues( $sow, $reqvals );
+    my $link    = &SWBase::GetLinkValues( $sow, $reqvals );
     my $uidtext = $sow->{'uid'};
     $uidtext =~ s/ /&nbsp\;/g;
     $uidtext = "<a href=\"$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}?$link\">$uidtext</a>";
@@ -212,7 +212,7 @@ _HTML_
         disabled    => 0,
     );
     $htmlsay{'disabled'} = 1 if ( $vil->{'emulated'} > 0 );
-    &SWHtmlPC::OutHTMLSayTextAreaPC( $sow, 'wrmemo', \%htmlsay );
+    &SWHtmlPC::OutHTMLSayTextAreaPC( $sow, $vil, 'wrmemo', \%htmlsay, 'memo' );
 
     print "      <label><input type=\"checkbox\" name=\"monospace\" value=\"on\"$net>ìôïù</label>\n";
 

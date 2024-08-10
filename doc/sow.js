@@ -512,4 +512,34 @@ $(document).ready(function () {
 			customOptionsField.style.display = (e.target.value === 'custom') ? 'block' : 'none';
 		});
 	}
+
+	const types = ['character', 'guest']; // 使用するtypeのリスト
+
+	types.forEach(type => {
+		const normalRadio = document.getElementById(`say_type_normal_${type}`);
+		const monologueRadio = document.getElementById(`say_type_monologue_${type}`);
+		const textarea = document.getElementById(`textarea_${type}`);
+		const submitNormal = document.getElementById(`submit_normal_${type}`);
+		const submitMonologue = document.getElementById(`submit_monologue_${type}`);
+
+		function updateTextareaStyle() {
+			if (monologueRadio.checked) {
+				textarea.classList.add('monologue');
+				textarea.classList.remove('normal');
+				submitNormal.style.display = 'none';
+				submitMonologue.style.display = 'inline';
+			} else {
+				textarea.classList.add('normal');
+				textarea.classList.remove('monologue');
+				submitNormal.style.display = 'inline';
+				submitMonologue.style.display = 'none';
+			}
+		}
+
+		normalRadio.addEventListener('change', updateTextareaStyle);
+		monologueRadio.addEventListener('change', updateTextareaStyle);
+
+		// 初期状態を設定
+		updateTextareaStyle();
+	});
 });
