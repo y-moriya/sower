@@ -2,7 +2,7 @@
 
 ## 人狼物語 リア充版 / The Stories of Werewolves Enjoy Real-life
 
-<http://real.gunjobiyori.com/sow.cgi>
+<https://real.gunjobiyori.com/sow.cgi>
 ここで動いてるやつです。
 
 ## Build setup
@@ -12,6 +12,15 @@ Use devcontainer.
 Rename \_config_local.default.pl to \_config_local.pl
 
 After start container, open: <http://localhost/sower/sow.cgi>
+
+## ブランチ運用について
+
+- production
+  - <https://real.gunjobiyori.com/sow.cgi> にデプロイするためのブランチ
+- staging
+  - <https://real-stg.gunjobiyori.com/sow.cgi> にデプロイするためのブランチ
+- feature/...
+  - 機能開発ブランチ
 
 ## Original Readme
 
