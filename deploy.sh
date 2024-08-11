@@ -8,6 +8,21 @@ else
     exit 1
 fi
 
+# Git の現在のブランチ名を取得
+BRANCH=$(git rev-parse --abbrev-ref HEAD)
+
+# 引数が --prod のとき、ブランチが production でない場合はエラー
+if [ "$1" = "--prod" -a "$BRANCH" != "production" ]; then
+    echo "Error: Branch name must be 'production' in --prod mode"
+    exit 1
+fi
+
+# 引数が --stg のとき、ブランチが staging でない場合はエラー
+if [ "$1" = "--stg" -a "$BRANCH" != "staging" ]; then
+    echo "Error: Branch name must be 'staging' in --stg mode"
+    exit 1
+fi
+
 # 認証情報の読み込み
 FTP_USER=$(head -n 1 $CREDS_FILE)
 FTP_PASS=$(head -n 2 $CREDS_FILE | tail -n 1)
