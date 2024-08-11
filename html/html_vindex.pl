@@ -162,7 +162,7 @@ _HTML_
 
         print <<"_HTML_";
   <tr>
-    <td>$imgpwdkey$imgrating<a href="$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}?$link#newsay">$_->{'vid'} $vil->{'vname'}</a> q<a href="$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}?$linkvinfo#newsay" title="$vcomment">î•ñ</a>r</td>
+    <td>$imgpwdkey$imgrating<a href="$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}?$link#newinfo">$_->{'vid'} $vil->{'vname'}</a> q<a href="$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}?$linkvinfo#newinfo" title="$vcomment">î•ñ</a>r</td>
     <td>$plcnt</td>
     <td>$vstatus</td>
     <td>$date/$updintervalday</td>

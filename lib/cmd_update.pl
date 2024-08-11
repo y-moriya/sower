@@ -1,42 +1,42 @@
 package SWCmdUpdateSession;
 
 #----------------------------------------
-# 更新（手動）
+# 拗抃拱手動挧
 #----------------------------------------
 sub CmdUpdateSession {
     my $sow   = $_[0];
     my $query = $sow->{'query'};
     my $cfg   = $sow->{'cfg'};
 
-    # データ処理
+    # デ拏タ揶理
     my $vil = &SetDataCmdUpdateSession($sow);
 
-    # HTTP/HTML出力
+    # HTTP/HTML捐力
     my $reqvals = &SWBase::GetRequestValues($sow);
     my $link    = &SWBase::GetLinkValues( $sow, $reqvals );
-    $link = "$cfg->{'URL_SW'}/$cfg->{'FILE_SOW'}?$link#newsay";
+    $link = "$cfg->{'URL_SW'}/$cfg->{'FILE_SOW'}?$link#newinfo";
 
     $sow->{'http'}->{'location'} = "$link";
-    $sow->{'http'}->outheader();    # HTTPヘッダの出力
+    $sow->{'http'}->outheader();    # HTTPヘッダの捐力
     $sow->{'http'}->outfooter();
 }
 
 #----------------------------------------
-# データ処理
+# デ拏タ揶理
 #----------------------------------------
 sub SetDataCmdUpdateSession {
     my $sow   = $_[0];
     my $query = $sow->{'query'};
 
-    # 村データの読み込み
+    # 村デ拏タの読み撼み
     require "$sow->{'cfg'}->{'DIR_LIB'}/file_vil.pl";
     my $vil = SWFileVil->new( $sow, $query->{'vid'} );
     $vil->readvil();
 
-    # リソースの読み込み
+    # リソ拏スの読み撼み
     &SWBase::LoadVilRS( $sow, $vil );
 
-    # 更新処理
+    # 拗抃揶理
     require "$sow->{'cfg'}->{'DIR_LIB'}/commit.pl";
     my $scrapvil = 0;
     $scrapvil = 1 if ( $sow->{'query'}->{'cmd'} eq 'scrapvil' );

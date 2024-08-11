@@ -573,7 +573,7 @@ _HTML_
         }
     }
 
-    my $linkform = "/ <a href=\"$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}?$linknew#newsay\">”­Œ¾—“‚Ö</a>";
+    my $linkform = "/ <a href=\"$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}?$linknew#newinfo\">”­Œ¾—“‚Ö</a>";
     $linkform = '' if ( $vil->{'turn'} > $vil->{'epilogue'} );
 
     print <<"_HTML_";

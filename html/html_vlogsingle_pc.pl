@@ -4,13 +4,12 @@ package SWHtmlVlogSinglePC;
 # ログHTMLの表示（インフォメーション）
 #----------------------------------------
 sub OutHTMLSingleLogInfoPC {
-    my ( $sow, $vil, $log, $no, $newsay, $anchor ) = @_;
+    my ( $sow, $vil, $log, $no, $anchor ) = @_;
     my $net    = $sow->{'html'}->{'net'};
     my $atr_id = $sow->{'html'}->{'atr_id'};
 
     my $logmes = $log->{'log'};
-    $logmes = "<a $atr_id=\"newsay\">$logmes</a>" if ( $newsay > 0 );
-    my $logid = $log->{'logid'};
+    my $logid  = $log->{'logid'};
     if ( IsMaskedLogid( $sow, $vil, $log ) eq 1 ) {
         $logid = $log->{'maskedid'};
     }
@@ -39,7 +38,7 @@ _HTML_
 # ログHTMLの表示（アクション）
 #----------------------------------------
 sub OutHTMLSingleLogActionPC {
-    my ( $sow, $vil, $log, $no, $newsay, $anchor, $modesingle ) = @_;
+    my ( $sow, $vil, $log, $no, $anchor, $modesingle ) = @_;
     my $net    = $sow->{'html'}->{'net'};
     my $atr_id = $sow->{'html'}->{'atr_id'};
 
@@ -50,7 +49,6 @@ sub OutHTMLSingleLogActionPC {
     }
 
     my $chrname = $log->{'chrname'};
-    $chrname = "<a $atr_id=\"newsay\">$chrname</a>" if ( $newsay > 0 );
 
     my $class_action = "action_nom";
     $class_action = "action_bm"
@@ -84,7 +82,7 @@ _HTML_
 # ログHTMLの表示（キャラの発言）
 #----------------------------------------
 sub OutHTMLSingleLogSayPC {
-    my ( $sow, $vil, $log, $no, $newsay, $anchor, $modesingle ) = @_;
+    my ( $sow, $vil, $log, $no, $anchor, $modesingle ) = @_;
     my $cfg    = $sow->{'cfg'};
     my $net    = $sow->{'html'}->{'net'};
     my $atr_id = $sow->{'html'}->{'atr_id'};
@@ -98,7 +96,6 @@ sub OutHTMLSingleLogSayPC {
     $sow->{'charsets'}->loadchrrs( $logpl->{'csid'} );
     my $charset = $sow->{'charsets'}->{'csid'}->{ $logpl->{'csid'} };
     my $chrname = $log->{'chrname'};
-    $chrname = "<a $atr_id=\"newsay\">$chrname</a>" if ( $newsay > 0 );
 
     # クラス名
     my @messtyle = (
@@ -235,7 +232,7 @@ _HTML_
 # ログHTMLの表示（傍観者）
 #----------------------------------------
 sub OutHTMLSingleLogGuestPC {
-    my ( $sow, $vil, $log, $no, $newsay, $anchor, $modesingle ) = @_;
+    my ( $sow, $vil, $log, $no, $anchor, $modesingle ) = @_;
     my $cfg    = $sow->{'cfg'};
     my $net    = $sow->{'html'}->{'net'};
     my $atr_id = $sow->{'html'}->{'atr_id'};
@@ -261,7 +258,6 @@ sub OutHTMLSingleLogGuestPC {
     $sow->{'charsets'}->loadchrrs( $logpl->{'csid'} );
     my $charset = $sow->{'charsets'}->{'csid'}->{ $logpl->{'csid'} };
     my $chrname = $log->{'chrname'};
-    $chrname = "<a $atr_id=\"newsay\">$chrname</a>" if ( $newsay > 0 );
 
     # キャラ画像アドレスの取得
     $charset = $vil->{'csid'};
@@ -357,7 +353,7 @@ _HTML_
 # ログHTMLの表示（村建て人／管理人）
 #----------------------------------------
 sub OutHTMLSingleLogAdminPC {
-    my ( $sow, $vil, $log, $no, $newsay, $anchor ) = @_;
+    my ( $sow, $vil, $log, $no, $anchor ) = @_;
     my $cfg    = $sow->{'cfg'};
     my $net    = $sow->{'html'}->{'net'};
     my $atr_id = $sow->{'html'}->{'atr_id'};
@@ -366,7 +362,6 @@ sub OutHTMLSingleLogAdminPC {
     my $chrname;
     my $curpl = $vil->getpl( $log->{'uid'} );
     $chrname = $log->{'chrname'};
-    $chrname = "<a $atr_id=\"newsay\">$chrname</a>" if ( $newsay > 0 );
     my $date = $sow->{'dt'}->cvtdt( $log->{'date'} );
     if ( $vil->{'timestamp'} > 0 ) {
         $date = $sow->{'dt'}->cvtdtsht( $log->{'date'} );
@@ -427,7 +422,7 @@ _HTML_
 # ログHTMLの表示（エピローグの配役一覧）
 #----------------------------------------
 sub OutHTMLSingleLogCastPC {
-    my ( $sow, $vil, $log, $no, $newsay, $anchor ) = @_;
+    my ( $sow, $vil, $log, $no, $anchor ) = @_;
     my $net     = $sow->{'html'}->{'net'};
     my $atr_id  = $sow->{'html'}->{'atr_id'};
     my $cfg     = $sow->{'cfg'};
@@ -436,7 +431,6 @@ sub OutHTMLSingleLogCastPC {
     my $reqvals = &SWBase::GetRequestValues($sow);
 
     my $namelabel = '名前';
-    $namelabel = "<a $atr_id=\"newsay\">$namelabel</a>" if ( $newsay > 0 );
     my $noselrole = "";
     $noselrole = "（希望は無効です）" if ( $vil->{'noselrole'} > 0 );
 
@@ -515,37 +509,37 @@ _HTML_
 # ログHTMLの表示（１ログ分）
 #----------------------------------------
 sub OutHTMLSingleLogPC {
-    my ( $sow, $vil, $log, $no, $newsay, $anchor, $modesingle ) = @_;
+    my ( $sow, $vil, $log, $no, $anchor, $modesingle ) = @_;
 
     if (   ( $log->{'mestype'} == $sow->{'MESTYPE_INFONOM'} )
         || ( $log->{'mestype'} == $sow->{'MESTYPE_INFOSP'} ) )
     {
         # インフォメーション
-        &OutHTMLSingleLogInfoPC( $sow, $vil, $log, $no, $newsay, $anchor, $modesingle );
+        &OutHTMLSingleLogInfoPC( $sow, $vil, $log, $no, $anchor, $modesingle );
     }
     elsif ( $log->{'mestype'} >= $sow->{'MESTYPE_DELETED'} ) {
         if (   ( $log->{'logsubid'} eq $sow->{'LOGSUBID_ACTION'} )
             || ( $log->{'logsubid'} eq $sow->{'LOGSUBID_BOOKMARK'} ) )
         {
             # アクション／しおり
-            &OutHTMLSingleLogActionPC( $sow, $vil, $log, $no, $newsay, $anchor, $modesingle );
+            &OutHTMLSingleLogActionPC( $sow, $vil, $log, $no, $anchor, $modesingle );
         }
         elsif (( $log->{'mestype'} == $sow->{'MESTYPE_MAKER'} )
             || ( $log->{'mestype'} == $sow->{'MESTYPE_ADMIN'} ) )
         {
-            &OutHTMLSingleLogAdminPC( $sow, $vil, $log, $no, $newsay, $anchor, $modesingle );
+            &OutHTMLSingleLogAdminPC( $sow, $vil, $log, $no, $anchor, $modesingle );
         }
         elsif ( $log->{'mestype'} == $sow->{'MESTYPE_GUEST'} ) {
-            &OutHTMLSingleLogGuestPC( $sow, $vil, $log, $no, $newsay, $anchor, $modesingle );
+            &OutHTMLSingleLogGuestPC( $sow, $vil, $log, $no, $anchor, $modesingle );
         }
         elsif ( $log->{'mestype'} == $sow->{'MESTYPE_CAST'} ) {
 
             # 配役一覧
-            &OutHTMLSingleLogCastPC( $sow, $vil, $log, $no, $newsay, $anchor, $modesingle );
+            &OutHTMLSingleLogCastPC( $sow, $vil, $log, $no, $anchor, $modesingle );
         }
         else {
             # キャラクター発言
-            &OutHTMLSingleLogSayPC( $sow, $vil, $log, $no, $newsay, $anchor, $modesingle );
+            &OutHTMLSingleLogSayPC( $sow, $vil, $log, $no, $anchor, $modesingle );
         }
     }
 }

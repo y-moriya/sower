@@ -1,17 +1,17 @@
 package SWCmdLogin;
 
 #----------------------------------------
-# ログイン
+# �揀Oイン
 #----------------------------------------
 sub CmdLogin {
     my $sow   = $_[0];
     my $query = $sow->{'query'};
     my $cfg   = $sow->{'cfg'};
 
-    # データ処理
+    # デ拏タ揶理
     &SetDataCmdLogin($sow);
 
-    # HTTP出力
+    # HTTP捐力
     my $reqvals = &SWBase::GetRequestValues($sow);
     $reqvals->{'uid'} = '';
     $reqvals->{'pwd'} = '';
@@ -19,7 +19,7 @@ sub CmdLogin {
     my $link = &SWBase::GetLinkValues( $sow, $reqvals );
     $link = '?' . $link if ( $link ne '' );
     $link = "$cfg->{'URL_SW'}/$cfg->{'FILE_SOW'}$link";
-    $link .= '#newsay' if ( defined( $query->{'vid'} ) );
+    $link .= '#newinfo' if ( defined( $query->{'vid'} ) );
 
     $sow->{'http'}->{'location'} = "$link";
     $sow->{'http'}->outheader();
@@ -29,7 +29,7 @@ sub CmdLogin {
 }
 
 #----------------------------------------
-# データ処理
+# デ拏タ揶理
 #----------------------------------------
 sub SetDataCmdLogin {
     my $sow   = $_[0];
@@ -39,12 +39,12 @@ sub SetDataCmdLogin {
     my $matchpw = $user->login();
     if ( $matchpw > 0 ) {
 
-        # パスワード照合成功
+        # パス�撈[ド敞插擣功
         $user->setcookie( $sow->{'setcookie'} );
     }
     elsif ( ( $matchpw < 0 ) && ( $query->{'pwd'} ne '' ) ) {
 
-        # ユーザーデータ新規作成
+        # ユ拏ザ拏デ拏タ抃規晧擣
         $user->createuser( $query->{'uid'}, $query->{'pwd'} );
         $user->setcookie( $sow->{'setcookie'} );
     }

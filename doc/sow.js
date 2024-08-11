@@ -193,10 +193,10 @@ function getSowFeedUrl() {
 	var title = document.title;
 
 	// もうちょっとエレガントなのがあってもいい気がするけど。
-	if ((url.indexOf("vid=") < 0) || (url.indexOf("#newsay") < 0)) {
+	if ((url.indexOf("vid=") < 0) || (url.indexOf("#newinfo") < 0)) {
 		return false;
 	}
-	url = url.replace(/cgi\?/, "cgi?cmd=rss&").replace(/#newsay/, "");
+	url = url.replace(/cgi\?/, "cgi?cmd=rss&").replace(/#newinfo/, "");
 
 	getSowFeed(url, title, 0);
 }
@@ -372,7 +372,7 @@ function reloadSowFeed() {
 	clearTimeout(sowFeedTimer);
 	var url = document.URL;
 	var title = document.title;
-	url = url.replace(/cgi\?/, "cgi?cmd=rss&").replace(/#newsay/, "");
+	url = url.replace(/cgi\?/, "cgi?cmd=rss&").replace(/#newinfo/, "");
 	newLogFlag = false;
 	logNumbers = 0;
 	getSowFeed(url, title, 0);

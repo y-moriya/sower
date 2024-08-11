@@ -98,23 +98,19 @@ _HTML_
         # 降順
         if ( $modesingle == 0 ) {
             print
-"<p id=\"newinfo\" class=\"newinfo\"><span id=\"newinfomes\">新着発言はありません。</span><a href=\"#newsay\" id=\"reloadlink\" onclick=\"reloadSowFeed();return false;\">RELOAD</a><img src=\"$cfg->{'DIR_IMG'}/ajax-loader.gif\" style=\"display: none;\"><a href=\"$link&logid=$logid&move=next\" id=\"getnewloglink\" onclick=\"getNewLog(this);return false;\"></a><span class=\"new_date\" id=\"newinfotime\">最終取得時刻 --:--:--</span></p>\n";
+"<p id=\"newinfo\" class=\"newinfo\"><span id=\"newinfomes\">新着発言はありません。</span><a href=\"#newinfo\" id=\"reloadlink\" onclick=\"reloadSowFeed();return false;\">RELOAD</a><img src=\"$cfg->{'DIR_IMG'}/ajax-loader.gif\" style=\"display: none;\"><a href=\"$link&logid=$logid&move=next\" id=\"getnewloglink\" onclick=\"getNewLog(this);return false;\"></a><span class=\"new_date\" id=\"newinfotime\">最終取得時刻 --:--:--</span></p>\n";
         }
         my $i;
         for ( $i = $#$logs ; $i >= 0 ; $i-- ) {
-            my $newsay = 0;
-            $newsay = 1 if ( $i == 0 );
             my $log =
               $logfile->{'logfile'}->{'file'}->read( $logs->[$i]->{'pos'} );
-            &SWHtmlVlogSinglePC::OutHTMLSingleLogPC( $sow, $vil, $log, $i, $newsay, \%anchor, $modesingle );
+            &SWHtmlVlogSinglePC::OutHTMLSingleLogPC( $sow, $vil, $log, $i, \%anchor, $modesingle );
         }
     }
     else {
         # 昇順
         my $i;
         for ( $i = 0 ; $i < @$logs ; $i++ ) {
-            my $newsay = 0;
-            $newsay = 1 if ( ( $i == $#$logs ) && ( $modesingle == 0 ) );
             my $log =
               $logfile->{'logfile'}->{'file'}->read( $logs->[$i]->{'pos'} );
             my $logid = $log->{'logid'};
@@ -135,7 +131,7 @@ _HTML_
                 print
 "<p id=\"readmore\" class=\"readmore\"><a href=\"$link&logid=$logid&move=prev\" onclick=\"getMoreLog(this);return false;\">もっと読む</a><img id=\"morelog-ajax-loader\" src=\"$cfg->{'DIR_IMG'}/ajax-loader.gif\" style=\"display: none;\"></p>\n\n";
             }
-            &SWHtmlVlogSinglePC::OutHTMLSingleLogPC( $sow, $vil, $log, $i, $newsay, \%anchor, $modesingle );
+            &SWHtmlVlogSinglePC::OutHTMLSingleLogPC( $sow, $vil, $log, $i, \%anchor, $modesingle );
             if ( $i == $#$logs ) {
 
                 # TODO: できればもっと頭のいい処理にしたい
@@ -173,7 +169,7 @@ _HTML_
                 }
                 if ( $modesingle == 0 ) {
                     print
-"<p id=\"newinfo\" class=\"newinfo\"><span id=\"newinfomes\">新着発言はありません。</span><a href=\"#newsay\" id=\"reloadlink\" onclick=\"reloadSowFeed();return false;\">RELOAD</a><img src=\"$cfg->{'DIR_IMG'}/ajax-loader.gif\" style=\"display: none;\"><a href=\"$link&logid=$logid&move=next\" id=\"getnewloglink\" onclick=\"getNewLog(this);return false;\"></a><span class=\"new_date\" id=\"newinfotime\">最終取得時刻 --:--:--</span></p>\n";
+"<p id=\"newinfo\" class=\"newinfo\"><span id=\"newinfomes\">新着発言はありません。</span><a href=\"#newinfo\" id=\"reloadlink\" onclick=\"reloadSowFeed();return false;\">RELOAD</a><img src=\"$cfg->{'DIR_IMG'}/ajax-loader.gif\" style=\"display: none;\"><a href=\"$link&logid=$logid&move=next\" id=\"getnewloglink\" onclick=\"getNewLog(this);return false;\"></a><span class=\"new_date\" id=\"newinfotime\">最終取得時刻 --:--:--</span></p>\n";
                 }
             }
         }

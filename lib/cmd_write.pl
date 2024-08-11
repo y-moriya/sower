@@ -45,7 +45,7 @@ sub CmdWrite {
     # HTTP/HTML出力
     my $reqvals = &SWBase::GetRequestValues($sow);
     my $link    = &SWBase::GetLinkValues( $sow, $reqvals );
-    $link = "$cfg->{'URL_SW'}/$cfg->{'FILE_SOW'}?$link#newsay";
+    $link = "$cfg->{'URL_SW'}/$cfg->{'FILE_SOW'}?$link#newinfo";
 
     $sow->{'http'}->{'location'} = "$link";
     $sow->{'http'}->outheader();    # HTTPヘッダの出力
