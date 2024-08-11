@@ -563,8 +563,6 @@ sub OutHTMLTurnNavi {
     $memolinks = "[$linkmemo/$linkmemohist] / " if ( $vil->{'noactmode'} <= 1 );
     $linklog   = 'ログ'
       if ( ( $query->{'cmd'} eq '' ) || ( $query->{'cmd'} eq 'vinfo' ) );
-    my $linkform = "<a href=\"$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}?$linknew#newsay\">発言欄へ</a>";
-    $linkform = '発言欄へ' if ( $vil->{'turn'} > $vil->{'epilogue'} );
 
     if (   ( $position > 0 )
         && ( $sow->{'turn'} <= $vil->{'epilogue'} )
@@ -578,7 +576,7 @@ sub OutHTMLTurnNavi {
 <a href="#" id="hide_bottom_page_link" style="display: none;" onclick="togglePageLinks('bottom', 'hide'); return false;">ページリンクを隠す</a>
 _HTML_
         &OutHTMLPageNaviPC( $sow, $vil, $logs, $list, $rows );
-        print "$memolinks$linkform\n";
+        print "$memolinks\n";
         print "</p>\n\n";
     }
 
@@ -621,8 +619,12 @@ _HTML_
         }
     }
 
+    my $linkform = "/ <a href=\"$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}?$linknew#newinfo\">発言欄へ</a>";
+    $linkform = '' if ( $vil->{'turn'} > $vil->{'epilogue'} );
+
     print <<"_HTML_";
 / <a href="$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}?$linknew">最新</a>
+$linkform
 </p>
 
 _HTML_
@@ -639,7 +641,7 @@ _HTML_
 <a href="#" id="hide_upper_page_link" style="display: none;" onclick="togglePageLinks('upper', 'hide'); return false;">ページリンクを隠す</a>
 _HTML_
         &OutHTMLPageNaviPC( $sow, $vil, $logs, $list, $rows );
-        print "$memolinks$linkform\n";
+        print "$memolinks\n";
         print "</p>\n\n";
     }
 

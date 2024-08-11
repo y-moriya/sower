@@ -136,7 +136,7 @@ _HTML_
             my $vil = SWFileVil->new( $sow, $_->{'vid'} );
             $vil->readvil();
             my $linkvalue = &SWBase::GetLinkValues( $sow, $reqvals );
-            print "<li><a href=\"$urlsow?$linkvalue#newsay\">$_->{'vid'}‘º $vil->{'vname'}</a> $_->{'chrname'}</li>\n";
+            print "<li><a href=\"$urlsow?$linkvalue#newinfo\">$_->{'vid'}‘º $vil->{'vname'}</a> $_->{'chrname'}</li>\n";
             $vil->closevil();
         }
         print "<li>Œ»İQ‰Á’†‚Ì‘º‚Í‚ ‚è‚Ü‚¹‚ñB</li>\n" if ( @$entriedvils == 0 );
@@ -227,7 +227,7 @@ _HTML_
             $liveday++ if ( $_->{'live'} ne 'live' );
             my $rolenametext = "($rolename->[$_->{'role'}])";
             $rolenametext = '' if ( $_->{'role'} < 0 );
-            print "<li><a href=\"$urlsow?$linkvalue#newsay\">$_->{'vid'} $_->{'vname'}</a><br$net>y"
+            print "<li><a href=\"$urlsow?$linkvalue#newinfo\">$_->{'vid'} $_->{'vname'}</a><br$net>y"
               . $winstr[ $_->{'win'} + 1 ]
               . "z $_->{'chrname'}$rolenametextA$liveday$livetext{$_->{'live'}}</li>\n";
         }
@@ -262,7 +262,7 @@ _HTML_
             $reqvals->{'prof'} = '';
             $reqvals->{'vid'}  = $_->{'vid'};
             my $linkvalue = &SWBase::GetLinkValues( $sow, $reqvals );
-            print "<li><a href=\"$urlsow?$linkvalue#newsay\">$_->{'vid'}‘º</a>F$bondtext ‚Æ‰^–½‚ÌãJ‚ğŒ‹‚ñ‚Å‚¢‚½B</li>\n";
+            print "<li><a href=\"$urlsow?$linkvalue#newinfo\">$_->{'vid'}‘º</a>F$bondtext ‚Æ‰^–½‚ÌãJ‚ğŒ‹‚ñ‚Å‚¢‚½B</li>\n";
             $bondcount++;
         }
         print "<li>‰^–½‚ÌãJ‚ğŒ‹‚ñ‚¾‘Šè‚Í‚Ü‚¾‚¢‚Ü‚¹‚ñB</li>\n" if ( $bondcount == 0 );
@@ -297,7 +297,7 @@ _HTML_
             $reqvals->{'prof'} = '';
             $reqvals->{'vid'}  = $_->{'vid'};
             my $linkvalue = &SWBase::GetLinkValues( $sow, $reqvals );
-            print "<li><a href=\"$urlsow?$linkvalue#newsay\">$_->{'vid'}‘º</a>F$lovertext ‚Æˆ¤‚ÌãJ‚ğŒ‹‚ñ‚Å‚¢‚½B</li>\n";
+            print "<li><a href=\"$urlsow?$linkvalue#newinfo\">$_->{'vid'}‘º</a>F$lovertext ‚Æˆ¤‚ÌãJ‚ğŒ‹‚ñ‚Å‚¢‚½B</li>\n";
             $lovercount++;
         }
         print "<li>ˆ¤‚ÌãJ‚ğŒ‹‚ñ‚¾‘Šè‚Í‚Ü‚¾‚¢‚Ü‚¹‚ñB</li>\n" if ( $lovercount == 0 );

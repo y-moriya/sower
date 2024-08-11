@@ -8,32 +8,32 @@ sub CmdCancel {
     my $query = $sow->{'query'};
     my $cfg   = $sow->{'cfg'};
 
-    # データ処理
+    # デ拏タ揶理
     my $vil = &SetDataCmdCancel($sow);
 
-    # HTTP/HTML出力
+    # HTTP/HTML捐力
     my $reqvals = &SWBase::GetRequestValues($sow);
     my $link    = &SWBase::GetLinkValues( $sow, $reqvals );
-    $link = "$cfg->{'URL_SW'}/$cfg->{'FILE_SOW'}?$link#newsay";
+    $link = "$cfg->{'URL_SW'}/$cfg->{'FILE_SOW'}?$link#newinfo";
 
     $sow->{'http'}->{'location'} = "$link";
-    $sow->{'http'}->outheader();    # HTTPヘッダの出力
+    $sow->{'http'}->outheader();    # HTTPヘッダの捐力
     $sow->{'http'}->outfooter();
 }
 
 #----------------------------------------
-# データ処理
+# デ拏タ揶理
 #----------------------------------------
 sub SetDataCmdCancel {
     my $sow   = $_[0];
     my $query = $sow->{'query'};
 
-    # 村データの読み込み
+    # 村デ拏タの読み撼み
     require "$sow->{'cfg'}->{'DIR_LIB'}/file_vil.pl";
     my $vil = SWFileVil->new( $sow, $query->{'vid'} );
     $vil->readvil();
 
-    # リソースの読み込み
+    # リソ拏スの読み撼み
     &SWBase::LoadVilRS( $sow, $vil );
 
     # 発言撤回

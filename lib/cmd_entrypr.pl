@@ -45,7 +45,7 @@ sub CmdEntryPreview {
         my $cfg     = $sow->{'cfg'};
         my $reqvals = &SWBase::GetRequestValues($sow);
         my $link    = &SWBase::GetLinkValues( $sow, $reqvals );
-        $link = "$cfg->{'URL_SW'}/$cfg->{'FILE_SOW'}?$link#newsay";
+        $link = "$cfg->{'URL_SW'}/$cfg->{'FILE_SOW'}?$link#newinfo";
 
         $sow->{'http'}->{'location'} = "$link";
         $sow->{'http'}->outheader();    # HTTPƒwƒbƒ_‚Ìo—Í
