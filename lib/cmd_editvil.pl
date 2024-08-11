@@ -40,7 +40,7 @@ sub SetDataCmdEditVil {
     my $oldinfo;
     foreach (@villabel) {
         $oldinfo{$_} = $vil->{$_};
-        last if ( $_ eq 'nosudden' );
+        last if ( $_ eq 'timestamp' );
     }
 
     # 村編集時値チェック
@@ -147,7 +147,7 @@ sub SetDataCmdEditVil {
             }
             $mes = $mes . "$diff<br$net>";
         }
-        last if ( $_ eq 'nosudden' );
+        last if ( $_ eq 'timestamp' );
     }
     $mes = $mes . "と言いつつ何も変更されませんでした。" if ( $df == 0 );
     my $logfile = SWBoa->new( $sow, $vil, $vil->{'turn'}, 0 );
