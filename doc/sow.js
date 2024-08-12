@@ -523,12 +523,12 @@ $(document).ready(function () {
 		const submitMonologue = document.getElementById(`submit_monologue_${type}`);
 
 		function updateTextareaStyle() {
-			if (monologueRadio.checked) {
+			if (monologueRadio && monologueRadio.checked) {
 				textarea.classList.add('monologue');
 				textarea.classList.remove('normal');
 				submitNormal.style.display = 'none';
 				submitMonologue.style.display = 'inline';
-			} else {
+			} else if (normalRadio && normalRadio.checked) {
 				textarea.classList.add('normal');
 				textarea.classList.remove('monologue');
 				submitNormal.style.display = 'inline';
@@ -536,8 +536,12 @@ $(document).ready(function () {
 			}
 		}
 
-		normalRadio.addEventListener('change', updateTextareaStyle);
-		monologueRadio.addEventListener('change', updateTextareaStyle);
+		if (normalRadio) {
+			normalRadio.addEventListener('change', updateTextareaStyle);
+		}
+		if (monologueRadio) {
+			monologueRadio.addEventListener('change', updateTextareaStyle);
+		}
 
 		// èâä˙èÛë‘Çê›íË
 		updateTextareaStyle();

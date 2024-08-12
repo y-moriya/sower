@@ -495,18 +495,22 @@ _HTML_
     }
 
     print <<"_HTML_";
-      <textarea id="textarea_$type" name="mes" cols="30" rows="5" onkeyup="showCount(value, this);" onmouseup="showCount(value, this);" data-textarea-type="$cmd">$text</textarea><br$net>
+      <textarea id="textarea_$type" name="mes" cols="30" rows="5" onkeyup="showCount(value, this);" onmouseup="showCount(value, this);" data-textarea-type="$cmd">$text$curpl->{'draftmestype'}</textarea><br$net>
       <input type="hidden" name="cmd" value="$cmd"$net>$hidden
       <div style="float: left;">
       <span id="submit_normal_$type"><input type="submit" value="$htmlsay->{'buttonlabel'}" data-submit-type="$cmd"$disabled$net>$htmlsay->{'saycnttext'}</span>
 _HTML_
 
-    my $unit =
-      $sow->{'basictrs'}->{'SAYTEXT'}->{ $sow->{'cfg'}->{'COUNTS_SAY'}->{ $vil->{'saycnttype'} }->{'COUNT_TYPE'} }
-      ->{'UNIT_SAY'};
-    if ( CanTsay( $sow, $vil, $curpl ) == 1 ) {
+    if ( CanTsay( $sow, $vil, $curpl ) == 1 && ( $type eq 'character' || $type eq 'guest' ) ) {
+        my $unit =
+          $sow->{'basictrs'}->{'SAYTEXT'}->{ $sow->{'cfg'}->{'COUNTS_SAY'}->{ $vil->{'saycnttype'} }->{'COUNT_TYPE'} }
+          ->{'UNIT_SAY'};
+        $tsaycnttext = " ‚ ‚Æ$curpl->{'tsay'}$unit";
+        if ( $type eq 'guest' ) {
+            $tsaycnttext = '';
+        }
         print <<"_HTML_";
-      <span id="submit_monologue_$type"><input name="submit_type" type="submit" value="$sow->{'textrs'}->{'CAPTION_TSAY_PC'}" data-submit-type="tsay"$disabled$net> ‚ ‚Æ$curpl->{'tsay'}$unit</span>
+      <span id="submit_monologue_$type"><input name="submit_type" type="submit" value="$sow->{'textrs'}->{'CAPTION_TSAY_PC'}" data-submit-type="tsay"$disabled$net>$tsaycnttext</span>
 _HTML_
 
     }

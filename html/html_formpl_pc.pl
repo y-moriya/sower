@@ -1297,11 +1297,6 @@ _HTML_
 
     &SWHtmlPC::OutHTMLSayTextAreaPC( $sow, $vil, 'writepr', \%htmlsay, 'guest' );
 
-    if ( ( $vil->isepilogue() == 0 ) || ( $cfg->{'ENABLED_TSAY_EP'} > 0 ) ) {    # エピではない／エピ独り言有効
-        print
-"　<input type=\"submit\" name=\"submit_type\" value=\"$sow->{'textrs'}->{'CAPTION_TSAY_PC'}\" data-submit-type=\"tsay\"$disabled$net>";
-    }
-
     print <<"_HTML_";
       <input type="hidden" name="$writemode" value="on"$net>
     </div>
