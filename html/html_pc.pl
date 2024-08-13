@@ -199,15 +199,22 @@ _HTML_
 sub OutHTMLFooterPC {
     my $sow = $_[0];
 
-    my $net    = $sow->{'html'}->{'net'};
-    my $atr_id = $sow->{'html'}->{'atr_id'};
+    my $net          = $sow->{'html'}->{'net'};
+    my $atr_id       = $sow->{'html'}->{'atr_id'};
+    my $version_file = $sow->{'cfg'}->{'VERSION_FILE'};
+    my $commit_hash  = do {
+        local $/;
+        open my $fh, '<', $version_file or die "Could not open $version_file: $!";
+        <$fh>;
+    };
+    chomp $commit_hash;
 
     print <<"_HTML_";
 <div class="inframe">
 <p id="popupmsg"></p>
 <p class="popup"></p>
 <address>
-$sow->{'VERSION_SW'} <a href="$sow->{'URL_AUTHOR'}">$sow->{'COPY_AUTHOR'}</a><br$net>
+$sow->{'VERSION_SW'}-$commit_hash <a href="$sow->{'URL_AUTHOR'}">$sow->{'COPY_AUTHOR'}</a><br$net>
 forked from SWBBS V2.00 Beta8 <a href="http://asbntby.sakura.ne.jp/">‚ ‚¸/asbntby</a><br$net>
 _HTML_
 
