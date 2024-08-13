@@ -282,15 +282,15 @@ sub getquery {
         next if ( ( !defined($key) ) || ( $key eq '' ) );
 
         $key =~ s/%([a-fA-F0-9][a-fA-F0-9])/pack("H2", $1)/eg;
-        $key =~ s/\W/ /g;    #a-zA-Z0-9_ 以外の文字を無効化
+        $key =~ s/\W/ /g;                                        #a-zA-Z0-9_ 以外の文字を無効化
 
         $data = '' if ( !defined($data) );
-        $data =~ tr/\?/ /;    # '?'を空白に変換
+        $data =~ tr/\?/ /;                                        # '?'を空白に変換
         $data =~ tr/+/ /;
         $data =~ s/%([a-fA-F0-9][a-fA-F0-9])/pack("H2", $1)/eg;
         my ($datalen) = length($data);
-        $data =~ s/&#13\;/\n/g;      # #13のみ改行に変換（&#13; を処理できない端末対策）
-        $data =~ s/\[\[br\]\]/\n/g;  # #13のみ改行に変換（&#13; を空白に変換してしまう端末対策）
+        $data =~ s/&#13\;/\n/g;                                   # #13のみ改行に変換（&#13; を処理できない端末対策）
+        $data =~ s/\[\[br\]\]/\n/g;                               # #13のみ改行に変換（&#13; を空白に変換してしまう端末対策）
         &SWBase::EscapeChrRef( \$data );
 
         if (   ( defined( $sow->{'QUERY_INVALID'}->{$key} ) )
@@ -362,7 +362,7 @@ sub getcookie {
             $_ =~ /=/;
             my $name  = $`;
             my $value = $';
-            $value =~ tr/\?/ /;    # '?'を空白に変換
+            $value =~ tr/\?/ /;                                        # '?'を空白に変換
             $value =~ tr/+/ /;
             $value =~ s/%([a-fA-F0-9][a-fA-F0-9])/pack("H2", $1)/eg;
             $cookie{$name} = $value;

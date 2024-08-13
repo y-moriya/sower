@@ -40,7 +40,7 @@ sub outheader {
     $self->{'outheader'} = 'output';
 
     print <<"_HTML_";
-<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!DOCTYPE html>
 <html lang="ja">
 _HTML_
 
