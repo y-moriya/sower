@@ -502,7 +502,7 @@ _HTML_
     }
 
     print <<"_HTML_";
-      <textarea id="textarea_$type" name="mes" cols="30" rows="5" onkeyup="showCount(value, this);" onmouseup="showCount(value, this);" data-textarea-type="$cmd">$text$curpl->{'draftmestype'}</textarea><br$net>
+      <textarea id="textarea_$type" name="mes" cols="30" rows="5" onkeyup="showCount(value, this);" onmouseup="showCount(value, this);" data-textarea-type="$cmd">$text</textarea><br$net>
       <input type="hidden" name="cmd" value="$cmd"$net>$hidden
       <div style="float: left;">
       <span id="submit_normal_$type"><input type="submit" value="$htmlsay->{'buttonlabel'}" data-submit-type="$cmd"$disabled$net>$htmlsay->{'saycnttext'}</span>
