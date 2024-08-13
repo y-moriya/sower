@@ -24,3 +24,5 @@ config_remote.pl
 
 ftp_info.stg.txt
 ftp_info.prod.txt
+
+version.txt

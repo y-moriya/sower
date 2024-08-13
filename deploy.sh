@@ -23,6 +23,12 @@ if [ "$1" = "--stg" -a "$BRANCH" != "staging" ]; then
     exit 1
 fi
 
+# Gitのコミットハッシュ(short)を取得
+COMMIT_HASH=$(git rev-parse --short HEAD)
+
+# バージョン情報ファイルに書き込む
+echo "$COMMIT_HASH" > version.txt
+
 # 認証情報の読み込み
 FTP_USER=$(head -n 1 $CREDS_FILE)
 FTP_PASS=$(head -n 2 $CREDS_FILE | tail -n 1)
@@ -64,7 +70,7 @@ fi
 
 # アップロード
 lftp -u $FTP_USER,$FTP_PASS $FTP_HOST <<EOF
-mirror $DRYRUN -R -I '*.pl' -I '*.cgi' $EX_ARGS ./ $FTP_DIR
+mirror $DRYRUN -R -I '*.pl' -I '*.cgi' -I 'version.txt' $EX_ARGS ./ $FTP_DIR
 mirror $DRYRUN -R -x 'img/' ./doc/ $FTP_DIR
 mirror $DRYRUN -R ./doc/img/ $FTP_DIR/img/
 bye

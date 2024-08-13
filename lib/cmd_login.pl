@@ -1,17 +1,17 @@
 package SWCmdLogin;
 
 #----------------------------------------
-# �揀Oイン
+# ログイン
 #----------------------------------------
 sub CmdLogin {
     my $sow   = $_[0];
     my $query = $sow->{'query'};
     my $cfg   = $sow->{'cfg'};
 
-    # デ拏タ揶理
+    # データ処理
     &SetDataCmdLogin($sow);
 
-    # HTTP捐力
+    # HTTP出力
     my $reqvals = &SWBase::GetRequestValues($sow);
     $reqvals->{'uid'} = '';
     $reqvals->{'pwd'} = '';
@@ -29,7 +29,7 @@ sub CmdLogin {
 }
 
 #----------------------------------------
-# デ拏タ揶理
+# データ処理
 #----------------------------------------
 sub SetDataCmdLogin {
     my $sow   = $_[0];
@@ -39,12 +39,12 @@ sub SetDataCmdLogin {
     my $matchpw = $user->login();
     if ( $matchpw > 0 ) {
 
-        # パス�撈[ド敞插擣功
+        # パスワード称号成功
         $user->setcookie( $sow->{'setcookie'} );
     }
     elsif ( ( $matchpw < 0 ) && ( $query->{'pwd'} ne '' ) ) {
 
-        # ユ拏ザ拏デ拏タ抃規晧擣
+        # ユーザーデータ新規作成
         $user->createuser( $query->{'uid'}, $query->{'pwd'} );
         $user->setcookie( $sow->{'setcookie'} );
     }
