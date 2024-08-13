@@ -429,6 +429,7 @@ sub GetConfig {
         URL_BOT      => 'https://mastodon-japan.net/@sower',    # 通知ボットのURL
         NAME_BOT     => '通知bot(試験運用中)',                         # 通知ボットの名前
         SERVER_INFO  => 'ここは人狼物語＠リア充本サーバーです。',                  # サーバー情報
+        VERSION_FILE => 'version.txt',                          # バージョン情報ファイル
 
         MAX_VILLAGES           => 5,                            # 最大同時稼働村数
         TIMEOUT_SCRAP          => 42,                           # 廃村期限
