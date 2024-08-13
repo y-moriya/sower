@@ -70,7 +70,7 @@ fi
 
 # アップロード
 lftp -u $FTP_USER,$FTP_PASS $FTP_HOST <<EOF
-mirror $DRYRUN -R -I '*.pl' -I '*.cgi' $EX_ARGS ./ $FTP_DIR
+mirror $DRYRUN -R -I '*.pl' -I '*.cgi' -I 'version.txt' $EX_ARGS ./ $FTP_DIR
 mirror $DRYRUN -R -x 'img/' ./doc/ $FTP_DIR
 mirror $DRYRUN -R ./doc/img/ $FTP_DIR/img/
 bye
