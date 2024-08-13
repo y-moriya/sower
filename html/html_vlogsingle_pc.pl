@@ -155,8 +155,22 @@ sub OutHTMLSingleLogSayPC {
 <div class="$messtyle[$log->{'mestype'}]">
 _HTML_
 
+    # 名前にフィルターリンクを付与
+    my $reqvals = &SWBase::GetRequestValues($sow);
+    my $link    = &SWBase::GetLinkValues( $sow, $reqvals );
+    my $amp     = $sow->{'html'}->{'amp'};
+    my $target  = $sow->{'html'}->{'target'};
+    $link = "$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}?$link";
+    $pno  = $logpl->{'pno'};
+    $linkedname =
+      "<a class=\"anchor\" $atr_id=\"$logid\" $target href=\"$link$amp" . "pno=$logpl->{'pno'}\">$chrname</a>";
+
+    if ( $pno < 0 ) {
+        $linkedname = "<a class=\"anchor\" $atr_id=\"$logid\">$chrname</a>";
+    }
+
     # 名前表示（上配置）
-    print "  <h3 class=\"mesname\">$logmestypetext <a class=\"anchor\" $atr_id=\"$logid\">$chrname</a>$showid</h3>\n\n"
+    print "  <h3 class=\"mesname\">$logmestypetext $linkedname$showid</h3>\n\n"
       if ( $charset->{'LAYOUT_NAME'} eq 'top' );
 
     # 顔画像の表示
@@ -169,7 +183,7 @@ _HTML_
 _HTML_
 
     # 名前表示（右配置）
-    print "    <h3 class=\"mesname\">$logmestypetext <a class=\"anchor\" $atr_id=\"$logid\">$chrname</a>$showid</h3>\n"
+    print "    <h3 class=\"mesname\">$logmestypetext $linkedname$showid</h3>\n"
       if ( $charset->{'LAYOUT_NAME'} ne 'top' );
 
     # 発言の表示
