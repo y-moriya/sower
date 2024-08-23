@@ -807,6 +807,52 @@ span.mes_number:hover {
   margin: 0 0 1em 0;
 }
 
+/* 通常発言／独り言切り替えボタン ----------*/
+
+.radio-btn-container {
+  width: 200px;
+  margin-left: 0;
+}
+
+.radio-btn-group {
+  display: flex;
+}
+.radio-btn-group label {
+  flex: 1;
+  padding: 5px 5px 0 5px;
+  text-align: center;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  margin: 0 auto 0 0;
+  background-color: #f0f0f0;
+  font-size: 0.9em;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+.radio-btn-group input[type="radio"] {
+  display: none;
+}
+.radio-btn-group input[type="radio"]:checked + label {
+  font-weight: bold;
+}
+.radio-btn-group input[type="radio"].say_type_normal:checked + label {
+  background-color: #fff;
+}
+.radio-btn-group input[type="radio"].say_type_monologue:checked + label {
+  background-color: #717171;
+  color: #fff;
+}
+
+textarea.normal {
+  background-color: #fff;
+  color: #000;
+}
+
+textarea.monologue {
+  background-color: #717171;
+  color: #fff;
+}
+
 /* 発言入力欄のキャラ画像 ----------*/
 
 .formpl_chrimg {
@@ -1142,48 +1188,4 @@ span.mes_number:hover {
 .popup.js_active {
   transform: translateY(0%);
   opacity: 1;
-}
-
-.radio-btn-container {
-  width: 200px; /* 幅を指定 */
-  margin-left: 0; /* 左寄せ */
-}
-
-.radio-btn-group {
-  display: flex;
-}
-.radio-btn-group label {
-  flex: 1;
-  padding: 5px 5px 0 5px; /* 下側のパディングを0にする */
-  text-align: center;
-  cursor: pointer;
-  border: 1px solid #ccc;
-  margin: 0 auto 0 0; /* 下側のマージンを0にする */
-  background-color: #f0f0f0;
-  font-size: 0.9em; /* フォントサイズを小さくする */
-  border-top-left-radius: 5px; /* 上辺の角を丸くする */
-  border-top-right-radius: 5px; /* 上辺の角を丸くする */
-}
-.radio-btn-group input[type="radio"] {
-  display: none;
-}
-.radio-btn-group input[type="radio"]:checked + label {
-  font-weight: bold;
-}
-.radio-btn-group input[type="radio"].say_type_normal:checked + label {
-  background-color: #fff; /* 通常が選択されたときの色 */
-}
-.radio-btn-group input[type="radio"].say_type_monologue:checked + label {
-  background-color: #717171; /* 独り言が選択されたときの色 */
-  color: #fff; /* テキストの色を白に */
-}
-
-textarea.normal {
-  background-color: #fff;
-  color: #000;
-}
-
-textarea.monologue {
-  background-color: #717171;
-  color: #fff;
 }

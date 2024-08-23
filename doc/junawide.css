@@ -717,6 +717,52 @@ span.mes_number:hover {
   margin: 0px 0px 12px 0px;
 }
 
+/* 通常発言／独り言切り替えボタン ----------*/
+
+.radio-btn-container {
+  width: 200px;
+  margin-left: 0;
+}
+
+.radio-btn-group {
+  display: flex;
+}
+.radio-btn-group label {
+  flex: 1;
+  padding: 5px 5px 0 5px;
+  text-align: center;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  margin: 0 auto 0 0;
+  background-color: #f0f0f0;
+  font-size: 0.9em;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+.radio-btn-group input[type="radio"] {
+  display: none;
+}
+.radio-btn-group input[type="radio"]:checked + label {
+  font-weight: bold;
+}
+.radio-btn-group input[type="radio"].say_type_normal:checked + label {
+  background-color: #fff;
+}
+.radio-btn-group input[type="radio"].say_type_monologue:checked + label {
+  background-color: #d1d1d1;
+  color: #000;
+}
+
+textarea.normal {
+  background-color: #fff;
+  color: #000;
+}
+
+textarea.monologue {
+  background-color: #d1d1d1;
+  color: #fff;
+}
+
 /* 発言入力欄（共通） ----------*/
 
 .formpl_common {
