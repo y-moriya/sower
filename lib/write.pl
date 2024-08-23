@@ -136,6 +136,7 @@ sub ExecuteCmdWrite {
         $writepl->{'limitentrydt'} = $sow->{'time'} + $timeout * 24 * 60 * 60
           if ( $writepl->{'limitentrydt'} > 0 );
         $writepl->{'lastwritepos'} = $lastwritepos;
+        $writepl->{'draftmestype'} = 0;
 
         $vil->writevil();
     }

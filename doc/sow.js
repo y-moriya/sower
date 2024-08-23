@@ -539,7 +539,7 @@ $(document).ready(function () {
 		if (normalRadio) {
 			normalRadio.addEventListener('change', updateTextareaStyle);
 		}
-		if (monologueRadio) {
+		else if (monologueRadio) {
 			monologueRadio.addEventListener('change', updateTextareaStyle);
 		}
 
