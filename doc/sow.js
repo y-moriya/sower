@@ -161,6 +161,8 @@ function icoChange() {
 		s += ".png";
 	} else if (s.match("troopers")) {
 		s += ".png";
+	} else if (s.match("tasyukoji")) {
+		s += ".png";
 	}
 	document.charaImg.src = imgDir + s;
 }
