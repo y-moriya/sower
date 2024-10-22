@@ -163,6 +163,8 @@ function icoChange() {
 		s += ".png";
 	} else if (s.match("tasyukoji")) {
 		s += ".png";
+	} else if (s.match("emoricu")) {
+		s += ".png";
 	}
 	document.charaImg.src = imgDir + s;
 }
