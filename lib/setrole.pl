@@ -256,15 +256,15 @@ sub GetSetRoleTableWBBS_G {
 
     # l˜T
     $roles->[ $sow->{'ROLEID_WOLF'} ]++;
-    $roles->[ $sow->{'ROLEID_WOLF'} ]++ if ( $plcnt >= 10 );
+    $roles->[ $sow->{'ROLEID_WOLF'} ]++ if ( $plcnt >= 8 );
     $roles->[ $sow->{'ROLEID_WOLF'} ]++ if ( $plcnt >= 13 );
-    $roles->[ $sow->{'ROLEID_WOLF'} ]++ if ( $plcnt >= 20 );
+    $roles->[ $sow->{'ROLEID_WOLF'} ]++ if ( $plcnt >= 21 );
 
     # è‚¢Žt
     $roles->[ $sow->{'ROLEID_SEER'} ]++;
 
     # —ì”\ŽÒ
-    $roles->[ $sow->{'ROLEID_MEDIUM'} ]++ if ( $plcnt >= 10 );
+    $roles->[ $sow->{'ROLEID_MEDIUM'} ]++ if ( $plcnt >= 9 );
 
     # ‹¶l
     $roles->[ $sow->{'ROLEID_POSSESS'} ]++ if ( $plcnt >= 11 );
@@ -473,7 +473,7 @@ sub SetFreeMasonHistory {
     my ( $sow, $vil, $roleid ) = @_;
     my $textrs = $sow->{'textrs'};
 
-    my $fm = &GetPlRole( $sow, $vil, $roleid );
+    my $fm     = &GetPlRole( $sow, $vil, $roleid );
     my $namefm = $textrs->{'ROLENAME'}->[$roleid];
     my $fmplsrc;
     foreach $fmplsrc (@$fm) {
