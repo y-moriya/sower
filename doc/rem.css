@@ -413,7 +413,7 @@ address {
   font-size: 12px;
   text-align: right;
   width: auto;
-  height: 35px;
+  height: auto;
   color: #997;
 }
 
@@ -433,7 +433,7 @@ address {
   vertical-align: top;
   width: auto;
   margin: 0;
-  padding: 0px 10px 15px 10px;
+  padding: 15px 10px 15px 10px;
 }
 
 .mes_text_monospace {
@@ -463,113 +463,93 @@ address {
   /* for bug the IE ? */
 }
 
-.mes_nom .mesname {
-  background: #000 url("img/remcss/remmestw.png") 0% 100% no-repeat;
-}
-
-.mes_wolf .mesname {
-  background: #000 url("img/remcss/remmestr.png") 0% 100% no-repeat;
-}
-
-.mes_think .mesname {
-  background: #000 url("img/remcss/remmestg.png") 0% 100% no-repeat;
-}
-
-.mes_del .mesname {
-  background: #000 url("img/remcss/remmestg.png") 0% 100% no-repeat;
-}
-
-.mes_que .mesname {
-  background: #000 url("img/remcss/remmestg.png") 0% 100% no-repeat;
-}
-
-.mes_grave .mesname {
-  background: #000 url("img/remcss/remmestb.png") 0% 100% no-repeat;
-}
-
-.mes_sympa .mesname {
-  background: #000 url("img/remcss/remmestm.png") 0% 100% no-repeat;
-}
-
-.mes_bat .mesname {
-  background: #000 url("img/remcss/remmesty.png") 0% 100% no-repeat;
-}
-
-.mes_guest .mesname {
-  background: #000 url("img/remcss/remmestw.png") 0% 100% no-repeat;
-}
-
-.mes_lovers .mesname {
-  background: #000 url("img/remcss/remmestp.png") 0% 100% no-repeat;
-}
-
 .mes_nom .mes_text,
 .mes_nom .mes_text_monospace,
 .mes_nom .mes_text_loud {
-  background: #ffffff url("img/remcss/remmesbw.png") 0% 100% no-repeat;
+  background-color: #ffffff;
+  border: 1px solid #ffffff;
+  border-radius: 10px;
   color: #331;
 }
 
 .mes_wolf .mes_text,
 .mes_wolf .mes_text_monospace,
 .mes_wolf .mes_text_loud {
-  background: #703120 url("img/remcss/remmesbr.png") 0% 100% no-repeat;
+  background-color: #703120;
+  border: 1px solid #703120;
+  border-radius: 10px;
   color: #cc6;
 }
 
 .mes_think .mes_text,
 .mes_think .mes_text_monospace,
 .mes_think .mes_text_loud {
-  background: #414141 url("img/remcss/remmesbg.png") 0% 100% no-repeat;
+  background-color: #414141;
+  border: 1px solid #414141;
+  border-radius: 10px;
   color: #cca;
 }
 
 .mes_del .mes_text,
 .mes_del .mes_text_monospace,
 .mes_del .mes_text_loud {
-  background: #414141 url("img/remcss/remmesbg.png") 0% 100% no-repeat;
+  background-color: #414141;
+  border: 1px solid #414141;
+  border-radius: 10px;
   color: #cca;
 }
 
 .mes_que .mes_text,
 .mes_que .mes_text_monospace,
 .mes_que .mes_text_loud {
-  background: #414141 url("img/remcss/remmesbg.png") 0% 100% no-repeat;
+  background-color: #414141;
+  border: 1px solid #414141;
+  border-radius: 10px;
   color: #cca;
 }
 
 .mes_grave .mes_text,
 .mes_grave .mes_text_monospace,
 .mes_grave .mes_text_loud {
-  background: #1f3040 url("img/remcss/remmesbb.png") 0% 100% no-repeat;
+  background-color: #1f3040;
+  border: 1px solid #1f3040;
+  border-radius: 10px;
   color: #cca;
 }
 
 .mes_sympa .mes_text,
 .mes_sympa .mes_text_monospace,
 .mes_sympa .mes_text_loud {
-  background: #205030 url("img/remcss/remmesbm.png") 0% 100% no-repeat;
+  background-color: #205030;
+  border: 1px solid #205030;
+  border-radius: 10px;
   color: #cca;
 }
 
 .mes_bat .mes_text,
 .mes_bat .mes_text_monospace,
 .mes_bat .mes_text_loud {
-  background: #414219 url("img/remcss/remmesby.png") 0% 100% no-repeat;
+  background-color: #414219;
+  border: 1px solid #414219;
+  border-radius: 10px;
   color: #cca;
 }
 
 .mes_guest .mes_text,
 .mes_guest .mes_text_monospace,
 .mes_guest .mes_text_loud {
-  background: #ffffff url("img/remcss/remmesbw.png") 0% 100% no-repeat;
+  background-color: #ffffff;
+  border: 1px solid #ffffff;
+  border-radius: 10px;
   color: #331;
 }
 
 .mes_lovers .mes_text,
 .mes_lovers .mes_text_monospace,
 .mes_lovers .mes_text_loud {
-  background: #ffe0e0 url("img/remcss/remmesbp.png") 0% 100% no-repeat;
+  background-color: #ffe0e0;
+  border: 1px solid #ffe0e0;
+  border-radius: 10px;
   color: #000;
 }
 
