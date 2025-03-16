@@ -296,7 +296,7 @@ sub GetConfig {
     );
 
     # キャッシュクリアのためファイル名に日付を入れた。
-    my $lastupdate = '20241022';
+    my $lastupdate = '20250316';
 
     my %css_default = (
         TITLE => '標準スタイル',
