@@ -32,9 +32,9 @@ ftp_info.prod.txt
 # バージョン情報
 version.txt
 
-# デプロイログ
-deploy_log/*
-!deploy_log/.gitkeep
+# ログ
+logs/*
+!logs/.gitkeep
 
 # etc
 .todo

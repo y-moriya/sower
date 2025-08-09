@@ -3,9 +3,9 @@
 # スクリプトのあるディレクトリ（ワークスペース配下）を基準にログを保存する
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-# ログ出力の設定（実行日時入りファイル名で ./deploy_log 配下に保存）
-_DEPLOY_TS=$(date '+%Y%m%d_%H%M%S')
-_DEPLOY_LOG_DIR="${SCRIPT_DIR}/deploy_log"
+# ログ出力の設定（実行日付入りファイル名で ./logs 配下に保存。同日実行は追記）
+_DEPLOY_TS=$(date '+%Y%m%d')
+_DEPLOY_LOG_DIR="${SCRIPT_DIR}/logs"
 mkdir -p "$_DEPLOY_LOG_DIR"
 _DEPLOY_LOG_FILE="$_DEPLOY_LOG_DIR/deploy_${_DEPLOY_TS}.log"
 # 以降の標準出力・標準エラー出力をログファイルに tee しつつコンソールにも表示
@@ -80,7 +80,7 @@ else
 fi
 
 # アップロード除外ファイル
-EXCLUDES="_config_local.*.pl .git/ .devcontainer/ .vscode/ data/ doc/ docs/ deploy_log/"
+EXCLUDES="_config_local.*.pl .git/ .devcontainer/ .vscode/ data/ doc/ docs/ logs/"
 EX_ARGS=""
 for EX in $EXCLUDES; do
     EX_ARGS="$EX_ARGS -x $EX"
