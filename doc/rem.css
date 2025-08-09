@@ -131,6 +131,7 @@ address {
 .outframetop {
   margin: 0px auto 0px auto;
   padding: 0px;
+  background: #000;
   width: 750px;
 }
 
