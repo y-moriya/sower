@@ -1,3 +1,4 @@
+# データディレクトリ
 data/*
 !data/lock
 data/log/*
@@ -13,16 +14,27 @@ data/vil/*
 !data/vil
 !data/vil/.gitkeep
 
+# 画像はGitにアップロードしない
 doc/img/*
 !doc/img/.gitkeep
 !img/.gitkeep
-.todo
+
+# 設定ファイル
 _config_local.pl
 _config_local.prod.pl
 _config_local.stg.pl
 config_remote.pl
 
+# FTP情報
 ftp_info.stg.txt
 ftp_info.prod.txt
 
+# バージョン情報
 version.txt
+
+# デプロイログ
+deploy_log/*
+!deploy_log/.gitkeep
+
+# etc
+.todo
