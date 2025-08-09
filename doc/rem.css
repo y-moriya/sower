@@ -153,6 +153,7 @@ address {
 .outframe {
   margin: 0 auto 0 auto;
   padding: 0;
+  background: #000;
   width: 750px;
 }
 
