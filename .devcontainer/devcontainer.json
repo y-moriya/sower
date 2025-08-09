@@ -2,7 +2,7 @@
   "name": "Sower Dockerfile",
   "context": "..",
   "dockerFile": "../Dockerfile",
-  "forwardPorts": [80],
+  "forwardPorts": [8989],
   "customizations": {
     "vscode": {
       "settings": {
@@ -21,7 +21,11 @@
     }
   },
   "postCreateCommand": "chmod +x ./.devcontainer/postCreateCommand.sh && ./.devcontainer/postCreateCommand.sh",
-  "runArgs": ["--name=sower_dev_container"],
+  "runArgs": [
+    "--name=sower_dev_container",
+    "-p",
+    "8989:80"
+  ],
   "mounts": [
     "source=${localWorkspaceFolder}/doc,target=/var/www/html/doc,type=bind"
   ],

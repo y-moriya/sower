@@ -26,3 +26,12 @@ EOF
 source ~/.bashrc
 chmod 755 sow.cgi
 chmod 755 deploy.sh
+
+# version.txt が無ければ、deploy.sh と同様にコミットハッシュを書き込む
+if [ ! -f version.txt ]; then
+    COMMIT_HASH=$(git rev-parse --short HEAD 2>/dev/null || true)
+    if [ -n "$COMMIT_HASH" ]; then
+        echo "$COMMIT_HASH" > version.txt
+        chmod 644 version.txt
+    fi
+fi
