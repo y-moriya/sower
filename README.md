@@ -11,7 +11,7 @@ Use devcontainer.
 
 Rename \_config_local.default.pl to \_config_local.pl
 
-After start container, open: <http://localhost/sower/sow.cgi>
+After start container, open: <http://localhost:8989/sower/sow.cgi>
 
 ## ブランチ運用について
 
@@ -24,11 +24,12 @@ After start container, open: <http://localhost/sower/sow.cgi>
 
 ## Original Readme
 
-<https://github.com/y-moriya/sower/blob/master/docs/readme.txt>
+<https://github.com/y-moriya/sower/blob/main/docs/readme.txt>
 
 ## License
 
-Copyright (c) 2006-2007, AS/asbntby, 2011-2021 euro
+Copyright (c) 2006-2007 AS/asbntby
+Copyright (c) 2011-2025 euro
 
 All rights reserved.
 

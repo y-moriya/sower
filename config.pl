@@ -296,7 +296,7 @@ sub GetConfig {
     );
 
     # キャッシュクリアのためファイル名に日付を入れた。
-    my $lastupdate = '20250316';
+    my $lastupdate = '20250809';
 
     my %css_default = (
         TITLE => '標準スタイル',
@@ -427,10 +427,10 @@ sub GetConfig {
         URL_BBS_PC   => 'https://www.twitter.com/euro_s',       # サポート掲示板のURL
         NAME_BBS_PC  => '@euro_s',                              # サポート掲示板の名前
         URL_DONATE   => 'https://amzn.to/49xmIqi',              # 寄付先のURL
-        NAME_DONATE  => '投げ銭はこちら',                              # 寄付先の名前
+        NAME_DONATE  => '投げ銭はこちら',                        # 寄付先の名前
         URL_BOT      => 'https://mastodon-japan.net/@sower',    # 通知ボットのURL
-        NAME_BOT     => '通知bot(試験運用中)',                         # 通知ボットの名前
-        SERVER_INFO  => 'ここは人狼物語＠リア充本サーバーです。',                  # サーバー情報
+        NAME_BOT     => '通知bot(試験運用中)',                   # 通知ボットの名前
+        SERVER_INFO  => 'ここは人狼物語＠リア充本サーバーです。',   # サーバー情報
         VERSION_FILE => 'version.txt',                          # バージョン情報ファイル
 
         MAX_VILLAGES           => 5,                            # 最大同時稼働村数

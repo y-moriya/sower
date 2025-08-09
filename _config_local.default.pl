@@ -25,7 +25,10 @@ sub GetLocalConfig {
         ENABLED_AUTOVMAKE => 0,
 
         NAME_SW       => '人狼物語',                      # 名前
-        URL_SW        => 'http://localhost/sower',    # 設置するURL（最後の“/”は必要ありません）
+        URL_SW        => 'http://localhost:8989/sower',    # 設置するURL（最後の“/”は必要ありません）
+        SERVER_INFO => <<'EOS',
+ここは人狼物語＠リア充のローカル検証用サーバーです。
+EOS
         MAX_VILLAGES  => 5,                           # 最大同時稼働村数
         TIMEOUT_SCRAP => 14,                          # 廃村期限
     );
