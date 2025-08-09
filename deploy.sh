@@ -3,6 +3,9 @@
 # スクリプトのあるディレクトリ（ワークスペース配下）を基準にログを保存する
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
+# 以降の日時は日本時間（JST）で記録
+export TZ=Asia/Tokyo
+
 # ログ出力の設定（実行日付入りファイル名で ./logs 配下に保存。同日実行は追記）
 _DEPLOY_TS=$(date '+%Y%m%d')
 _DEPLOY_LOG_DIR="${SCRIPT_DIR}/logs"
@@ -99,7 +102,7 @@ mv -f "$CONFIG_FILE" _config_local.pl
 # 停止ファイルを作成・アップロード
 echo "[STEP] create remote halt file"
 touch halt
-lftp -d -u "$FTP_USER,$FTP_PASS" "$FTP_HOST" <<EOF
+lftp -u "$FTP_USER,$FTP_PASS" "$FTP_HOST" <<EOF
 set cmd:trace yes
 set cmd:fail-exit yes
 set net:max-retries 2
@@ -118,7 +121,7 @@ fi
 
 # アップロード
 echo "[STEP] mirror upload start"
-lftp -d -u "$FTP_USER,$FTP_PASS" "$FTP_HOST" <<EOF
+lftp -u "$FTP_USER,$FTP_PASS" "$FTP_HOST" <<EOF
 set cmd:trace yes
 set cmd:fail-exit yes
 set net:max-retries 2
@@ -146,7 +149,7 @@ mv -f _config_local.pl.bak _config_local.pl
 
 # 停止ファイルを削除
 echo "[STEP] remove remote halt"
-lftp -d -u "$FTP_USER,$FTP_PASS" "$FTP_HOST" <<EOF
+lftp -u "$FTP_USER,$FTP_PASS" "$FTP_HOST" <<EOF
 set cmd:trace yes
 set cmd:fail-exit yes
 set net:max-retries 2
