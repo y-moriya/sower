@@ -396,15 +396,14 @@ sub GetImgUrl {
         }
     }
 
-    my $imggrwl = '';
-    $imggrwl = $charset->{'GRAVE'}
-      if ( isGraveImg( $sow, $vil, $imgpl, $charset, $mestype ) eq 1 );    # 墓石表示
-    $imggrwl = $charset->{'WOLF'}
-      if ( ( $mestype eq $sow->{'MESTYPE_WSAY'} )
-        && ( $charset->{'WOLF'} ne '' ) );                                 # 囁き表示
-    $imggrwl = $charset->{'BSAY'} if ( ( $charset->{'BSAY'} ne '' ) && ( $mestype eq $sow->{'MESTYPE_BSAY'} ) );   # 念話
-    $imggrwl = $charset->{'TSAY'} if ( ( $charset->{'TSAY'} ne '' ) && ( $mestype eq $sow->{'MESTYPE_TSAY'} ) );   # 独り言
-    $imggrwl = $charset->{'LSAY'} if ( ( $charset->{'LSAY'} ne '' ) && ( $mestype eq $sow->{'MESTYPE_LSAY'} ) );   # 恋窓
+        my $imggrwl = '';
+        $imggrwl = $charset->{'GRAVE'}
+            if ( isGraveImg( $sow, $vil, $imgpl, $charset, $mestype ) == 1 );    # 墓石表示
+        $imggrwl = $charset->{'WOLF'}
+            if ( defined($mestype) && defined($charset->{'WOLF'}) && ( $mestype eq $sow->{'MESTYPE_WSAY'} ) && ( $charset->{'WOLF'} ne '' ) );    # 囁き表示
+        $imggrwl = $charset->{'BSAY'} if ( defined($charset->{'BSAY'}) && ( $charset->{'BSAY'} ne '' ) && defined($mestype) && ( $mestype eq $sow->{'MESTYPE_BSAY'} ) );   # 念話
+        $imggrwl = $charset->{'TSAY'} if ( defined($charset->{'TSAY'}) && ( $charset->{'TSAY'} ne '' ) && defined($mestype) && ( $mestype eq $sow->{'MESTYPE_TSAY'} ) );   # 独り言
+        $imggrwl = $charset->{'LSAY'} if ( defined($charset->{'LSAY'}) && ( $charset->{'LSAY'} ne '' ) && defined($mestype) && ( $mestype eq $sow->{'MESTYPE_LSAY'} ) );   # 恋窓
     my $img = "$charset->{'DIR'}/$imgid$imggrwl$imgparts$expression$charset->{'EXT'}";
 
     return $img;

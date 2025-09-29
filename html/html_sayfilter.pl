@@ -10,7 +10,7 @@ sub OutHTMLSayFilter {
     my $atr_id = $sow->{'html'}->{'atr_id'};
     my $pllist = $vil->getpllist();
 
-    my $i;
+    my $i = 0;
 
     my $style_inline                = ' style="display: inline;"';
     my $class_sayfilter             = 'sayfilter';
@@ -93,7 +93,7 @@ _HTML_
     for my $elem (@logmestypearray) {
         my $enable = 'enable';
         $enable = 'disenable'
-          if ( $sow->{'filter'}->{'typefilter'}->[$i] eq '1' );
+          if ( defined $sow->{'filter'}->{'typefilter'}->[$i] && $sow->{'filter'}->{'typefilter'}->[$i] eq '1' );
         print "  <div id=\"typefilter_$elem->{'type'}\"";
         print " class=\"sayfilter_content_$enable\"";
         print " onclick=\"changeFilterByCheckBoxMesType('$elem->{'type'}');\"";
@@ -105,9 +105,10 @@ _HTML_
         print " style=\"display: none;\"";
         print " type=\"checkbox\"";
         print " $sow->{'html'}->{'checked'}"
-          if ( $sow->{'filter'}->{'typefilter'}->[$i] ne '1' );
+          if ( defined $sow->{'filter'}->{'typefilter'}->[$i] && $sow->{'filter'}->{'typefilter'}->[$i] ne '1' );
         print "$net>$elem->{'text'}";
         print "</div></div>\n";
+        $i++;
     }
 
     $display = '';

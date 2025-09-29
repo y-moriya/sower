@@ -73,8 +73,12 @@ sub readpl {
 
     my @datalabelnew = $self->getdatalabel();
     foreach (@datalabelnew) {
-        $self->{$_} = ''
-          if ( $self->{$_} eq $self->{'sow'}->{'DATATEXT_NONE'} );
+        if ( defined $self->{$_} && defined $self->{'sow'}->{'DATATEXT_NONE'} ) {
+            $self->{$_} = '' if ( $self->{$_} eq $self->{'sow'}->{'DATATEXT_NONE'} );
+        }
+        else {
+            $self->{$_} = '' unless defined $self->{$_};
+        }
     }
 
     $self->{'delete'} = 0;

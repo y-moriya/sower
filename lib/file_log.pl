@@ -885,7 +885,7 @@ sub CheckLogPermition {
 
         my $targetpl = $self->{'vil'}->getplbypno( $query->{'pno'} );
         if ( ( $query->{'pno'} >= 0 ) && ( defined( $targetpl->{'uid'} ) ) ) {
-            if ( $query->{'ghost'} == 1 && $self->{'vil'}->isepilogue() > 0 ) {
+            if ( defined( $query->{'ghost'} ) && $query->{'ghost'} == 1 && $self->{'vil'}->isepilogue() > 0 ) {
                 $logpermit = 0;
                 $logpermit = 1
                   if ( $log->{'mestype'} == $sow->{'MESTYPE_INFONOM'} );    # インフォ（通常）
