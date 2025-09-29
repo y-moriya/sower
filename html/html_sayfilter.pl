@@ -105,7 +105,7 @@ _HTML_
         print " style=\"display: none;\"";
         print " type=\"checkbox\"";
         print " $sow->{'html'}->{'checked'}"
-          if ( defined $sow->{'filter'}->{'typefilter'}->[$i] && $sow->{'filter'}->{'typefilter'}->[$i] ne '1' );
+          if ( !defined $sow->{'filter'}->{'typefilter'}->[$i] || $sow->{'filter'}->{'typefilter'}->[$i] ne '1' );
         print "$net>$elem->{'text'}";
         print "</div></div>\n";
         $i++;
