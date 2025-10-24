@@ -133,7 +133,9 @@ _HTML_
 _HTML_
 
     my $roletable  = $vil->getinfocap('roletable');
+    $roletable = '' unless defined $roletable;
     my $roletable2 = $vil->getinfocap('roletable2');
+    $roletable2 = '' unless defined $roletable2;
     print <<"_HTML_";
 <p class="multicolumn_label">–ğE”z•ªF</p>
 <p class="multicolumn_right">

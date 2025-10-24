@@ -430,7 +430,7 @@ _HTML_
 _HTML_
 
     my $noactlist = $sow->{'cfg'}->{'NOACTLIST'};
-    my $i         = 0;
+    $i = 0;
     if ( $sow->{'query'}->{'cmd'} eq 'editvilform' ) {
         foreach (@$noactlist) {
             my $selected = '';

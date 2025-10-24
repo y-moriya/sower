@@ -8,6 +8,8 @@ sub OutHTMLChangePwd {
     my $cfg   = $sow->{'cfg'};
     my $query = $sow->{'query'};
 
+    my $vmode = 'パスワード変更';
+
     $sow->{'html'} = SWHtml->new($sow);    # HTMLモードの初期化
     my $net = $sow->{'html'}->{'net'};     # Null End Tag
     $sow->{'http'}->outheader();                  # HTTPヘッダの出力

@@ -27,11 +27,11 @@ sub OutHTMLChrList {
     # リソースの読み込み
     $sow->{'charsets'}->loadchrrs($csid);
     my $charset = $sow->{'charsets'}->{'csid'}->{$csid};
-    my $body    = $charset->{'BODY'};                      # 全身画像の有無
-    my $grave   = $charset->{'GRAVE'};
-    my $wolf    = $charset->{'WOLF'};
-    my $tsay    = $charset->{'TSAY'};
-    my $lsay    = $charset->{'LSAY'};
+    my $body    = defined $charset->{'BODY'}  ? $charset->{'BODY'}  : '';                      # 全身画像の有無
+    my $grave   = defined $charset->{'GRAVE'} ? $charset->{'GRAVE'} : '';
+    my $wolf    = defined $charset->{'WOLF'}  ? $charset->{'WOLF'}  : '';
+    my $tsay    = defined $charset->{'TSAY'}  ? $charset->{'TSAY'}  : '';
+    my $lsay    = defined $charset->{'LSAY'}  ? $charset->{'LSAY'}  : '';
 
     print <<"_HTML_";
 <h2>キャラクター一覧 [$charset->{'CAPTION'}セット]</h2>

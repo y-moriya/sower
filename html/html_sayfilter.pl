@@ -181,7 +181,8 @@ sub OutHTMLSayFilterPlayers {
 
     my $enable  = 'enable';
     my $display = '';
-    if ( $sow->{'filter'}->{'livetypes'}->[ $livetypeno{$livetype} ] eq '1' ) {
+  if ( defined $sow->{'filter'}->{'livetypes'}->[ $livetypeno{$livetype} ]
+    && $sow->{'filter'}->{'livetypes'}->[ $livetypeno{$livetype} ] eq '1' ) {
         $enable  = 'disenable';
         $display = ' style="display: none;"';
     }
@@ -200,9 +201,10 @@ sub OutHTMLSayFilterPlayers {
     @filterlist = sort { $a->{'deathday'} <=> $b->{'deathday'} or $a->{'pno'} <=> $b->{'pno'} } @filterlist
       if ( $livetype ne 'live' );
     foreach (@filterlist) {
-        my $enable  = 'enable';
-        my $checked = " $sow->{'html'}->{'checked'}";
-        if ( $sow->{'filter'}->{'pnofilter'}->[ $_->{'pno'} ] eq '1' ) {
+    my $enable  = 'enable';
+    my $checked = " $sow->{'html'}->{'checked'}";
+    if ( defined $sow->{'filter'}->{'pnofilter'}->[ $_->{'pno'} ]
+      && $sow->{'filter'}->{'pnofilter'}->[ $_->{'pno'} ] eq '1' ) {
             $enable  = 'disenable';
             $checked = '';
         }
@@ -211,6 +213,7 @@ sub OutHTMLSayFilterPlayers {
         my $unit =
           $sow->{'basictrs'}->{'SAYTEXT'}->{ $sow->{'cfg'}->{'COUNTS_SAY'}->{ $vil->{'saycnttype'} }->{'COUNT_TYPE'} }
           ->{'UNIT_SAY'};
+        $unit = '' unless defined $unit;
         my $shortchrname =
           $sow->{'charsets'}->getshortchrname( $_->{'csid'}, $_->{'cid'} );
         my $showid = "";

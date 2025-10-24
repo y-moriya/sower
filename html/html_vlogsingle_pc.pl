@@ -8,11 +8,11 @@ sub OutHTMLSingleLogInfoPC {
     my $net    = $sow->{'html'}->{'net'};
     my $atr_id = $sow->{'html'}->{'atr_id'};
 
-    my $logmes = $log->{'log'};
-    my $logid  = $log->{'logid'};
-    if ( IsMaskedLogid( $sow, $vil, $log ) eq 1 ) {
-        $logid = $log->{'maskedid'};
-    }
+  my $logmes = $log->{'log'};
+  my $logid  = defined $log->{'logid'} ? $log->{'logid'} : '';
+  if ( IsMaskedLogid( $sow, $vil, $log ) eq 1 ) {
+    $logid = defined $log->{'maskedid'} ? $log->{'maskedid'} : $logid;
+  }
 
     &SWHtml::ConvertNET( $sow, \$logmes );
 
@@ -93,8 +93,10 @@ sub OutHTMLSingleLogSayPC {
     if ( $vil->{'timestamp'} > 0 && ( $vil->isepilogue() == 0 ) ) {
         $date = $sow->{'dt'}->cvtdtsht( $log->{'date'} );
     }
-    $sow->{'charsets'}->loadchrrs( $logpl->{'csid'} );
-    my $charset = $sow->{'charsets'}->{'csid'}->{ $logpl->{'csid'} };
+    # Ensure charset is loaded for the log's csid; prefer logpl csid but fall back
+    my $use_csid = ( defined $logpl->{'csid'} && $logpl->{'csid'} ne '' ) ? $logpl->{'csid'} : ( $vil->{'csid'} || '' );
+    $sow->{'charsets'}->loadchrrs( $use_csid );
+    my $charset = $sow->{'charsets'}->{'csid'}->{ $use_csid } || {};
     my $chrname = $log->{'chrname'};
 
     # クラス名
@@ -115,14 +117,14 @@ sub OutHTMLSingleLogSayPC {
 
     # ログ番号
     my $loganchor = &SWLog::GetAnchorlogID( $sow, $vil, $log );
-    if ( $loganchor ne "" ) {
+    if ( defined $loganchor && $loganchor ne "" ) {
         $loganchor =
           "<span class=\"mes_number\" onclick=\"add_link('$loganchor', '$sow->{'turn'}')\">($loganchor)</span>";
     }
 
-    my $logid = $log->{'logid'};
+    my $logid  = defined $log->{'logid'} ? $log->{'logid'} : '';
     if ( IsMaskedLogid( $sow, $vil, $log ) eq 1 ) {
-        $logid = $log->{'maskedid'};
+        $logid = defined $log->{'maskedid'} ? $log->{'maskedid'} : $logid;
     }
 
     # 発言種別
@@ -218,8 +220,9 @@ _HTML_
     else {
 
         # 日付にパーマリンク付与
-        if (   ( &SWUser::GetShowParmalinkFlag eq 1 )
-            && ( IsMaskedLogid( $sow, $vil, $log ) eq 0 ) )
+    my $parmalink_flag = &SWUser::GetShowParmalinkFlag();
+    if (   ( defined($parmalink_flag) && $parmalink_flag eq 1 )
+      && ( defined( IsMaskedLogid( $sow, $vil, $log ) ) && IsMaskedLogid( $sow, $vil, $log ) eq 0 ) )
         {
             my $reqvals = &SWBase::GetRequestValues($sow);
             my $link    = &SWBase::GetLinkValues( $sow, $reqvals );
@@ -259,8 +262,9 @@ sub OutHTMLSingleLogGuestPC {
     }
 
     # 日付にパーマリンク付与
-    if (   ( &SWUser::GetShowParmalinkFlag eq 1 )
-        && ( IsMaskedLogid( $sow, $vil, $log ) eq 0 ) )
+  my $parmalink_flag = &SWUser::GetShowParmalinkFlag();
+  if (   ( defined($parmalink_flag) && $parmalink_flag eq 1 )
+  && ( defined( IsMaskedLogid( $sow, $vil, $log ) ) && IsMaskedLogid( $sow, $vil, $log ) eq 0 ) )
     {
         my $reqvals = &SWBase::GetRequestValues($sow);
         my $link    = &SWBase::GetLinkValues( $sow, $reqvals );
@@ -269,22 +273,22 @@ sub OutHTMLSingleLogGuestPC {
         $date = "<a href=\"$link$amp" . "logid=$log->{'logid'}\">$date</a>";
     }
 
-    $sow->{'charsets'}->loadchrrs( $logpl->{'csid'} );
-    my $charset = $sow->{'charsets'}->{'csid'}->{ $logpl->{'csid'} };
+    # Determine which charset to use: prefer villager csid when available
+    my $use_csid = ( defined $vil->{'csid'} && $vil->{'csid'} ne '' ) ? $vil->{'csid'} : $logpl->{'csid'};
+    $sow->{'charsets'}->loadchrrs( $use_csid );
+    my $charset = $sow->{'charsets'}->{'csid'}->{ $use_csid } || {};
     my $chrname = $log->{'chrname'};
 
     # キャラ画像アドレスの取得
-    $charset = $vil->{'csid'};
-    $charset = $sow->{'charsets'}->{'csid'}->{$charset};
-
     #my $img = "$charset->{'DIR'}/guest$charset->{'EXT'}";
-    my $img = &SWHtmlPC::GetImgUrl( $sow, $vil, $logpl, $charset->{'FACE'}, $log->{'expression'}, $log->{'mestype'} );
+    my $img = &SWHtmlPC::GetImgUrl( $sow, $vil, $logpl, ( $charset->{'FACE'} || '' ), $log->{'expression'}, $log->{'mestype'} );
 
     # キャラ画像部とその他部の横幅を取得
     my $imgwhid = 'BODY';
-    $imgwhid = 'FACE' if ( $charset->{'BODY'} ne '' );
-    my ( $lwidth, $rwidth ) =
-      &SWHtmlPC::GetFormBlockWidth( $sow, $charset->{ "IMG$imgwhid" . 'W' } );
+    $imgwhid = 'FACE' if ( defined $charset->{'BODY'} && $charset->{'BODY'} ne '' );
+    my $imgw_key = "IMG$imgwhid" . 'W';
+    my $imgw_val = $charset->{$imgw_key} || '';
+    my ( $lwidth, $rwidth ) = &SWHtmlPC::GetFormBlockWidth( $sow, $imgw_val );
 
     # ログ番号
     my $loganchor = &SWLog::GetAnchorlogID( $sow, $vil, $log );
@@ -293,10 +297,10 @@ sub OutHTMLSingleLogGuestPC {
           "<span class=\"mes_number\" onclick=\"add_link('$loganchor', '$sow->{'turn'}')\">($loganchor)</span>";
     }
 
-    my $logid = $log->{'logid'};
-    if ( IsMaskedLogid( $sow, $vil, $log ) eq 1 ) {
-        $logid = $log->{'maskedid'};
-    }
+  my $logid = defined $log->{'logid'} ? $log->{'logid'} : '';
+  if ( IsMaskedLogid( $sow, $vil, $log ) eq 1 ) {
+    $logid = defined $log->{'maskedid'} ? $log->{'maskedid'} : $logid;
+  }
 
     # 発言中のアンカー等を整形
     &SWLog::ReplaceAnchorHTML( $sow, $vil, \$log->{'log'}, $anchor );
@@ -335,12 +339,16 @@ _HTML_
 
     # 名前表示（上配置）
     print "  <h3 class=\"mesname\"><a class=\"anchor\" $atr_id=\"$logid\">$chrname</a>$showid</h3>\n\n"
-      if ( $charset->{'LAYOUT_NAME'} eq 'top' );
+      if ( defined $charset->{'LAYOUT_NAME'} && $charset->{'LAYOUT_NAME'} eq 'top' );
 
     # 顔画像の表示
+    # IMG width/height may be undefined in some charsets, provide safe defaults
+    my $img_width  = $imgw_val || '';
+    my $imgh_key   = "IMG$imgwhid" . 'H';
+    my $img_height = $charset->{$imgh_key} || '';
     print <<"_HTML_";
   <div style="float: left; width: $lwidth;">
-    <div class="mes_chrimg"><img src="$img" width="$charset->{"IMG$imgwhid" . 'W'}" height="$charset->{"IMG$imgwhid" . 'H'}" alt=""$net></div>
+    <div class="mes_chrimg"><img src="$img" width="$img_width" height="$img_height" alt=""$net></div>
   </div>
 
   <div style="float: right; width: $rwidth;">
@@ -348,7 +356,7 @@ _HTML_
 
     # 名前表示（右配置）
     print "    <h3 class=\"mesname\"><a class=\"anchor\" $atr_id=\"$logid\">$chrname</a>$showid</h3>\n"
-      if ( $charset->{'LAYOUT_NAME'} ne 'top' );
+      if ( !defined $charset->{'LAYOUT_NAME'} || $charset->{'LAYOUT_NAME'} ne 'top' );
 
     # 発言の表示
     print <<"_HTML_";
@@ -382,8 +390,9 @@ sub OutHTMLSingleLogAdminPC {
     }
 
     # 日付にパーマリンク付与
-    if (   ( &SWUser::GetShowParmalinkFlag eq 1 )
-        && ( IsMaskedLogid( $sow, $vil, $log ) eq 0 ) )
+  my $parmalink_flag = &SWUser::GetShowParmalinkFlag();
+  if (   ( defined($parmalink_flag) && $parmalink_flag eq 1 )
+  && ( defined( IsMaskedLogid( $sow, $vil, $log ) ) && IsMaskedLogid( $sow, $vil, $log ) eq 0 ) )
     {
         my $reqvals = &SWBase::GetRequestValues($sow);
         my $link    = &SWBase::GetLinkValues( $sow, $reqvals );

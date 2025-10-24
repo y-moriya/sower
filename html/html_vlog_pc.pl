@@ -12,6 +12,9 @@ sub OutHTMLVlogPC {
     my $cfg   = $sow->{'cfg'};
     my $query = $sow->{'query'};
 
+    # ensure $logid is defined to avoid package-level undef warnings when used
+    my $logid = '';
+
     my $reqvals = &SWBase::GetRequestValues($sow);
     my $link    = &SWBase::GetLinkValues( $sow, $reqvals );
     $link = "$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}?$link";
@@ -113,7 +116,7 @@ _HTML_
         for ( $i = 0 ; $i < @$logs ; $i++ ) {
             my $log =
               $logfile->{'logfile'}->{'file'}->read( $logs->[$i]->{'pos'} );
-            my $logid = $log->{'logid'};
+                $logid = $log->{'logid'};
             if (   ( $modesingle == 0 )
                 && ( $i == 0 )
                 && ( ( $maxrow != 0 ) && ( $rows->{'rowover'} > 0 ) ) )
@@ -154,7 +157,7 @@ _HTML_
                     {
                         $logid = $prevlog->{'maskedid'};
                     }
-                    break if ( $pi == 0 );
+                    last if ( $pi == 0 );
                 }
 
                 if (

@@ -125,17 +125,17 @@ sub OutHTMLContentFrameHeader {
     my $urlsow = "$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}";
 
     my $classcontentframe = 'contentframe';
-    if (   ( $sow->{'query'}->{'cmd'} eq '' )
+    if (   ( !defined( $sow->{'query'}->{'cmd'} ) || $sow->{'query'}->{'cmd'} eq '' )
         && ( defined( $sow->{'query'}->{'vid'} ) )
-        && ( $sow->{'query'}->{'logid'} eq '' )
-        && ( $sow->{'filter'}->{'layoutfilter'} eq '1' ) )
+        && ( !defined( $sow->{'query'}->{'logid'} ) || $sow->{'query'}->{'logid'} eq '' )
+        && ( defined( $sow->{'filter'}->{'layoutfilter'} ) && $sow->{'filter'}->{'layoutfilter'} eq '1' ) )
     {
         $classcontentframe = 'contentframe_navileft';
     }
-    if (   ( $sow->{'query'}->{'cmd'} eq '' )
-        && ( $sow->{'query'}->{'vid'} eq '' )
-        && ( $sow->{'query'}->{'logid'} eq '' )
-        && ( $sow->{'query'}->{'prof'} eq '' ) )
+    if (   ( !defined( $sow->{'query'}->{'cmd'} ) || $sow->{'query'}->{'cmd'} eq '' )
+        && ( !defined( $sow->{'query'}->{'vid'} ) || $sow->{'query'}->{'vid'} eq '' )
+        && ( !defined( $sow->{'query'}->{'logid'} ) || $sow->{'query'}->{'logid'} eq '' )
+        && ( !defined( $sow->{'query'}->{'prof'} ) || $sow->{'query'}->{'prof'} eq '' ) )
     {
         $classcontentframe = 'contentframetop';
     }
@@ -469,13 +469,15 @@ sub OutHTMLSayTextAreaPC {
     my $net     = $sow->{'html'}->{'net'};
     my $reqvals = &SWBase::GetRequestValues($sow);
     my $hidden  = &SWBase::GetHiddenValues( $sow, $reqvals, '      ' );
-    my $text    = '';
-    $text  = $htmlsay->{'text'} if ( defined( $htmlsay->{'text'} ) );
-    $curpl = $sow->{'curpl'};
+
+    # 安全な初期値を設定
+    my $text = defined( $htmlsay ) && defined( $htmlsay->{'text'} ) ? $htmlsay->{'text'} : '';
+    my $curpl = defined $sow->{'curpl'} ? $sow->{'curpl'} : {};
+
     my $checkedNormal    = '';
     my $checkedMonologue = '';
 
-    if ( $curpl->{'draftmestype'} eq $sow->{'MESTYPE_TSAY'} ) {
+    if ( defined $curpl->{'draftmestype'} && ( $curpl->{'draftmestype'} eq $sow->{'MESTYPE_TSAY'} ) ) {
         $checkedMonologue = ' checked';
     }
     else {
@@ -484,15 +486,19 @@ sub OutHTMLSayTextAreaPC {
 
     my $disabled = '';
     $disabled = " $sow->{'html'}->{'disabled'}"
-      if ( $htmlsay->{'disabled'} > 0 );
+      if ( defined $htmlsay && defined $htmlsay->{'disabled'} && $htmlsay->{'disabled'} > 0 );
+
+    # 表示用テキストの安全な既定値
+    my $buttonlabel = defined $htmlsay && defined $htmlsay->{'buttonlabel'} ? $htmlsay->{'buttonlabel'} : ( $sow->{'textrs'}->{'SUBMIT'} || '送信' );
+    my $saycnttext  = defined $htmlsay && defined $htmlsay->{'saycnttext'}  ? $htmlsay->{'saycnttext'}  : '';
 
     if ( $type eq 'character' || $type eq 'guest' ) {
-
+        my $say_type_char = defined $reqvals->{'say_type_character'} ? $reqvals->{'say_type_character'} : '';
         print <<"_HTML_";
       <div class="radio-btn-container">
         <div class="radio-btn-group">
           <input type="radio" id="say_type_normal_$type" class="say_type_normal" name="say_type_$type" value="normal"$checkedNormal>
-          <label for="say_type_normal_$type">通常$reqvals->{'say_type_character'}</label>
+          <label for="say_type_normal_$type">通常$say_type_char</label>
           <input type="radio" id="say_type_monologue_$type" class="say_type_monologue" name="say_type_$type" value="monologue"$checkedMonologue>
           <label for="say_type_monologue_$type">独り言</label>
         </div>
@@ -504,19 +510,24 @@ _HTML_
       <textarea id="textarea_$type" name="mes" cols="30" rows="5" onkeyup="showCount(value, this);" onmouseup="showCount(value, this);" data-textarea-type="$cmd">$text</textarea><br$net>
       <input type="hidden" name="cmd" value="$cmd"$net>$hidden
       <div style="float: left;">
-      <span id="submit_normal_$type"><input type="submit" value="$htmlsay->{'buttonlabel'}" data-submit-type="$cmd"$disabled$net>$htmlsay->{'saycnttext'}</span>
+      <span id="submit_normal_$type"><input type="submit" value="$buttonlabel" data-submit-type="$cmd"$disabled$net>$saycnttext</span>
 _HTML_
 
     if ( CanTsay( $sow, $vil, $curpl ) == 1 && ( $type eq 'character' || $type eq 'guest' ) ) {
-        my $unit =
-          $sow->{'basictrs'}->{'SAYTEXT'}->{ $sow->{'cfg'}->{'COUNTS_SAY'}->{ $vil->{'saycnttype'} }->{'COUNT_TYPE'} }
-          ->{'UNIT_SAY'};
-        $tsaycnttext = " あと$curpl->{'tsay'}$unit";
+        my $unit = '';
+        if ( defined $sow->{'basictrs'} && defined $sow->{'cfg'} && defined $vil->{'saycnttype'} ) {
+            my $count_type = $sow->{'cfg'}->{'COUNTS_SAY'}->{ $vil->{'saycnttype'} }->{'COUNT_TYPE'};
+            $unit = $sow->{'basictrs'}->{'SAYTEXT'}->{$count_type}->{'UNIT_SAY'}
+              if ( defined $count_type && defined $sow->{'basictrs'}->{'SAYTEXT'}->{$count_type} );
+        }
+        my $tsaycnttext = '';
+        $tsaycnttext = " あと" . ( defined $curpl->{'tsay'} ? $curpl->{'tsay'} : 0 ) . $unit;
         if ( $type eq 'guest' ) {
             $tsaycnttext = '';
         }
+        my $tsaylabel = defined $sow->{'textrs'} && defined $sow->{'textrs'}->{'CAPTION_TSAY_PC'} ? $sow->{'textrs'}->{'CAPTION_TSAY_PC'} : '独り言';
         print <<"_HTML_";
-      <span id="submit_monologue_$type"><input name="submit_type" type="submit" value="$sow->{'textrs'}->{'CAPTION_TSAY_PC'}" data-submit-type="tsay"$disabled$net>$tsaycnttext</span>
+      <span id="submit_monologue_$type"><input name="submit_type" type="submit" value="$tsaylabel" data-submit-type="tsay"$disabled$net>$tsaycnttext</span>
 _HTML_
 
     }
@@ -530,9 +541,12 @@ _HTML_
 sub CanTsay {
     my ( $sow, $vil, $curpl ) = @_;
 
-    return 0 if $curpl->{'live'} ne 'live' && $sow->{'cfg'}->{'ENABLED_TSAY_GRAVE'} <= 0;
-    return 0 if $vil->isepilogue() != 0    && $sow->{'cfg'}->{'ENABLED_TSAY_EP'} <= 0;
-    return 0 if $vil->{'turn'} == 0        && $sow->{'cfg'}->{'ENABLED_TSAY_PRO'} <= 0;
+    # 未定義値を考慮して判定（未定義の場合は安全側で false とする）
+    if ( !( defined $curpl && defined $curpl->{'live'} && ( $curpl->{'live'} eq 'live' ) ) ) {
+        return 0 if defined $sow->{'cfg'} && $sow->{'cfg'}->{'ENABLED_TSAY_GRAVE'} <= 0;
+    }
+    return 0 if ( defined $vil && $vil->isepilogue() != 0 && defined $sow->{'cfg'} && $sow->{'cfg'}->{'ENABLED_TSAY_EP'} <= 0 );
+    return 0 if ( defined $vil && defined $vil->{'turn'} && $vil->{'turn'} == 0 && defined $sow->{'cfg'} && $sow->{'cfg'}->{'ENABLED_TSAY_PRO'} <= 0 );
 
     return 1;
 
@@ -669,8 +683,8 @@ _HTML_
                   . "mode=$modes->[$i]\">$modename->[$i]</a>\n";
             }
         }
-        if ( $query->{'pno'} >= 0 ) {
-            if ( $query->{'ghost'} == 1 ) {
+        if ( defined $query->{'pno'} && $query->{'pno'} >= 0 ) {
+            if ( defined $query->{'ghost'} && $query->{'ghost'} == 1 ) {
                 print "憑\n";
             }
             else {

@@ -94,7 +94,7 @@ _HTML_
         }
 
         print <<"_HTML_";
-  </select>$hidden
+  </select>$hidden_values
   <input type="submit" value="•ÏX" data-submit-type="css"$net>
 </div>
 </form>

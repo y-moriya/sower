@@ -81,7 +81,8 @@ sub open {
 #----------------------------------------
 sub read {
     my ( $self, $pos ) = @_;
-
+    # default to start of file when pos is not defined
+    $pos = 0 unless defined $pos;
     my $fh = $self->{'file'}->{'filehandle'};
     seek( $fh, $pos, 0 );
     my %data;
@@ -118,15 +119,18 @@ sub update {
     my $fh = $self->{'file'}->{'filehandle'};
     seek( $fh, $data->{'pos'}, 0 );
 
-    # 書き込み
-    print $fh join( "<>", map { $data->{$_} } @{ $self->{'datalabel'} } ) . "<>\n";
+    # 書き込み - 未定義値があれば空文字で置き換えて警告を防ぐ
+    my @labels = @{ $self->{'datalabel'} || [] };
+    my @values = map { defined $data->{$_} ? $data->{$_} : '' } @labels;
+    print $fh join( "<>", @values ) . "<>\n";
 
     # 次の書き込み位置を保存
     $self->{'prevpos'} = $data->{'pos'};
     my $nextpos = tell($fh);
     $data->{'nextpos'} = $nextpos;
 
-    return $pos;
+    # return written position
+    return $data->{'pos'};
 }
 
 #----------------------------------------

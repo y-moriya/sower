@@ -76,7 +76,7 @@ sub OutHTMLPlayerFormPC {
             &OutHTMLUpdateSessionButtonPC( $sow, $vil );
             &OutHTMLKickFormPC( $sow, $vil ) if ( $vil->{'turn'} == 0 );
             &OutHTMLScrapVilButtonPC( $sow, $vil )
-              if ( $vil->{'turn'} < $vil->{'epilogue'} );
+              if ( defined $vil->{'epilogue'} && ( $vil->{'turn'} < $vil->{'epilogue'} ) );
             &OutHTMLExtendScrapVilButtonPC( $sow, $vil )
               if ( $vil->{'turn'} == 0 );
             &OutHTMLEnableChatModeButtonPC( $sow, $vil )
@@ -98,8 +98,10 @@ sub OutHTMLPlayerFormPC {
 sub GetShowGuestFormFlag {
     my ( $sow, $vil ) = @_;
 
+    my $guestmenu = defined $vil->{'guestmenu'} ? $vil->{'guestmenu'} : 0;
+
     # 村のオプションで傍観者発言オフの場合は表示しない
-    if ( $vil->{'guestmenu'} < 0 ) {
+    if ( $guestmenu < 0 ) {
         return 0;
     }
 
@@ -114,7 +116,7 @@ sub GetShowGuestFormFlag {
     }
 
     # 村に参加しているが、傍観者発言フォーム表示フラグが表示の場合は表示する
-    if ( &SWUser::GetShowGuestFormFlag == 1 ) {
+    if ( &SWUser::GetShowGuestFormFlag eq 1 ) {
         return 1;
     }
 
@@ -132,15 +134,15 @@ sub OutHTMLRoleFormPC {
 
     return if ( $vil->isepilogue() > 0 );
 
-    my $reqvals = &SWBase::GetRequestValues($sow);
-    $reqvals->{'mode'} = 'human';
-    my $link = &SWBase::GetLinkValues( $sow, $reqvals );
+  my $reqvals = &SWBase::GetRequestValues($sow);
+  $reqvals->{'mode'} = 'human';
+  my $link = &SWBase::GetLinkValues( $sow, $reqvals );
     print "<a href=\"$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}?$link\">（村視点）</a> ";
     $reqvals->{'mode'} = 'whisper';
-    my $link = &SWBase::GetLinkValues( $sow, $reqvals );
+  $link = &SWBase::GetLinkValues( $sow, $reqvals );
     print "<a href=\"$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}?$link\">（囁きのみ）</a> ";
     $reqvals->{'mode'} = '';
-    my $link = &SWBase::GetLinkValues( $sow, $reqvals );
+  $link = &SWBase::GetLinkValues( $sow, $reqvals );
     print "<a href=\"$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}?$link\">（解除）</a> ";
 }
 
@@ -155,6 +157,9 @@ sub OutHTMLSayPC {
 
     my $curpl   = $sow->{'curpl'};
     my $charset = $sow->{'charsets'}->{'csid'}->{ $curpl->{'csid'} };
+
+  # draft を先に宣言しておく（後でセットされる）
+  my $draft = 0;
 
     # キャラ画像アドレスの取得
     my $img = &SWHtmlPC::GetImgUrl( $sow, $vil, $curpl, $charset->{'BODY'} );
@@ -204,11 +209,11 @@ _HTML_
 
     my $checkedmspace = '';
     $checkedmspace = " $sow->{'html'}->{'checked'}"
-      if ( ( $draft > 0 ) && ( $sow->{'draftmspace'} > 0 ) );
+      if ( ( $draft > 0 ) && ( defined $sow->{'draftmspace'} && $sow->{'draftmspace'} > 0 ) );
 
     my $checkedloud = '';
     $checkedloud = " $sow->{'html'}->{'checked'}"
-      if ( ( $draft > 0 ) && ( $sow->{'draftloud'} > 0 ) );
+      if ( ( $draft > 0 ) && ( defined $sow->{'draftloud'} && $sow->{'draftloud'} > 0 ) );
 
     my $countname = "point";
     my $countstr  = "pt消費";
@@ -242,9 +247,9 @@ _HTML_
       if ( ( $curpl->{'live'} ne 'live' ) && ( $vil->isepilogue() == 0 ) );
     $htmlsay{'buttonlabel'} = $sow->{'textrs'}->{'BUTTONLABEL_PC'};
     $htmlsay{'buttonlabel'} =~ s/_BUTTON_/$caption_say/g;
-    $htmlsay{'disabled'} = 0;
-    $htmlsay{'disabled'} = 1 if ( $vil->{'emulated'} > 0 );
-    my $draft = 0;
+  $htmlsay{'disabled'} = 0;
+  $htmlsay{'disabled'} = 1 if ( defined $vil->{'emulated'} && $vil->{'emulated'} > 0 );
+  $draft = 0;
     $draft = 1
       if (
         ( $sow->{'savedraft'} ne '' )
@@ -286,9 +291,10 @@ _HTML_
     }
 
     # アクション
+    my $noactmode = defined $vil->{'noactmode'} ? $vil->{'noactmode'} : 0;
     &OutHTMLActionFormPC( $sow, $vil )
       if ( ( ( $curpl->{'live'} eq 'live' ) || ( $vil->isepilogue() != 0 ) )
-        && ( ( $vil->{'noactmode'} == 0 ) || ( $vil->{'noactmode'} == 2 ) ) );
+        && ( ( $noactmode == 0 ) || ( $noactmode == 2 ) ) );
 
     print <<"_HTML_";
   </div>
@@ -328,7 +334,7 @@ sub OutHTMLActionFormPC {
         <option value="-1">（選択しない）$sow->{'html'}->{'option'}
 _HTML_
 
-    # アクションの対象者
+  # アクションの対象者
     foreach (@$pllist) {
         next if ( $_->{'uid'} eq $sow->{'uid'} );    # 自分自身は除外
         next
@@ -349,8 +355,8 @@ _HTML_
 
     # 組み込み済みアクション
     my $actions = $sow->{'textrs'}->{'ACTIONS'};
-    my $i;
-    for ( $i = 0 ; $i < @$actions ; $i++ ) {
+  my $i;
+  for ( $i = 0 ; $i < @$actions ; $i++ ) {
         print "        <option value=\"$i\">$actions->[$i]$sow->{'html'}->{'option'}\n";
     }
 
@@ -358,10 +364,11 @@ _HTML_
     my $actions_bookmark = $sow->{'textrs'}->{'ACTIONS_BOOKMARK'};
     print "        <option value=\"-2\">$actions_bookmark$sow->{'html'}->{'option'}\n";
 
-    # 促し
-    if (   ( defined( $curpl->{'actaddpt'} ) )
-        && ( $curpl->{'actaddpt'} > 0 )
-        && ( $vil->{'nocandy'} == 0 ) )
+  # 促し
+  my $nocandy = defined $vil->{'nocandy'} ? $vil->{'nocandy'} : 0;
+  if (   ( defined( $curpl->{'actaddpt'} ) )
+    && ( $curpl->{'actaddpt'} > 0 )
+    && ( $nocandy == 0 ) )
     {
         my $restaddpt     = $sow->{'textrs'}->{'ACTIONS_RESTADDPT'};
         my $actions_addpt = $sow->{'textrs'}->{'ACTIONS_ADDPT'};
@@ -375,12 +382,14 @@ _HTML_
       $sow->{'basictrs'}->{'SAYTEXT'}->{ $sow->{'cfg'}->{'COUNTS_SAY'}->{ $vil->{'saycnttype'} }->{'COUNT_TYPE'} }
       ->{'UNIT_ACTION'};
     my $actdisabled = '';
+    my $emulated = defined $vil->{'emulated'} ? $vil->{'emulated'} : 0;
     $actdisabled = " $sow->{'html'}->{'disabled'}"
-      if ( $vil->{'emulated'} > 0 );
+      if ( $emulated > 0 );
     my $freeactform = '
       <input type="radio" name="selectact" value="freetext"$net>
       <input class="formpl_actiontext" type="text" name="actiontext" value="" size="30"$net><br$net>';
-    $freeactform = '' if ( $vil->{'nofreeact'} > 0 );
+    my $nofreeact = defined $vil->{'nofreeact'} ? $vil->{'nofreeact'} : 0;
+    $freeactform = '' if ( $nofreeact > 0 );
 
     print <<"_HTML_";
       </select><br$net>
@@ -1052,7 +1061,8 @@ _HTML_
     # 投票／委任選択欄
     if ( $cmd eq 'vote' ) {
         my $votelabels = $sow->{'textrs'}->{'VOTELABELS'};
-        if ( $vil->{'entrustmode'} == 0 ) {
+  my $entrustmode = defined $vil->{'entrustmode'} ? $vil->{'entrustmode'} : 0;
+  if ( $entrustmode == 0 ) {
             my $option = $sow->{'html'}->{'option'};
             my $star   = ' *';
 
@@ -1341,9 +1351,9 @@ sub OutHTMLPlayerFilter {
     my $reqvals = &SWBase::GetRequestValues($sow);
     $reqvals->{'pno'}  = '';
     $reqvals->{'turn'} = '';
-    if ( $reqvals->{'mode'} eq '' ) {
-        $reqvals->{'mode'} = 'all';
-    }
+  if ( !defined( $reqvals->{'mode'} ) || $reqvals->{'mode'} eq '' ) {
+    $reqvals->{'mode'} = 'all';
+  }
     my $hidden = &SWBase::GetHiddenValues( $sow, $reqvals, '  ' );
 
     print <<"_HTML_";
@@ -1392,8 +1402,7 @@ _HTML_
         }
         print "    <option value=\"$_->{'pno'}\"$selected>$chrname</option>\n";
     }
-    my $i;
-    for ( $i = -2 ; $i >= -8 ; $i-- ) {
+  for ( $i = -2 ; $i >= -8 ; $i-- ) {
         my $fltname = "";
         $fltname = "≪独り言≫"    if ( $i == -2 );
         $fltname = "≪狼の囁き≫"   if ( $i == -3 );
@@ -1437,8 +1446,7 @@ sub OutHTMLExpressionFormPC {
       <select id="expression" name="expression">
 _HTML_
 
-        my $i;
-        for ( $i = 0 ; $i < @$expression ; $i++ ) {
+      for ( $i = 0 ; $i < @$expression ; $i++ ) {
             my $selected = '';
             $selected = " $sow->{'html'}->{'selected'}" if ( $i == 0 );
             print "        <option value=\"$i\"$selected>$expression->[$i]$sow->{'html'}->{'option'}\n";

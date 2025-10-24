@@ -26,6 +26,10 @@
     "-p",
     "8989:80"
   ],
+  "containerEnv": {
+    "LANG": "ja_JP.SJIS",
+    "LC_ALL": "ja_JP.SJIS"
+  },
   "mounts": [
     "source=${localWorkspaceFolder}/doc,target=/var/www/html/doc,type=bind"
   ],

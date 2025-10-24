@@ -101,7 +101,7 @@ sub writeuser {
     seek( $fh, 0, 0 );
     my @datalabel = $self->GetUserDataLabel();
     print $fh join( "<>", @datalabel ) . "<>\n";
-    print $fh join( "<>", map { $self->{$_} } @datalabel ) . "<>\n";
+    print $fh join( "<>", map { defined $self->{$_} ? $self->{$_} : '' } @datalabel ) . "<>\n";
 
     $sow->{'debug'}->writeaplog( $sow->{'APLOG_POSTED'}, "Edit User. [$self->{'uid'}]" );
 
@@ -462,14 +462,19 @@ sub addsdpenalty {
     my $self = shift;
     my $sow  = $self->{'sow'};
 
-    $self->{'penaltydt'} = $sow->{'time'} if ( $self->{'penaltydt'} == 0 );
-    $self->{'plevel'}    = $sow->{'cfg'}->{'DAY_INITPENALTY'}
-      if ( $self->{'plevel'} == 0 );
-    $self->{'penaltydt'} =
-      $self->{'penaltydt'} + $self->{'plevel'} * 60 * 60 * 24;
-    $self->{'plevel'} = $self->{'plevel'} * 2;
-    $self->{'ptype'}  = $sow->{'PTYPE_NOENTRY'}
-      if ( $self->{'ptype'} < $sow->{'PTYPE_NOENTRY'} );
+        # Ensure numeric fields are defined
+        $self->{'penaltydt'} = 0 unless ( defined $self->{'penaltydt'} );
+        $self->{'plevel'}    = 0 unless ( defined $self->{'plevel'} );
+        $self->{'ptype'}     = 0 unless ( defined $self->{'ptype'} );
+
+        $self->{'penaltydt'} = $sow->{'time'} if ( $self->{'penaltydt'} == 0 );
+        $self->{'plevel'}    = $sow->{'cfg'}->{'DAY_INITPENALTY'}
+            if ( $self->{'plevel'} == 0 );
+        $self->{'penaltydt'} =
+            $self->{'penaltydt'} + $self->{'plevel'} * 60 * 60 * 24;
+        $self->{'plevel'} = $self->{'plevel'} * 2;
+        $self->{'ptype'}  = $sow->{'PTYPE_NOENTRY'}
+            if ( $self->{'ptype'} < $sow->{'PTYPE_NOENTRY'} );
 }
 
 #----------------------------------------
@@ -478,6 +483,9 @@ sub addsdpenalty {
 sub updatepenalty {
     my $self = shift;
     my $sow  = $self->{'sow'};
+
+    # ptypeが未定義または空の場合は初期化
+    $self->{'ptype'} = $sow->{'PTYPE_NONE'} if (!defined $self->{'ptype'} || $self->{'ptype'} eq '');
 
     return if ( $self->{'ptype'} == $sow->{'PTYPE_NONE'} );    # ペナルティなし
     return if ( $self->{'penaltydt'} >= $sow->{'time'} );      # ペナルティ期間中
@@ -529,7 +537,7 @@ sub GetHandle {
 
     my $user = SWUser->new($sow);
     $user->{'uid'} = $sow->{'uid'};
-    return if ( $sow->{'uid'} eq '' );
+    return '' if ( !defined( $sow->{'uid'} ) || $sow->{'uid'} eq '' );
     $user->openuser(1);
     $user->closeuser();
     my $handle = $user->{'uid'};
@@ -545,10 +553,10 @@ sub GetShowParmalinkFlag {
 
     my $user = SWUser->new($sow);
     $user->{'uid'} = $sow->{'uid'};
-    return if ( $sow->{'uid'} eq '' );
+    return 0 if ( !defined( $sow->{'uid'} ) || $sow->{'uid'} eq '' );
     $user->openuser(1);
     $user->closeuser();
-    return $user->{'parmalink'};
+    return defined( $user->{'parmalink'} ) ? $user->{'parmalink'} : 0;
 }
 
 #----------------------------------------
@@ -559,10 +567,10 @@ sub GetShowGuestFormFlag {
 
     my $user = SWUser->new($sow);
     $user->{'uid'} = $sow->{'uid'};
-    return if ( $sow->{'uid'} eq '' );
+    return 0 if ( !defined( $sow->{'uid'} ) || $sow->{'uid'} eq '' );
     $user->openuser(1);
     $user->closeuser();
-    return $user->{'guestform'};
+    return defined( $user->{'guestform'} ) ? $user->{'guestform'} : 0;
 }
 
 1;

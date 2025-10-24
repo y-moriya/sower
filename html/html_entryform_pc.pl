@@ -113,6 +113,9 @@ _HTML_
     $htmlsay{'saycnttext'}  = '';
     $htmlsay{'disabled'}    = 0;
     $htmlsay{'disabled'}    = 1 if ( $vil->{'emulated'} > 0 );
+    # draft フラグを初期化しておく（未定義だと numeric 比較で警告が出る）
+    my $draft = 0;
+    $draft = 1 if ( defined $sow->{'savedraft'} && $sow->{'savedraft'} ne '' );
     if ( ( $query->{'mes'} ne '' ) && ( $query->{'cmdfrom'} eq 'entrypr' ) ) {
         my $mes = $query->{'mes'};
         $mes =~ s/<br( \/)?>/\n/ig;
@@ -124,12 +127,12 @@ _HTML_
 
     my $checkedmspace = '';
     $checkedmspace = " $sow->{'html'}->{'checked'}"
-      if ( ( $draft > 0 ) && ( $sow->{'draftmspace'} > 0 ) );
+      if ( ( $draft > 0 ) && ( defined $sow->{'draftmspace'} && $sow->{'draftmspace'} > 0 ) );
     print "      <label><input type=\"checkbox\" name=\"monospace\" value=\"on\"$checkedmspace$net>等幅</label>\n";
 
     my $checkedloud = '';
     $checkedloud = " $sow->{'html'}->{'checked'}"
-      if ( ( $draft > 0 ) && ( $sow->{'draftloud'} > 0 ) );
+      if ( ( $draft > 0 ) && ( defined $sow->{'draftloud'} && $sow->{'draftloud'} > 0 ) );
     print "      <label><input type=\"checkbox\" name=\"loud\" value=\"on\"$checkedloud$net>大声</label>\n";
     print <<"_HTML_";
     </div>

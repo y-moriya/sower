@@ -9,7 +9,9 @@ package SWLog;
 #----------------------------------------
 sub CreateLogID {
     my ( $sow, $mestype, $logsubid, $logcnt ) = @_;
-    my $logid = sprintf( "%s%s%05d", $sow->{'LOGMESTYPE'}->[$mestype], $logsubid, $logcnt, );
+    # Ensure $logcnt is defined and numeric to avoid warnings from sprintf
+    $logcnt = ( defined $logcnt && $logcnt ne '' ) ? int($logcnt) : 0;
+    my $logid = sprintf( "%s%s%05d", $sow->{'LOGMESTYPE'}->[$mestype], $logsubid, $logcnt );
 
     return $logid;
 }
@@ -305,6 +307,9 @@ sub GetPopupAnchor {
 sub ReplaceAnchorHTMLRSS {
     my ( $sow, $vil, $mes, $anchor ) = @_;
     my $cfg = $sow->{'cfg'};
+
+    # Ensure $mes is defined to avoid warnings when operating with regexes
+    $mes = '' unless defined $mes;
 
     while ( $mes =~ /<mw ([a-zA-Z]+\d+),([^,]*),([^>]+)>/ ) {
         my $anchortext = $&;

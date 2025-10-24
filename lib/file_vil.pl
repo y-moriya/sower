@@ -473,8 +473,7 @@ sub getinfocap {
     }
     elsif ( $infocap eq 'noactmode' ) {
         my $noactlist = $sow->{'cfg'}->{'NOACTLIST'};
-        my $noactlist = $sow->{'cfg'}->{'NOACTLIST'};
-        $resultcap = @$noactlist[ $self->{'noactmode'} ];
+        $resultcap = defined($noactlist) ? $noactlist->[ $self->{'noactmode'} ] : undef;
 
     }
     elsif ( $infocap eq 'nocandy' || $infocap eq 'nofreeact' ) {

@@ -55,11 +55,13 @@ sub OutHTMLProfile {
     $introduction = $user->{'introduction'}
       if ( $user->{'introduction'} ne '' );
 
-    my $parmalink = '非表\示';
-    $parmalink = '表\示' if ( $user->{'parmalink'} == 1 );
+  my $parmalink = '非表\示';
+  $user->{'parmalink'} = 0 if ( !defined $user->{'parmalink'} || $user->{'parmalink'} eq '' );
+  $parmalink = '表\示' if ( $user->{'parmalink'} == 1 );
 
-    my $guestform = '非表\示';
-    $guestform = '表\示' if ( $user->{'guestform'} == 1 );
+  my $guestform = '非表\示';
+  $user->{'guestform'} = 0 if ( !defined $user->{'guestform'} || $user->{'guestform'} eq '' );
+  $guestform = '表\示' if ( $user->{'guestform'} == 1 );
 
     print <<"_HTML_";
 <h2>$query->{'prof'}さんの情報$linkedit</h2>
@@ -83,11 +85,20 @@ sub OutHTMLProfile {
 _HTML_
 
     if (1) {
-        my $penaltydt =
-          int( ( $user->{'penaltydt'} - $sow->{'time'} ) / 60 / 60 / 24 + 0.5 );
+    # Ensure penaltydt is numeric before doing subtraction to avoid warnings
+    my $user_penaltydt = 0;
+    if ( defined $user->{'penaltydt'} && $user->{'penaltydt'} =~ /^\d+$/ ) {
+      $user_penaltydt = $user->{'penaltydt'};
+    }
+    my $penaltydt = 0;
+    if ( $user_penaltydt > 0 ) {
+      $penaltydt = int( ( $user_penaltydt - $sow->{'time'} ) / 60 / 60 / 24 + 0.5 );
+    }
         my @penalty = ( "なし", "なし（保護観察期間中：あと約$penaltydt日）", "参加停止中（あと約$penaltydt日）", "ID停止中（あと約$penaltydt日）", );
+        my $ptype_idx = defined $user->{'ptype'} ? $user->{'ptype'} : 0;
+        $ptype_idx = 0 unless ( $ptype_idx =~ /^\d+$/ );
         print <<"_HTML_";
-  <span class="multicolumn_label">ペナルティ：</span><span class="multicolumn_left">$penalty[$user->{'ptype'}]</span>
+  <span class="multicolumn_label">ペナルティ：</span><span class="multicolumn_left">$penalty[$ptype_idx]</span>
   <br class="multicolumn_clear"$net>
 </p>
 _HTML_
@@ -147,7 +158,8 @@ _HTML_
 
     }
 
-    if ( $sow->{'uid'} eq $query->{'prof'} ) {
+  my $disabled = '';
+  if ( $sow->{'uid'} eq $query->{'prof'} ) {
         print <<"_HTML_";
 <hr class="invisible_hr"$net>
 
@@ -263,9 +275,9 @@ _HTML_
             $reqvals->{'vid'}  = $_->{'vid'};
             my $linkvalue = &SWBase::GetLinkValues( $sow, $reqvals );
             print "<li><a href=\"$urlsow?$linkvalue#newinfo\">$_->{'vid'}村</a>：$bondtext と運命の絆を結んでいた。</li>\n";
-            $bondcount++;
-        }
-        print "<li>運命の絆を結んだ相手はまだいません。</li>\n" if ( $bondcount == 0 );
+      $bondcount++;
+    }
+    print "<li>運命の絆を結んだ相手はまだいません。</li>\n" if ( $bondcount == 0 );
 
         print <<"_HTML_";
 </ul>
@@ -278,7 +290,7 @@ _HTML_
 <ul>
 _HTML_
 
-        my $bondcount = 0;
+  $bondcount = 0;
         foreach (@list) {
             my @lovers = split( '/', $_->{'lovers'} . '/' );
             next if ( !defined( $lovers[0] ) );

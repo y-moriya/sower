@@ -33,16 +33,22 @@ sub OutHTMLEditProfileForm {
 
     my $intro = $user->{'introduction'};
     $intro =~ s/<br( \/)?>/\n/ig;
+    # ensure numeric values to avoid warnings when undefined or empty
+    my $parmalink = ( defined $user->{'parmalink'} && $user->{'parmalink'} =~ /^\d+$/ )
+      ? int( $user->{'parmalink'} )
+      : 0;
+  my $parma_0selected = '';
+  $parma_0selected = ' selected' if ( $parmalink != 1 );
+  my $parma_1selected = '';
+  $parma_1selected = ' selected' if ( $parmalink == 1 );
 
-    my $parma_0selected = '';
-    $parma_0selected = ' selected' if ( $user->{'parmalink'} != 1 );
-    my $parma_1selected = '';
-    $parma_1selected = ' selected' if ( $user->{'parmalink'} == 1 );
-
-    my $guestform_0selected = '';
-    $guestform_0selected = ' selected' if ( $user->{'guestform'} != 1 );
-    my $guestform_1selected = '';
-    $guestform_1selected = ' selected' if ( $user->{'guestform'} == 1 );
+    my $guestform = ( defined $user->{'guestform'} && $user->{'guestform'} =~ /^\d+$/ )
+      ? int( $user->{'guestform'} )
+      : 0;
+  my $guestform_0selected = '';
+  $guestform_0selected = ' selected' if ( $guestform != 1 );
+  my $guestform_1selected = '';
+  $guestform_1selected = ' selected' if ( $guestform == 1 );
 
     print <<"_HTML_";
 <form action="$urlsow" method="$cfg->{'METHOD_FORM'}">

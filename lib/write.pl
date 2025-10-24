@@ -28,7 +28,8 @@ sub ExecuteCmdWrite {
     }
 
     my $saypoint;
-    if ( $writepl->{'emulated'} == 0 ) {
+    my $emulated = defined( $query->{'emulated'} ) ? $query->{'emulated'} : 0;
+    if ( $emulated eq 0 && $isrestrict ) {
 
         # 発言数消費量
         if ( $act > 0 ) {
@@ -50,22 +51,24 @@ sub ExecuteCmdWrite {
     require "$sow->{'cfg'}->{'DIR_LIB'}/log.pl";
     my $logfile = SWBoa->new( $sow, $vil, $vil->{'turn'}, 0 );
 
-    if ( $writepl->{'emulated'} == 0 ) {
-        if ( ( $act == 0 ) && ( $writepl->{'lastwritepos'} >= 0 ) ) {
+    if ( $emulated eq 0 ) {
+        my $lastwritepos = defined $writepl->{'lastwritepos'} ? $writepl->{'lastwritepos'} : -1;
+        if ( ( $act == 0 ) && ( $lastwritepos >= 0 ) ) {
 
             # 二重発言防止
-            my $log    = $logfile->read( $writepl->{'lastwritepos'} );
-            my $logmes = $log->{'log'};
+            my $log    = $logfile->read( $lastwritepos );
+            my $logmes = defined $log->{'log'} ? $log->{'log'} : '';
             $logmes = &SWLog::ReplaceAnchorHTMLRSS( $sow, $vil, $logmes );
             my $checkmestype = $mestype;
             $checkmestype = $sow->{'MESTYPE_SAY'}
               if ( $mestype == $sow->{'MESTYPE_QUE'} );
-            my $checklogmestype = $log->{'mestype'};
-            $checklogmestype = $sow->{'MESTYPE_SAY'}
-              if ( $log->{'mestype'} == $sow->{'MESTYPE_QUE'} );
-            $sow->{'debug'}->raise( $sow->{'APLOG_NOTICE'}, "直前の発言と同じ内容の発言をしようとしています。", "same last mes." )
-              if ( ( $logmes eq $mes )
-                && ( $checklogmestype == $checkmestype ) );
+                        my $checklogmestype = defined $log->{'mestype'} ? $log->{'mestype'} : -1;
+                        $checklogmestype = $sow->{'MESTYPE_SAY'}
+                            if ( $checklogmestype == $sow->{'MESTYPE_QUE'} );
+                        $mes = defined $mes ? $mes : '';
+                        # Compare text with string equality and ensure numeric types are defined for numeric compare
+                        $sow->{'debug'}->raise( $sow->{'APLOG_NOTICE'}, "直前の発言と同じ内容の発言をしようとしています。", "same last mes." )
+                            if ( ( $logmes ne '' ) && ( $logmes eq $mes ) && ( $checklogmestype == $checkmestype ) );
         }
     }
 
@@ -102,7 +105,7 @@ sub ExecuteCmdWrite {
     my $lastwritepos = $logfile->executesay( \%say );
     $logfile->close();
 
-    if ( $writepl->{'emulated'} == 0 ) {
+    if ( $emulated eq 0 ) {
 
         # 発言数消費
         $writepl->{$saytype} -= $saypoint

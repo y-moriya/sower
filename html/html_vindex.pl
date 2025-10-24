@@ -160,14 +160,41 @@ _HTML_
         my $linkvinfo = &SWBase::GetLinkValues( $sow, $reqvals );
         my $vcomment = &SWLog::ReplaceAnchorHTMLRSS( $sow, $vil, $vil->{'vcomment'} );
 
+        # Ensure interpolated values are defined to avoid "Use of uninitialized value" warnings
+        $imgpwdkey   = '' unless defined $imgpwdkey;
+        $imgrating   = '' unless defined $imgrating;
+        $link        = '' unless defined $link;
+        $linkvinfo   = '' unless defined $linkvinfo;
+        $vcomment    = '' unless defined $vcomment;
+        $_->{'vid'}  = '' unless defined $_->{'vid'};
+        $vil->{'vname'} = '' unless defined $vil->{'vname'};
+        $plcnt       = '' unless defined $plcnt;
+        $vstatus     = '' unless defined $vstatus;
+        $date        = '' unless defined $date;
+        $updintervalday = '' unless defined $updintervalday;
+
+        my $roletable_caption = '';
+        if (   defined $sow->{'textrs'}
+            && defined $sow->{'textrs'}->{'CAPTION_ROLETABLE'}
+            && defined $vil->{'roletable'}
+            && defined $sow->{'textrs'}->{'CAPTION_ROLETABLE'}->{ $vil->{'roletable'} })
+        {
+            $roletable_caption = $sow->{'textrs'}->{'CAPTION_ROLETABLE'}->{ $vil->{'roletable'} };
+        }
+
+        my $saycap = '';
+        if ( defined $countssay && defined $vil->{'saycnttype'} && defined $countssay->{ $vil->{'saycnttype'} } ) {
+            $saycap = $countssay->{ $vil->{'saycnttype'} }->{'CAPTION'} if defined $countssay->{ $vil->{'saycnttype'} }->{'CAPTION'};
+        }
+
         print <<"_HTML_";
   <tr>
     <td>$imgpwdkey$imgrating<a href="$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}?$link#newinfo">$_->{'vid'} $vil->{'vname'}</a> q<a href="$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}?$linkvinfo#newinfo" title="$vcomment">î•ñ</a>r</td>
     <td>$plcnt</td>
     <td>$vstatus</td>
     <td>$date/$updintervalday</td>
-    <td>$sow->{'textrs'}->{'CAPTION_ROLETABLE'}->{$vil->{'roletable'}}</td>
-    <td>$countssay->{$vil->{'saycnttype'}}->{'CAPTION'}</td>
+    <td>$roletable_caption</td>
+    <td>$saycap</td>
   </tr>
 
 _HTML_
