@@ -210,10 +210,20 @@ sub OutHTMLSayFilterPlayers {
         }
 
         my $logined = $sow->{'user'}->logined();
-        my $unit =
-          $sow->{'basictrs'}->{'SAYTEXT'}->{ $sow->{'cfg'}->{'COUNTS_SAY'}->{ $vil->{'saycnttype'} }->{'COUNT_TYPE'} }
-          ->{'UNIT_SAY'};
-        $unit = '' unless defined $unit;
+    # Safely resolve unit string; avoid using undefined hash elements
+    my $unit = '';
+    if ( defined $vil->{'saycnttype'} ) {
+      my $cntcfg = $sow->{'cfg'}->{'COUNTS_SAY'}->{ $vil->{'saycnttype'} };
+      if ( defined $cntcfg && defined $cntcfg->{'COUNT_TYPE'} ) {
+        my $ctype = $cntcfg->{'COUNT_TYPE'};
+        if (   defined $sow->{'basictrs'}->{'SAYTEXT'}
+          && defined $sow->{'basictrs'}->{'SAYTEXT'}->{$ctype}
+          && defined $sow->{'basictrs'}->{'SAYTEXT'}->{$ctype}->{'UNIT_SAY'} )
+        {
+          $unit = $sow->{'basictrs'}->{'SAYTEXT'}->{$ctype}->{'UNIT_SAY'};
+        }
+      }
+    }
         my $shortchrname =
           $sow->{'charsets'}->getshortchrname( $_->{'csid'}, $_->{'cid'} );
         my $showid = "";
