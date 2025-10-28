@@ -129,9 +129,12 @@ sub readvil {
 
     # ë∫ÉfÅ[É^ÇÃì«Ç›çûÇ›
     my $villabel = shift(@data);
+    $villabel = '' unless defined $villabel;
     my @villabel = split( /<>/, $villabel );
-    @villabel = &GetVilDataLabel() if ( $villabel[0] eq '' );
-    @$self{@villabel} = split( /<>/, shift(@data) );
+    @villabel = &GetVilDataLabel() if ( $villabel eq '' );
+    my $vildata = shift(@data);
+    $vildata = '' unless defined $vildata;
+    @$self{@villabel} = split( /<>/, $vildata );
 
     my @villabelnew = &GetVilDataLabel();
 
@@ -146,6 +149,7 @@ sub readvil {
       if ( $self->{'entrypwd'} eq $self->{'sow'}->{'DATATEXT_NONE'} );
 
     my $pllabel = shift(@data);
+    $pllabel = '' unless defined $pllabel;
     chomp($pllabel);
     my @pllabel = split( /<>/, $pllabel );
     %{ $self->{'pl'} }      = ();
