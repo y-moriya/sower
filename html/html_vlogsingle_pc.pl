@@ -657,14 +657,19 @@ sub GetLogPL {
 sub IsMaskedLogid {
     my ( $sow, $vil, $log ) = @_;
     my $result = 0;
-    if ( ( $vil->isepilogue() eq 1 ) || ( $sow->{'uid'} eq $sow->{'cfg'}->{'USERID_ADMIN'} ) ) {
+
+    # undefined guards for numeric comparisons
+    my $isEpilogue = defined($vil->isepilogue()) ? $vil->isepilogue() : 0;
+    my $mestype = defined($log->{'mestype'}) ? $log->{'mestype'} : -1;
+
+    if ( $isEpilogue == 1 || (defined($sow->{'uid'}) && defined($sow->{'cfg'}->{'USERID_ADMIN'}) && $sow->{'uid'} eq $sow->{'cfg'}->{'USERID_ADMIN'}) ) {
         $result = 0;
     }
     else {
-        if (   $log->{'mestype'} eq $sow->{'MESTYPE_TSAY'}
-            || $log->{'mestype'} eq $sow->{'MESTYPE_QUE'}
-            || $log->{'mestype'} eq $sow->{'MESTYPE_INFOSP'}
-            || $log->{'logid'} eq $sow->{'PREVIEW_LOGID'} )
+        if (   $mestype == $sow->{'MESTYPE_TSAY'}
+            || $mestype == $sow->{'MESTYPE_QUE'}
+            || $mestype == $sow->{'MESTYPE_INFOSP'}
+            || (defined($log->{'logid'}) && defined($sow->{'PREVIEW_LOGID'}) && $log->{'logid'} eq $sow->{'PREVIEW_LOGID'}) )
         {
             $result = 1;
         }
