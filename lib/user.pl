@@ -385,13 +385,28 @@ sub getentriedvils {
 
     my @entriedvils;
     my @label = ( 'vid', 'chrname', 'playing' );
-    my @data  = split( '/', "$self->{'entriedvils'}/" );
 
-    foreach (@data) {
+    # Check if entriedvils exists and has content
+    my $entriedvils_data = defined($self->{'entriedvils'}) ? $self->{'entriedvils'} : '';
+
+    # Split into records, ensuring non-empty input
+    my @data = $entriedvils_data ne '' ? split('/', "$entriedvils_data/") : ();
+
+    foreach my $record (@data) {
+        next unless defined $record && $record ne '';
+        
         my %entriedvil;
-        @entriedvil{@label} = split( ':', "$_:" );
-        next                               if ( !defined( $entriedvil{'vid'} ) );
-        push( @entriedvils, \%entriedvil ) if ( $entriedvil{'vid'} > 0 );
+        my @values = split(':', "$record:");
+        
+        # Ensure we have enough values for all labels
+        for (my $i = 0; $i < @label; $i++) {
+            $entriedvil{$label[$i]} = defined($values[$i]) ? $values[$i] : '';
+        }
+        
+        # Skip if vid is not defined or not positive
+        next if !defined($entriedvil{'vid'}) || $entriedvil{'vid'} eq '' || $entriedvil{'vid'} <= 0;
+        
+        push(@entriedvils, \%entriedvil);
     }
 
     return \@entriedvils;
