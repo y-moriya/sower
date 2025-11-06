@@ -575,35 +575,54 @@ sub OutHTMLFilterDivHeader {
     my $filter          = $sow->{'filter'};
     my $pnofilterstyle  = '';
     my $typefilterstyle = '';
+  my $logpno = 'X';
 
-    my $logpno = 'X';
+  # 個人フィルタ処理 - 未定義値ガードを追加
+  my $pno       = defined $logpl->{'pno'} ? $logpl->{'pno'} : -1;
+  my $entrieddt = defined $logpl->{'entrieddt'} ? $logpl->{'entrieddt'} : -1;
+  my $log_date  = defined $log->{'date'} ? $log->{'date'} : 0;
 
-    # 個人フィルタ処理
-    if (   ( $logpl->{'pno'} >= 0 )
-        && ( $logpl->{'entrieddt'} <= $log->{'date'} ) )
-    {
-        # 村を抜けていない人はフィルタの対象
-        $logpno         = $logpl->{'pno'};
-        $pnofilterstyle = ' style="display: none;"'
-          if ( ( defined( $filter->{'pnofilter'}->[$logpno] ) )
-            && ( $filter->{'pnofilter'}->[$logpno] eq '1' ) );
+  if ( $pno >= 0 && $entrieddt <= $log_date ) {
+    # 村を抜けていない人はフィルタの対象
+    $logpno = $pno;
+    if ( ref( $filter->{'pnofilter'} ) eq 'ARRAY' ) {
+      $pnofilterstyle = ' style="display: none;"'
+        if ( defined $filter->{'pnofilter'}->[$logpno]
+        && $filter->{'pnofilter'}->[$logpno] eq '1' );
     }
+  }
 
     # 発言種別フィルタ処理
-    my $mestype = $sow->{'MESTYPE2TYPEID'}->[ $log->{'mestype'} ];
+    # 発言種別フィルタ処理 - MESTYPE2TYPEID 参照の未定義ガード
+    my $mestype = -1;
+    if ( defined $log->{'mestype'} && ref( $sow->{'MESTYPE2TYPEID'} ) eq 'ARRAY' ) {
+        my $mstidx = $log->{'mestype'};
+        $mestype = $sow->{'MESTYPE2TYPEID'}->[$mstidx] if defined $mstidx;
+        $mestype = -1 unless defined $mestype;
+    }
     if ( $mestype >= 0 ) {
-        $typefilterstyle = ' style="display: none;"'
-          if ( ( defined( $filter->{'typefilter'}->[$mestype] ) )
-            && ( $filter->{'typefilter'}->[$mestype] eq '1' ) );
+        if ( ref( $filter->{'typefilter'} ) eq 'ARRAY' ) {
+            $typefilterstyle = ' style="display: none;"'
+              if ( defined $filter->{'typefilter'}->[$mestype]
+                && $filter->{'typefilter'}->[$mestype] eq '1' );
+        }
     }
 
     # プレビューの時はフィルタを無効
+    # プレビューの時はフィルタを無効（query/cmd の未定義をガード）
     $modesingle = 1
-      if ( ( $sow->{'query'}->{'cmd'} eq 'entrypr' )
-        || ( $sow->{'query'}->{'cmd'} eq 'writepr' ) );
+      if ( defined $sow->{'query'} && defined $sow->{'query'}->{'cmd'}
+        && ( $sow->{'query'}->{'cmd'} eq 'entrypr' || $sow->{'query'}->{'cmd'} eq 'writepr' ) );
 
     # 新フィルター用 data-attr
-    my $data_filter = "data-pno=\"$logpl->{'pno'}\" data-mestype=\"$sow->{'LOGMESTYPE'}[$log->{'mestype'}]\"";
+    # data-attr を組み立てる際も未定義を避ける
+    my $safe_pno = defined $logpl->{'pno'} ? $logpl->{'pno'} : '';
+    my $safe_mestype_text = '';
+    if ( defined $log->{'mestype'} && ref( $sow->{'LOGMESTYPE'} ) eq 'ARRAY' ) {
+        $safe_mestype_text = $sow->{'LOGMESTYPE'}->[ $log->{'mestype'} ]
+          if defined $sow->{'LOGMESTYPE'}->[ $log->{'mestype'} ];
+    }
+    my $data_filter = "data-pno=\"$safe_pno\" data-mestype=\"$safe_mestype_text\"";
 
     if ( $modesingle == 0 ) {
         print "<div id=\"mespno$no" . "_$logpno\"$pnofilterstyle$data_filter>";
