@@ -33,11 +33,10 @@ sub OutHTMLAdminInfo {
     print <<"_HTML_";
 <h2>管理人からのお知らせ</h2>
 <p>
-<h3>2025/09/30</h3>
-エラーログがパンクしてデータが壊れました。<br$net>
-2025/08/09時点のバックアップから復元を検討中です。<br$net>
-エラーログの肥大化の原因を突き止めてからになるので、しばらく時間がかかる見込みです。<br$net>
-避難所サーバーをDiscordに用意しました。<a href="https://discord.gg/SJsAr3pDxa">こちら</a>からご参加ください。<br$net>
+<h3>2025/11/08</h3>
+2025/08/09時点のバックアップからリストアしました。<br$net>
+エラーログ肥大化の原因はおおむね修正済みですが、不具合が発生するかもしれません。<br$net>
+何かあったらXか<a href="https://discord.gg/SJsAr3pDxa">Discord</a>まで。<br$net>
 </p>
 _HTML_
 
