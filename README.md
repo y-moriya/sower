@@ -3,7 +3,7 @@
 ## 人狼物語 リア充版 / The Stories of Werewolves Enjoy Real-life
 
 <https://real.gunjobiyori.com/sow.cgi>
-ここで動いてるやつです。
+かつてここで動いていたものです。
 
 ## Build setup
 
