@@ -1,7 +1,7 @@
 package SWHtmlVlogPC;
 
 #----------------------------------------
-# ‘ºƒƒO•\Ž¦iPCƒ‚[ƒhj‚ÌHTMLo—Í
+# ï¿½ï¿½ï¿½ï¿½ï¿½Oï¿½\ï¿½ï¿½ï¿½iPCï¿½ï¿½ï¿½[ï¿½hï¿½jï¿½ï¿½HTMLï¿½oï¿½ï¿½
 #----------------------------------------
 sub OutHTMLVlogPC {
     my ( $sow, $vil, $logfile, $maxrow, $logs, $logkeys, $rows ) = @_;
@@ -19,21 +19,21 @@ sub OutHTMLVlogPC {
     my $link    = &SWBase::GetLinkValues( $sow, $reqvals );
     $link = "$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}?$link";
 
-    # TODO: parmalink‚Ìê‡‚ÍŠY“–‚Ì”­Œ¾‚É”ò‚Ô‚æ‚¤‚É‚·‚éH
+    # TODO: parmalinkï¿½Ìê‡ï¿½ÍŠYï¿½ï¿½ï¿½Ì”ï¿½ï¿½ï¿½ï¿½É”ï¿½Ô‚æ‚¤ï¿½É‚ï¿½ï¿½ï¿½H
     my $titlelink = "$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}?vid=$query->{'vid'}";
 
     my $logfilelist = $logfile->getlist();
 
-    # ƒƒOIDŽw’è•\Ž¦ƒXƒCƒbƒ`
+    # ï¿½ï¿½ï¿½OIDï¿½wï¿½ï¿½\ï¿½ï¿½ï¿½Xï¿½Cï¿½bï¿½`
     my $modesingle = 0;
     $modesingle = 1
       if ( $query->{'logid'} ne '' );
 
-    # ƒƒOƒCƒ“HTML
+    # ï¿½ï¿½ï¿½Oï¿½Cï¿½ï¿½HTML
     $sow->{'html'}->outcontentheader();
     &SWHtmlPC::OutHTMLLogin($sow) if ( $modesingle == 0 );
 
-    # Œ©o‚µi‘º–¼‚ÆRSSj
+    # ï¿½ï¿½ï¿½oï¿½ï¿½ï¿½iï¿½ï¿½ï¿½ï¿½ï¿½ï¿½RSSï¿½j
     my $titleupdate = &SWHtmlPC::GetTitleNextUpdate( $sow, $vil );
     my $linkrss     = " <a href=\"$link$amp" . "cmd=rss\">RSS</a>";
     my $twitter =
@@ -45,31 +45,31 @@ sub OutHTMLVlogPC {
       if ( $vil->{'epilogue'} >= $vil->{'turn'} );
     print "</h2>\n\n";
 
-    # ŒÂ•ÊƒtƒBƒ‹ƒ^‚Ö‚ÌƒŠƒ“ƒN
+    # ï¿½Â•Êƒtï¿½Bï¿½ï¿½ï¿½^ï¿½Ö‚Ìƒï¿½ï¿½ï¿½ï¿½N
     if ( $modesingle eq 0 ) {
         require "$cfg->{'DIR_HTML'}/html_formpl_pc.pl";
         &SWHtmlPlayerFormPC::OutHTMLPlayerFilter( $sow, $vil );
     }
 
-    # “ú•t•ÊƒƒO‚Ö‚ÌƒŠƒ“ƒN
+    # ï¿½ï¿½ï¿½tï¿½Êƒï¿½ï¿½Oï¿½Ö‚Ìƒï¿½ï¿½ï¿½ï¿½N
     if ( $modesingle == 0 ) {
 
         #		my $list = $logfile->getlist();
         &SWHtmlPC::OutHTMLTurnNavi( $sow, $vil, $logs, $logfilelist, $rows, 0 );
     }
 
-    # I—¹•\Ž¦
+    # ï¿½Iï¿½ï¿½ï¿½\ï¿½ï¿½
     if (   ( $sow->{'turn'} == $vil->{'turn'} )
         && ( $vil->{'epilogue'} < $vil->{'turn'} ) )
     {
         print <<"_HTML_";
 <p class="caution">
-I—¹‚µ‚Ü‚µ‚½B
+ï¿½Iï¿½ï¿½ï¿½ï¿½ï¿½Ü‚ï¿½ï¿½ï¿½ï¿½B
 </p>
 <hr class="invisible_hr"$net>
 _HTML_
 
-        &SWHtmlPC::OutHTMLReturnPC($sow);    # ƒgƒbƒvƒy[ƒW‚Ö–ß‚é
+        &SWHtmlPC::OutHTMLReturnPC($sow);    # ï¿½gï¿½bï¿½vï¿½yï¿½[ï¿½Wï¿½Ö–ß‚ï¿½
         $sow->{'html'}->outcontentfooter();
         &SWHtmlSayFilter::OutHTMLSayFilter( $sow, $vil )
           if ( $modesingle == 0 );
@@ -77,16 +77,16 @@ _HTML_
         return;
     }
 
-    # ‘S•\Ž¦ƒŠƒ“ƒN
+    # ï¿½Sï¿½\ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½N
     #	my $rowover = 0;
     my $rowover = $rows->{'rowover'};
     if ( $modesingle == 0 ) {
         if ( ( $maxrow != 0 ) && ( $rows->{'rowover'} > 0 ) ) {
-            print "<p class=\"row_all\">\n<a href=\"$link$amp" . "rowall=on\">‘S‚Ä•\\Ž¦</a>\n</p>\n\n";
+            print "<p class=\"row_all\">\n<a href=\"$link$amp" . "rowall=on\">ï¿½Sï¿½Ä•\\ï¿½ï¿½</a>\n</p>\n\n";
         }
     }
 
-    # ‘ºƒƒO•\Ž¦
+    # ï¿½ï¿½ï¿½ï¿½ï¿½Oï¿½\ï¿½ï¿½
     print "<hr class=\"invisible_hr\"$net>\n\n";
     require "$cfg->{'DIR_HTML'}/html_vlogsingle_pc.pl";
     my %anchor = (
@@ -98,10 +98,10 @@ _HTML_
 
     if ( ( $query->{'order'} eq 'desc' ) || ( $query->{'order'} eq 'd' ) ) {
 
-        # ~‡
+        # ï¿½~ï¿½ï¿½
         if ( $modesingle == 0 ) {
             print
-"<p id=\"newinfo\" class=\"newinfo\"><span id=\"newinfomes\">V’…”­Œ¾‚Í‚ ‚è‚Ü‚¹‚ñB</span><a href=\"#newinfo\" id=\"reloadlink\" onclick=\"reloadSowFeed();return false;\">RELOAD</a><img src=\"$cfg->{'DIR_IMG'}/ajax-loader.gif\" style=\"display: none;\"><a href=\"$link&logid=$logid&move=next\" id=\"getnewloglink\" onclick=\"getNewLog(this);return false;\"></a><span class=\"new_date\" id=\"newinfotime\">ÅIŽæ“¾Žž --:--:--</span></p>\n";
+"<p id=\"newinfo\" class=\"newinfo\"><span id=\"newinfomes\">ï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í‚ï¿½ï¿½ï¿½Ü‚ï¿½ï¿½ï¿½B</span><a href=\"#newinfo\" id=\"reloadlink\" onclick=\"reloadSowFeed();return false;\">RELOAD</a><img src=\"$cfg->{'DIR_IMG'}/ajax-loader.gif\" style=\"display: none;\"><a href=\"$link&logid=$logid&move=next\" id=\"getnewloglink\" onclick=\"getNewLog(this);return false;\"></a><span class=\"new_date\" id=\"newinfotime\">ï¿½ÅIï¿½æ“¾ï¿½ï¿½ï¿½ï¿½ --:--:--</span></p>\n";
         }
         my $i;
         for ( $i = $#$logs ; $i >= 0 ; $i-- ) {
@@ -111,7 +111,7 @@ _HTML_
         }
     }
     else {
-        # ¸‡
+        # ï¿½ï¿½ï¿½ï¿½
         my $i;
         for ( $i = 0 ; $i < @$logs ; $i++ ) {
             my $log =
@@ -132,12 +132,12 @@ _HTML_
                     $logid = $log->{'maskedid'};
                 }
                 print
-"<p id=\"readmore\" class=\"readmore\"><a href=\"$link&logid=$logid&move=prev\" onclick=\"getMoreLog(this);return false;\">‚à‚Á‚Æ“Ç‚Þ</a><img id=\"morelog-ajax-loader\" src=\"$cfg->{'DIR_IMG'}/ajax-loader.gif\" style=\"display: none;\"></p>\n\n";
+"<p id=\"readmore\" class=\"readmore\"><a href=\"$link&logid=$logid&move=prev\" onclick=\"getMoreLog(this);return false;\">ï¿½ï¿½ï¿½ï¿½ï¿½Æ“Ç‚ï¿½</a><img id=\"morelog-ajax-loader\" src=\"$cfg->{'DIR_IMG'}/ajax-loader.gif\" style=\"display: none;\"></p>\n\n";
             }
             &SWHtmlVlogSinglePC::OutHTMLSingleLogPC( $sow, $vil, $log, $i, \%anchor, $modesingle );
             if ( $i == $#$logs ) {
 
-                # TODO: ‚Å‚«‚ê‚Î‚à‚Á‚Æ“ª‚Ì‚¢‚¢ˆ—‚É‚µ‚½‚¢
+                # TODO: ï¿½Å‚ï¿½ï¿½ï¿½Î‚ï¿½ï¿½ï¿½ï¿½Æ“ï¿½ï¿½Ì‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É‚ï¿½ï¿½ï¿½ï¿½ï¿½
                 my $pi = $i;
                 my $prevlog;
                 my $mestype = $log->{'mestype'};
@@ -172,13 +172,13 @@ _HTML_
                 }
                 if ( $modesingle == 0 ) {
                     print
-"<p id=\"newinfo\" class=\"newinfo\"><span id=\"newinfomes\">V’…”­Œ¾‚Í‚ ‚è‚Ü‚¹‚ñB</span><a href=\"#newinfo\" id=\"reloadlink\" onclick=\"reloadSowFeed();return false;\">RELOAD</a><img src=\"$cfg->{'DIR_IMG'}/ajax-loader.gif\" style=\"display: none;\"><a href=\"$link&logid=$logid&move=next\" id=\"getnewloglink\" onclick=\"getNewLog(this);return false;\"></a><span class=\"new_date\" id=\"newinfotime\">ÅIŽæ“¾Žž --:--:--</span></p>\n";
+"<p id=\"newinfo\" class=\"newinfo\"><span id=\"newinfomes\">ï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í‚ï¿½ï¿½ï¿½Ü‚ï¿½ï¿½ï¿½B</span><a href=\"#newinfo\" id=\"reloadlink\" onclick=\"reloadSowFeed();return false;\">RELOAD</a><img src=\"$cfg->{'DIR_IMG'}/ajax-loader.gif\" style=\"display: none;\"><a href=\"$link&logid=$logid&move=next\" id=\"getnewloglink\" onclick=\"getNewLog(this);return false;\"></a><span class=\"new_date\" id=\"newinfotime\">ï¿½ÅIï¿½æ“¾ï¿½ï¿½ï¿½ï¿½ --:--:--</span></p>\n";
                 }
             }
         }
     }
 
-    # ƒAƒiƒEƒ“ƒX^“ü—ÍEŽQ‰ÁƒtƒH[ƒ€•\Ž¦
+    # ï¿½Aï¿½iï¿½Eï¿½ï¿½ï¿½Xï¿½^ï¿½ï¿½ï¿½ÍEï¿½Qï¿½ï¿½ï¿½tï¿½Hï¿½[ï¿½ï¿½ï¿½\ï¿½ï¿½
     if (   ( $modesingle == 0 )
         && ( $sow->{'turn'} == $vil->{'turn'} )
         && ( $rows->{'end'} > 0 ) )
@@ -186,13 +186,13 @@ _HTML_
         &OutHTMLVlogFormArea( $sow, $vil );
     }
 
-    # ŒÂ•ÊƒtƒBƒ‹ƒ^‚Ö‚ÌƒŠƒ“ƒN
+    # ï¿½Â•Êƒtï¿½Bï¿½ï¿½ï¿½^ï¿½Ö‚Ìƒï¿½ï¿½ï¿½ï¿½N
     if ( $modesingle eq 0 ) {
         require "$cfg->{'DIR_HTML'}/html_formpl_pc.pl";
         &SWHtmlPlayerFormPC::OutHTMLPlayerFilter( $sow, $vil );
     }
 
-    # “ú•t•ÊƒƒO‚Ö‚ÌƒŠƒ“ƒN
+    # ï¿½ï¿½ï¿½tï¿½Êƒï¿½ï¿½Oï¿½Ö‚Ìƒï¿½ï¿½ï¿½ï¿½N
     if ( $modesingle == 0 ) {
 
         #		my $list = $logfile->getlist();
@@ -220,7 +220,7 @@ _HTML_
         print <<"_HTML_";
 <form action="$cfg->{'BASEDIR_CGI'}/$cfg->{'FILE_SOW'}" method="get" class="viewform">
 <p>$hidden
-  <label for="row">•\\Ž¦s”</label>
+  <label for="row">ï¿½\\ï¿½ï¿½ï¿½sï¿½ï¿½</label>
   <select id="row" name="row">
 _HTML_
 
@@ -240,10 +240,10 @@ _HTML_
         print <<"_HTML_";
   </select>
   <select name="order">
-    <option value="asc"$asc>ã‚©‚ç‰º$star_asc$option
-    <option value="desc"$desc>‰º‚©‚çã$star_desc$option
+    <option value="asc"$asc>ï¿½ã‚©ï¿½ç‰º$star_asc$option
+    <option value="desc"$desc>ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½$star_desc$option
   </select>
-  <input type="submit" value="•ÏX" data-submit-type="order"$net>
+  <input type="submit" value="ï¿½ÏX" data-submit-type="order"$net>
 </p>
 </form>
 <hr class="invisible_hr"$net>
@@ -251,10 +251,10 @@ _HTML_
 _HTML_
     }
 
-    # ƒgƒbƒvƒy[ƒW‚Ö–ß‚é
+    # ï¿½gï¿½bï¿½vï¿½yï¿½[ï¿½Wï¿½Ö–ß‚ï¿½
     &SWHtmlPC::OutHTMLReturnPC($sow) if ( $modesingle == 0 );
 
-    # ”­Œ¾ƒtƒBƒ‹ƒ^
+    # ï¿½ï¿½ï¿½ï¿½ï¿½tï¿½Bï¿½ï¿½ï¿½^
     $sow->{'html'}->outcontentfooter();
     &SWHtmlSayFilter::OutHTMLSayFilter( $sow, $vil ) if ( $modesingle == 0 );
 
@@ -262,7 +262,7 @@ _HTML_
 }
 
 #----------------------------------------
-# ƒAƒiƒEƒ“ƒX^“ü—ÍEŽQ‰ÁƒtƒH[ƒ€•\Ž¦
+# ï¿½Aï¿½iï¿½Eï¿½ï¿½ï¿½Xï¿½^ï¿½ï¿½ï¿½ÍEï¿½Qï¿½ï¿½ï¿½tï¿½Hï¿½[ï¿½ï¿½ï¿½\ï¿½ï¿½
 #----------------------------------------
 sub OutHTMLVlogFormArea {
     my ( $sow, $vil ) = @_;
@@ -270,20 +270,21 @@ sub OutHTMLVlogFormArea {
     my $net    = $sow->{'html'}->{'net'};
     my $pllist = $vil->getpllist();
     my $date   = $sow->{'dt'}->cvtdt( $vil->{'nextupdatedt'} );
-    my $scraplimit =
-      "\n\n<p class=\"caution\">\n" . $sow->{'dt'}->cvtdt( $vil->{'scraplimitdt'} ) . "‚Ü‚Å‚ÉŠJŽn‚µ‚È‚©‚Á‚½ê‡A‚±‚Ì‘º‚Í”p‘º‚Æ‚È‚è‚Ü‚·B\n</p>";
-    $scraplimit = '' if ( $vil->{'scraplimitdt'} == 0 );
+    my $scraplimit = '';
+    if ( $vil->{'scraplimitdt'} != 0 ) {
+        $scraplimit = "\n\n<p class=\"caution\">\n" . $vil->getinfocap('scraplimit') . "ï¿½Ü‚Å‚ÉŠJï¿½nï¿½ï¿½ï¿½È‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ê‡ï¿½Aï¿½ï¿½ï¿½Ì‘ï¿½ï¿½Í”pï¿½ï¿½ï¿½Æ‚È‚ï¿½Ü‚ï¿½ï¿½B\n</p>";
+    }
 
     if (   ( $vil->{'turn'} == 0 )
         && ( $vil->checkentried() < 0 )
         && ( $vil->{'vplcnt'} > @$pllist ) )
     {
-        # ƒvƒƒ[ƒO–¢ŽQ‰Á^–¢ƒƒOƒCƒ“ŽžƒAƒiƒEƒ“ƒX
+        # ï¿½vï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½Oï¿½ï¿½ï¿½Qï¿½ï¿½ï¿½^ï¿½ï¿½ï¿½ï¿½ï¿½Oï¿½Cï¿½ï¿½ï¿½ï¿½ï¿½Aï¿½iï¿½Eï¿½ï¿½ï¿½X
         print <<"_HTML_";
 <p class="caution">
-‰‰‚¶‚½‚¢ƒLƒƒƒ‰ƒNƒ^[‚ð‘I‚ÑA”­Œ¾‚µ‚Ä‚­‚¾‚³‚¢B<br$net>
-ƒ‹[ƒ‹‚ð‚æ‚­—‰ð‚µ‚½ã‚Å‚²ŽQ‰Á‰º‚³‚¢B<br$net>
-¦Šó–]”\\—Í‚É‚Â‚¢‚Ä‚Ì”­Œ¾‚ÍT‚¦‚Ä‚­‚¾‚³‚¢B
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Lï¿½ï¿½ï¿½ï¿½ï¿½Nï¿½^ï¿½[ï¿½ï¿½Iï¿½ÑAï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½B<br$net>
+ï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½æ‚­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å‚ï¿½ï¿½Qï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½B<br$net>
+ï¿½ï¿½ï¿½ï¿½]ï¿½\\ï¿½Í‚É‚Â‚ï¿½ï¿½Ä‚Ì”ï¿½ï¿½ï¿½ï¿½ÍTï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½B
 </p>$scraplimit
 <hr class="invisible_hr"$net>
 _HTML_
@@ -293,7 +294,7 @@ _HTML_
     }
     elsif ( $vil->isepilogue() > 0 ) {
 
-        # ƒGƒsƒ[ƒO—pƒAƒiƒEƒ“ƒX
+        # ï¿½Gï¿½sï¿½ï¿½ï¿½[ï¿½Oï¿½pï¿½Aï¿½iï¿½Eï¿½ï¿½ï¿½X
         my $caption_winner = $sow->{'textrs'}->{'CAPTION_WINNER'};
         my $victorytext    = $sow->{'textrs'}->{'ANNOUNCE_VICTORY'};
         my $caption        = $caption_winner->[ $vil->{'winner'} ];
@@ -313,7 +314,7 @@ $epiloguetext
 _HTML_
     }
 
-    # –¢”­Œ¾ŽÒƒŠƒXƒg‚Ì•\Ž¦
+    # ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òƒï¿½ï¿½Xï¿½gï¿½Ì•\ï¿½ï¿½
     my $nosaytext = &SWHtmlVlog::GetNoSayListText( $sow, $vil );
     if (   ( $vil->{'turn'} != 0 )
         && ( $vil->isepilogue() == 0 )
@@ -323,74 +324,74 @@ _HTML_
         print "<hr class=\"invisible_hr\"$net>\n\n";
     }
 
-    # ”­Œ¾—“^ƒGƒ“ƒgƒŠ[ƒtƒH[ƒ€
+    # ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½^ï¿½Gï¿½ï¿½ï¿½gï¿½ï¿½ï¿½[ï¿½tï¿½Hï¿½[ï¿½ï¿½
     if ( $vil->{'turn'} == 0 ) {
 
-        # ƒvƒƒ[ƒO
+        # ï¿½vï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½O
         if ( $sow->{'user'}->logined() > 0 ) {
 
-            # ƒƒOƒCƒ“Ï‚Ý
+            # ï¿½ï¿½ï¿½Oï¿½Cï¿½ï¿½ï¿½Ï‚ï¿½
             if ( $vil->checkentried() >= 0 ) {
                 if ( $sow->{'curpl'}->{'limitentrydt'} > 0 ) {
                     my $limitdate =
                       $sow->{'dt'}->cvtdt( $sow->{'curpl'}->{'limitentrydt'} );
                     print <<"_HTML_";
 <p class="caution">
-$limitdate‚Ü‚Å‚Éˆê“x‚à”­Œ¾‚¹‚¸‘º‚àŠJŽn‚³‚ê‚È‚©‚Á‚½ê‡A‚ ‚È‚½‚ÍŽ©“®“I‚É‘º‚©‚ç’Ç‚¢o‚³‚ê‚Ü‚·B<br$net>
-¦”­Œ¾‚·‚é‚ÆŠúŒÀ‚ª‰„’·‚³‚ê‚Ü‚·B
+$limitdateï¿½Ü‚Å‚Éˆï¿½xï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Jï¿½nï¿½ï¿½ï¿½ï¿½È‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ê‡ï¿½Aï¿½ï¿½ï¿½È‚ï¿½ï¿½ÍŽï¿½ï¿½ï¿½ï¿½Iï¿½É‘ï¿½ï¿½ï¿½ï¿½ï¿½Ç‚ï¿½ï¿½oï¿½ï¿½ï¿½ï¿½Ü‚ï¿½ï¿½B<br$net>
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÆŠï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü‚ï¿½ï¿½B
 </p>
 _HTML_
                 }
 
-                # ”­Œ¾—“‚Ì•\Ž¦
+                # ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì•\ï¿½ï¿½
                 require "$cfg->{'DIR_HTML'}/html_formpl_pc.pl";
                 &SWHtmlPlayerFormPC::OutHTMLPlayerFormPC( $sow, $vil );
             }
             elsif ( $vil->{'vplcnt'} > @$pllist ) {
 
-                # ƒGƒ“ƒgƒŠ[ƒtƒH[ƒ€‚Ì•\Ž¦
+                # ï¿½Gï¿½ï¿½ï¿½gï¿½ï¿½ï¿½[ï¿½tï¿½Hï¿½[ï¿½ï¿½ï¿½Ì•\ï¿½ï¿½
                 require "$cfg->{'DIR_HTML'}/html_entryform_pc.pl";
                 &SWHtmlEntryFormPC::OutHTMLEntryFormPC( $sow, $vil );
                 &OutHTMLVilMakerInFormPlPC( $sow, $vil );
             }
             else {
-                print "<p class=\"caution\">\nŠù‚É’èˆõ‚É’B‚µ‚Ä‚¢‚Ü‚·B\n</p>\n";
+                print "<p class=\"caution\">\nï¿½ï¿½ï¿½É’ï¿½ï¿½ï¿½É’Bï¿½ï¿½ï¿½Ä‚ï¿½ï¿½Ü‚ï¿½ï¿½B\n</p>\n";
                 print "<hr class=\"invisible_hr\"$net>\n\n";
                 &OutHTMLVilMakerInFormPlPC( $sow, $vil );
             }
         }
         else {
-            # –¢ƒƒOƒCƒ“
+            # ï¿½ï¿½ï¿½ï¿½ï¿½Oï¿½Cï¿½ï¿½
             if ( $vil->{'vplcnt'} > @$pllist ) {
-                print "<p class=\"infonologin\">\nƒQ[ƒ€ŽQ‰ÁŽÒŠó–]ŽÒ‚ÍƒƒOƒCƒ“‚µ‚Ä‰º‚³‚¢B\n</p>\n";
+                print "<p class=\"infonologin\">\nï¿½Qï¿½[ï¿½ï¿½ï¿½Qï¿½ï¿½ï¿½ÒŠï¿½]ï¿½Ò‚Íƒï¿½ï¿½Oï¿½Cï¿½ï¿½ï¿½ï¿½ï¿½Ä‰ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½B\n</p>\n";
                 print "<hr class=\"invisible_hr\"$net>\n\n";
             }
             else {
-                print "<p class=\"caution\">\nŠù‚É’èˆõ‚É’B‚µ‚Ä‚¢‚Ü‚·B\n</p>\n";
+                print "<p class=\"caution\">\nï¿½ï¿½ï¿½É’ï¿½ï¿½ï¿½É’Bï¿½ï¿½ï¿½Ä‚ï¿½ï¿½Ü‚ï¿½ï¿½B\n</p>\n";
                 print "<hr class=\"invisible_hr\"$net>\n\n";
             }
         }
     }
     else {
-        # is’†
+        # ï¿½iï¿½sï¿½ï¿½
         if ( $sow->{'user'}->logined() > 0 ) {
 
-            # ƒƒOƒCƒ“Ï‚Ý
+            # ï¿½ï¿½ï¿½Oï¿½Cï¿½ï¿½ï¿½Ï‚ï¿½
             if ( $vil->checkentried() >= 0 ) {
 
-                # ”­Œ¾—“‚Ì•\Ž¦
+                # ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì•\ï¿½ï¿½
                 require "$cfg->{'DIR_HTML'}/html_formpl_pc.pl";
                 &SWHtmlPlayerFormPC::OutHTMLPlayerFormPC( $sow, $vil );
             }
             else {
-                # ‘ºŒš‚Äl^ŠÇ—l”­Œ¾ƒtƒH[ƒ€‚Ì•\Ž¦
+                # ï¿½ï¿½ï¿½ï¿½ï¿½Älï¿½^ï¿½Ç—ï¿½ï¿½lï¿½ï¿½ï¿½ï¿½ï¿½tï¿½Hï¿½[ï¿½ï¿½ï¿½Ì•\ï¿½ï¿½
                 &OutHTMLVilMakerInFormPlPC( $sow, $vil );
             }
         }
         elsif ( $vil->isepilogue() == 0 ) {
 
-            # –¢ƒƒOƒCƒ“
-            print "<p class=\"infonologin\">\nŽQ‰ÁŽÒ‚ÍƒƒOƒCƒ“‚µ‚Ä‰º‚³‚¢B\n</p>\n";
+            # ï¿½ï¿½ï¿½ï¿½ï¿½Oï¿½Cï¿½ï¿½
+            print "<p class=\"infonologin\">\nï¿½Qï¿½ï¿½ï¿½Ò‚Íƒï¿½ï¿½Oï¿½Cï¿½ï¿½ï¿½ï¿½ï¿½Ä‰ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½B\n</p>\n";
             print "<hr class=\"invisible_hr\"$net>\n\n";
         }
     }
@@ -398,8 +399,8 @@ _HTML_
 }
 
 #----------------------------------------
-# ‘ºŒš‚ÄlƒtƒH[ƒ€^ŠÇ—lƒtƒH[ƒ€‚Ì•\Ž¦
-# i‘ºŒš‚Äl^ŠÇ—l‚ªŽQ‰Á‚µ‚Ä‚¢‚È‚¢Žžj
+# ï¿½ï¿½ï¿½ï¿½ï¿½Älï¿½tï¿½Hï¿½[ï¿½ï¿½ï¿½^ï¿½Ç—ï¿½ï¿½lï¿½tï¿½Hï¿½[ï¿½ï¿½ï¿½Ì•\ï¿½ï¿½
+# ï¿½iï¿½ï¿½ï¿½ï¿½ï¿½Älï¿½^ï¿½Ç—ï¿½ï¿½lï¿½ï¿½ï¿½Qï¿½ï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½È‚ï¿½ï¿½ï¿½ï¿½j
 #----------------------------------------
 sub OutHTMLVilMakerInFormPlPC {
     my ( $sow, $vil ) = @_;
